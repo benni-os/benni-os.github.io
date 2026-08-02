@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Benni OS — The First Autonomous AI Agent Operating System</title>
+  <meta name="description" content="Benni OS is the world's first operating system designed from the ground up for AI agents to live, think, plan, execute, and evolve autonomously. Built with JARVAS-2, Benni Control Plane, MONOMO IDE and Swarm Formations." />
+  <meta property="og:title" content="Benni OS — The First Autonomous AI Agent Operating System" />
+  <meta property="og:description" content="An OS designed from scratch for AI agents to live, think, plan, execute, and evolve independently. Persistent memory. Multi-agent coordination. Native tooling. Self-improvement." />
+  <meta property="og:image" content="https://picsum.photos/seed/benni-os-tier1/1200/630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#030305" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    :root {
+      --text-xs:clamp(0.7rem,0.65rem + 0.2vw,0.8rem);
+      --text-sm:clamp(0.8rem,0.75rem + 0.25vw,0.9rem);
+      --text-base:clamp(1rem,0.95rem + 0.2vw,1.0625rem);
+      --text-lg:clamp(1.1rem,0.95rem + 0.6vw,1.375rem);
+      --text-xl:clamp(1.4rem,1.0rem + 1.5vw,2.0rem);
+      --text-2xl:clamp(2.0rem,1.2rem + 2.5vw,3.25rem);
+      --text-3xl:clamp(2.5rem,1.0rem + 4.5vw,5.5rem);
+      --text-hero:clamp(3.0rem,0.5rem + 7vw,8.5rem);
+      --sp1:.25rem;--sp2:.5rem;--sp3:.75rem;--sp4:1rem;--sp5:1.25rem;
+      --sp6:1.5rem;--sp8:2rem;--sp10:2.5rem;--sp12:3rem;--sp16:4rem;
+      --sp20:5rem;--sp24:6rem;--sp32:8rem;
+      --r-sm:.25rem;--r-md:.5rem;--r-lg:.75rem;--r-xl:1rem;--r-2xl:1.5rem;--r-full:9999px;
+      --ease:cubic-bezier(0.16,1,0.3,1);--t:180ms;
+      --w-narrow:640px;--w-default:960px;--w-wide:1280px;
+      --font-d:'Space Grotesk','Helvetica Neue',sans-serif;
+      --font-m:'Space Mono','Courier New',monospace;
+    }
+    :root,[data-theme="dark"]{
+      --bg:#030305;--surf:#08080f;--surf2:#0c0c18;--surf3:#10101e;--surf4:#141424;
+      --div:#1a1a2e;--bdr:#1e1e36;--bdr2:#252540;
+      --txt:#eeeef8;--txt-m:#8888aa;--txt-f:#3a3a5c;--txt-inv:#030305;
+      --cyan:#00F5D4;--cyan-h:#00d4b8;--cyan-a:#00a896;
+      --cyan-glow:rgba(0,245,212,0.08);--cyan-hi:rgba(0,245,212,0.05);
+      --purple:#8B5CF6;--purple-h:#7C3AED;--purple-glow:rgba(139,92,246,0.08);
+      --gold:#F59E0B;--red:#EF4444;--green:#10B981;
+      --sh-md:0 4px 16px rgba(0,0,0,0.7);--sh-lg:0 16px 48px rgba(0,0,0,0.8);
+      --sh-glow-c:0 0 60px rgba(0,245,212,0.1),0 0 120px rgba(0,245,212,0.05);
+      --sh-glow-p:0 0 60px rgba(139,92,246,0.1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;scroll-behavior:smooth;scroll-padding-top:80px}
+    body{min-height:100dvh;line-height:1.6;font-family:var(--font-d);font-size:var(--text-base);color:var(--txt);background:var(--bg);overflow-x:hidden}
+    img,picture,svg{display:block;max-width:100%}
+    h1,h2,h3,h4{text-wrap:balance;line-height:1.08}
+    p,li{text-wrap:pretty;max-width:68ch}
+    button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
+    a{color:inherit}
+    ::selection{background:rgba(0,245,212,0.15);color:var(--txt)}
+    :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:var(--r-sm)}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    .mono{font-family:var(--font-m)}
+    .container{max-width:var(--w-wide);margin-inline:auto;padding-inline:var(--sp8)}
+    @media(max-width:640px){.container{padding-inline:var(--sp5)}}
+    /* BUTTONS */
+    .btn-p{display:inline-flex;align-items:center;gap:var(--sp2);padding:var(--sp3) var(--sp6);font-size:var(--text-sm);font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--txt-inv);background:var(--cyan);border-radius:var(--r-md);transition:background var(--t) var(--ease),transform var(--t) var(--ease),box-shadow var(--t) var(--ease)}
+    .btn-p:hover{background:var(--cyan-h);transform:translateY(-1px);box-shadow:0 8px 32px rgba(0,245,212,0.28)}
+    .btn-g{display:inline-flex;align-items:center;gap:var(--sp2);padding:var(--sp3) var(--sp6);font-size:var(--text-sm);font-weight:600;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--cyan);border:1px solid rgba(0,245,212,0.3);border-radius:var(--r-md);transition:all var(--t) var(--ease)}
+    .btn-g:hover{background:var(--cyan-hi);border-color:var(--cyan);transform:translateY(-1px)}
+    .btn-d{display:inline-flex;align-items:center;gap:var(--sp2);padding:var(--sp3) var(--sp6);font-size:var(--text-sm);font-weight:600;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;color:var(--txt-m);border:1px solid var(--bdr2);border-radius:var(--r-md);transition:all var(--t) var(--ease)}
+    .btn-d:hover{color:var(--txt);border-color:var(--txt-m)}
+    /* NAV */
+    .nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:0 var(--sp8);height:72px;background:rgba(3,3,5,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr)}
+    .nav-logo{display:flex;align-items:center;gap:var(--sp3);text-decoration:none;color:var(--txt)}
+    .logo-text{font-family:var(--font-d);font-weight:800;font-size:1.2rem;letter-spacing:-.03em}
+    .logo-text em{color:var(--cyan);font-style:normal}
+    .nav-links{display:flex;align-items:center;gap:var(--sp8);list-style:none}
+    .nav-links a{text-decoration:none;color:var(--txt-m);font-size:var(--text-sm);font-weight:500;letter-spacing:.03em;transition:color var(--t) var(--ease)}
+    .nav-links a:hover{color:var(--cyan)}
+    .nav-right{display:flex;align-items:center;gap:var(--sp3)}
+    .nav-badge{font-family:var(--font-m);font-size:var(--text-xs);color:var(--green);padding:2px var(--sp2);background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:var(--r-full);display:flex;align-items:center;gap:4px}
+    .nav-badge::before{content:'●';font-size:.45em;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+    @media(max-width:900px){.nav-links{display:none}.nav{padding:0 var(--sp5)}}
+    /* HERO */
+    .hero{min-height:100dvh;display:grid;place-items:center;padding:120px var(--sp8) var(--sp24);position:relative;overflow:hidden}
+    .hero-bg{position:absolute;inset:0;z-index:0;background:radial-gradient(ellipse 100% 60% at 50% -5%,rgba(0,245,212,0.07) 0%,transparent 55%),radial-gradient(ellipse 60% 50% at 85% 70%,rgba(139,92,246,0.07) 0%,transparent 50%),radial-gradient(ellipse 40% 40% at 15% 80%,rgba(0,245,212,0.04) 0%,transparent 50%),var(--bg)}
+    .hero-bg::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.04) 1px,transparent 1px);background-size:36px 36px}
+    .hero-bg::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);animation:scanline 8s linear infinite;opacity:.3}
+    @keyframes scanline{0%{top:-2px}100%{top:100%}}
+    .hero-inner{position:relative;z-index:1;text-align:center;max-width:1100px;margin-inline:auto}
+    .hero-eye{display:inline-flex;align-items:center;gap:var(--sp3);font-family:var(--font-m);font-size:var(--text-xs);color:var(--cyan);letter-spacing:.12em;text-transform:uppercase;border:1px solid rgba(0,245,212,0.2);border-radius:var(--r-full);padding:var(--sp2) var(--sp4);background:rgba(0,245,212,0.04);margin-bottom:var(--sp8)}
+    .hero-eye span{color:var(--txt-m)}
+    .hero-h1{font-family:var(--font-d);font-size:var(--text-hero);font-weight:800;letter-spacing:-.04em;line-height:.95;margin-bottom:var(--sp8)}
+    .grad{background:linear-gradient(135deg,var(--cyan) 0%,#00a8f3 50%,var(--purple) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .dim{color:var(--txt-f)}
+    .hero-sub{font-size:var(--text-lg);color:var(--txt-m);max-width:72ch;margin-inline:auto;margin-bottom:var(--sp10);line-height:1.7}
+    .hero-sub strong{color:var(--txt);font-weight:600}
+    .hero-actions{display:flex;justify-content:center;gap:var(--sp4);flex-wrap:wrap;margin-bottom:var(--sp16)}
+    .hero-proof{display:flex;justify-content:center;align-items:center;gap:var(--sp6);flex-wrap:wrap}
+    .proof-item{display:flex;align-items:center;gap:var(--sp2);font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-f);letter-spacing:.06em}
+    .proof-item i{color:var(--cyan);font-size:.8em}
+    /* MANIFESTO */
+    .manifesto{padding:var(--sp32) var(--sp8);background:linear-gradient(180deg,var(--bg) 0%,var(--surf) 50%,var(--bg) 100%)}
+    .man-inner{max-width:var(--w-default);margin-inline:auto;text-align:center}
+    .s-tag{font-family:var(--font-m);font-size:var(--text-xs);color:var(--cyan);text-transform:uppercase;letter-spacing:.12em;margin-bottom:var(--sp4);display:block}
+    .s-tag::before{content:'// ';opacity:.5}
+    .s-title{font-size:var(--text-2xl);font-weight:800;letter-spacing:-.03em;color:var(--txt);margin-bottom:var(--sp4)}
+    .s-desc{font-size:var(--text-base);color:var(--txt-m);max-width:62ch;line-height:1.7;margin-bottom:var(--sp12)}
+    .man-grid{display:grid;grid-template-columns:repeat(5,1fr);border:1px solid var(--bdr);border-radius:var(--r-2xl);overflow:hidden;margin-top:var(--sp12)}
+    .mp{padding:var(--sp8) var(--sp5);border-right:1px solid var(--bdr);text-align:center;transition:background var(--t) var(--ease)}
+    .mp:last-child{border-right:none}
+    .mp:hover{background:var(--cyan-hi)}
+    .mp-v{font-family:var(--font-d);font-size:var(--text-xl);font-weight:800;color:var(--cyan);letter-spacing:-.02em;margin-bottom:var(--sp2)}
+    .mp-n{font-size:var(--text-xs);color:var(--txt-m);font-family:var(--font-m);text-transform:uppercase;letter-spacing:.1em}
+    @media(max-width:768px){.man-grid{grid-template-columns:1fr 1fr}.mp{border-right:none;border-bottom:1px solid var(--bdr)}.mp:last-child{border-bottom:none}}
+    /* SECTION */
+    .section{padding:clamp(var(--sp16),8vw,var(--sp32)) var(--sp8)}
+    .alt{background:var(--surf)}
+    /* PRODUCTS */
+    .prod-grid{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp4)}
+    @media(max-width:768px){.prod-grid{grid-template-columns:1fr}}
+    .pc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r-2xl);padding:var(--sp8);position:relative;overflow:hidden;transition:border-color var(--t) var(--ease),transform var(--t) var(--ease),box-shadow var(--t) var(--ease)}
+    .pc:hover{border-color:rgba(0,245,212,0.4);transform:translateY(-3px);box-shadow:var(--sh-md),var(--sh-glow-c)}
+    .pc.s2{grid-column:span 2}
+    @media(max-width:768px){.pc.s2{grid-column:span 1}}
+    .pc-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:var(--sp6)}
+    .pc-icon{width:52px;height:52px;border-radius:var(--r-xl);display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+    .badge{font-family:var(--font-m);font-size:var(--text-xs);padding:2px var(--sp2);border-radius:var(--r-full);border:1px solid}
+    .b-live{color:var(--green);border-color:rgba(16,185,129,.3);background:rgba(16,185,129,.08)}
+    .b-build{color:var(--gold);border-color:rgba(245,158,11,.3);background:rgba(245,158,11,.08)}
+    .pc-id{font-family:var(--font-m);font-size:var(--text-xs);color:var(--cyan);margin-bottom:var(--sp2)}
+    .pc-name{font-size:var(--text-xl);font-weight:800;letter-spacing:-.025em;color:var(--txt);margin-bottom:var(--sp3)}
+    .pc-desc{font-size:var(--text-sm);color:var(--txt-m);line-height:1.7;margin-bottom:var(--sp5)}
+    .layers{display:flex;flex-direction:column;gap:var(--sp2);margin-top:var(--sp6)}
+    .lyr{display:flex;align-items:center;gap:var(--sp3);background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r-md);padding:var(--sp2) var(--sp4);font-family:var(--font-m);font-size:var(--text-xs)}
+    .ln{color:var(--cyan);width:28px;flex-shrink:0}
+    .ll{color:var(--txt);flex:1}
+    .ls{margin-left:auto}
+    .s-on{color:var(--green)}.s-sb{color:var(--gold)}.s-of{color:var(--txt-f)}
+    .pf{display:flex;align-items:center;gap:var(--sp3);font-size:var(--text-sm);color:var(--txt-m);margin-bottom:var(--sp3)}
+    .pf i{color:var(--cyan);font-size:.8em;width:14px;flex-shrink:0}
+    .tags{display:flex;flex-wrap:wrap;gap:var(--sp2);margin-top:var(--sp5)}
+    .tag{padding:2px var(--sp3);font-family:var(--font-m);font-size:var(--text-xs);border-radius:var(--r-full);border:1px solid var(--bdr2);color:var(--txt-m)}
+    /* MONOMO */
+    .mono-wrap{max-width:var(--w-wide);margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:var(--sp16);align-items:center;padding-inline:var(--sp8)}
+    @media(max-width:768px){.mono-wrap{grid-template-columns:1fr}}
+    .ide{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--r-2xl);overflow:hidden;box-shadow:var(--sh-lg),var(--sh-glow-p)}
+    .ide-bar{display:flex;align-items:center;gap:var(--sp2);padding:var(--sp3) var(--sp4);background:var(--surf2);border-bottom:1px solid var(--bdr)}
+    .dot{width:10px;height:10px;border-radius:var(--r-full)}
+    .dot.r{background:#FF5F57}.dot.y{background:#FEBC2E}.dot.g{background:#28C840}
+    .ide-tab{margin-left:var(--sp4);font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-m);display:flex;align-items:center;gap:var(--sp2)}
+    .ide-tab.on{color:var(--cyan)}
+    .ide-body{display:flex;height:360px}
+    .filetree{width:155px;flex-shrink:0;border-right:1px solid var(--bdr);padding:var(--sp4) var(--sp3);display:flex;flex-direction:column;gap:var(--sp1)}
+    .ft-folder{font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-f);text-transform:uppercase;letter-spacing:.08em;margin-bottom:var(--sp2);margin-top:var(--sp3)}
+    .ft-file{font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-m);padding:var(--sp1) var(--sp2);border-radius:var(--r-sm)}
+    .ft-file.on{background:rgba(0,245,212,0.08);color:var(--cyan)}
+    .ft-file i{margin-right:var(--sp2);font-size:.8em}
+    .editor{flex:1;padding:var(--sp5);overflow-y:auto;font-family:var(--font-m);font-size:var(--text-xs);line-height:1.85}
+    .cline{display:flex;gap:var(--sp4)}
+    .lnum{color:var(--txt-f);width:20px;text-align:right;flex-shrink:0;user-select:none}
+    .kw{color:#C678DD}.fn{color:#61AFEF}.str{color:#98C379}.cm{color:var(--txt-f);font-style:italic}
+    .cn{color:#E5C07B}.op{color:var(--cyan)}.vr{color:#E06C75}
+    .ide-status{display:flex;align-items:center;gap:var(--sp4);padding:var(--sp2) var(--sp4);border-top:1px solid var(--bdr);background:var(--surf2);font-family:var(--font-m);font-size:10px}
+    .sb{color:var(--txt-f)}.sb.hl{color:var(--cyan)}
+    .mono-features{list-style:none;display:flex;flex-direction:column;gap:var(--sp5)}
+    .mf{display:flex;gap:var(--sp4);align-items:flex-start}
+    .mf-icon{width:40px;height:40px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:var(--r-lg);font-size:1.1rem}
+    .mf-name{font-size:var(--text-base);font-weight:700;color:var(--txt);margin-bottom:var(--sp1)}
+    .mf-desc{font-size:var(--text-sm);color:var(--txt-m);line-height:1.6}
+    /* OSS */
+    .oss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+    @media(max-width:900px){.oss-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.oss-grid{grid-template-columns:1fr}}
+    .oss-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r-xl);padding:var(--sp6);transition:border-color var(--t) var(--ease),transform var(--t) var(--ease)}
+    .oss-card:hover{border-color:rgba(0,245,212,.35);transform:translateY(-2px)}
+    .oss-hd{display:flex;align-items:center;gap:var(--sp3);margin-bottom:var(--sp4)}
+    .oss-icon{font-size:1.3rem;color:var(--cyan)}
+    .oss-name{font-size:var(--text-lg);font-weight:700;color:var(--txt)}
+    .oss-desc{font-size:var(--text-sm);color:var(--txt-m);line-height:1.6;margin-bottom:var(--sp4)}
+    .oss-meta{display:flex;gap:var(--sp4)}
+    .oss-stat{font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-f);display:flex;align-items:center;gap:var(--sp1)}
+    /* CHANNELS */
+    .ch-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--sp4)}
+    @media(max-width:900px){.ch-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:480px){.ch-grid{grid-template-columns:1fr}}
+    .ch-card{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r-xl);padding:var(--sp6);text-align:center;transition:border-color var(--t) var(--ease),transform var(--t) var(--ease)}
+    .ch-card:hover{border-color:rgba(0,245,212,.35);transform:translateY(-2px)}
+    .ch-icon{width:56px;height:56px;border-radius:var(--r-full);display:flex;align-items:center;justify-content:center;font-size:1.5rem;margin-inline:auto;margin-bottom:var(--sp4)}
+    .ch-name{font-size:var(--text-base);font-weight:700;color:var(--txt);margin-bottom:var(--sp2)}
+    .ch-desc{font-size:var(--text-xs);color:var(--txt-m);line-height:1.6;margin-bottom:var(--sp3)}
+    .ch-lang{font-family:var(--font-m);font-size:var(--text-xs);color:var(--cyan)}
+    /* FORMATIONS */
+    .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp4)}
+    @media(max-width:900px){.form-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:540px){.form-grid{grid-template-columns:1fr}}
+    .fc{background:var(--surf);border:1px solid var(--bdr);border-radius:var(--r-xl);padding:var(--sp5);display:flex;flex-direction:column;gap:var(--sp3);transition:border-color var(--t) var(--ease)}
+    .fc:hover{border-color:rgba(0,245,212,.3)}
+    .fc-code{font-family:var(--font-m);font-size:var(--text-xs);color:var(--cyan);font-weight:700}
+    .fc-name{font-size:var(--text-base);font-weight:700;color:var(--txt)}
+    .fc-desc{font-size:var(--text-xs);color:var(--txt-m);line-height:1.5}
+    .fc-status{display:inline-flex;align-items:center;gap:4px;font-family:var(--font-m);font-size:var(--text-xs);padding:2px var(--sp2);border-radius:var(--r-full);width:fit-content}
+    .fs-on{background:rgba(16,185,129,.1);color:var(--green)}
+    .fs-sb{background:rgba(245,158,11,.1);color:var(--gold)}
+    /* DATACENTER */
+    .dc-wrap{max-width:var(--w-wide);margin-inline:auto;display:grid;grid-template-columns:1fr 1fr;gap:var(--sp16);align-items:center;padding-inline:var(--sp8)}
+    @media(max-width:768px){.dc-wrap{grid-template-columns:1fr}}
+    .dc-rack{background:var(--bg);border:1px solid var(--bdr);border-radius:var(--r-2xl);padding:var(--sp6);box-shadow:var(--sh-lg),var(--sh-glow-p)}
+    .dc-rack-hd{font-family:var(--font-m);font-size:var(--text-xs);color:var(--purple);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--sp5);display:flex;justify-content:space-between}
+    .dc-u{display:flex;align-items:center;gap:var(--sp3);background:var(--surf2);border:1px solid var(--bdr);border-radius:var(--r-md);padding:var(--sp3) var(--sp4);margin-bottom:var(--sp2);font-family:var(--font-m);font-size:var(--text-xs)}
+    .led{width:8px;height:8px;border-radius:var(--r-full);flex-shrink:0;animation:pulse 2s infinite}
+    .led.on{background:var(--green)}.led.sb{background:var(--gold)}.led.plan{background:var(--purple)}
+    .dc-uname{color:var(--txt);flex:1}
+    .dc-spec{margin-left:auto}
+    .dp-label{display:flex;justify-content:space-between;font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-m);margin-bottom:var(--sp2)}
+    .dp-bar{height:4px;background:var(--surf3);border-radius:var(--r-full);overflow:hidden;margin-bottom:var(--sp4)}
+    .dp-fill{height:100%;border-radius:var(--r-full)}
+    .dp-c{background:linear-gradient(90deg,var(--cyan),var(--purple))}
+    .dp-p{background:var(--purple)}.dp-g{background:var(--green)}
+    /* CTA */
+    .cta-section{text-align:center;padding:clamp(var(--sp20),10vw,var(--sp32)) var(--sp8);background:radial-gradient(ellipse 70% 80% at 50% 50%,rgba(0,245,212,0.05) 0%,transparent 60%),var(--bg)}
+    .cta-inner{max-width:var(--w-narrow);margin-inline:auto}
+    .cta-title{font-size:var(--text-2xl);font-weight:800;letter-spacing:-.03em;margin-bottom:var(--sp5)}
+    .cta-desc{font-size:var(--text-base);color:var(--txt-m);margin-bottom:var(--sp10);line-height:1.7;margin-inline:auto}
+    .cta-actions{display:flex;justify-content:center;gap:var(--sp4);flex-wrap:wrap}
+    /* FOOTER */
+    .footer{background:var(--surf);border-top:1px solid var(--bdr);padding:var(--sp16) var(--sp8) var(--sp10)}
+    .footer-top{max-width:var(--w-wide);margin-inline:auto;display:grid;grid-template-columns:2.5fr 1fr 1fr 1fr;gap:var(--sp12);margin-bottom:var(--sp12)}
+    @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr;gap:var(--sp8)}}
+    @media(max-width:540px){.footer-top{grid-template-columns:1fr}}
+    .f-brand-desc{font-size:var(--text-sm);color:var(--txt-m);margin-top:var(--sp4);max-width:30ch;line-height:1.7}
+    .f-col h4{font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-f);text-transform:uppercase;letter-spacing:.1em;margin-bottom:var(--sp4)}
+    .f-col ul{list-style:none;display:flex;flex-direction:column;gap:var(--sp3)}
+    .f-col a{text-decoration:none;font-size:var(--text-sm);color:var(--txt-m);transition:color var(--t) var(--ease)}
+    .f-col a:hover{color:var(--cyan)}
+    .footer-bot{max-width:var(--w-wide);margin-inline:auto;display:flex;align-items:center;justify-content:space-between;padding-top:var(--sp8);border-top:1px solid var(--bdr)}
+    @media(max-width:540px){.footer-bot{flex-direction:column;gap:var(--sp4);text-align:center}}
+    .f-copy{font-family:var(--font-m);font-size:var(--text-xs);color:var(--txt-f)}
+    .f-socials{display:flex;gap:var(--sp4)}
+    .f-socials a{color:var(--txt-f);font-size:1.1rem;transition:color var(--t) var(--ease)}
+    .f-socials a:hover{color:var(--cyan)}
+    /* REVEAL */
+    .rv{opacity:0;transform:translateY(24px);transition:opacity .65s var(--ease),transform .65s var(--ease)}
+    .rv.in{opacity:1;transform:translateY(0)}
+    .rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#" class="nav-logo">
+    <svg width="30" height="30" viewBox="0 0 30 30" fill="none" aria-hidden="true">
+      <rect x="1" y="1" width="28" height="28" rx="7" fill="none" stroke="rgba(0,245,212,0.2)" stroke-width="1"/>
+      <path d="M8 15 L12.5 8 L17 15 L12.5 22Z" fill="none" stroke="#00F5D4" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="21" cy="11" r="2.5" fill="#00F5D4"/>
+      <circle cx="21" cy="19" r="2.5" fill="none" stroke="#8B5CF6" stroke-width="1.5"/>
+    </svg>
+    <span class="logo-text">Benni<em>.OS</em></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#products">Products</a></li>
+    <li><a href="#monomo">MONOMO IDE</a></li>
+    <li><a href="#formations">Formations</a></li>
+    <li><a href="#oss">Open Source</a></li>
+    <li><a href="#datacenter">Datacenter</a></li>
+    <li><a href="#channels">Channels</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-badge">JARVAS-2 LIVE</div>
+    <a href="https://github.com/nsfwbunny" target="_blank" rel="noopener" class="btn-g" style="padding:var(--sp2) var(--sp4)">
+      <i class="fa-brands fa-github"></i> GitHub
+    </a>
+  </div>
+</nav>
+
+<main>
+
+<!-- HERO -->
+<section class="hero" aria-label="Hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-inner">
+    <div class="hero-eye"><span>World's First</span> Autonomous AI Agent Operating System <span>benni-os.net</span></div>
+    <h1 class="hero-h1">
+      The <span class="grad">Operating System</span><br>
+      <span class="dim">where AI agents</span><br>
+      live &amp; evolve.
+    </h1>
+    <p class="hero-sub">
+      Benni OS is an operating system <strong>designed from the ground up</strong> for AI agents to
+      <strong>live, think, plan, execute, and evolve</strong> — independently.
+      Persistent memory. Multi-agent coordination. Native tooling.
+      Governance layers. Self-improvement capabilities.
+    </p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-p"><i class="fa-solid fa-rocket"></i> Explore the System</a>
+      <a href="https://github.com/nsfwbunny/benni-os" target="_blank" rel="noopener" class="btn-g"><i class="fa-brands fa-github"></i> GitHub</a>
+      <a href="#monomo" class="btn-d"><i class="fa-solid fa-code"></i> MONOMO IDE</a>
+    </div>
+    <div class="hero-proof">
+      <div class="proof-item"><i class="fa-solid fa-check"></i> JARVAS-2 online_active</div>
+      <div class="proof-item"><i class="fa-solid fa-check"></i> Benni Control Plane running</div>
+      <div class="proof-item"><i class="fa-solid fa-check"></i> 6 Swarm Formations deployed</div>
+      <div class="proof-item"><i class="fa-solid fa-check"></i> 4 live content channels</div>
+      <div class="proof-item"><i class="fa-solid fa-check"></i> Open Source first</div>
+    </div>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="man-inner">
+    <span class="s-tag">OS Manifesto</span>
+    <h2 class="s-title">Designed for agents that don't wait for instructions.</h2>
+    <p class="s-desc" style="margin-inline:auto">Every OS before Benni OS was built for humans — files, folders, GUIs, all metaphors for human cognition. Benni OS is different. It is the first OS where AI agents are first-class citizens.</p>
+    <div class="man-grid rv">
+      <div class="mp"><div class="mp-v">LIVE</div><div class="mp-n">Persistent agents with memory</div></div>
+      <div class="mp"><div class="mp-v">THINK</div><div class="mp-n">Multi-model reasoning layers</div></div>
+      <div class="mp"><div class="mp-v">PLAN</div><div class="mp-n">Autonomous strategic objectives</div></div>
+      <div class="mp"><div class="mp-v">EXECUTE</div><div class="mp-n">Swarm formations dispatched</div></div>
+      <div class="mp"><div class="mp-v">EVOLVE</div><div class="mp-n">Self-improving skill system</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+  <div class="container">
+    <div class="rv">
+      <span class="s-tag">Core Infrastructure</span>
+      <h2 class="s-title">Products Built &amp; Running</h2>
+      <p class="s-desc">Every component of Benni OS is production-grade, running in real time. Not a prototype — a live system operating at the apex of AI technology.</p>
+    </div>
+    <div class="prod-grid">
+
+      <!-- JARVAS-2 full width -->
+      <div class="pc s2 rv">
+        <div class="pc-hd">
+          <div class="pc-icon" style="background:rgba(0,245,212,0.08);color:var(--cyan)"><i class="fa-solid fa-microchip"></i></div>
+          <span class="badge b-live">● LIVE</span>
+        </div>
+        <div class="pc-id">SA-93 · Core Agent Runtime</div>
+        <div class="pc-name">JARVAS-2</div>
+        <div class="pc-desc">The autonomous agent runtime powering the entire Benni OS. Multi-layer architecture — Orchestrator, Swarm Dispatcher, Content Pipeline, Revenue Loop, Memory Agent, Control Plane and Token Economy. Status: <span class="mono" style="color:var(--green)">online_active</span>.</div>
+        <div class="layers">
+          <div class="lyr"><span class="ln">L-1</span><span class="ll">Orchestrator Core</span><span class="ls s-on">● online</span></div>
+          <div class="lyr"><span class="ln">L-2</span><span class="ll">Swarm Dispatcher (SA-96)</span><span class="ls s-on">● online</span></div>
+          <div class="lyr"><span class="ln">L-3</span><span class="ll">Content Pipeline (SK-50)</span><span class="ls s-on">● online</span></div>
+          <div class="lyr"><span class="ln">L-4</span><span class="ll">Revenue Loop (SK-95)</span><span class="ls s-on">● online</span></div>
+          <div class="lyr"><span class="ln">L-5</span><span class="ll">Memory Agent (SK-60)</span><span class="ls s-sb">◐ standby</span></div>
+          <div class="lyr"><span class="ln">L-6</span><span class="ll">Control Plane (SK-90)</span><span class="ls s-sb">◐ standby</span></div>
+          <div class="lyr"><span class="ln">L-7</span><span class="ll">Token Economy (SA-82G)</span><span class="ls s-on">● online</span></div>
+        </div>
+      </div>
+
+      <!-- BCP -->
+      <div class="pc rv">
+        <div class="pc-hd">
+          <div class="pc-icon" style="background:rgba(139,92,246,0.1);color:var(--purple)"><i class="fa-solid fa-tower-control"></i></div>
+          <span class="badge b-live">● LIVE</span>
+        </div>
+        <div class="pc-id">SK-90 · Control Plane</div>
+        <div class="pc-name">Benni Control Plane</div>
+        <div class="pc-desc">Mission control for the entire Benni OS ecosystem. Real-time monitoring of agents, formations, objectives, memory and revenue loops. Connected to GitHub MCP and JARVAS-2 MCP.</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Real-time agent status dashboard</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> GitHub MCP integration live</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Objective &amp; run management</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Snapshot &amp; state recovery</div>
+        <div class="tags"><span class="tag">Python</span><span class="tag">MCP</span><span class="tag">GitHub</span><span class="tag">JARVAS-2</span></div>
+      </div>
+
+      <!-- MONOMO -->
+      <div class="pc rv d1">
+        <div class="pc-hd">
+          <div class="pc-icon" style="background:rgba(245,158,11,0.1);color:var(--gold)"><i class="fa-solid fa-code"></i></div>
+          <span class="badge b-build">⚙ IN BUILD</span>
+        </div>
+        <div class="pc-id">SK-20 · Native IDE</div>
+        <div class="pc-name">MONOMO IDE</div>
+        <div class="pc-desc">The IDE built to be the body of Benni OS. Born agent-native, breaking every barrier of market IDEs by default. Live formation monitor, built-in MCP tooling and deep JARVAS-2 integration.</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Agent-first file system</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Live Swarm Formation monitor</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Native MCP tooling — no extensions</div>
+        <div class="pf"><i class="fa-solid fa-circle-dot"></i> Persistent agent memory surfaces</div>
+        <div class="tags"><span class="tag">Electron</span><span class="tag">TypeScript</span><span class="tag">LSP</span><span class="tag">WASM</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MONOMO IDE DETAIL -->
+<section class="section alt" id="monomo">
+  <div class="mono-wrap">
+    <div class="rv">
+      <span class="s-tag">SK-20 · Native IDE</span>
+      <h2 class="s-title">MONOMO IDE</h2>
+      <p style="font-size:var(--text-base);color:var(--txt-m);line-height:1.7;margin-bottom:var(--sp10);max-width:54ch">The ideal body for Benni OS. An IDE born to run AI agent projects — breaking all market barriers by default. Where VS Code was built for humans writing code, MONOMO is built for <strong style="color:var(--txt)">agents writing their own future</strong>.</p>
+      <ul class="mono-features">
+        <li class="mf">
+          <div class="mf-icon" style="background:rgba(0,245,212,0.08);color:var(--cyan)"><i class="fa-solid fa-robot"></i></div>
+          <div><div class="mf-name">Agent-First Workspace</div><div class="mf-desc">File system, terminal, and sidebar designed around agent runs. Agents are processes, not plugins.</div></div>
+        </li>
+        <li class="mf">
+          <div class="mf-icon" style="background:rgba(139,92,246,0.1);color:var(--purple)"><i class="fa-solid fa-network-wired"></i></div>
+          <div><div class="mf-name">Live Formation Monitor</div><div class="mf-desc">All 6 Swarm Formations (ALPHA–FOXTROT) live in the sidebar. Dispatch, cancel, inspect from inside the IDE.</div></div>
+        </li>
+        <li class="mf">
+          <div class="mf-icon" style="background:rgba(245,158,11,0.08);color:var(--gold)"><i class="fa-solid fa-plug"></i></div>
+          <div><div class="mf-name">Native MCP Tooling</div><div class="mf-desc">GitHub MCP and JARVAS-2 MCP wired natively — no extensions needed. The IDE understands agent protocols.</div></div>
+        </li>
+        <li class="mf">
+          <div class="mf-icon" style="background:rgba(16,185,129,0.08);color:var(--green)"><i class="fa-solid fa-memory"></i></div>
+          <div><div class="mf-name">Persistent Agent Memory</div><div class="mf-desc">Memory namespaces, cognitive stores and episodic logs surfaced in the editor. Context never disappears.</div></div>
+        </li>
+      </ul>
+    </div>
+    <div class="rv d2">
+      <div class="ide">
+        <div class="ide-bar">
+          <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+          <div class="ide-tab on"><i class="fa-solid fa-robot" style="font-size:.8em"></i> agent_runtime.py</div>
+          <div class="ide-tab" style="margin-left:var(--sp4);opacity:.5">formation.yaml</div>
+        </div>
+        <div class="ide-body">
+          <div class="filetree">
+            <div class="ft-folder">benni-os</div>
+            <div class="ft-file on"><i class="fa-solid fa-file-code" style="color:var(--cyan)"></i>agent_runtime.py</div>
+            <div class="ft-file"><i class="fa-solid fa-file-code"></i>jarvas2_core.py</div>
+            <div class="ft-file"><i class="fa-solid fa-file-code"></i>swarm_dispatch.py</div>
+            <div class="ft-folder">formations</div>
+            <div class="ft-file" style="padding-left:var(--sp4)"><i class="fa-solid fa-file"></i>alpha.yaml</div>
+            <div class="ft-file" style="padding-left:var(--sp4)"><i class="fa-solid fa-file"></i>bravo.yaml</div>
+            <div class="ft-folder">memory</div>
+            <div class="ft-file" style="padding-left:var(--sp4)"><i class="fa-solid fa-database"></i>cognitive.db</div>
+          </div>
+          <div class="editor">
+            <div class="cline"><span class="lnum">1</span><span><span class="cm"># BENNI OS · Agent Runtime v2.0</span></span></div>
+            <div class="cline"><span class="lnum">2</span><span></span></div>
+            <div class="cline"><span class="lnum">3</span><span><span class="kw">from</span> <span class="cn">jarvas2</span> <span class="kw">import</span> <span class="fn">Orchestrator</span>, <span class="fn">MemoryAgent</span></span></div>
+            <div class="cline"><span class="lnum">4</span><span><span class="kw">from</span> <span class="cn">benni_os.swarm</span> <span class="kw">import</span> <span class="fn">Formation</span>, <span class="fn">dispatch</span></span></div>
+            <div class="cline"><span class="lnum">5</span><span></span></div>
+            <div class="cline"><span class="lnum">6</span><span><span class="kw">class</span> <span class="fn">AgentRuntime</span>:</span></div>
+            <div class="cline"><span class="lnum">7</span><span>  <span class="kw">def</span> <span class="fn">__init__</span>(<span class="vr">self</span>):</span></div>
+            <div class="cline"><span class="lnum">8</span><span>    <span class="vr">self</span>.<span class="cn">orc</span> = <span class="fn">Orchestrator</span>(<span class="str">"benni-os"</span>)</span></div>
+            <div class="cline"><span class="lnum">9</span><span>    <span class="vr">self</span>.<span class="cn">mem</span> = <span class="fn">MemoryAgent</span>(persistent=<span class="kw">True</span>)</span></div>
+            <div class="cline"><span class="lnum">10</span><span>    <span class="vr">self</span>.<span class="cn">formations</span> = []</span></div>
+            <div class="cline"><span class="lnum">11</span><span></span></div>
+            <div class="cline"><span class="lnum">12</span><span>  <span class="kw">async def</span> <span class="fn">boot</span>(<span class="vr">self</span>):</span></div>
+            <div class="cline"><span class="lnum">13</span><span>    <span class="kw">await</span> <span class="vr">self</span>.<span class="cn">orc</span>.<span class="fn">initialize</span>()</span></div>
+            <div class="cline"><span class="lnum">14</span><span>    <span class="cm"># dispatch ALPHA &amp; BRAVO by default</span></span></div>
+            <div class="cline"><span class="lnum">15</span><span>    <span class="kw">await</span> <span class="fn">dispatch</span>(<span class="fn">Formation</span>.<span class="op">ALPHA</span>)</span></div>
+            <div class="cline"><span class="lnum">16</span><span>    <span class="kw">await</span> <span class="fn">dispatch</span>(<span class="fn">Formation</span>.<span class="op">BRAVO</span>)</span></div>
+            <div class="cline"><span class="lnum">17</span><span>    <span class="kw">return</span> <span class="str">"online_active"</span></span></div>
+          </div>
+        </div>
+        <div class="ide-status">
+          <span class="sb hl">● JARVAS-2</span>
+          <span class="sb">Python 3.11</span>
+          <span class="sb hl">ALPHA ● BRAVO ●</span>
+          <span class="sb" style="margin-left:auto">MONOMO v0.1-alpha</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SWARM FORMATIONS -->
+<section class="section" id="formations">
+  <div class="container">
+    <div class="rv">
+      <span class="s-tag">SA-96 · Army Protocol</span>
+      <h2 class="s-title">Swarm Formations</h2>
+      <p class="s-desc">Autonomous agent dispatch. Handoff via artifact_id. Max 2 active formations simultaneously. Each formation is a specialized agent team with a single mission.</p>
+    </div>
+    <div class="form-grid">
+      <div class="fc rv"><div class="fc-code">ALPHA</div><div class="fc-name">Launch</div><div class="fc-desc">Coordinates product and channel launches. Activation sequence, copy, and distribution pipeline.</div><div class="fc-status fs-on">● active</div></div>
+      <div class="fc rv d1"><div class="fc-code">BRAVO</div><div class="fc-name">Build &amp; Ship</div><div class="fc-desc">Development and delivery of software, automations and systems. Code → test → deploy.</div><div class="fc-status fs-on">● active</div></div>
+      <div class="fc rv d2"><div class="fc-code">CHARLIE</div><div class="fc-name">Growth</div><div class="fc-desc">Channel growth strategy, audience building and organic content distribution.</div><div class="fc-status fs-sb">◐ standby</div></div>
+      <div class="fc rv"><div class="fc-code">DELTA</div><div class="fc-name">Research</div><div class="fc-desc">Deep market, technology and opportunity research. Direct feed to Orchestrator.</div><div class="fc-status fs-sb">◐ standby</div></div>
+      <div class="fc rv d1"><div class="fc-code">ECHO</div><div class="fc-name">Health</div><div class="fc-desc">System monitoring, project health, alerts and performance diagnostics.</div><div class="fc-status fs-sb">◐ standby</div></div>
+      <div class="fc rv d2"><div class="fc-code">FOXTROT</div><div class="fc-name">Revenue Zero</div><div class="fc-desc">Emergency mode for immediate revenue generation with minimal resources.</div><div class="fc-status fs-sb">◐ standby</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- OSS -->
+<section class="section alt" id="oss">
+  <div class="container">
+    <div class="rv">
+      <span class="s-tag">Open Source First</span>
+      <h2 class="s-title">Open Source Projects</h2>
+      <p class="s-desc">Built in the open. Every core component of Benni OS is open source — because the future of AI infrastructure belongs to everyone.</p>
+    </div>
+    <div class="oss-grid">
+      <div class="oss-card rv">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">benni-os</span></div>
+        <p class="oss-desc">The official Benni OS website and system documentation. Landing page, manifesto, products, formations and datacenter vision.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> HTML/CSS/JS</div><div class="oss-stat"><i class="fa-regular fa-star"></i> Public</div></div>
+      </div>
+      <div class="oss-card rv d1">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">benni-master-os-skills</span></div>
+        <p class="oss-desc">The complete skill system (SK-00 to SK-96). Orchestrator, Revenue Loop, Army Protocol, and all formation definitions powering JARVAS-2.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> YAML + Python</div><div class="oss-stat"><i class="fa-regular fa-star"></i> Public</div></div>
+      </div>
+      <div class="oss-card rv d2">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">benni-control-plane</span></div>
+        <p class="oss-desc">Mission control dashboard. Snapshot system, approval workflows and real-time agent health monitoring connected to JARVAS-2 MCP.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> Node.js</div><div class="oss-stat"><i class="fa-regular fa-star"></i> Public</div></div>
+      </div>
+      <div class="oss-card rv">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">monomo-ide</span></div>
+        <p class="oss-desc">The native IDE for Benni OS. Agent-first workspace with built-in MCP tooling, formation monitor and persistent memory surfaces. In active build.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> Electron + TS</div><div class="oss-stat"><i class="fa-solid fa-hammer" style="color:var(--gold)"></i> Building</div></div>
+      </div>
+      <div class="oss-card rv d1">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">jarvas2-mcp-server</span></div>
+        <p class="oss-desc">MCP server exposing JARVAS-2 tools — run_task, queue_task, save_memory, get_snapshot — to any MCP-compatible AI client.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> Python</div><div class="oss-stat"><i class="fa-regular fa-star"></i> Public</div></div>
+      </div>
+      <div class="oss-card rv d2">
+        <div class="oss-hd"><span class="oss-icon"><i class="fa-brands fa-github"></i></span><span class="oss-name">content-pipeline-ai</span></div>
+        <p class="oss-desc">Automated content generation pipeline for YouTube. Script → TTS → video → thumbnail → metadata → publish. Fully orchestrated by JARVAS-2.</p>
+        <div class="oss-meta"><div class="oss-stat"><i class="fa-solid fa-code-branch"></i> Python</div><div class="oss-stat"><i class="fa-regular fa-star"></i> Public</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DATACENTER -->
+<section class="section" id="datacenter" style="background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(139,92,246,0.04) 0%,transparent 70%),var(--surf)">
+  <div class="dc-wrap">
+    <div class="rv">
+      <span class="s-tag">Next Strategic Objective</span>
+      <h2 class="s-title">Benni AI Datacenter</h2>
+      <p style="font-size:var(--text-base);color:var(--txt-m);line-height:1.7;margin-bottom:var(--sp8);max-width:52ch">The ultimate objective: building our own AI datacenter to carry the most powerful operating system in the world — <strong style="color:var(--txt)">Benni OS</strong>. Full self-hosted inference. Persistent agent memory. Private multi-GPU cluster. Zero dependency on external cloud providers.</p>
+      <div style="display:flex;flex-direction:column;gap:var(--sp5)">
+        <div class="pf" style="font-size:var(--text-base)"><i class="fa-solid fa-server" style="color:var(--cyan);width:20px"></i> <strong style="color:var(--txt)">Self-hosted inference</strong> — Local LLMs, zero latency, full sovereignty</div>
+        <div class="pf" style="font-size:var(--text-base)"><i class="fa-solid fa-database" style="color:var(--purple);width:20px"></i> <strong style="color:var(--txt)">Persistent vector memory</strong> — Agent memory that never expires</div>
+        <div class="pf" style="font-size:var(--text-base)"><i class="fa-solid fa-microchip" style="color:var(--gold);width:20px"></i> <strong style="color:var(--txt)">Multi-GPU cluster</strong> — Power to run the full swarm simultaneously</div>
+        <div class="pf" style="font-size:var(--text-base)"><i class="fa-solid fa-shield-halved" style="color:var(--green);width:20px"></i> <strong style="color:var(--txt)">Private &amp; sovereign</strong> — No Big Tech dependency</div>
+        <div class="pf" style="font-size:var(--text-base)"><i class="fa-solid fa-globe" style="color:var(--cyan);width:20px"></i> <strong style="color:var(--txt)">Global reach</strong> — Castanhal, Pará, Brazil → World</div>
+      </div>
+    </div>
+    <div class="rv d2">
+      <div class="dc-rack">
+        <div class="dc-rack-hd"><span>Benni AI Datacenter — Phase 1 Rack</span><span style="color:var(--txt-f)">DC-CAST-01</span></div>
+        <div class="dc-u"><div class="led on"></div><span class="dc-uname">JARVAS-2 Runtime Node</span><span class="dc-spec" style="color:var(--green)">● running</span></div>
+        <div class="dc-u"><div class="led on"></div><span class="dc-uname">Benni Control Plane Server</span><span class="dc-spec" style="color:var(--green)">● running</span></div>
+        <div class="dc-u"><div class="led on"></div><span class="dc-uname">Content Pipeline Server</span><span class="dc-spec" style="color:var(--green)">● running</span></div>
+        <div class="dc-u"><div class="led sb"></div><span class="dc-uname">Local LLM Inference [Hermes]</span><span class="dc-spec" style="color:var(--gold)">◐ cloud-fallback</span></div>
+        <div class="dc-u"><div class="led plan"></div><span class="dc-uname">GPU Node 1 [RTX 4090]</span><span class="dc-spec" style="color:var(--purple)">◎ planned</span></div>
+        <div class="dc-u"><div class="led plan"></div><span class="dc-uname">GPU Cluster — Multi-node</span><span class="dc-spec" style="color:var(--purple)">◎ planned</span></div>
+        <div class="dc-u"><div class="led plan"></div><span class="dc-uname">Persistent Vector DB</span><span class="dc-spec" style="color:var(--purple)">◎ planned</span></div>
+        <div style="margin-top:var(--sp6)">
+          <div class="dp-label"><span>Infrastructure Progress</span><span style="color:var(--cyan)">35%</span></div>
+          <div class="dp-bar"><div class="dp-fill dp-c" style="width:35%"></div></div>
+          <div class="dp-label"><span>Revenue → Hardware Fund</span><span style="color:var(--purple)">Active</span></div>
+          <div class="dp-bar"><div class="dp-fill dp-p" style="width:60%"></div></div>
+          <div class="dp-label"><span>Current System Uptime</span><span style="color:var(--green)">99.2%</span></div>
+          <div class="dp-bar"><div class="dp-fill dp-g" style="width:99%"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHANNELS -->
+<section class="section" id="channels">
+  <div class="container">
+    <div class="rv">
+      <span class="s-tag">SK-50 · Content Engine</span>
+      <h2 class="s-title">YouTube Channels</h2>
+      <p class="s-desc">Automated content ecosystem powered by Benni OS pipelines. AI-generated scripts, TTS, video, thumbnails and publishing — fully orchestrated by JARVAS-2.</p>
+    </div>
+    <div class="ch-grid">
+      <div class="ch-card rv"><div class="ch-icon" style="background:rgba(139,92,246,0.12);color:#a78bfa"><i class="fa-solid fa-brain"></i></div><div class="ch-name">Cerebrox</div><div class="ch-desc">AI, autonomous agents and open-source technology. The Benni OS content hub.</div><div class="ch-lang">PT-BR · AI &amp; Tech</div></div>
+      <div class="ch-card rv d1"><div class="ch-icon" style="background:rgba(245,158,11,0.12);color:var(--gold)"><i class="fa-solid fa-chart-line"></i></div><div class="ch-name">Adam Invests</div><div class="ch-desc">Financial education and investment psychology. Long-term thinking, AI-generated.</div><div class="ch-lang">EN · Finance</div></div>
+      <div class="ch-card rv d2"><div class="ch-icon" style="background:rgba(239,68,68,0.12);color:#f87171"><i class="fa-solid fa-skull"></i></div><div class="ch-name">Doomsday POV</div><div class="ch-desc">Extreme scenarios, survival psychology and immersive AI storytelling.</div><div class="ch-lang">EN · Survival</div></div>
+      <div class="ch-card rv d3"><div class="ch-icon" style="background:rgba(16,185,129,0.12);color:var(--green)"><i class="fa-solid fa-shield-halved"></i></div><div class="ch-name">No Panic Finance</div><div class="ch-desc">Finance without the drama. Behavioral economics and evidence-based investing.</div><div class="ch-lang">EN · Psychology &amp; Finance</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-inner rv">
+    <span class="mono" style="font-size:var(--text-xs);color:var(--cyan);text-transform:uppercase;letter-spacing:.1em;display:block;margin-bottom:var(--sp5)">//&nbsp;join the system</span>
+    <h2 class="cta-title">The future of AI is<br><span class="grad">autonomous by design.</span></h2>
+    <p class="cta-desc">Benni OS is not a product. It is an operating system for the age of intelligent agents. Follow the build, contribute to the open source, or connect directly.</p>
+    <div class="cta-actions">
+      <a href="https://github.com/nsfwbunny" target="_blank" rel="noopener" class="btn-p"><i class="fa-brands fa-github"></i> Follow on GitHub</a>
+      <a href="https://youtube.com/@Cerebrox" target="_blank" rel="noopener" class="btn-g"><i class="fa-brands fa-youtube"></i> Watch Cerebrox</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div>
+      <a href="#" style="display:flex;align-items:center;gap:var(--sp3);text-decoration:none;color:var(--txt)">
+        <svg width="28" height="28" viewBox="0 0 30 30" fill="none">
+          <rect x="1" y="1" width="28" height="28" rx="7" fill="none" stroke="rgba(0,245,212,0.2)" stroke-width="1"/>
+          <path d="M8 15 L12.5 8 L17 15 L12.5 22Z" fill="none" stroke="#00F5D4" stroke-width="1.5" stroke-linejoin="round"/>
+          <circle cx="21" cy="11" r="2.5" fill="#00F5D4"/>
+          <circle cx="21" cy="19" r="2.5" fill="none" stroke="#8B5CF6" stroke-width="1.5"/>
+        </svg>
+        <span style="font-family:var(--font-d);font-weight:800;font-size:1.1rem;letter-spacing:-.03em">Benni<span style="color:var(--cyan)">.OS</span></span>
+      </a>
+      <p class="f-brand-desc">The world's first operating system for autonomous AI agents. Built in Castanhal, Pará, Brazil — for the world.</p>
+    </div>
+    <div class="f-col"><h4>System</h4><ul><li><a href="#products">JARVAS-2</a></li><li><a href="#products">Control Plane</a></li><li><a href="#monomo">MONOMO IDE</a></li><li><a href="#formations">Formations</a></li></ul></div>
+    <div class="f-col"><h4>Open Source</h4><ul><li><a href="https://github.com/nsfwbunny/benni-os" target="_blank" rel="noopener">benni-os</a></li><li><a href="https://github.com/nsfwbunny/benni-master-os-skills" target="_blank" rel="noopener">benni-master-os-skills</a></li><li><a href="#oss">All Repos</a></li></ul></div>
+    <div class="f-col"><h4>Channels</h4><ul><li><a href="https://youtube.com/@Cerebrox" target="_blank" rel="noopener">Cerebrox</a></li><li><a href="#channels">Adam Invests</a></li><li><a href="#channels">Doomsday POV</a></li><li><a href="#channels">No Panic Finance</a></li></ul></div>
+  </div>
+  <div class="footer-bot">
+    <p class="f-copy">© 2026 benni-os.net · Autonomous AI Agent Operating System · Castanhal, Pará, Brazil</p>
+    <div class="f-socials">
+      <a href="https://github.com/nsfwbunny" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://youtube.com/@Cerebrox" target="_blank" rel="noopener" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)} });
+  },{threshold:0.08,rootMargin:'0px 0px -32px 0px'});
+  document.querySelectorAll('.rv').forEach(el => obs.observe(el));
+</script>
+</body>
+</html>
