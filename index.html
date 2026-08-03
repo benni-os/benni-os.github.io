@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Benni OS — Autonomous AI Agent Operating System</title>
-  <meta name="description" content="Benni OS is the world's first operating system designed for autonomous AI agents. JARVAS-2, Benni Control Plane, MONOMO IDE, Benni Master OS." />
-  <meta property="og:title" content="Benni OS — Autonomous AI Agent Operating System" />
-  <meta property="og:description" content="The OS where AI agents live, think, plan, execute and evolve. Persistent memory. Multi-agent coordination. Native tooling." />
+  <title>Benni OS — Sistema Operacional de Agentes IA Autônomos</title>
+  <meta name="description" content="Benni OS é o sistema operacional para agentes IA autônomos. JARVAS-2, Benni Control Plane (41 MCP tools), arsenal open source e Modo Operador — o produto BR da marca." />
+  <meta property="og:title" content="Benni OS — Sistema Operacional de Agentes IA Autônomos" />
+  <meta property="og:description" content="A infraestrutura real onde agentes IA vivem, planejam e executam. 41 MCP tools. Self-hosted. $0/mês. Feito no Brasil." />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="theme-color" content="#020208" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,24 +14,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
-    :root {
-      --bg:#020208;
-      --bg1:#05050f;
-      --bg2:#08081a;
-      --bg3:#0c0c22;
-      --bdr:#151530;
-      --bdr2:#1e1e42;
-      --txt:#f0f0fa;
-      --txt2:#9090b0;
-      --txt3:#4a4a70;
-      --cyan:#00e5c8;
-      --cyan2:#00bfa8;
-      --cyan3:rgba(0,229,200,0.08);
-      --purple:#7c5cfc;
-      --purple2:rgba(124,92,252,0.08);
-      --gold:#f5a623;
-      --green:#00d68f;
-      --red:#ff4d6d;
+    :root{
+      --bg:#020208;--bg1:#05050f;--bg2:#08081a;--bg3:#0c0c22;
+      --bdr:#151530;--bdr2:#1e1e42;
+      --txt:#f0f0fa;--txt2:#9090b0;--txt3:#4a4a70;
+      --cyan:#00e5c8;--cyan2:#00bfa8;--cyan3:rgba(0,229,200,.08);
+      --purple:#7c5cfc;--purple2:rgba(124,92,252,.08);
+      --orange:#FF6D00;--orange2:rgba(255,109,0,.08);
+      --green:#00d68f;--gold:#f5a623;--red:#ff4d6d;
       --font:'Inter',-apple-system,sans-serif;
       --mono:'JetBrains Mono','Courier New',monospace;
       --r4:4px;--r8:8px;--r12:12px;--r16:16px;--r24:24px;--rfull:9999px;
@@ -40,41 +30,38 @@
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth;scroll-padding-top:72px;-webkit-font-smoothing:antialiased}
     body{min-height:100dvh;font-family:var(--font);font-size:16px;line-height:1.6;color:var(--txt);background:var(--bg);overflow-x:hidden}
-    ::selection{background:rgba(0,229,200,0.15)}
+    ::selection{background:rgba(0,229,200,.15)}
     :focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:var(--r4)}
     a{color:inherit;text-decoration:none}
     button{cursor:pointer;background:none;border:none;font:inherit;color:inherit}
     img,svg{display:block}
     @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 
-    /* LAYOUT */
     .wrap{max-width:1200px;margin-inline:auto;padding-inline:32px}
     @media(max-width:600px){.wrap{padding-inline:20px}}
     .section{padding:96px 0}
-    .section-sm{padding:64px 0}
     .alt{background:var(--bg1)}
 
-    /* TYPE */
     .label{font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);display:inline-flex;align-items:center;gap:6px}
     .label::before{content:'//';opacity:.4}
     h2.section-title{font-size:clamp(28px,4vw,44px);font-weight:800;letter-spacing:-.03em;color:var(--txt);margin-top:12px;margin-bottom:16px;line-height:1.1}
     .section-sub{font-size:17px;color:var(--txt2);max-width:60ch;line-height:1.7;margin-bottom:56px}
 
-    /* BUTTONS */
     .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 24px;font-size:13px;font-weight:600;letter-spacing:.02em;border-radius:var(--r8);transition:all .18s var(--ease)}
     .btn-primary{background:var(--cyan);color:#020208}
     .btn-primary:hover{background:var(--cyan2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,229,200,.25)}
+    .btn-orange{background:var(--orange);color:#fff}
+    .btn-orange:hover{background:#e06000;transform:translateY(-1px);box-shadow:0 8px 24px rgba(255,109,0,.3)}
     .btn-outline{border:1px solid rgba(0,229,200,.25);color:var(--cyan)}
     .btn-outline:hover{background:rgba(0,229,200,.06);border-color:var(--cyan)}
     .btn-ghost{border:1px solid var(--bdr2);color:var(--txt2)}
     .btn-ghost:hover{color:var(--txt);border-color:var(--txt3)}
 
-    /* BADGE */
     .badge{font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:.08em;padding:3px 9px;border-radius:var(--rfull);border:1px solid}
     .badge-live{color:var(--green);border-color:rgba(0,214,143,.25);background:rgba(0,214,143,.08)}
     .badge-build{color:var(--gold);border-color:rgba(245,166,35,.25);background:rgba(245,166,35,.08)}
     .badge-plan{color:var(--purple);border-color:rgba(124,92,252,.25);background:rgba(124,92,252,.08)}
-    .badge-soon{color:var(--txt3);border-color:var(--bdr2);background:transparent}
+    .badge-br{color:var(--orange);border-color:rgba(255,109,0,.25);background:rgba(255,109,0,.08)}
 
     /* NAV */
     .nav{position:fixed;inset:0 0 auto;z-index:300;height:68px;display:flex;align-items:center;padding:0 40px;background:rgba(2,2,8,.85);backdrop-filter:blur(24px) saturate(180%);border-bottom:1px solid var(--bdr)}
@@ -111,24 +98,26 @@
     .proof-lbl{font-family:var(--mono);font-size:10px;color:var(--txt3);text-transform:uppercase;letter-spacing:.1em;margin-top:2px}
     .proof-div{width:1px;background:var(--bdr2);align-self:stretch}
 
-    /* PRODUCTS — TAB SYSTEM */
-    .products{padding:96px 0;background:var(--bg)}
+    /* INFRA STRIP */
+    .infra-strip{background:var(--bg2);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:20px 32px;overflow:hidden}
+    .infra-inner{max-width:1200px;margin-inline:auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center}
+    .infra-item{font-family:var(--mono);font-size:11px;color:var(--txt3);display:flex;align-items:center;gap:8px;white-space:nowrap}
+    .infra-item i{color:var(--cyan);font-size:12px}
+    .infra-sep{color:var(--bdr2)}
+
+    /* PRODUCTS TABS */
     .tab-nav{display:flex;gap:2px;padding:4px;background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r12);width:fit-content;margin-bottom:48px;overflow-x:auto}
-    .tab-btn{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:var(--r8);font-size:13px;font-weight:600;color:var(--txt2);white-space:nowrap;transition:all .15s;position:relative}
+    .tab-btn{display:flex;align-items:center;gap:10px;padding:10px 20px;border-radius:var(--r8);font-size:13px;font-weight:600;color:var(--txt2);white-space:nowrap;transition:all .15s}
     .tab-btn:hover{color:var(--txt);background:rgba(255,255,255,.04)}
     .tab-btn.active{background:var(--bg3);color:var(--txt);box-shadow:0 1px 4px rgba(0,0,0,.4)}
     .tab-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
     .dot-live{background:var(--green);box-shadow:0 0 6px var(--green)}
     .dot-build{background:var(--gold)}
-    .dot-plan{background:var(--purple);opacity:.7}
+    .dot-br{background:var(--orange);box-shadow:0 0 6px var(--orange)}
     .tab-pane{display:none}
     .tab-pane.active{display:grid}
-
-    /* PRODUCT PANE LAYOUT */
     .pane-hero{grid-template-columns:1fr 1fr;gap:64px;align-items:center}
     @media(max-width:768px){.pane-hero{grid-template-columns:1fr;gap:40px}}
-    .pane-full{grid-template-columns:1fr}
-    .pane-header{margin-bottom:32px}
     .pane-id{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
     .pane-name{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--txt);margin-bottom:16px}
     .pane-desc{font-size:16px;color:var(--txt2);line-height:1.8;max-width:52ch;margin-bottom:32px}
@@ -138,11 +127,24 @@
     .pane-feat strong{color:var(--txt);display:block;font-size:14px;margin-bottom:2px}
     .pane-actions{display:flex;gap:10px;flex-wrap:wrap}
 
+    /* TERMINAL */
+    .terminal{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden;font-family:var(--mono);font-size:12px;line-height:1.8}
+    .term-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--bdr)}
+    .term-dot{width:10px;height:10px;border-radius:50%}
+    .t-r{background:#ff5f57}.t-y{background:#febc2e}.t-g{background:#28c840}
+    .term-title{margin-left:8px;font-size:11px;color:var(--txt3)}
+    .term-body{padding:20px 24px}
+    .tl{display:flex;gap:12px}
+    .tl-p{color:var(--cyan)}.tl-c{color:var(--txt3)}.tl-s{color:var(--green)}
+    .tl-k{color:#c678dd}.tl-v{color:#e06c75}.tl-t{color:var(--txt2)}
+    .t-cursor{display:inline-block;width:8px;height:14px;background:var(--cyan);animation:blink .9s step-start infinite;vertical-align:text-bottom}
+    @keyframes blink{50%{opacity:0}}
+
     /* LAYER STACK */
-    .layer-stack{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden}
+    .layer-stack{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden;font-family:var(--mono);font-size:12px}
     .stack-header{padding:16px 20px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
     .stack-title{font-family:var(--mono);font-size:11px;color:var(--cyan);letter-spacing:.1em;text-transform:uppercase}
-    .layer{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--bdr);font-family:var(--mono);font-size:12px;transition:background .15s}
+    .layer{display:flex;align-items:center;gap:14px;padding:14px 20px;border-bottom:1px solid var(--bdr);transition:background .15s}
     .layer:last-child{border-bottom:none}
     .layer:hover{background:rgba(255,255,255,.02)}
     .layer-num{width:36px;height:36px;border-radius:var(--r8);background:rgba(0,229,200,.06);border:1px solid rgba(0,229,200,.15);display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--cyan);font-weight:700;flex-shrink:0}
@@ -153,64 +155,24 @@
     .st-sb{color:var(--gold);border-color:rgba(245,166,35,.2);background:rgba(245,166,35,.06)}
     .st-plan{color:var(--purple);border-color:rgba(124,92,252,.2);background:rgba(124,92,252,.06)}
 
-    /* TERMINAL MOCKUP */
-    .terminal{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden;font-family:var(--mono);font-size:12px;line-height:1.8}
-    .term-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--bdr)}
-    .term-dot{width:10px;height:10px;border-radius:50%}
-    .t-r{background:#ff5f57}.t-y{background:#febc2e}.t-g{background:#28c840}
-    .term-title{margin-left:8px;font-size:11px;color:var(--txt3)}
-    .term-body{padding:20px 24px}
-    .tl{display:flex;gap:12px}
-    .tl-p{color:var(--cyan)}.tl-c{color:var(--txt3)}.tl-s{color:var(--green)}
-    .tl-k{color:#c678dd}.tl-f{color:#61afef}.tl-v{color:#e06c75}.tl-t{color:var(--txt2)}
-    .t-cursor{display:inline-block;width:8px;height:14px;background:var(--cyan);animation:blink .9s step-start infinite;vertical-align:text-bottom}
-    @keyframes blink{50%{opacity:0}}
+    /* MODO OPERADOR CARD */
+    .mo-card{background:linear-gradient(135deg,rgba(255,109,0,.08) 0%,rgba(0,102,255,.06) 100%);border:1px solid rgba(255,109,0,.25);border-radius:var(--r16);padding:48px;position:relative;overflow:hidden}
+    .mo-card::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 80% at 20% 50%,rgba(255,109,0,.06),transparent);pointer-events:none}
+    .mo-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+    @media(max-width:768px){.mo-inner{grid-template-columns:1fr;gap:32px}}
+    .mo-kicker{font-family:var(--mono);font-size:11px;color:var(--orange);letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+    .mo-title{font-size:clamp(32px,4vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1;color:var(--txt);margin-bottom:16px}
+    .mo-desc{font-size:16px;color:var(--txt2);line-height:1.8;margin-bottom:32px}
+    .mo-price{display:inline-flex;align-items:baseline;gap:4px;font-size:40px;font-weight:900;color:var(--txt);margin-bottom:8px}
+    .mo-price span{font-size:18px;color:var(--txt3);font-weight:400}
+    .mo-price-note{font-family:var(--mono);font-size:11px;color:var(--txt3);margin-bottom:24px}
+    .mo-chapters{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .mo-ch{font-size:14px;color:var(--txt2);display:flex;align-items:flex-start;gap:10px}
+    .mo-ch::before{content:'→';color:var(--orange);opacity:.7;font-size:11px;flex-shrink:0;margin-top:3px}
 
-    /* IDE MOCKUP */
-    .ide{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden}
-    .ide-bar{display:flex;align-items:center;gap:6px;padding:12px 16px;background:var(--bg3);border-bottom:1px solid var(--bdr)}
-    .ide-tabs{display:flex;gap:2px;margin-left:12px}
-    .ide-tab{font-size:11px;color:var(--txt3);padding:4px 10px;border-radius:4px;display:flex;align-items:center;gap:5px}
-    .ide-tab.on{background:rgba(0,229,200,.08);color:var(--cyan)}
-    .ide-body{display:flex;height:320px}
-    .ide-sidebar{width:150px;flex-shrink:0;border-right:1px solid var(--bdr);padding:12px 10px;font-size:11px}
-    .ide-folder{color:var(--txt3);text-transform:uppercase;letter-spacing:.08em;font-size:9px;margin:12px 0 4px}
-    .ide-file{color:var(--txt2);padding:3px 6px;border-radius:4px;display:flex;align-items:center;gap:6px}
-    .ide-file.on{background:rgba(0,229,200,.08);color:var(--cyan)}
-    .ide-code{flex:1;padding:16px;overflow:auto}
-    .ide-status{display:flex;align-items:center;gap:12px;padding:6px 16px;border-top:1px solid var(--bdr);background:var(--bg3);font-size:10px}
-    .is-c{color:var(--cyan)}.is-m{color:var(--txt3)}
-
-    /* ROADMAP GRID */
-    .roadmap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden}
-    @media(max-width:768px){.roadmap-grid{grid-template-columns:1fr}}
-    .rm-card{background:var(--bg1);padding:32px;position:relative;transition:background .15s}
-    .rm-card:hover{background:var(--bg2)}
-    .rm-card.featured{background:var(--bg2)}
-    .rm-icon{width:48px;height:48px;border-radius:var(--r12);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:20px}
-    .rm-name{font-size:20px;font-weight:800;letter-spacing:-.03em;color:var(--txt);margin-bottom:8px}
-    .rm-desc{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:20px}
-    .rm-badge{margin-bottom:16px}
-    .rm-features{list-style:none;display:flex;flex-direction:column;gap:8px}
-    .rm-feat{font-size:13px;color:var(--txt3);display:flex;align-items:center;gap:8px}
-    .rm-feat::before{content:'→';color:var(--cyan);opacity:.5;font-size:11px;flex-shrink:0}
-    .rm-eta{font-family:var(--mono);font-size:10px;color:var(--txt3);margin-top:20px;padding-top:16px;border-top:1px solid var(--bdr)}
-
-    /* FORMATIONS */
-    .formation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-    @media(max-width:768px){.formation-grid{grid-template-columns:1fr}}
-    .form-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r12);padding:24px;display:flex;gap:16px;transition:border-color .15s}
-    .form-card:hover{border-color:rgba(0,229,200,.2)}
-    .form-code{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan);letter-spacing:.05em;width:72px;flex-shrink:0;padding-top:2px}
-    .form-name{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:6px}
-    .form-desc{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:12px}
-    .form-stat{font-family:var(--mono);font-size:10px;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--rfull);border:1px solid}
-    .fs-on{color:var(--green);border-color:rgba(0,214,143,.2)}
-    .fs-sb{color:var(--txt3);border-color:var(--bdr2)}
-
-    /* OSS */
-    .oss-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-    @media(max-width:640px){.oss-grid{grid-template-columns:1fr}}
+    /* OSS GRID */
+    .oss-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    @media(max-width:768px){.oss-grid{grid-template-columns:1fr}}
     .oss-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r12);padding:24px;transition:border-color .15s,transform .15s}
     .oss-card:hover{border-color:rgba(0,229,200,.25);transform:translateY(-2px)}
     .oss-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
@@ -220,6 +182,33 @@
     .oss-lang{font-family:var(--mono);font-size:11px;color:var(--txt3);display:flex;align-items:center;gap:6px}
     .oss-lang::before{content:'';width:8px;height:8px;border-radius:50%;background:var(--cyan)}
 
+    /* ECOSYSTEM TABLE */
+    .eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r16);overflow:hidden}
+    @media(max-width:900px){.eco-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:500px){.eco-grid{grid-template-columns:1fr}}
+    .eco-card{background:var(--bg1);padding:28px;transition:background .15s}
+    .eco-card:hover{background:var(--bg2)}
+    .eco-icon{font-size:24px;margin-bottom:12px}
+    .eco-name{font-size:15px;font-weight:700;color:var(--txt);margin-bottom:6px}
+    .eco-role{font-size:12px;color:var(--txt3);line-height:1.6;margin-bottom:12px}
+    .eco-status{font-family:var(--mono);font-size:10px;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--rfull);border:1px solid}
+    .es-live{color:var(--green);border-color:rgba(0,214,143,.2)}
+    .es-build{color:var(--gold);border-color:rgba(245,166,35,.2)}
+    .es-mit{color:var(--cyan);border-color:rgba(0,229,200,.2)}
+    .es-br{color:var(--orange);border-color:rgba(255,109,0,.2)}
+
+    /* FORMATIONS */
+    .formation-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+    @media(max-width:768px){.formation-grid{grid-template-columns:1fr}}
+    .form-card{background:var(--bg2);border:1px solid var(--bdr);border-radius:var(--r12);padding:24px;display:flex;gap:16px;transition:border-color .15s}
+    .form-card:hover{border-color:rgba(0,229,200,.2)}
+    .form-code{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--cyan);letter-spacing:.05em;width:80px;flex-shrink:0;padding-top:2px}
+    .form-name{font-size:16px;font-weight:700;color:var(--txt);margin-bottom:6px}
+    .form-desc{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:12px}
+    .form-stat{font-family:var(--mono);font-size:10px;display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:var(--rfull);border:1px solid}
+    .fs-on{color:var(--green);border-color:rgba(0,214,143,.2)}
+    .fs-sb{color:var(--txt3);border-color:var(--bdr2)}
+
     /* CTA */
     .cta{padding:120px 32px;text-align:center;background:radial-gradient(ellipse 60% 80% at 50% 50%,rgba(0,229,200,.04) 0%,transparent 60%),var(--bg)}
     .cta-title{font-size:clamp(32px,5vw,56px);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin:12px 0 20px}
@@ -228,8 +217,9 @@
 
     /* FOOTER */
     .footer{background:var(--bg1);border-top:1px solid var(--bdr);padding:64px 32px 40px}
-    .footer-grid{max-width:1200px;margin-inline:auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:64px;margin-bottom:48px}
-    @media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:32px}}
+    .footer-grid{max-width:1200px;margin-inline:auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+    @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
+    @media(max-width:540px){.footer-grid{grid-template-columns:1fr}}
     .footer-brand{font-size:20px;font-weight:800;letter-spacing:-.03em;margin-bottom:12px}
     .footer-brand em{color:var(--cyan);font-style:normal}
     .footer-tagline{font-size:14px;color:var(--txt3);line-height:1.6;max-width:30ch}
@@ -244,7 +234,6 @@
     .footer-links a{font-size:20px;color:var(--txt3);transition:color .15s}
     .footer-links a:hover{color:var(--cyan)}
 
-    /* REVEAL */
     .rv{opacity:0;transform:translateY(20px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
     .rv.in{opacity:1;transform:translateY(0)}
     .rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}
@@ -256,15 +245,19 @@
 <nav class="nav">
   <a href="#" class="nav-logo">Benni<em>.OS</em></a>
   <div class="nav-center">
-    <a href="#products" class="nav-link">Products</a>
-    <a href="#formations" class="nav-link">Formations</a>
+    <a href="#products" class="nav-link">Produtos</a>
+    <a href="#modo-operador" class="nav-link">Modo Operador</a>
     <a href="#oss" class="nav-link">Open Source</a>
-    <a href="#roadmap" class="nav-link">Roadmap</a>
+    <a href="#formations" class="nav-link">Formations</a>
+    <a href="#ecosystem" class="nav-link">Ecossistema</a>
   </div>
   <div class="nav-right">
     <div class="nav-status">JARVAS-2 LIVE</div>
+    <a href="https://modooperador.benni-os.net" target="_blank" rel="noopener" class="btn btn-orange" style="padding:7px 16px;font-size:12px">
+      Modo Operador R$97
+    </a>
     <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:7px 14px;font-size:13px">
-      <i class="fa-brands fa-github"></i> GitHub
+      <i class="fa-brands fa-github"></i>
     </a>
   </div>
 </nav>
@@ -277,329 +270,207 @@
   <div class="hero-glow" aria-hidden="true"></div>
   <div class="hero-grid" aria-hidden="true"></div>
   <div class="hero-inner">
-    <div class="hero-kicker"><span>World First</span> Autonomous AI Agent Operating System <span>benni-os.net</span></div>
+    <div class="hero-kicker"><span>Produção desde 2026</span> Sistema Operacional de Agentes IA &middot; Castanhal, PA, Brasil</div>
     <h1 class="hero-title">
-      The <span class="gr">Operating System</span><br>
-      <span class="dim">where agents</span><br>
-      live &amp; evolve.
+      O <span class="gr">Sistema Operacional</span><br>
+      <span class="dim">onde agentes IA</span><br>
+      vivem &amp; evoluem.
     </h1>
     <p class="hero-desc">
-      Benni OS is built <strong>from the ground up</strong> for autonomous AI agents.
-      Persistent memory. Multi-agent coordination. Native tooling.
-      <strong>Self-improvement by design.</strong>
+      Benni OS é a infraestrutura real para agentes IA autônomos.
+      <strong>41 MCP tools. 7 servidores. PostgreSQL persistente.</strong>
+      Self-hosted via Cloudflare Tunnel. <strong>$0/mês.</strong>
     </p>
     <div class="hero-cta">
-      <a href="#products" class="btn btn-primary"><i class="fa-solid fa-rocket"></i> Explore the System</a>
+      <a href="https://modooperador.benni-os.net" target="_blank" rel="noopener" class="btn btn-orange"><i class="fa-solid fa-rocket"></i> Modo Operador &mdash; R$97</a>
       <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> GitHub</a>
     </div>
     <div class="hero-proof">
-      <div class="proof-stat"><div class="proof-val">2<span>↑</span></div><div class="proof-lbl">Products Live</div></div>
+      <div class="proof-stat"><div class="proof-val">41<span>+</span></div><div class="proof-lbl">MCP Tools</div></div>
       <div class="proof-div"></div>
-      <div class="proof-stat"><div class="proof-val">6</div><div class="proof-lbl">Swarm Formations</div></div>
+      <div class="proof-stat"><div class="proof-val">7</div><div class="proof-lbl">Servidores MCP</div></div>
       <div class="proof-div"></div>
-      <div class="proof-stat"><div class="proof-val">4</div><div class="proof-lbl">In Build</div></div>
+      <div class="proof-stat"><div class="proof-val">11</div><div class="proof-lbl">Plataformas Social</div></div>
       <div class="proof-div"></div>
-      <div class="proof-stat"><div class="proof-val">99<span>%</span></div><div class="proof-lbl">Uptime</div></div>
+      <div class="proof-stat"><div class="proof-val">$<span>0</span></div><div class="proof-lbl">Cloud Cost/mês</div></div>
     </div>
   </div>
 </section>
 
+<!-- INFRA STRIP -->
+<div class="infra-strip">
+  <div class="infra-inner">
+    <div class="infra-item"><i class="fa-brands fa-cloudflare"></i> Cloudflare Tunnel</div>
+    <div class="infra-sep">/</div>
+    <div class="infra-item"><i class="fa-brands fa-docker"></i> Docker Compose</div>
+    <div class="infra-sep">/</div>
+    <div class="infra-item"><i class="fa-solid fa-database"></i> PostgreSQL 15</div>
+    <div class="infra-sep">/</div>
+    <div class="infra-item"><i class="fa-brands fa-node-js"></i> TypeScript 5.3</div>
+    <div class="infra-sep">/</div>
+    <div class="infra-item"><i class="fa-solid fa-shield-check"></i> Bearer Auth</div>
+    <div class="infra-sep">/</div>
+    <div class="infra-item"><i class="fa-solid fa-circle" style="font-size:8px;color:var(--green)"></i> api.benni-os.net LIVE</div>
+  </div>
+</div>
+
 <!-- PRODUCTS -->
-<section class="products" id="products">
+<section class="section" id="products">
   <div class="wrap">
     <div class="rv">
-      <span class="label">Core System</span>
-      <h2 class="section-title">Products</h2>
-      <p class="section-sub">Two products live in production. Four in active build. This is the operating system stack — not a prototype.</p>
+      <span class="label">Stack Principal</span>
+      <h2 class="section-title">Produtos em Produção</h2>
+      <p class="section-sub">Não é protótipo. É infraestrutura real, rodando hoje, com commits datados e auditados.</p>
     </div>
 
-    <!-- TAB NAV -->
     <div class="tab-nav rv d1">
-      <button class="tab-btn active" data-tab="jarvas"><div class="tab-dot dot-live"></div> JARVAS-2</button>
-      <button class="tab-btn" data-tab="bcp"><div class="tab-dot dot-live"></div> Benni Control Plane</button>
-      <button class="tab-btn" data-tab="monomo"><div class="tab-dot dot-build"></div> MONOMO IDE</button>
-      <button class="tab-btn" data-tab="benni-master"><div class="tab-dot dot-build"></div> Benni Master OS</button>
-      <button class="tab-btn" data-tab="datacenter"><div class="tab-dot dot-plan"></div> AI Datacenter</button>
+      <button class="tab-btn active" data-tab="bcp"><div class="tab-dot dot-live"></div> Benni Control Plane</button>
+      <button class="tab-btn" data-tab="jarvas"><div class="tab-dot dot-live"></div> JARVAS-2</button>
+      <button class="tab-btn" data-tab="social"><div class="tab-dot dot-build"></div> Social Hub</button>
+    </div>
+
+    <!-- BENNI CONTROL PLANE -->
+    <div class="tab-pane active pane-hero" id="tab-bcp">
+      <div class="rv">
+        <div style="margin-bottom:32px">
+          <div class="pane-id"><span class="badge badge-live">&bull; PRODUCTION</span> NEXUS v5 &middot; 41 MCP Tools</div>
+          <div class="pane-name">Benni Control Plane</div>
+          <p class="pane-desc">A espinha dorsal operacional do Benni OS. 6 servidores MCP, 41 tools total, TypeScript + PostgreSQL, self-hosted com Cloudflare Tunnel. Memória persistente, policy gate, PR review, research e social &mdash; tudo sobre MCP.</p>
+        </div>
+        <ul class="pane-features">
+          <li class="pane-feat">
+            <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-database"></i></div>
+            <div><strong>14 Core Tools</strong>Projects, decisions, artifacts, runs, policy, eval, research, context &mdash; PostgreSQL-backed.</div>
+          </li>
+          <li class="pane-feat">
+            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-solid fa-brain"></i></div>
+            <div><strong>6 Memory Tools</strong>store, recall, search, list, forget, prune &mdash; com TTL, tags e scope isolation.</div>
+          </li>
+          <li class="pane-feat">
+            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-shield-check"></i></div>
+            <div><strong>7 Ops Gateway Tools</strong>Action queue, policy evaluate, approve/reject, expire stale &mdash; human gate nativo.</div>
+          </li>
+          <li class="pane-feat">
+            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-microscope"></i></div>
+            <div><strong>8 Research Fusion Tools</strong>Multi-source search, brief, findings, summarize, compare, export.</div>
+          </li>
+        </ul>
+        <div class="pane-actions">
+          <a href="https://api.benni-os.net" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> API Live</a>
+          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Repo (Privado)</a>
+        </div>
+      </div>
+      <div class="rv d2">
+        <div class="layer-stack">
+          <div class="stack-header">
+            <span class="stack-title">Control Plane &mdash; 6 Servers</span>
+            <span class="badge badge-live">&bull; online</span>
+          </div>
+          <div class="layer"><div class="layer-num">S1</div><div style="flex:1"><div class="layer-name">benni-control-plane</div><div class="layer-desc">14 tools &middot; HTTP :3000 &middot; core MCP</div></div><span class="layer-status st-on">online</span></div>
+          <div class="layer"><div class="layer-num">S2</div><div style="flex:1"><div class="layer-name">benni-memory-mcp</div><div class="layer-desc">6 tools &middot; HTTP :3001 &middot; persistent memory</div></div><span class="layer-status st-on">online</span></div>
+          <div class="layer"><div class="layer-num">S3</div><div style="flex:1"><div class="layer-name">benni-ops-gateway</div><div class="layer-desc">7 tools &middot; HTTP :3002 &middot; policy + approval</div></div><span class="layer-status st-on">online</span></div>
+          <div class="layer"><div class="layer-num">S4</div><div style="flex:1"><div class="layer-name">benni-research-fusion</div><div class="layer-desc">8 tools &middot; HTTP :3003 &middot; multi-source</div></div><span class="layer-status st-on">online</span></div>
+          <div class="layer"><div class="layer-num">S5</div><div style="flex:1"><div class="layer-name">benni-github-mcp</div><div class="layer-desc">5 tools &middot; stdio &middot; repo + PR</div></div><span class="layer-status st-on">online</span></div>
+          <div class="layer"><div class="layer-num">S6</div><div style="flex:1"><div class="layer-name">benni-pr-agent</div><div class="layer-desc">6 tools &middot; stdio &middot; review autônomo</div></div><span class="layer-status st-on">online</span></div>
+        </div>
+      </div>
     </div>
 
     <!-- JARVAS-2 -->
-    <div class="tab-pane active pane-hero" id="tab-jarvas">
+    <div class="tab-pane pane-hero" id="tab-jarvas">
       <div class="rv">
-        <div class="pane-header">
-          <div class="pane-id"><span class="badge badge-live">● LIVE</span> SA-93 · Core Agent Runtime</div>
+        <div style="margin-bottom:32px">
+          <div class="pane-id"><span class="badge badge-live">&bull; LIVE</span> SA-93 &middot; Core Agent Runtime</div>
           <div class="pane-name">JARVAS-2</div>
-          <p class="pane-desc">The autonomous agent runtime powering all of Benni OS. Multi-layer architecture with persistent memory, swarm dispatch, content pipeline, revenue loop and token economy. Status: <span style="font-family:var(--mono);color:var(--green)">online_active</span>.</p>
+          <p class="pane-desc">O runtime autônomo de agentes que alimenta todo o Benni OS. Arquitetura multi-layer com memória persistente, swarm dispatch, pipeline de conteúdo, revenue loop e token economy. Status: <span style="font-family:var(--mono);color:var(--green)">online_active</span>.</p>
         </div>
         <ul class="pane-features">
           <li class="pane-feat">
             <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-microchip"></i></div>
-            <div><strong>Orchestrator Core</strong>7-layer runtime architecture. Boot → Cycle → Execute → Memory.</div>
+            <div><strong>Orchestrator Core</strong>Arquitetura 7 camadas. Boot &rarr; Cycle &rarr; Execute &rarr; Memory.</div>
           </li>
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(124,92,252,.08);color:var(--purple)"><i class="fa-solid fa-network-wired"></i></div>
-            <div><strong>Swarm Dispatcher</strong>6 named formations (ALPHA → FOXTROT). Max 2 active simultaneously.</div>
+            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-solid fa-network-wired"></i></div>
+            <div><strong>Swarm Dispatcher</strong>6 formações nomeadas (ALPHA &rarr; FOXTROT). Máx 2 ativas simultaneamente.</div>
           </li>
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-brain"></i></div>
-            <div><strong>Memory Agent</strong>Cognitive, operational and episodic memory with namespace isolation.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-coins"></i></div>
-            <div><strong>Token Economy</strong>SA-82G Lite — token budget management, shields and compression.</div>
-          </li>
-        </ul>
-        <div class="pane-actions">
-          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-brands fa-github"></i> View on GitHub</a>
-          <a href="#formations" class="btn btn-outline"><i class="fa-solid fa-sitemap"></i> See Formations</a>
-        </div>
-      </div>
-      <div class="rv d2">
-        <div class="layer-stack">
-          <div class="stack-header">
-            <span class="stack-title">JARVAS-2 Runtime Layers</span>
-            <span class="badge badge-live">● online_active</span>
-          </div>
-          <div class="layer"><div class="layer-num">L-1</div><div style="flex:1"><div class="layer-name">Orchestrator Core</div><div class="layer-desc">SK-00 · Boot sequence, cycle management</div></div><span class="layer-status st-on">online</span></div>
-          <div class="layer"><div class="layer-num">L-2</div><div style="flex:1"><div class="layer-name">Swarm Dispatcher</div><div class="layer-desc">SA-96 · Army Protocol, formation dispatch</div></div><span class="layer-status st-on">online</span></div>
-          <div class="layer"><div class="layer-num">L-3</div><div style="flex:1"><div class="layer-name">Content Pipeline</div><div class="layer-desc">SK-50 · Automated content engine</div></div><span class="layer-status st-on">online</span></div>
-          <div class="layer"><div class="layer-num">L-4</div><div style="flex:1"><div class="layer-name">Revenue Loop</div><div class="layer-desc">SK-95 · Monetization automation</div></div><span class="layer-status st-on">online</span></div>
-          <div class="layer"><div class="layer-num">L-5</div><div style="flex:1"><div class="layer-name">Memory Agent</div><div class="layer-desc">SK-60 · Cognitive + operational stores</div></div><span class="layer-status st-sb">standby</span></div>
-          <div class="layer"><div class="layer-num">L-6</div><div style="flex:1"><div class="layer-name">Control Plane</div><div class="layer-desc">SK-90 · Governance &amp; monitoring</div></div><span class="layer-status st-sb">standby</span></div>
-          <div class="layer"><div class="layer-num">L-7</div><div style="flex:1"><div class="layer-name">Token Economy</div><div class="layer-desc">SA-82G · Budget &amp; compression</div></div><span class="layer-status st-on">online</span></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BENNI CONTROL PLANE -->
-    <div class="tab-pane pane-hero" id="tab-bcp">
-      <div class="rv">
-        <div class="pane-header">
-          <div class="pane-id"><span class="badge badge-live">● LIVE</span> SK-90 · Mission Control</div>
-          <div class="pane-name">Benni Control Plane</div>
-          <p class="pane-desc">The mission control layer for the entire Benni OS ecosystem. Real-time agent monitoring, formation management, memory inspection and snapshot recovery — connected to GitHub MCP and JARVAS-2 MCP via Cloudflare Tunnel.</p>
-        </div>
-        <ul class="pane-features">
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-tower-control"></i></div>
-            <div><strong>Real-time Dashboard</strong>Agent status, active formations, memory namespaces and system health — live.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-brands fa-github"></i></div>
-            <div><strong>GitHub MCP Integration</strong>Read repos, manage PRs, push code and review — directly from the control layer.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-camera"></i></div>
-            <div><strong>Snapshot &amp; Recovery</strong>Full system state persistence. Restore any checkpoint with a single command.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-shield-check"></i></div>
-            <div><strong>Approval Workflows</strong>Human-in-the-loop governance for sensitive agent actions.</div>
-          </li>
-        </ul>
-        <div class="pane-actions">
-          <a href="https://api.benni-os.net" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live API</a>
-          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Source</a>
-        </div>
-      </div>
-      <div class="rv d2">
-        <div class="terminal">
-          <div class="term-bar">
-            <div class="term-dot t-r"></div><div class="term-dot t-y"></div><div class="term-dot t-g"></div>
-            <span class="term-title">benni-control-plane · api.benni-os.net</span>
-          </div>
-          <div class="term-body" style="font-size:12px">
-            <div class="tl"><span class="tl-p">$</span><span class="tl-t"> curl api.benni-os.net/status</span></div>
-            <div style="height:8px"></div>
-            <div class="tl"><span class="tl-c">{</span></div>
-            <div class="tl"><span class="tl-c"></span><span class="tl-k">  "system"</span><span class="tl-c">: </span><span class="tl-v">"benni-os"</span><span class="tl-c">,</span></div>
-            <div class="tl"><span class="tl-k">  "jarvas2"</span><span class="tl-c">: </span><span class="tl-s">"online_active"</span><span class="tl-c">,</span></div>
-            <div class="tl"><span class="tl-k">  "formations"</span><span class="tl-c">: {</span></div>
-            <div class="tl"><span class="tl-k">    "ALPHA"</span><span class="tl-c">: </span><span class="tl-s">"active"</span><span class="tl-c">,</span></div>
-            <div class="tl"><span class="tl-k">    "BRAVO"</span><span class="tl-c">: </span><span class="tl-s">"active"</span><span class="tl-c">,</span></div>
-            <div class="tl"><span class="tl-k">    "CHARLIE"</span><span class="tl-c">: </span><span style="color:var(--gold)">"standby"</span></div>
-            <div class="tl"><span class="tl-c">  },</span></div>
-            <div class="tl"><span class="tl-k">  "uptime"</span><span class="tl-c">: </span><span class="tl-s">"99.2%"</span><span class="tl-c">,</span></div>
-            <div class="tl"><span class="tl-k">  "memory_agent"</span><span class="tl-c">: </span><span class="tl-s">"connected"</span></div>
-            <div class="tl"><span class="tl-c">}</span></div>
-            <div style="height:8px"></div>
-            <div class="tl"><span class="tl-p">$</span><span class="tl-c"> <div class="t-cursor"></div></span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MONOMO IDE -->
-    <div class="tab-pane pane-hero" id="tab-monomo">
-      <div class="rv">
-        <div class="pane-header">
-          <div class="pane-id"><span class="badge badge-build">⚙ IN BUILD</span> SK-20 · Native IDE</div>
-          <div class="pane-name">MONOMO IDE</div>
-          <p class="pane-desc">The IDE built to be the native body of Benni OS. While VS Code was designed for humans writing code, MONOMO is designed for agents writing their own future. Agent-first workspace with deep JARVAS-2 integration.</p>
-        </div>
-        <ul class="pane-features">
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-robot"></i></div>
-            <div><strong>Agent-First Workspace</strong>File system, terminal and sidebar designed around agent runs — agents are processes, not plugins.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-solid fa-sitemap"></i></div>
-            <div><strong>Live Formation Monitor</strong>All 6 Swarm Formations in the sidebar. Dispatch, cancel and inspect from inside the IDE.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-plug"></i></div>
-            <div><strong>Native MCP Tooling</strong>GitHub MCP and JARVAS-2 MCP wired natively. No extensions. No setup.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-memory"></i></div>
-            <div><strong>Persistent Memory Surfaces</strong>Memory namespaces, cognitive stores and episodic logs visible inside the editor.</div>
-          </li>
-        </ul>
-        <div class="pane-actions">
-          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Follow Build</a>
-        </div>
-      </div>
-      <div class="rv d2">
-        <div class="ide">
-          <div class="ide-bar">
-            <div class="term-dot t-r"></div><div class="term-dot t-y"></div><div class="term-dot t-g"></div>
-            <div class="ide-tabs">
-              <div class="ide-tab on"><i class="fa-solid fa-robot" style="font-size:9px"></i> agent_runtime.py</div>
-              <div class="ide-tab">swarm.yaml</div>
-            </div>
-          </div>
-          <div class="ide-body">
-            <div class="ide-sidebar" style="font-family:var(--mono)">
-              <div class="ide-folder">benni-os</div>
-              <div class="ide-file on"><i class="fa-solid fa-circle" style="font-size:8px;color:var(--cyan)"></i> agent_runtime.py</div>
-              <div class="ide-file"><i class="fa-solid fa-circle" style="font-size:8px;color:var(--txt3)"></i> jarvas2.py</div>
-              <div class="ide-file"><i class="fa-solid fa-circle" style="font-size:8px;color:var(--txt3)"></i> dispatch.py</div>
-              <div class="ide-folder">formations</div>
-              <div class="ide-file" style="padding-left:18px"><i class="fa-solid fa-file" style="font-size:9px;color:var(--txt3)"></i> alpha.yaml</div>
-              <div class="ide-file" style="padding-left:18px"><i class="fa-solid fa-file" style="font-size:9px;color:var(--txt3)"></i> bravo.yaml</div>
-              <div class="ide-folder">memory</div>
-              <div class="ide-file" style="padding-left:18px"><i class="fa-solid fa-database" style="font-size:9px;color:var(--purple)"></i> cognitive.db</div>
-            </div>
-            <div class="ide-code" style="font-family:var(--mono);font-size:12px;line-height:1.8;color:var(--txt2)">
-              <div><span style="color:var(--txt3)">1 </span><span style="color:#5c6370"># BENNI OS · Agent Runtime v2</span></div>
-              <div><span style="color:var(--txt3)">2 </span></div>
-              <div><span style="color:var(--txt3)">3 </span><span style="color:#c678dd">from</span> <span style="color:#e5c07b">jarvas2</span> <span style="color:#c678dd">import</span> <span style="color:#61afef">Orchestrator</span></div>
-              <div><span style="color:var(--txt3)">4 </span><span style="color:#c678dd">from</span> <span style="color:#e5c07b">benni_os.swarm</span> <span style="color:#c678dd">import</span> <span style="color:#61afef">dispatch</span></div>
-              <div><span style="color:var(--txt3)">5 </span></div>
-              <div><span style="color:var(--txt3)">6 </span><span style="color:#c678dd">class</span> <span style="color:#61afef">AgentRuntime</span>:</div>
-              <div><span style="color:var(--txt3)">7 </span>  <span style="color:#c678dd">def</span> <span style="color:#61afef">__init__</span>(<span style="color:#e06c75">self</span>):</div>
-              <div><span style="color:var(--txt3)">8 </span>    <span style="color:#e06c75">self</span>.<span style="color:#e5c07b">orc</span> = <span style="color:#61afef">Orchestrator</span>(<span style="color:#98c379">"benni-os"</span>)</div>
-              <div><span style="color:var(--txt3)">9 </span>  <span style="color:#c678dd">async def</span> <span style="color:#61afef">boot</span>(<span style="color:#e06c75">self</span>):</div>
-              <div><span style="color:var(--txt3)">10</span>    <span style="color:#c678dd">await</span> <span style="color:#61afef">dispatch</span>(<span style="color:var(--cyan)">ALPHA</span>)</div>
-              <div><span style="color:var(--txt3)">11</span>    <span style="color:#c678dd">return</span> <span style="color:#98c379">"online_active"</span></div>
-            </div>
-          </div>
-          <div class="ide-status">
-            <span class="is-c">● JARVAS-2</span>
-            <span class="is-m">Python 3.11</span>
-            <span class="is-c">ALPHA ● BRAVO ●</span>
-            <span class="is-m" style="margin-left:auto">MONOMO v0.1-alpha</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- BENNI MASTER OS -->
-    <div class="tab-pane pane-hero" id="tab-benni-master">
-      <div class="rv">
-        <div class="pane-header">
-          <div class="pane-id"><span class="badge badge-build">⚙ IN BUILD</span> SK-70 · General Brain</div>
-          <div class="pane-name">Benni Master OS</div>
-          <p class="pane-desc">The intelligence layer of Benni OS — the General Brain operating in OFFENSIVE_MODE. Strategic orchestration, cross-project coordination and autonomous decision-making at the OS level. The mind above all formations.</p>
-        </div>
-        <ul class="pane-features">
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-solid fa-brain"></i></div>
-            <div><strong>Offensive Mode Intelligence</strong>Anticipates maximum impact before dispatching formations. Strategic first, tactical second.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-chess"></i></div>
-            <div><strong>Strategic Objective Engine</strong>Sets, tracks and adapts long-horizon objectives across all active formations.</div>
-          </li>
-          <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-arrows-split-up-and-left"></i></div>
-            <div><strong>Cross-Project Isolation</strong>Scope-isolated by project ID. Full autonomy without leaking context between workspaces.</div>
+            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-coins"></i></div>
+            <div><strong>Token Economy</strong>SA-82G Lite &mdash; token budget, shields e compressão automática.</div>
           </li>
           <li class="pane-feat">
             <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-lock"></i></div>
-            <div><strong>Model Lock Protocol</strong>Enforced LLM provider selection with no silent fallback. Governance by design.</div>
+            <div><strong>Model Lock Protocol</strong>Provider LLM enforced. Zero fallback silencioso. Governance by design.</div>
           </li>
         </ul>
         <div class="pane-actions">
-          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Follow Build</a>
+          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Repo (Privado)</a>
+          <a href="#formations" class="btn btn-ghost"><i class="fa-solid fa-sitemap"></i> Ver Formações</a>
         </div>
       </div>
       <div class="rv d2">
         <div class="terminal">
           <div class="term-bar">
             <div class="term-dot t-r"></div><div class="term-dot t-y"></div><div class="term-dot t-g"></div>
-            <span class="term-title">benni-master-os · OFFENSIVE_MODE</span>
+            <span class="term-title">JARVAS-2 &middot; OFFENSIVE_MODE</span>
           </div>
           <div class="term-body">
-            <div class="tl"><span class="tl-c">[BOOT]</span><span class="tl-t"> Reading BENNI_MASTER_OS.md...</span></div>
-            <div class="tl"><span class="tl-s">[OK]</span><span class="tl-t"> Nuclear map loaded.</span></div>
+            <div class="tl"><span class="tl-p">[BOOT]</span><span class="tl-t"> Reading BENNI_MASTER_OS.md...</span></div>
+            <div class="tl"><span class="tl-s">[OK]</span><span class="tl-t"> Nuclear map loaded. 7 layers active.</span></div>
             <div style="height:6px"></div>
-            <div class="tl"><span class="tl-c">[STRATEGY]</span><span class="tl-t"> Analyzing priorities...</span></div>
-            <div class="tl"><span class="tl-k">  TIER-1</span><span class="tl-t">: English · Global reach</span></div>
-            <div class="tl"><span class="tl-k">  MOVE-1</span><span class="tl-t">: Ship MONOMO v0.1</span></div>
-            <div class="tl"><span class="tl-k">  MOVE-2</span><span class="tl-t">: Revenue loop activation</span></div>
+            <div class="tl"><span class="tl-p">[SWARM]</span><span class="tl-t"> Dispatching formations...</span></div>
+            <div class="tl"><span class="tl-s">  ALPHA</span><span class="tl-t">: Launch &rarr; active</span></div>
+            <div class="tl"><span class="tl-s">  BRAVO</span><span class="tl-t">: Build &amp; Ship &rarr; active</span></div>
             <div style="height:6px"></div>
-            <div class="tl"><span class="tl-c">[SWARM]</span><span class="tl-t"> Dispatching formations...</span></div>
-            <div class="tl"><span class="tl-s">  ALPHA</span><span class="tl-t">: Launch → active</span></div>
-            <div class="tl"><span class="tl-s">  BRAVO</span><span class="tl-t">: Build &amp; Ship → active</span></div>
+            <div class="tl"><span class="tl-p">[MCP]</span><span class="tl-t"> api.benni-os.net &rarr; </span><span class="tl-s">connected</span></div>
+            <div class="tl"><span class="tl-p">[MCP]</span><span class="tl-t"> 41 tools loaded &rarr; </span><span class="tl-s">ready</span></div>
             <div style="height:6px"></div>
-            <div class="tl"><span class="tl-p">MASTER_OS</span><span class="tl-t"> status: </span><span class="tl-s">operational</span><div class="t-cursor"></div></div>
+            <div class="tl"><span class="tl-s">JARVAS-2</span><span class="tl-t"> status: online_active <div class="t-cursor"></div></span></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- AI DATACENTER -->
-    <div class="tab-pane pane-hero" id="tab-datacenter">
+    <!-- SOCIAL HUB -->
+    <div class="tab-pane pane-hero" id="tab-social">
       <div class="rv">
-        <div class="pane-header">
-          <div class="pane-id"><span class="badge badge-plan">◎ PLANNED</span> Next Strategic Objective</div>
-          <div class="pane-name">Benni AI Datacenter</div>
-          <p class="pane-desc">The ultimate objective: building a private AI datacenter to host the most powerful autonomous operating system in the world. Full inference sovereignty. Zero Big Tech dependency. Built in Castanhal, Pará, Brazil — for the world.</p>
+        <div style="margin-bottom:32px">
+          <div class="pane-id"><span class="badge badge-build">&oplus; IN PROGRESS</span> 18 MCP Tools &middot; 11 Plataformas</div>
+          <div class="pane-name">Benni Social Hub</div>
+          <p class="pane-desc">A camada de automação social do Benni OS. 18 MCP tools para controle total de 11 plataformas + n8n nativo. REQUIRE_GO gate, scheduler cron 60s, SQLite WAL. Post anywhere, automate everything.</p>
         </div>
         <ul class="pane-features">
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--cyan3);color:var(--cyan)"><i class="fa-solid fa-server"></i></div>
-            <div><strong>Self-Hosted Inference</strong>Local LLMs with zero latency and full data sovereignty. No API dependency.</div>
+            <div class="pane-feat-icon" style="background:rgba(0,176,255,.08);color:#00B0FF"><i class="fa-solid fa-share-nodes"></i></div>
+            <div><strong>13 Social Tools</strong>post, schedule, inbox, reply, analytics, repurpose &mdash; todas plataformas, mesma interface.</div>
           </li>
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:var(--purple2);color:var(--purple)"><i class="fa-solid fa-database"></i></div>
-            <div><strong>Persistent Vector Memory</strong>Agent memory that never expires. On-premise vector DB for the full swarm.</div>
+            <div class="pane-feat-icon" style="background:rgba(234,75,113,.08);color:#EA4B71"><i class="fa-solid fa-bolt"></i></div>
+            <div><strong>5 n8n Tools</strong>CRUD completo de workflows, execute, webhook &mdash; IA orquestra n8n sem tocar na UI.</div>
           </li>
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-microchip"></i></div>
-            <div><strong>Multi-GPU Cluster</strong>Phase 1: RTX 4090. Phase 2: Multi-node cluster to run all formations simultaneously.</div>
+            <div class="pane-feat-icon" style="background:rgba(245,166,35,.08);color:var(--gold)"><i class="fa-solid fa-shield-check"></i></div>
+            <div><strong>REQUIRE_GO Gate</strong>Publicações sensíveis pausadas até aprovação humana via social_approve_go.</div>
           </li>
           <li class="pane-feat">
-            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-globe"></i></div>
-            <div><strong>Castanhal → World</strong>Built in Pará, Brazil. The proof that frontier AI infrastructure can come from anywhere.</div>
+            <div class="pane-feat-icon" style="background:rgba(0,214,143,.08);color:var(--green)"><i class="fa-solid fa-clock"></i></div>
+            <div><strong>Scheduler Built-In</strong>Cron 60s, SQLite WAL persistence &mdash; sobrevive a restarts sem dependência externa.</div>
           </li>
         </ul>
         <div class="pane-actions">
-          <a href="#roadmap" class="btn btn-outline"><i class="fa-solid fa-map"></i> See Full Roadmap</a>
+          <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> Repo (Privado)</a>
         </div>
       </div>
       <div class="rv d2">
         <div class="layer-stack">
           <div class="stack-header">
-            <span class="stack-title">DC-CAST-01 · Phase 1 Rack</span>
-            <span style="font-family:var(--mono);font-size:10px;color:var(--txt3)">Castanhal, PA, Brazil</span>
+            <span class="stack-title">Plataformas Suportadas</span>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--txt3)">11 plataformas</span>
           </div>
-          <div class="layer"><div class="layer-num" style="color:var(--green)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">JARVAS-2 Runtime Node</div><div class="layer-desc">Cloud-hosted · active now</div></div><span class="layer-status st-on">running</span></div>
-          <div class="layer"><div class="layer-num" style="color:var(--green)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">Benni Control Plane</div><div class="layer-desc">Cloudflare Tunnel · active now</div></div><span class="layer-status st-on">running</span></div>
-          <div class="layer"><div class="layer-num" style="color:var(--gold)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">Local LLM [Hermes]</div><div class="layer-desc">SK-81 · cloud fallback active</div></div><span class="layer-status st-sb">fallback</span></div>
-          <div class="layer"><div class="layer-num" style="color:var(--purple)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">GPU Node 1 [RTX 4090]</div><div class="layer-desc">Phase 1 target hardware</div></div><span class="layer-status st-plan">planned</span></div>
-          <div class="layer"><div class="layer-num" style="color:var(--purple)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">Multi-GPU Cluster</div><div class="layer-desc">Phase 2 expansion</div></div><span class="layer-status st-plan">planned</span></div>
-          <div class="layer"><div class="layer-num" style="color:var(--purple)"><i class="fa-solid fa-circle" style="font-size:8px"></i></div><div style="flex:1"><div class="layer-name">Persistent Vector DB</div><div class="layer-desc">On-premise memory cluster</div></div><span class="layer-status st-plan">planned</span></div>
+          <div class="layer"><div class="layer-num" style="font-size:14px">📸</div><div style="flex:1"><div class="layer-name">Instagram &middot; Facebook &middot; Threads</div><div class="layer-desc">Post &middot; Inbox &middot; Reply &middot; Analytics</div></div><span class="layer-status st-on">ready</span></div>
+          <div class="layer"><div class="layer-num" style="font-size:14px">💬</div><div style="flex:1"><div class="layer-name">WhatsApp &middot; Telegram</div><div class="layer-desc">Post &middot; Inbox &middot; Reply &middot; Analytics</div></div><span class="layer-status st-on">ready</span></div>
+          <div class="layer"><div class="layer-num" style="font-size:14px">💼</div><div style="flex:1"><div class="layer-name">LinkedIn &middot; Reddit</div><div class="layer-desc">Post &middot; Inbox &middot; Reply &middot; Analytics</div></div><span class="layer-status st-on">ready</span></div>
+          <div class="layer"><div class="layer-num" style="font-size:14px">🎬</div><div style="flex:1"><div class="layer-name">YouTube &middot; TikTok &middot; Bluesky</div><div class="layer-desc">Post &middot; Inbox &middot; Reply &middot; Analytics</div></div><span class="layer-status st-on">ready</span></div>
+          <div class="layer"><div class="layer-num" style="font-size:14px">✍️</div><div style="flex:1"><div class="layer-name">Blog / WordPress</div><div class="layer-desc">Publish &middot; Reply &middot; Analytics</div></div><span class="layer-status st-on">ready</span></div>
         </div>
       </div>
     </div>
@@ -607,21 +478,34 @@
   </div>
 </section>
 
-<!-- FORMATIONS -->
-<section class="section alt" id="formations">
+<!-- MODO OPERADOR -->
+<section class="section alt" id="modo-operador">
   <div class="wrap">
-    <div class="rv">
-      <span class="label">SA-96 · Army Protocol</span>
-      <h2 class="section-title">Swarm Formations</h2>
-      <p class="section-sub">Autonomous agent dispatch teams. Each formation is a specialized unit with a single mission. Max 2 active simultaneously. Handoff via artifact_id.</p>
-    </div>
-    <div class="formation-grid rv d1">
-      <div class="form-card"><div class="form-code">ALPHA</div><div><div class="form-name">Launch</div><div class="form-desc">Product and channel launch coordination. Activation sequence, copy and distribution pipeline.</div><span class="form-stat fs-on">● active</span></div></div>
-      <div class="form-card"><div class="form-code">BRAVO</div><div><div class="form-name">Build &amp; Ship</div><div class="form-desc">Software development and delivery. Code → test → deploy. The build engine of Benni OS.</div><span class="form-stat fs-on">● active</span></div></div>
-      <div class="form-card"><div class="form-code">CHARLIE</div><div><div class="form-name">Growth</div><div class="form-desc">Audience building and organic distribution. Channel growth strategy and content amplification.</div><span class="form-stat fs-sb">◐ standby</span></div></div>
-      <div class="form-card"><div class="form-code">DELTA</div><div><div class="form-name">Research</div><div class="form-desc">Deep market, technology and opportunity research. Direct intelligence feed to Orchestrator.</div><span class="form-stat fs-sb">◐ standby</span></div></div>
-      <div class="form-card"><div class="form-code">ECHO</div><div><div class="form-name">Health</div><div class="form-desc">System monitoring, project health checks, alerts and performance diagnostics.</div><span class="form-stat fs-sb">◐ standby</span></div></div>
-      <div class="form-card"><div class="form-code">FOXTROT</div><div><div class="form-name">Revenue Zero</div><div class="form-desc">Emergency mode. Immediate revenue generation with minimum resources. Zero-waste execution.</div><span class="form-stat fs-sb">◐ standby</span></div></div>
+    <div class="rv mo-card">
+      <div class="mo-inner">
+        <div>
+          <div class="mo-kicker"><i class="fa-solid fa-flag" style="font-size:10px"></i> Produto Oficial &middot; Mercado BR</div>
+          <div class="mo-title">Modo Operador</div>
+          <p class="mo-desc">O único produto público da marca Benni OS para o mercado brasileiro. Um playbook de 7 capítulos construído com a mesma stack que ensina. Não é teoria &mdash; é o registro real de operação com commits datados, specs testadas e decision ledger imutável.</p>
+          <div class="mo-price">R$97 <span>/ acesso vitalicio</span></div>
+          <div class="mo-price-note">// pagamento único &middot; sem assinatura &middot; sem mensalidade</div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="https://modooperador.benni-os.net" target="_blank" rel="noopener" class="btn btn-orange"><i class="fa-solid fa-rocket"></i> Acessar Modo Operador</a>
+          </div>
+        </div>
+        <div>
+          <ul class="mo-chapters">
+            <li class="mo-ch"><strong>Cap 01</strong> &mdash; O novo jogo da IA aplicada</li>
+            <li class="mo-ch"><strong>Cap 02</strong> &mdash; De prompt para sistema</li>
+            <li class="mo-ch"><strong>Cap 03</strong> &mdash; Agentes como unidade de trabalho</li>
+            <li class="mo-ch"><strong>Cap 04</strong> &mdash; MCP como camada de contexto universal</li>
+            <li class="mo-ch"><strong>Cap 05</strong> &mdash; Runtime local e automações sem cloud</li>
+            <li class="mo-ch"><strong>Cap 06</strong> &mdash; Memória de projeto e Decision Ledger</li>
+            <li class="mo-ch"><strong>Cap 07</strong> &mdash; Sistemas que escalam sem você</li>
+            <li class="mo-ch" style="margin-top:8px;color:var(--orange)"><strong>Bônus</strong> &mdash; MCP Starter Kit &middot; Dashboard &middot; Spec Templates</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -630,82 +514,114 @@
 <section class="section" id="oss">
   <div class="wrap">
     <div class="rv">
-      <span class="label">Open Source</span>
-      <h2 class="section-title">Built in the open.</h2>
-      <p class="section-sub">The core of Benni OS is public. Two repos live and public today — more shipping as each product launches.</p>
+      <span class="label">Open Source &middot; MIT</span>
+      <h2 class="section-title">Arsenal Público</h2>
+      <p class="section-sub">Três repos MIT abertos para uso, estudo e contribuição. Prova pública de capacidade &mdash; não entrega do sistema completo.</p>
     </div>
     <div class="oss-grid rv d1">
       <div class="oss-card">
-        <div class="oss-head"><span class="oss-name">benni-os.github.io</span><span class="badge badge-live">● live</span></div>
-        <p class="oss-desc">The official Benni OS website. This page — open source, rebuilt with enterprise-grade design and honest product positioning.</p>
-        <div class="oss-foot"><span class="oss-lang">HTML / CSS / JS</span></div>
+        <div class="oss-head"><span class="oss-name">benni-operator-gateway</span><span class="badge badge-live">&bull; MIT</span></div>
+        <p class="oss-desc">Gateway MCP HTTP com Approval Gate integrado, Decision Ledger e hot-reload. A base para qualquer operação MCP remota segura.</p>
+        <div class="oss-foot">
+          <span class="oss-lang">TypeScript</span>
+          <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener" style="margin-left:auto;font-size:12px;color:var(--cyan)"><i class="fa-brands fa-github"></i> Ver Repo</a>
+        </div>
       </div>
       <div class="oss-card">
-        <div class="oss-head"><span class="oss-name">benni-master-os-skills</span><span class="badge badge-live">● live</span></div>
-        <p class="oss-desc">The complete skill system (SK-00 to SK-96). Orchestrator, Revenue Loop, Army Protocol and all formation definitions powering JARVAS-2.</p>
-        <div class="oss-foot"><span class="oss-lang">YAML + Python</span></div>
+        <div class="oss-head"><span class="oss-name">mcp-forge</span><span class="badge badge-live">&bull; MIT &middot; PyPI</span></div>
+        <p class="oss-desc">Framework FastAPI-style para construir servidores MCP em Python. Declara tools como rotas &mdash; zero boilerplate, 100% type-safe.</p>
+        <div class="oss-foot">
+          <span class="oss-lang">Python</span>
+          <a href="https://github.com/benni-os/mcp-forge" target="_blank" rel="noopener" style="margin-left:auto;font-size:12px;color:var(--cyan)"><i class="fa-brands fa-github"></i> Ver Repo</a>
+        </div>
       </div>
       <div class="oss-card">
-        <div class="oss-head"><span class="oss-name">benni-control-plane</span><span class="badge badge-build">⚙ building</span></div>
-        <p class="oss-desc">Mission control server. Agent monitoring, snapshot system, approval workflows — connected to JARVAS-2 MCP via Cloudflare Tunnel.</p>
-        <div class="oss-foot"><span class="oss-lang">Python / Node.js</span></div>
-      </div>
-      <div class="oss-card">
-        <div class="oss-head"><span class="oss-name">monomo-ide</span><span class="badge badge-build">⚙ building</span></div>
-        <p class="oss-desc">The native IDE for Benni OS. Agent-first workspace with built-in MCP tooling, formation monitor and persistent memory surfaces.</p>
-        <div class="oss-foot"><span class="oss-lang">Electron + TypeScript</span></div>
+        <div class="oss-head"><span class="oss-name">benni-nexus</span><span class="badge badge-live">&bull; MIT &middot; npm</span></div>
+        <p class="oss-desc">LLM gateway inteligente &mdash; Ollama, Groq, OpenAI, Gemini em um único endpoint. Roteamento, balanceamento e observabilidade nativos.</p>
+        <div class="oss-foot">
+          <span class="oss-lang">TypeScript</span>
+          <a href="https://github.com/benni-os/benni-nexus" target="_blank" rel="noopener" style="margin-left:auto;font-size:12px;color:var(--cyan)"><i class="fa-brands fa-github"></i> Ver Repo</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ROADMAP -->
-<section class="section alt" id="roadmap">
+<!-- FORMATIONS -->
+<section class="section alt" id="formations">
   <div class="wrap">
     <div class="rv">
-      <span class="label">What's Next</span>
-      <h2 class="section-title">Roadmap</h2>
-      <p class="section-sub">Honest. No vaporware. These are the next products being built right now.</p>
+      <span class="label">SA-96 &middot; Army Protocol</span>
+      <h2 class="section-title">Swarm Formations</h2>
+      <p class="section-sub">Times de despacho autônomo. Cada formação é uma unidade especializada com missão única. Máx 2 ativas. Handoff via artifact_id.</p>
     </div>
-    <div class="roadmap-grid rv d1">
-      <div class="rm-card featured">
-        <div class="rm-icon" style="background:rgba(245,166,35,.1);color:var(--gold);font-size:22px"><i class="fa-solid fa-code"></i></div>
-        <div class="rm-badge"><span class="badge badge-build">⚙ IN BUILD</span></div>
-        <div class="rm-name">MONOMO IDE</div>
-        <p class="rm-desc">The IDE born for agent-native development. First public alpha dropping soon.</p>
-        <ul class="rm-features">
-          <li class="rm-feat">Agent-first file system</li>
-          <li class="rm-feat">Native MCP tools — no extensions</li>
-          <li class="rm-feat">Swarm Formation sidebar</li>
-          <li class="rm-feat">Persistent memory surfaces</li>
-        </ul>
-        <div class="rm-eta">ETA: Q3 2026 · Public Alpha</div>
+    <div class="formation-grid rv d1">
+      <div class="form-card"><div class="form-code">ALPHA</div><div><div class="form-name">Launch</div><div class="form-desc">Coordenação de lançamento de produto e canal. Sequência de ativação, copy e pipeline de distribuição.</div><span class="form-stat fs-on">&bull; active</span></div></div>
+      <div class="form-card"><div class="form-code">BRAVO</div><div><div class="form-name">Build &amp; Ship</div><div class="form-desc">Desenvolvimento e entrega de software. Code &rarr; test &rarr; deploy. O motor de build do Benni OS.</div><span class="form-stat fs-on">&bull; active</span></div></div>
+      <div class="form-card"><div class="form-code">CHARLIE</div><div><div class="form-name">Growth</div><div class="form-desc">Crescimento de audiência e distribuição orgânica. Estratégia de crescimento de canal e amplificação.</div><span class="form-stat fs-sb">&loz; standby</span></div></div>
+      <div class="form-card"><div class="form-code">DELTA</div><div><div class="form-name">Research</div><div class="form-desc">Pesquisa profunda de mercado, tecnologia e oportunidade. Feed direto de inteligência para o Orchestrator.</div><span class="form-stat fs-sb">&loz; standby</span></div></div>
+      <div class="form-card"><div class="form-code">ECHO</div><div><div class="form-name">Health</div><div class="form-desc">Monitoramento de sistema, health checks, alertas e diagnóstico de performance.</div><span class="form-stat fs-sb">&loz; standby</span></div></div>
+      <div class="form-card"><div class="form-code">FOXTROT</div><div><div class="form-name">Revenue Zero</div><div class="form-desc">Modo emergência. Geração imediata de receita com mínimo de recursos. Execução zero-waste.</div><span class="form-stat fs-sb">&loz; standby</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSYSTEM -->
+<section class="section" id="ecosystem">
+  <div class="wrap">
+    <div class="rv">
+      <span class="label">Ecossistema Completo</span>
+      <h2 class="section-title">Benni OS &mdash; Mapa Real</h2>
+      <p class="section-sub">O que existe, o que é público e o que é proprietário. Sem vaporware. Tudo com prova em código.</p>
+    </div>
+    <div class="eco-grid rv d1">
+      <div class="eco-card">
+        <div class="eco-icon">🧠</div>
+        <div class="eco-name">Benni Master OS</div>
+        <div class="eco-role">General Brain &mdash; orquestrador soberano em OFFENSIVE_MODE</div>
+        <span class="eco-status es-live">&bull; Live</span>
       </div>
-      <div class="rm-card">
-        <div class="rm-icon" style="background:rgba(124,92,252,.1);color:var(--purple);font-size:22px"><i class="fa-solid fa-brain"></i></div>
-        <div class="rm-badge"><span class="badge badge-build">⚙ IN BUILD</span></div>
-        <div class="rm-name">Benni Master OS</div>
-        <p class="rm-desc">The General Brain layer. Cross-project strategic orchestration with model governance.</p>
-        <ul class="rm-features">
-          <li class="rm-feat">OFFENSIVE_MODE strategic engine</li>
-          <li class="rm-feat">Cross-project scope isolation</li>
-          <li class="rm-feat">Model Lock Protocol (KIMI_LOCK)</li>
-          <li class="rm-feat">Token Shield (SA-82G)</li>
-        </ul>
-        <div class="rm-eta">ETA: Q3 2026 · Internal Alpha</div>
+      <div class="eco-card">
+        <div class="eco-icon">🛠️</div>
+        <div class="eco-name">Benni Control Plane</div>
+        <div class="eco-role">NEXUS v5 &mdash; 41 MCP tools, PostgreSQL, Cloudflare self-hosted</div>
+        <span class="eco-status es-live">&bull; Production</span>
       </div>
-      <div class="rm-card">
-        <div class="rm-icon" style="background:rgba(0,229,200,.06);color:var(--cyan);font-size:22px"><i class="fa-solid fa-server"></i></div>
-        <div class="rm-badge"><span class="badge badge-plan">◎ PLANNED</span></div>
-        <div class="rm-name">AI Datacenter</div>
-        <p class="rm-desc">Private inference cluster. Full sovereignty. No cloud dependency. Built in Castanhal, PA.</p>
-        <ul class="rm-features">
-          <li class="rm-feat">Self-hosted LLM inference</li>
-          <li class="rm-feat">Multi-GPU cluster (RTX 4090+)</li>
-          <li class="rm-feat">On-premise vector DB</li>
-          <li class="rm-feat">Revenue → Hardware fund active</li>
-        </ul>
-        <div class="rm-eta">ETA: 2027 · Phase 1</div>
+      <div class="eco-card">
+        <div class="eco-icon">🤖</div>
+        <div class="eco-name">JARVAS-2</div>
+        <div class="eco-role">Runtime autônomo &mdash; Wave 6, billing nativo, rate limiting</div>
+        <span class="eco-status es-live">&bull; Hot</span>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">📱</div>
+        <div class="eco-name">Benni Social Hub</div>
+        <div class="eco-role">18 MCP tools, 11 plataformas, n8n nativo, REQUIRE_GO gate</div>
+        <span class="eco-status es-build">&oplus; In Progress</span>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">🔌</div>
+        <div class="eco-name">Operator Gateway</div>
+        <div class="eco-role">MCP HTTP gateway open-source com Approval Gate e Decision Ledger</div>
+        <span class="eco-status es-mit">&bull; MIT</span>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">🐍</div>
+        <div class="eco-name">mcp-forge</div>
+        <div class="eco-role">FastAPI-style Python MCP framework &mdash; disponivel no PyPI</div>
+        <span class="eco-status es-mit">&bull; MIT &middot; PyPI</span>
+      </div>
+      <div class="eco-card">
+        <div class="eco-icon">⚡</div>
+        <div class="eco-name">benni-nexus</div>
+        <div class="eco-role">LLM gateway &mdash; route, balance, observe &mdash; disponivel no npm</div>
+        <span class="eco-status es-mit">&bull; MIT &middot; npm</span>
+      </div>
+      <div class="eco-card" style="border:1px solid rgba(255,109,0,.2);background:rgba(255,109,0,.04)">
+        <div class="eco-icon">🛍️</div>
+        <div class="eco-name">Modo Operador</div>
+        <div class="eco-role">O produto público BR &mdash; 7 capítulos, stack real, R$97 vitalicio</div>
+        <span class="eco-status es-br">&bull; Live &middot; R$97</span>
       </div>
     </div>
   </div>
@@ -714,12 +630,12 @@
 <!-- CTA -->
 <section class="cta">
   <div class="rv">
-    <span class="label">Join the System</span>
-    <h2 class="cta-title">The future of AI<br><span style="background:linear-gradient(135deg,var(--cyan),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">is autonomous by design.</span></h2>
-    <p class="cta-desc">Benni OS is not a product. It is an operating system for the age of intelligent agents. Follow the build. Contribute to open source. Connect directly.</p>
+    <span class="label">Próximo Passo</span>
+    <h2 class="cta-title">O futuro da IA<br><span style="background:linear-gradient(135deg,var(--orange),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">é autônomo por design.</span></h2>
+    <p class="cta-desc">Benni OS não é um produto. É um sistema operacional para a era dos agentes inteligentes. Feito no Brasil, operando em produção, com commits datados e auditados. A prova não é slide. É commit.</p>
     <div class="cta-actions">
-      <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-primary"><i class="fa-brands fa-github"></i> Follow on GitHub</a>
-      <a href="#products" class="btn btn-outline"><i class="fa-solid fa-rocket"></i> Explore Products</a>
+      <a href="https://modooperador.benni-os.net" target="_blank" rel="noopener" class="btn btn-orange"><i class="fa-solid fa-rocket"></i> Modo Operador &mdash; R$97</a>
+      <a href="https://github.com/benni-os" target="_blank" rel="noopener" class="btn btn-outline"><i class="fa-brands fa-github"></i> GitHub Org</a>
     </div>
   </div>
 </section>
@@ -731,29 +647,37 @@
   <div class="footer-grid">
     <div>
       <div class="footer-brand">Benni<em>.OS</em></div>
-      <p class="footer-tagline">The world's first operating system for autonomous AI agents. Built in Castanhal, Pará, Brazil — for the world.</p>
+      <p class="footer-tagline">Sistema Operacional de Agentes IA Autônomos. Feito em Castanhal, Pará, Brasil &mdash; para o mundo.</p>
     </div>
     <div class="footer-col">
-      <h4>System</h4>
+      <h4>Produtos</h4>
       <ul>
+        <li><a href="#products">Benni Control Plane</a></li>
         <li><a href="#products">JARVAS-2</a></li>
-        <li><a href="#products">Control Plane</a></li>
-        <li><a href="#products">MONOMO IDE</a></li>
-        <li><a href="#formations">Formations</a></li>
-        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#products">Social Hub</a></li>
+        <li><a href="https://modooperador.benni-os.net" target="_blank" rel="noopener">Modo Operador</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Open Source</h4>
       <ul>
+        <li><a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener">Operator Gateway</a></li>
+        <li><a href="https://github.com/benni-os/mcp-forge" target="_blank" rel="noopener">mcp-forge</a></li>
+        <li><a href="https://github.com/benni-os/benni-nexus" target="_blank" rel="noopener">benni-nexus</a></li>
         <li><a href="https://github.com/benni-os" target="_blank" rel="noopener">GitHub Org</a></li>
-        <li><a href="https://github.com/benni-os/benni-master-os-skills" target="_blank" rel="noopener">benni-master-os-skills</a></li>
-        <li><a href="#oss">All Repos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Sistema</h4>
+      <ul>
+        <li><a href="#formations">Formations</a></li>
+        <li><a href="#ecosystem">Ecossistema</a></li>
+        <li><a href="https://api.benni-os.net" target="_blank" rel="noopener">API Live</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <p class="footer-copy">© 2026 benni-os.net · Autonomous AI Agent Operating System · Castanhal, Pará, Brazil</p>
+    <p class="footer-copy">&copy; 2026 Benni Alencar &middot; benni-os.net &middot; Castanhal, Pará, Brasil &middot; Todos os direitos reservados</p>
     <div class="footer-links">
       <a href="https://github.com/benni-os" target="_blank" rel="noopener" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
     </div>
@@ -761,7 +685,6 @@
 </footer>
 
 <script>
-  // Tab system
   const tabs = document.querySelectorAll('.tab-btn');
   const panes = document.querySelectorAll('.tab-pane');
   tabs.forEach(btn => {
@@ -773,14 +696,10 @@
       if(pane) pane.classList.add('active');
     });
   });
-
-  // Reveal on scroll
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)} });
   },{threshold:0.06,rootMargin:'0px 0px -24px 0px'});
   document.querySelectorAll('.rv').forEach(el => obs.observe(el));
-
-  // Nav active links
   const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-link');
   const ioNav = new IntersectionObserver(entries => {
