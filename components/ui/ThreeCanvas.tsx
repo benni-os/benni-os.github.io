@@ -14,46 +14,46 @@ export default function ThreeCanvas() {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000008, 0);
+    renderer.setClearColor(0x000000, 0);
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
     camera.position.set(0, 0, 8);
 
     /* =========================================================
-       BENNI OS MARVEL-STYLE HUMANOID AI ENTITY (CENTERED FULL-SCREEN)
+       BENNI OS MARVEL-STYLE HUMANOID AI ENTITY (FLOATING OVER VIDEOS & BACKGROUND)
        ========================================================= */
 
     const humanoidEntity = new THREE.Group();
     // Perfectly centered in the viewport
-    humanoidEntity.position.set(0, 0.2, 0);
+    humanoidEntity.position.set(0, 0.3, 0);
     scene.add(humanoidEntity);
 
     // 1. FOREHEAD CORE MIND GEM (Marvel-style AI Core - Center Top)
-    const coreGemGeo = new THREE.OctahedronGeometry(0.35, 2);
+    const coreGemGeo = new THREE.OctahedronGeometry(0.38, 2);
     const coreGemMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true });
     const coreMindGem = new THREE.Mesh(coreGemGeo, coreGemMat);
-    coreMindGem.position.set(0, 2.2, 0.6);
+    coreMindGem.position.set(0, 2.3, 0.6);
     humanoidEntity.add(coreMindGem);
 
     // Inner Gem Glow
-    const gemInnerGeo = new THREE.SphereGeometry(0.18, 16, 16);
+    const gemInnerGeo = new THREE.SphereGeometry(0.2, 16, 16);
     const gemInnerMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0 });
     const gemInner = new THREE.Mesh(gemInnerGeo, gemInnerMat);
-    gemInner.position.set(0, 2.2, 0.6);
+    gemInner.position.set(0, 2.3, 0.6);
     humanoidEntity.add(gemInner);
 
-    // 2. DUAL HUMANOID EYE ASSEMBLIES (Centered & Proportionate to Full Screen)
+    // 2. DUAL HUMANOID EYE ASSEMBLIES (Bright Neon Glowing Pupil & Iris)
     const leftEye = new THREE.Group();
-    leftEye.position.set(-2.0, 1.0, 0.5);
+    leftEye.position.set(-2.1, 1.1, 0.5);
     humanoidEntity.add(leftEye);
 
     const rightEye = new THREE.Group();
-    rightEye.position.set(2.0, 1.0, 0.5);
+    rightEye.position.set(2.1, 1.1, 0.5);
     humanoidEntity.add(rightEye);
 
     // Outer Eye Ring
-    const eyeRingGeo = new THREE.TorusGeometry(0.65, 0.04, 16, 80);
+    const eyeRingGeo = new THREE.TorusGeometry(0.68, 0.045, 16, 80);
     const eyeRingMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.95 });
 
     const leftOuter = new THREE.Mesh(eyeRingGeo, eyeRingMat);
@@ -62,8 +62,8 @@ export default function ThreeCanvas() {
     rightEye.add(rightOuter);
 
     // Inner Iris Ring
-    const irisGeo = new THREE.RingGeometry(0.22, 0.52, 32);
-    const irisMat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, side: THREE.DoubleSide, transparent: true, opacity: 0.85, wireframe: true });
+    const irisGeo = new THREE.RingGeometry(0.24, 0.54, 32);
+    const irisMat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, side: THREE.DoubleSide, transparent: true, opacity: 0.9, wireframe: true });
 
     const leftIris = new THREE.Mesh(irisGeo, irisMat);
     leftEye.add(leftIris);
@@ -71,76 +71,74 @@ export default function ThreeCanvas() {
     rightEye.add(rightIris);
 
     // Glowing Pupil Spheres
-    const pupilGeo = new THREE.SphereGeometry(0.18, 16, 16);
+    const pupilGeo = new THREE.SphereGeometry(0.2, 16, 16);
     const pupilMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0 });
 
     const leftPupil = new THREE.Mesh(pupilGeo, pupilMat);
-    leftPupil.position.z = 0.12;
+    leftPupil.position.z = 0.14;
     leftEye.add(leftPupil);
 
     const rightPupil = new THREE.Mesh(pupilGeo, pupilMat.clone());
-    rightPupil.position.z = 0.12;
+    rightPupil.position.z = 0.14;
     rightEye.add(rightPupil);
 
     // 3. HUMANOID SKULL & FACE CONTOUR (Grand Full-Screen Symmetry)
     const faceContourGeo = new THREE.BufferGeometry();
     const faceVertices = new Float32Array([
       // Forehead Arc
-      -2.0, 2.2, 0.5,     0, 2.8, 0.8,
-      0, 2.8, 0.8,        2.0, 2.2, 0.5,
+      -2.1, 2.3, 0.5,     0, 2.9, 0.8,
+      0, 2.9, 0.8,        2.1, 2.3, 0.5,
       // Temple Contour Lines
-      -2.0, 2.2, 0.5,    -3.2, 1.0, 0.0,
-      2.0, 2.2, 0.5,     3.2, 1.0, 0.0,
+      -2.1, 2.3, 0.5,    -3.3, 1.1, 0.0,
+      2.1, 2.3, 0.5,     3.3, 1.1, 0.0,
       // Nose Bridge
-      0, 2.2, 0.6,       0, 0.2, 0.9,
-      0, 0.2, 0.9,       0, -0.8, 0.6,
+      0, 2.3, 0.6,       0, 0.3, 0.9,
+      0, 0.3, 0.9,       0, -0.7, 0.6,
       // Cheekbone Structural Vectors
-      -2.0, 1.0, 0.5,    -3.4, 0.0, 0.0,
-      -3.4, 0.0, 0.0,     0, -0.8, 0.6,
-      2.0, 1.0, 0.5,     3.4, 0.0, 0.0,
-      3.4, 0.0, 0.0,      0, -0.8, 0.6,
+      -2.1, 1.1, 0.5,    -3.5, 0.1, 0.0,
+      -3.5, 0.1, 0.0,     0, -0.7, 0.6,
+      2.1, 1.1, 0.5,     3.5, 0.1, 0.0,
+      3.5, 0.1, 0.0,      0, -0.7, 0.6,
       // Jawline Contour
-      -3.4, 0.0, 0.0,     0, -2.5, 0.3,
-      3.4, 0.0, 0.0,      0, -2.5, 0.3,
+      -3.5, 0.1, 0.0,     0, -2.4, 0.3,
+      3.5, 0.1, 0.0,      0, -2.4, 0.3,
       // Neck & Collar Structure
-      -1.2, -2.5, 0.2,   -2.2, -3.8, -0.4,
-      1.2, -2.5, 0.2,    2.2, -3.8, -0.4,
-      0, -2.5, 0.3,       0, -4.0, -0.3
+      -1.2, -2.4, 0.2,   -2.2, -3.8, -0.4,
+      1.2, -2.4, 0.2,    2.2, -3.8, -0.4,
+      0, -2.4, 0.3,       0, -4.0, -0.3
     ]);
     faceContourGeo.setAttribute('position', new THREE.BufferAttribute(faceVertices, 3));
-    const faceContourMat = new THREE.LineBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.55 });
+    const faceContourMat = new THREE.LineBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.65 });
     const faceLines = new THREE.LineSegments(faceContourGeo, faceContourMat);
     humanoidEntity.add(faceLines);
 
     // Glowing Intersection Nodes on Face
     const nodePositions = new Float32Array([
-      -2.0, 2.2, 0.5,  0, 2.8, 0.8,  2.0, 2.2, 0.5,
-      0, 0.2, 0.9,  -3.4, 0.0, 0.0,  3.4, 0.0, 0.0,
-      0, -0.8, 0.6,  0, -2.5, 0.3,  0, 2.2, 0.6
+      -2.1, 2.3, 0.5,  0, 2.9, 0.8,  2.1, 2.3, 0.5,
+      0, 0.3, 0.9,  -3.5, 0.1, 0.0,  3.5, 0.1, 0.0,
+      0, -0.7, 0.6,  0, -2.4, 0.3,  0, 2.3, 0.6
     ]);
     const nodeGeo = new THREE.BufferGeometry();
     nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
-    const nodeMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.12, transparent: true, opacity: 0.95 });
+    const nodeMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.14, transparent: true, opacity: 0.95 });
     const faceNodes = new THREE.Points(nodeGeo, nodeMat);
     humanoidEntity.add(faceNodes);
 
     // 4. MARVEL-STYLE FLOATING HUD RINGS (Full Screen Orbit)
-    const hudRing1Geo = new THREE.TorusGeometry(4.2, 0.02, 16, 120);
-    const hudRing1Mat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.3, wireframe: true });
+    const hudRing1Geo = new THREE.TorusGeometry(4.3, 0.02, 16, 120);
+    const hudRing1Mat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.4, wireframe: true });
     const hudRing1 = new THREE.Mesh(hudRing1Geo, hudRing1Mat);
     hudRing1.rotation.x = Math.PI / 2.2;
     humanoidEntity.add(hudRing1);
 
-    const hudRing2Geo = new THREE.TorusGeometry(3.2, 0.015, 16, 100);
-    const hudRing2Mat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, transparent: true, opacity: 0.35, wireframe: true });
+    const hudRing2Geo = new THREE.TorusGeometry(3.3, 0.015, 16, 100);
+    const hudRing2Mat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, transparent: true, opacity: 0.45, wireframe: true });
     const hudRing2 = new THREE.Mesh(hudRing2Geo, hudRing2Mat);
     hudRing2.rotation.y = Math.PI / 3;
     humanoidEntity.add(hudRing2);
 
-    /* =========================================================
-       BACKGROUND PARTICLE FIELD & STAR MAP
-       ========================================================= */
-    const particleCount = 900;
+    /* BACKGROUND PARTICLE FIELD & STAR MAP */
+    const particleCount = 800;
     const pGeo = new THREE.BufferGeometry();
     const pPos = new Float32Array(particleCount * 3);
     const pOriginals = new Float32Array(particleCount * 3);
@@ -263,7 +261,7 @@ export default function ThreeCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-90"
+      className="fixed inset-0 z-[2] pointer-events-none opacity-90 mix-blend-screen"
     />
   );
 }
