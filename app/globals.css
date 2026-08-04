@@ -4,7 +4,7 @@
 
 :root {
   background-color: #000008;
-  color: #f0f0fa;
+  color: #ffffff;
 }
 
 html {
@@ -32,4 +32,5 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
