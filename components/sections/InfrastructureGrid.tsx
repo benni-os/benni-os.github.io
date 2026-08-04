@@ -35,8 +35,19 @@ const Sparkline = ({ color, delay }: { color: string, delay: number }) => (
 
 export default function InfrastructureGrid() {
   return (
-    <section className="relative w-full py-16 bg-bg border-b border-white/5">
-      <div className="container mx-auto px-6 max-w-6xl">
+    <section id="infrastructure" className="relative w-full py-20 bg-bg border-b border-white/5 overflow-hidden">
+      {/* VIDEO 3 — INFRASTRUCTURE DATA FLOW BACKGROUND */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover opacity-25 mix-blend-screen pointer-events-none"
+      >
+        <source src="videos/infra-bg.mp4" type="video/mp4" />
+      </video>
+
+      <div className="relative z-10 container mx-auto px-6 max-w-6xl">
         <div className="mb-10 text-left">
           <h2 className="text-3xl md:text-5xl font-black text-txt tracking-tight">
             Infrastructure <span className="text-c3">Telemetry</span>
@@ -54,7 +65,7 @@ export default function InfrastructureGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: metric.delay }}
-              className="p-6 rounded-xl bg-bg2 border border-white/5 shadow-inner"
+              className="p-6 rounded-xl bg-bg2/80 backdrop-blur-md border border-white/10 shadow-inner"
             >
               <div className="flex justify-between items-start mb-2">
                 <span className="font-mono text-xs text-txt2">{metric.label}</span>
