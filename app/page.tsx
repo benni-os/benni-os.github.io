@@ -3,6 +3,7 @@ import NavBar from '@/components/layout/NavBar';
 import HeroSection from '@/components/sections/HeroSection';
 import MarqueeStrip from '@/components/sections/MarqueeStrip';
 import HowItWorks from '@/components/sections/HowItWorks';
+import PlatformBento from '@/components/sections/PlatformBento';
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <HeroSection />
       <MarqueeStrip />
       <HowItWorks />
+      <PlatformBento />
     </main>
   );
 }
