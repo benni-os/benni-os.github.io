@@ -3,17 +3,33 @@
 @tailwind utilities;
 
 :root {
-  --font-inter: 'Inter', sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  background-color: #000008;
+  color: #f0f0fa;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 768px) {
+  html, a, button, input, [role="button"] {
+    cursor: none;
+  }
+}
+
+/* Ocultar barra de rolagem (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+/* Ocultar barra de rolagem (Firefox) */
+* {
+  scrollbar-width: none;
 }
 
 body {
-  background-color: #000008;
-  color: #f0f0fa;
-  font-family: var(--font-inter);
-}
-
-::selection {
-  background: rgba(0, 255, 224, 0.3);
-  color: #ffffff;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
