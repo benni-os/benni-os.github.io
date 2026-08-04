@@ -2,7 +2,7 @@
 'use client';
 
 import { motion, useScroll, useTransform } from 'framer-motion';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 const METRICS = [
   { label: "JARVAS-2 Latency", value: "12ms", status: "Optimal", color: "text-c3", chartColor: "#00ff88", delay: 0 },
@@ -35,35 +35,73 @@ const Sparkline = ({ color, delay }: { color: string, delay: number }) => (
 
 export default function InfrastructureGrid() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
   });
 
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.15]);
-  const videoY = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const videoY = useTransform(scrollYProgress, [0, 1], [-40, 40]);
+
+  useEffect(() => {
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let animId: number;
+
+    const handleMouseMove = (e: MouseEvent) => {
+      targetX = (e.clientX / window.innerWidth - 0.5) * 60;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 40;
+    };
+
+    const updateDroneCamera = () => {
+      mouseX += (targetX - mouseX) * 0.08;
+      mouseY += (targetY - mouseY) * 0.08;
+
+      if (videoWrapperRef.current) {
+        const rotY = mouseX * 0.12;
+        const rotX = -mouseY * 0.1;
+        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX}px, ${mouseY}px, 0px) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.15)`;
+      }
+
+      animId = requestAnimationFrame(updateDroneCamera);
+    };
+
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    animId = requestAnimationFrame(updateDroneCamera);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
 
   return (
-    <section ref={containerRef} id="infrastructure" className="relative w-full py-24 bg-bg border-b border-white/5 overflow-hidden isolation-isolate">
+    <section ref={containerRef} id="infrastructure" className="relative w-full py-24 bg-transparent border-b border-white/5 overflow-hidden isolation-isolate">
       
-      {/* MOTION UI: Interactive Background Video Layer */}
-      <motion.div 
-        style={{ scale: videoScale, y: videoY }}
-        className="absolute inset-0 w-full h-full pointer-events-none z-0"
+      {/* DRONE-STYLE INTERACTIVE PANNING VIDEO LAYER */}
+      <div 
+        ref={videoWrapperRef}
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-transform duration-75 ease-out"
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
       >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover opacity-35 mix-blend-screen"
-        >
-          <source src="videos/infra-bg.mp4" type="video/mp4" />
-        </video>
-      </motion.div>
+        <motion.div style={{ y: videoY }} className="w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-35 mix-blend-screen scale-110"
+          >
+            <source src="videos/infra-bg.mp4" type="video/mp4" />
+          </video>
+        </motion.div>
+      </div>
 
       {/* Seamless Edge Masks */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg via-transparent to-bg pointer-events-none z-[1]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-bg/90 via-transparent to-bg/90 pointer-events-none z-[1]" />
 
       <div className="relative z-10 container mx-auto px-6 max-w-6xl">
         <div className="mb-12 text-left">

@@ -7,17 +7,16 @@ import Terminal from '../ui/Terminal';
 
 export default function HeroSection() {
   const [textIndex, setTextIndex] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const swapWords = ['Autonomous', 'Sovereign', 'Production', 'The Future'];
   const containerRef = useRef<HTMLDivElement>(null);
+  const videoWrapperRef = useRef<HTMLDivElement>(null);
+
+  const swapWords = ['Autonomous', 'Sovereign', 'Production', 'The Future'];
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end start'],
   });
 
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.3]);
-  const videoY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   useEffect(() => {
@@ -25,61 +24,61 @@ export default function HeroSection() {
       setTextIndex((prev) => (prev + 1) % swapWords.length);
     }, 2800);
 
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let animId: number;
+
     const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return;
-      const rect = containerRef.current.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      setMousePos({ x: x * 60, y: y * 35 });
+      targetX = (e.clientX / window.innerWidth - 0.5) * 80;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 50;
+    };
+
+    const updateDroneCamera = () => {
+      mouseX += (targetX - mouseX) * 0.08;
+      mouseY += (targetY - mouseY) * 0.08;
+
+      if (videoWrapperRef.current) {
+        const rotY = mouseX * 0.15;
+        const rotX = -mouseY * 0.12;
+        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX}px, ${mouseY}px, 0px) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.18)`;
+      }
+
+      animId = requestAnimationFrame(updateDroneCamera);
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    animId = requestAnimationFrame(updateDroneCamera);
+
     return () => {
       clearInterval(interval);
+      cancelAnimationFrame(animId);
       window.removeEventListener('mousemove', handleMouseMove);
     };
   }, [swapWords.length]);
 
   return (
-    <section ref={containerRef} className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden bg-bg pt-24 pb-16 isolation-isolate">
-      {/* DRONE-STYLE INTERACTIVE PANNING VIDEO LAYER */}
-      <motion.div
-        className="absolute inset-0 w-full h-full pointer-events-none z-0"
-        animate={{
-          x: mousePos.x,
-          y: mousePos.y * 0.6,
-          rotateY: mousePos.x * 0.08,
-          rotateX: -mousePos.y * 0.05,
-        }}
-        style={{
-          scale: videoScale,
-          y: videoY,
-          perspective: 1200,
-        }}
-        transition={{ type: 'spring', stiffness: 80, damping: 25, mass: 0.5 }}
+    <section ref={containerRef} className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent pt-24 pb-16 isolation-isolate">
+      {/* DRONE-STYLE INTERACTIVE PANNING VIDEO CONTAINER */}
+      <div
+        ref={videoWrapperRef}
+        className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-transform duration-75 ease-out"
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
       >
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-45 mix-blend-screen scale-110"
+          className="w-full h-full object-cover opacity-40 mix-blend-screen"
         >
           <source src="videos/hero-bg.mp4" type="video/mp4" />
         </video>
-      </motion.div>
-
-      {/* Dynamic Cursor Spotlight Effect */}
-      <div 
-        className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500 opacity-60"
-        style={{
-          background: `radial-gradient(750px circle at calc(50% + ${mousePos.x * 5}px) calc(50% + ${mousePos.y * 5}px), rgba(0, 255, 224, 0.14), transparent 75%)`
-        }}
-      />
+      </div>
 
       {/* Multi-stage Vignette & Seamless Void Mask */}
-      <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-transparent to-bg pointer-events-none z-[2]" />
-      <div className="absolute inset-0 bg-radial-vignette pointer-events-none z-[2]" style={{ background: 'radial-gradient(circle at center, transparent 35%, rgba(0,0,8,0.85) 90%)' }} />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-bg/40 to-bg/90 pointer-events-none z-[1]" />
 
       <motion.div style={{ y: contentY }} className="relative z-10 container mx-auto px-6 max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-8">
         
