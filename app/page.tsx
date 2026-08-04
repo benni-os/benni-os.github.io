@@ -6,6 +6,9 @@ import HowItWorks from '@/components/sections/HowItWorks';
 import PlatformBento from '@/components/sections/PlatformBento';
 import InfrastructureGrid from '@/components/sections/InfrastructureGrid';
 import OSSSection from '@/components/sections/OSSSection';
+import EcosystemTable from '@/components/sections/EcosystemTable';
+import CompanySection from '@/components/sections/CompanySection';
+import Footer from '@/components/layout/Footer';
 
 export default function Home() {
   return (
@@ -17,6 +20,9 @@ export default function Home() {
       <PlatformBento />
       <InfrastructureGrid />
       <OSSSection />
+      <EcosystemTable />
+      <CompanySection />
+      <Footer />
     </main>
   );
 }
