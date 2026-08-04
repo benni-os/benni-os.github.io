@@ -71,7 +71,7 @@ export default function HeroSection() {
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-40 mix-blend-screen"
+          className="w-full h-full object-cover opacity-35 mix-blend-screen"
         >
           <source src="videos/hero-bg.mp4" type="video/mp4" />
         </video>
@@ -85,7 +85,7 @@ export default function HeroSection() {
         {/* Left Column: Headline & Content */}
         <div className="lg:col-span-7 text-left">
           {/* Status Pill */}
-          <div className="mb-6 inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-bg1/80 backdrop-blur-md shadow-[0_0_25px_rgba(0,255,224,0.2)]">
+          <div className="mb-6 inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-bg1/90 backdrop-blur-xl shadow-[0_0_25px_rgba(0,255,224,0.2)]">
             <div className="w-2 h-2 rounded-full bg-c1 animate-pulse shadow-[0_0_10px_#00ffe0]" />
             <span className="font-mono text-xs text-c1 uppercase tracking-widest font-semibold">
               Autonomous AI Infrastructure &middot; Production 2026
@@ -93,7 +93,7 @@ export default function HeroSection() {
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight">
+          <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight drop-shadow-md">
             Built for{' '}
             <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 min-w-[240px]">
               {swapWords[textIndex]}
@@ -102,7 +102,7 @@ export default function HeroSection() {
           </h1>
 
           {/* Subheadline */}
-          <p className="mt-6 text-txt2 font-mono text-sm md:text-base max-w-xl leading-relaxed bg-bg1/70 p-4 rounded-xl border border-white/15 backdrop-blur-xl shadow-lg">
+          <p className="mt-6 text-txt2 font-mono text-sm md:text-base max-w-xl leading-relaxed bg-bg1/85 p-5 rounded-xl border border-white/20 backdrop-blur-xl shadow-2xl">
             Benni OS is the <strong className="text-txt">operating layer</strong> for autonomous AI agents &mdash; persistent memory, multi-agent coordination, sovereign inference and native tooling. <strong className="text-c1">Zero cloud bill. Production from day one.</strong>
           </p>
 
@@ -118,14 +118,14 @@ export default function HeroSection() {
               href="https://github.com/benni-os"
               target="_blank"
               rel="noopener noreferrer"
-              className="px-8 py-3.5 rounded-xl border border-white/20 bg-white/5 backdrop-blur-md text-txt font-bold text-sm hover:border-c1/50 hover:bg-white/10 hover:-translate-y-1 transition-all"
+              className="px-8 py-3.5 rounded-xl border border-white/20 bg-white/10 backdrop-blur-xl text-txt font-bold text-sm hover:border-c1/50 hover:bg-white/20 hover:-translate-y-1 transition-all"
             >
               GitHub Source
             </a>
           </div>
 
           {/* Metrics Bar */}
-          <div className="mt-12 w-full grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl border border-white/15 bg-bg1/80 backdrop-blur-xl shadow-[0_25px_60px_rgba(0,0,0,0.9)]">
+          <div className="mt-12 w-full grid grid-cols-2 sm:grid-cols-4 gap-4 p-5 rounded-2xl border border-white/20 bg-bg1/90 backdrop-blur-2xl shadow-[0_25px_60px_rgba(0,0,0,0.95)]">
             <div className="text-center">
               <div className="text-2xl font-black text-txt">41<span className="text-c1">+</span></div>
               <div className="font-mono text-[10px] text-txt3 uppercase tracking-widest mt-1 font-semibold">MCP Tools</div>
