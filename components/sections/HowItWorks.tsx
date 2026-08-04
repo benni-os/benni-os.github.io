@@ -8,7 +8,7 @@ const STEPS = [
   {
     id: '01',
     title: 'System Initialization',
-    desc: 'Autonomous deployment of JARVAS-2 neural instances across a distributed edge node network.',
+    desc: 'Benni Master OS boots the full stack — initializing JARVAS-2 dispatch, memory persistence, and agent formation protocols across all nodes.',
   },
   {
     id: '02',
