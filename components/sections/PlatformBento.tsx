@@ -38,7 +38,7 @@ export default function PlatformBento() {
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[360px]">
           
-          {/* Card 1: Benni Master OS (Destaque Principal - 2 Colunas) */}
+          {/* Card 1: Benni Master OS (Destaque Principal com Benni Master OS.jpeg) */}
           <motion.div 
             onMouseMove={handleMouseMove1}
             onMouseLeave={() => setTilt1({ rx: 0, ry: 0 })}
@@ -48,9 +48,9 @@ export default function PlatformBento() {
             }}
             className="md:col-span-2 relative p-8 rounded-2xl bg-bg1/90 border border-c1/30 overflow-hidden group flex flex-col justify-between shadow-2xl"
           >
-            {/* Background Visual Asset */}
-            <div className="absolute right-0 top-0 w-1/2 h-full opacity-25 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none overflow-hidden">
-              <img src="images/jarvas.jpeg" alt="Benni Master OS Brain Visual" className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700" />
+            {/* Background Visual Asset (Benni Master OS.jpeg) */}
+            <div className="absolute right-0 top-0 w-1/2 h-full opacity-30 group-hover:opacity-55 transition-opacity duration-500 pointer-events-none overflow-hidden">
+              <img src="images/Benni Master OS.jpeg" alt="Benni Master OS Visual" className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1/90 to-bg1" />
             </div>
 
@@ -76,7 +76,7 @@ export default function PlatformBento() {
             </div>
           </motion.div>
 
-          {/* Card 2: Control Plane (Orchestration) */}
+          {/* Card 2: Control Plane (control-plane.jpeg) */}
           <motion.div 
             onMouseMove={handleMouseMove2}
             onMouseLeave={() => setTilt2({ rx: 0, ry: 0 })}
@@ -86,8 +86,8 @@ export default function PlatformBento() {
             }}
             className="relative p-8 rounded-2xl bg-bg1/90 border border-white/10 overflow-hidden group flex flex-col justify-between shadow-2xl"
           >
-            {/* Background Visual Asset */}
-            <div className="absolute inset-0 opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none">
+            {/* Background Visual Asset (control-plane.jpeg) */}
+            <div className="absolute inset-0 opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none">
               <img src="images/control-plane.jpeg" alt="Benni Control Plane Visual" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
               <div className="absolute inset-0 bg-gradient-to-t from-bg1 via-bg1/80 to-transparent" />
             </div>
@@ -110,11 +110,17 @@ export default function PlatformBento() {
             </div>
           </motion.div>
 
-          {/* Card 3: JARVAS-2 Execution Engine & Swarm Dispatch (Sub-Sistema Explicito) */}
+          {/* Card 3: JARVAS-2 Execution Engine & Swarm Dispatch (jarvas.jpeg) */}
           <motion.div 
             whileHover={{ y: -4 }}
             className="md:col-span-3 relative p-8 rounded-2xl bg-bg1/90 border border-white/10 overflow-hidden group flex flex-col md:flex-row items-start md:items-center justify-between shadow-2xl gap-6"
           >
+             {/* Background Visual Asset (jarvas.jpeg) */}
+             <div className="absolute right-0 top-0 w-1/3 h-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                <img src="images/jarvas.jpeg" alt="JARVAS-2 Visual" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1 to-bg1" />
+             </div>
+
              <div className="absolute -inset-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl translate-x-[-100%] group-hover:translate-x-[100%] pointer-events-none" />
              
              <div className="relative z-10 max-w-2xl">

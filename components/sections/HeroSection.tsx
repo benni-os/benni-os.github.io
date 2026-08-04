@@ -16,9 +16,8 @@ export default function HeroSection() {
     offset: ['start start', 'end start'],
   });
 
-  const videoScale = useTransform(scrollYProgress, [0, 1], [1, 1.25]);
-  const videoY = useTransform(scrollYProgress, [0, 1], [0, 100]);
-  const videoRotate = useTransform(scrollYProgress, [0, 1], [0, 3]);
+  const videoScale = useTransform(scrollYProgress, [0, 1], [1.12, 1.3]);
+  const videoY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, 60]);
 
   useEffect(() => {
@@ -31,7 +30,7 @@ export default function HeroSection() {
       const rect = containerRef.current.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;
       const y = (e.clientY - rect.top) / rect.height - 0.5;
-      setMousePos({ x: x * 30, y: y * 20 });
+      setMousePos({ x: x * 60, y: y * 35 });
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
@@ -43,23 +42,28 @@ export default function HeroSection() {
 
   return (
     <section ref={containerRef} className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden bg-bg pt-24 pb-16 isolation-isolate">
-      {/* MOTION UI: Interactive Parallax Video Layer */}
+      {/* DRONE-STYLE INTERACTIVE PANNING VIDEO LAYER */}
       <motion.div
         className="absolute inset-0 w-full h-full pointer-events-none z-0"
+        animate={{
+          x: mousePos.x,
+          y: mousePos.y * 0.6,
+          rotateY: mousePos.x * 0.08,
+          rotateX: -mousePos.y * 0.05,
+        }}
         style={{
           scale: videoScale,
           y: videoY,
-          rotate: videoRotate,
-          x: mousePos.x * 0.5,
+          perspective: 1200,
         }}
-        transition={{ type: 'spring', stiffness: 100, damping: 30 }}
+        transition={{ type: 'spring', stiffness: 80, damping: 25, mass: 0.5 }}
       >
         <video
           autoPlay
           loop
           muted
           playsInline
-          className="w-full h-full object-cover opacity-40 mix-blend-screen"
+          className="w-full h-full object-cover opacity-45 mix-blend-screen scale-110"
         >
           <source src="videos/hero-bg.mp4" type="video/mp4" />
         </video>
@@ -69,13 +73,13 @@ export default function HeroSection() {
       <div 
         className="absolute inset-0 pointer-events-none z-[1] transition-opacity duration-500 opacity-60"
         style={{
-          background: `radial-gradient(700px circle at calc(50% + ${mousePos.x * 10}px) calc(50% + ${mousePos.y * 10}px), rgba(0, 255, 224, 0.12), transparent 70%)`
+          background: `radial-gradient(750px circle at calc(50% + ${mousePos.x * 5}px) calc(50% + ${mousePos.y * 5}px), rgba(0, 255, 224, 0.14), transparent 75%)`
         }}
       />
 
       {/* Multi-stage Vignette & Seamless Void Mask */}
       <div className="absolute inset-0 bg-gradient-to-b from-bg/60 via-transparent to-bg pointer-events-none z-[2]" />
-      <div className="absolute inset-0 bg-radial-vignette pointer-events-none z-[2]" style={{ background: 'radial-gradient(circle at center, transparent 40%, rgba(0,0,8,0.85) 90%)' }} />
+      <div className="absolute inset-0 bg-radial-vignette pointer-events-none z-[2]" style={{ background: 'radial-gradient(circle at center, transparent 35%, rgba(0,0,8,0.85) 90%)' }} />
 
       <motion.div style={{ y: contentY }} className="relative z-10 container mx-auto px-6 max-w-6xl grid grid-cols-1 lg:grid-cols-12 gap-12 items-center py-8">
         
