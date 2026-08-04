@@ -21,109 +21,125 @@ export default function ThreeCanvas() {
     camera.position.set(0, 0, 7);
 
     /* =========================================================
-       BENNI OS ALIVE: 3D CYBER AI LIVING FACE & EYE TRACKING
+       MARVEL-STYLE DIGITAL HUMANOID AI ENTITY (BENNI OS AGENT)
        ========================================================= */
 
-    const aiFaceGroup = new THREE.Group();
-    // Position prominently in upper center for Hero visibility
-    aiFaceGroup.position.set(0, 0.6, 0);
-    scene.add(aiFaceGroup);
+    const humanoidEntity = new THREE.Group();
+    humanoidEntity.position.set(3.2, 0.2, -1.0); // Placed elegantly in the upper-right space behind hero
+    scene.add(humanoidEntity);
 
-    // Left & Right Eye Assembly
+    // 1. FOREHEAD CORE MIND GEM (Marvel-style AI Core)
+    const coreGemGeo = new THREE.OctahedronGeometry(0.22, 2);
+    const coreGemMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true });
+    const coreMindGem = new THREE.Mesh(coreGemGeo, coreGemMat);
+    coreMindGem.position.set(0, 1.45, 0.45);
+    humanoidEntity.add(coreMindGem);
+
+    // Core Gem Inner Glow
+    const gemInnerGeo = new THREE.SphereGeometry(0.12, 16, 16);
+    const gemInnerMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0 });
+    const gemInner = new THREE.Mesh(gemInnerGeo, gemInnerMat);
+    gemInner.position.set(0, 1.45, 0.45);
+    humanoidEntity.add(gemInner);
+
+    // 2. DUAL HUMANOID EYE ASSEMBLIES (Tracking Cursor)
     const leftEye = new THREE.Group();
-    leftEye.position.set(-1.6, 0.7, 0.2);
-    aiFaceGroup.add(leftEye);
+    leftEye.position.set(-0.95, 0.65, 0.35);
+    humanoidEntity.add(leftEye);
 
     const rightEye = new THREE.Group();
-    rightEye.position.set(1.6, 0.7, 0.2);
-    aiFaceGroup.add(rightEye);
+    rightEye.position.set(0.95, 0.65, 0.35);
+    humanoidEntity.add(rightEye);
 
-    // Eye 1: Outer Neon Ring
-    const outerRingGeo = new THREE.TorusGeometry(0.7, 0.05, 16, 80);
-    const outerRingMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.95 });
+    // Outer Eye Ring
+    const eyeRingGeo = new THREE.TorusGeometry(0.42, 0.03, 16, 60);
+    const eyeRingMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.95 });
 
-    const leftOuter = new THREE.Mesh(outerRingGeo, outerRingMat);
+    const leftOuter = new THREE.Mesh(eyeRingGeo, eyeRingMat);
     leftEye.add(leftOuter);
-    const rightOuter = new THREE.Mesh(outerRingGeo, outerRingMat.clone());
+    const rightOuter = new THREE.Mesh(eyeRingGeo, eyeRingMat.clone());
     rightEye.add(rightOuter);
 
-    // Eye 2: Inner Holographic Iris Ring
-    const irisGeo = new THREE.RingGeometry(0.25, 0.55, 32);
+    // Inner Iris Disc
+    const irisGeo = new THREE.RingGeometry(0.15, 0.35, 32);
     const irisMat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, side: THREE.DoubleSide, transparent: true, opacity: 0.85, wireframe: true });
-    
+
     const leftIris = new THREE.Mesh(irisGeo, irisMat);
     leftEye.add(leftIris);
     const rightIris = new THREE.Mesh(irisGeo, irisMat.clone());
     rightEye.add(rightIris);
 
-    // Eye 3: Intense Glowing Pupil Sphere
-    const pupilGeo = new THREE.SphereGeometry(0.2, 16, 16);
+    // Glowing Pupil Spheres
+    const pupilGeo = new THREE.SphereGeometry(0.12, 16, 16);
     const pupilMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0 });
-    
+
     const leftPupil = new THREE.Mesh(pupilGeo, pupilMat);
-    leftPupil.position.z = 0.12;
+    leftPupil.position.z = 0.08;
     leftEye.add(leftPupil);
 
     const rightPupil = new THREE.Mesh(pupilGeo, pupilMat.clone());
-    rightPupil.position.z = 0.12;
+    rightPupil.position.z = 0.08;
     rightEye.add(rightPupil);
 
-    // Face Structure: Cyber Wireframe Face Mask (Cheekbones, Forehead, Nose Bridge)
+    // 3. HUMANOID SKULL & FACE CONTOUR (Pure Cyber Geometry)
     const faceContourGeo = new THREE.BufferGeometry();
     const faceVertices = new Float32Array([
-      // Forehead bridge
-      -1.6, 1.5, 0.2,   0, 1.9, 0.5,
-      0, 1.9, 0.5,      1.6, 1.5, 0.2,
-      // Nose bridge line
-      0, 1.9, 0.5,      0, 0.1, 0.8,
-      0, 0.1, 0.8,      0, -1.0, 0.4,
-      // Left cheekbone
-      -1.6, 0.7, 0.2,   -2.6, 0.0, -0.4,
-      -2.6, 0.0, -0.4,  0, -1.0, 0.4,
-      // Right cheekbone
-      1.6, 0.7, 0.2,    2.6, 0.0, -0.4,
-      2.6, 0.0, -0.4,   0, -1.0, 0.4,
-      // Jawline
-      -2.6, 0.0, -0.4,  0, -2.1, 0.1,
-      2.6, 0.0, -0.4,   0, -2.1, 0.1,
-      // Brow line
-      -1.6, 1.5, 0.2,   -1.6, 0.7, 0.2,
-      1.6, 1.5, 0.2,    1.6, 0.7, 0.2
+      // Forehead Arc
+      -0.95, 1.45, 0.35,   0, 1.9, 0.5,
+      0, 1.9, 0.5,        0.95, 1.45, 0.35,
+      // Temple Lines
+      -0.95, 1.45, 0.35,  -1.5, 0.65, 0.0,
+      0.95, 1.45, 0.35,   1.5, 0.65, 0.0,
+      // Nose Bridge
+      0, 1.45, 0.45,      0, 0.1, 0.65,
+      0, 0.1, 0.65,       0, -0.6, 0.4,
+      // Cheekbone Structural Lines
+      -0.95, 0.65, 0.35,  -1.6, -0.1, 0.0,
+      -1.6, -0.1, 0.0,    0, -0.6, 0.4,
+      0.95, 0.65, 0.35,   1.6, -0.1, 0.0,
+      1.6, -0.1, 0.0,     0, -0.6, 0.4,
+      // Jawline Contour
+      -1.6, -0.1, 0.0,    0, -1.7, 0.15,
+      1.6, -0.1, 0.0,     0, -1.7, 0.15,
+      // Neck & Collar Structure
+      -0.8, -1.7, 0.1,    -1.4, -2.5, -0.3,
+      0.8, -1.7, 0.1,     1.4, -2.5, -0.3,
+      0, -1.7, 0.15,      0, -2.7, -0.2
     ]);
     faceContourGeo.setAttribute('position', new THREE.BufferAttribute(faceVertices, 3));
-    const faceContourMat = new THREE.LineBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.65 });
+    const faceContourMat = new THREE.LineBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.6 });
     const faceLines = new THREE.LineSegments(faceContourGeo, faceContourMat);
-    aiFaceGroup.add(faceLines);
+    humanoidEntity.add(faceLines);
 
-    // Glowing Intersection Nodes
+    // Glowing Intersection Nodes on Face
     const nodePositions = new Float32Array([
-      -1.6, 1.5, 0.2,  0, 1.9, 0.5,  1.6, 1.5, 0.2,
-      0, 0.1, 0.8,  -2.6, 0.0, -0.4,  2.6, 0.0, -0.4,
-      0, -1.0, 0.4,  0, -2.1, 0.1
+      -0.95, 1.45, 0.35,  0, 1.9, 0.5,  0.95, 1.45, 0.35,
+      0, 0.1, 0.65,  -1.6, -0.1, 0.0,  1.6, -0.1, 0.0,
+      0, -0.6, 0.4,  0, -1.7, 0.15,  0, 1.45, 0.45
     ]);
     const nodeGeo = new THREE.BufferGeometry();
     nodeGeo.setAttribute('position', new THREE.BufferAttribute(nodePositions, 3));
-    const nodeMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.12, transparent: true, opacity: 0.95 });
+    const nodeMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.09, transparent: true, opacity: 0.9 });
     const faceNodes = new THREE.Points(nodeGeo, nodeMat);
-    aiFaceGroup.add(faceNodes);
+    humanoidEntity.add(faceNodes);
+
+    // 4. MARVEL JARVIS-STYLE FLOATING HUD RINGS AROUND HEAD
+    const hudRing1Geo = new THREE.TorusGeometry(2.3, 0.02, 16, 100);
+    const hudRing1Mat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, transparent: true, opacity: 0.35, wireframe: true });
+    const hudRing1 = new THREE.Mesh(hudRing1Geo, hudRing1Mat);
+    hudRing1.rotation.x = Math.PI / 2.3;
+    humanoidEntity.add(hudRing1);
+
+    const hudRing2Geo = new THREE.TorusGeometry(1.8, 0.015, 16, 80);
+    const hudRing2Mat = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, transparent: true, opacity: 0.4, wireframe: true });
+    const hudRing2 = new THREE.Mesh(hudRing2Geo, hudRing2Mat);
+    hudRing2.rotation.y = Math.PI / 3;
+    humanoidEntity.add(hudRing2);
 
     /* =========================================================
-       BACKGROUND 3D TORUS KNOT & PARTICLES
+       BACKGROUND PARTICLE FIELD & STAR MAP (NO SNAKES)
        ========================================================= */
-    const tkGeo1 = new THREE.TorusKnotGeometry(2.3, 0.4, 180, 24, 2, 3);
-    const tkMat1 = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.25 });
-    const tk1 = new THREE.Mesh(tkGeo1, tkMat1);
-    tk1.position.set(0, 0, -2);
-    scene.add(tk1);
-
-    const tkGeo2 = new THREE.TorusKnotGeometry(1.5, 0.25, 140, 20, 2, 3);
-    const tkMat2 = new THREE.MeshBasicMaterial({ color: 0x7c5cfc, wireframe: true, transparent: true, opacity: 0.3 });
-    const tk2 = new THREE.Mesh(tkGeo2, tkMat2);
-    tk2.position.set(0, 0, -2);
-    scene.add(tk2);
-
-    /* BREATHING PARTICLE SPHERE */
-    const particleCount = 1000;
+    const particleCount = 800;
     const pGeo = new THREE.BufferGeometry();
     const pPos = new Float32Array(particleCount * 3);
     const pOriginals = new Float32Array(particleCount * 3);
@@ -133,21 +149,33 @@ export default function ThreeCanvas() {
       const v = Math.random();
       const theta = u * 2.0 * Math.PI;
       const phi = Math.acos(2.0 * v - 1.0);
-      const r = 3.2 + (Math.random() - 0.5) * 0.6;
+      const r = 3.5 + (Math.random() - 0.5) * 0.8;
 
-      const x = r * Math.sin(phi) * Math.cos(theta);
-      const y = r * Math.sin(phi) * Math.sin(theta);
-      const z = r * Math.cos(phi) - 2.0;
+      const x = r * Math.sin(phi) * Math.cos(theta) + 3.2;
+      const y = r * Math.sin(phi) * Math.sin(theta) + 0.2;
+      const z = r * Math.cos(phi) - 1.0;
 
       pPos[i * 3] = x; pPos[i * 3 + 1] = y; pPos[i * 3 + 2] = z;
       pOriginals[i * 3] = x; pOriginals[i * 3 + 1] = y; pOriginals[i * 3 + 2] = z;
     }
     pGeo.setAttribute('position', new THREE.BufferAttribute(pPos, 3));
-    const pMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.06, transparent: true, opacity: 0.6 });
-    const sphereParticles = new THREE.Points(pGeo, pMat);
-    scene.add(sphereParticles);
+    const pMat = new THREE.PointsMaterial({ color: 0x00ffe0, size: 0.05, transparent: true, opacity: 0.45 });
+    const haloParticles = new THREE.Points(pGeo, pMat);
+    scene.add(haloParticles);
 
-    /* MOUSE & SCROLL TRACKING WITH SMOOTH INERTIA */
+    /* BACKGROUND STARFIELD */
+    const starCount = 600;
+    const starGeo = new THREE.BufferGeometry();
+    const starPos = new Float32Array(starCount * 3);
+    for (let s = 0; s < starCount; s++) {
+      starPos[s * 3] = (Math.random() - 0.5) * 180;
+      starPos[s * 3 + 1] = (Math.random() - 0.5) * 180;
+      starPos[s * 3 + 2] = (Math.random() - 0.5) * 180;
+    }
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3));
+    scene.add(new THREE.Points(starGeo, new THREE.PointsMaterial({ color: 0xffffff, size: 0.12, transparent: true, opacity: 0.35 })));
+
+    /* MOUSE & SCROLL TRACKING */
     let mouseX = 0, mouseY = 0, targetMouseX = 0, targetMouseY = 0, scrollY = 0;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -176,47 +204,43 @@ export default function ThreeCanvas() {
       animId = requestAnimationFrame(animate);
       t += 0.012;
 
-      // Smooth mouse inertia
-      mouseX += (targetMouseX - mouseX) * 0.1;
-      mouseY += (targetMouseY - mouseY) * 0.1;
+      mouseX += (targetMouseX - mouseX) * 0.08;
+      mouseY += (targetMouseY - mouseY) * 0.08;
 
-      // 1. AI LIVING AGENT EYE TRACKING
-      // Calculate 3D vector for eyes to track cursor
-      const lookTarget = new THREE.Vector3(mouseX * 5, mouseY * 4, 5);
-      leftEye.lookAt(lookTarget);
-      rightEye.lookAt(lookTarget);
+      // 1. MARVEL HUMANOID EYE TRACKING
+      // Calculate 3D target for eyes to track mouse pointer
+      const eyeLookTarget = new THREE.Vector3(mouseX * 6, mouseY * 4.5, 6);
+      leftEye.lookAt(eyeLookTarget);
+      rightEye.lookAt(eyeLookTarget);
 
-      // Pupil dilation heartbeat
-      const pupilPulse = 1 + Math.sin(t * 3) * 0.15;
-      leftPupil.scale.set(pupilPulse, pupilPulse, pupilPulse);
-      rightPupil.scale.set(pupilPulse, pupilPulse, pupilPulse);
+      // Mind Gem Pulsing
+      const gemPulse = 1 + Math.sin(t * 3.5) * 0.15;
+      coreMindGem.scale.set(gemPulse, gemPulse, gemPulse);
 
-      // AI Blinking animation
-      const blinkCycle = Math.sin(t * 0.6);
-      const isBlinking = blinkCycle > 0.96;
-      leftOuter.scale.y = isBlinking ? 0.05 : 1;
-      rightOuter.scale.y = isBlinking ? 0.05 : 1;
+      // Pupil Dilation
+      const pupilScale = 1 + Math.sin(t * 2) * 0.12;
+      leftPupil.scale.set(pupilScale, pupilScale, pupilScale);
+      rightPupil.scale.set(pupilScale, pupilScale, pupilScale);
 
-      // AI Head Turn following cursor
-      aiFaceGroup.rotation.y = mouseX * 0.35;
-      aiFaceGroup.rotation.x = -mouseY * 0.2;
+      // Humanoid Head Motion
+      humanoidEntity.rotation.y = mouseX * 0.3;
+      humanoidEntity.rotation.x = -mouseY * 0.18;
 
-      // 2. BACKGROUND MESH ROTATION
-      tk1.rotation.x = t * 0.25;
-      tk1.rotation.y = t * 0.35;
-      tk2.rotation.x = -t * 0.2;
-      tk2.rotation.y = t * 0.3;
+      // HUD Ring Rotations
+      hudRing1.rotation.z = t * 0.15;
+      hudRing2.rotation.x = -t * 0.2;
 
+      // Particle Halo Breathing
       const positions = pGeo.attributes.position.array as Float32Array;
-      const pulseFactor = 1 + Math.sin(t * 1.8) * 0.08;
+      const pulseFactor = 1 + Math.sin(t * 1.5) * 0.06;
       for (let k = 0; k < particleCount; k++) {
-        positions[k * 3] = pOriginals[k * 3] * pulseFactor;
-        positions[k * 3 + 1] = pOriginals[k * 3 + 1] * pulseFactor;
-        positions[k * 3 + 2] = (pOriginals[k * 3 + 2] + 2.0) * pulseFactor - 2.0;
+        positions[k * 3] = (pOriginals[k * 3] - 3.2) * pulseFactor + 3.2;
+        positions[k * 3 + 1] = (pOriginals[k * 3 + 1] - 0.2) * pulseFactor + 0.2;
+        positions[k * 3 + 2] = (pOriginals[k * 3 + 2] + 1.0) * pulseFactor - 1.0;
       }
       pGeo.attributes.position.needsUpdate = true;
 
-      // Camera parallax scroll
+      // Camera Parallax
       camera.position.x += (mouseX * 0.4 - camera.position.x) * 0.05;
       camera.position.y += (mouseY * 0.3 - camera.position.y) * 0.05;
       camera.position.z = 7 - Math.min(scrollY / (window.innerHeight * 0.8), 1) * 2.5;
@@ -239,7 +263,7 @@ export default function ThreeCanvas() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 z-0 pointer-events-none opacity-90"
+      className="fixed inset-0 z-0 pointer-events-none opacity-85"
     />
   );
 }
