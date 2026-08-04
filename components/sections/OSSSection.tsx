@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 const REPOS = [
   {
     name: "benni-operator-gateway",
-    desc: "HTTP MCP gateway com Approval Gate, Decision Ledger e hot-reload nativo em TypeScript.",
+    desc: "HTTP MCP gateway with Approval Gate, Decision Ledger, and native hot-reload in TypeScript.",
     stars: "1.2k",
     forks: "340",
     language: "TypeScript",
@@ -14,7 +14,7 @@ const REPOS = [
   },
   {
     name: "mcp-forge",
-    desc: "Framework Python em estilo FastAPI para declarar servidores MCP com validação de tipos.",
+    desc: "FastAPI-style Python framework for building type-safe MCP servers with automatic validation.",
     stars: "856",
     forks: "112",
     language: "Python",
@@ -22,7 +22,7 @@ const REPOS = [
   },
   {
     name: "benni-nexus",
-    desc: "Gateway inteligente multi-provedor (Ollama, Groq, OpenAI, Gemini) com roteamento e observabilidade.",
+    desc: "Intelligent multi-provider LLM gateway (Ollama, Groq, OpenAI, Gemini) with routing and observability.",
     stars: "642",
     forks: "148",
     language: "TypeScript",
@@ -32,7 +32,7 @@ const REPOS = [
 
 export default function OSSSection() {
   return (
-    <section id="oss" className="relative w-full py-24 bg-bg border-t border-white/5">
+    <section id="oss" className="relative w-full py-28 bg-bg border-t border-white/5">
       <div className="container mx-auto px-6 max-w-6xl">
         
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -41,14 +41,14 @@ export default function OSSSection() {
               Open <span className="text-txt2">Source</span>
             </h2>
             <p className="mt-4 text-txt2 font-mono text-sm max-w-lg">
-              Transparência por padrão. Fragmentos do core Benni OS mantidos publicamente.
+              Transparency by default. Core Benni OS modules publicly maintained and MIT-licensed.
             </p>
           </div>
           <a 
             href="https://github.com/benni-os" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="px-6 py-2.5 rounded-md bg-txt text-bg font-mono text-sm font-bold hover:bg-c1 transition-colors flex-shrink-0 inline-flex items-center gap-2"
+            className="px-6 py-2.5 rounded-md bg-txt text-bg font-mono text-sm font-bold hover:bg-c1 transition-colors flex-shrink-0 inline-flex items-center gap-2 shadow-lg"
           >
             View GitHub &rarr;
           </a>
@@ -61,8 +61,9 @@ export default function OSSSection() {
               href={`https://github.com/benni-os/${repo.name}`}
               target="_blank"
               rel="noopener noreferrer"
-              whileHover={{ y: -5 }}
-              className="p-6 rounded-lg bg-bg1 border border-white/10 hover:border-c1/50 transition-colors group cursor-pointer flex flex-col justify-between h-[220px]"
+              whileHover={{ y: -8, scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 400, damping: 25 }}
+              className="p-6 rounded-xl bg-bg1 border border-white/10 hover:border-c1/50 transition-all group cursor-pointer flex flex-col justify-between h-[230px] shadow-xl hover:shadow-[0_0_30px_rgba(0,255,224,0.15)]"
             >
               <div>
                 <div className="flex items-center gap-2 mb-3">
