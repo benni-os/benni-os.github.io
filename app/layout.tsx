@@ -2,6 +2,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Cursor from '@/components/ui/Cursor';
+import ThreeCanvas from '@/components/ui/ThreeCanvas';
 
 export const metadata: Metadata = {
   title: 'Benni OS — Autonomous AI Infrastructure',
@@ -20,7 +21,8 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark scroll-smooth">
-      <body className="bg-bg text-txt antialiased selection:bg-c1/30 selection:text-white min-h-screen">
+      <body className="bg-bg text-txt antialiased selection:bg-c1/30 selection:text-white min-h-screen relative">
+        <ThreeCanvas />
         <Cursor />
         {children}
       </body>
