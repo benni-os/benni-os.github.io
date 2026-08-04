@@ -5,12 +5,22 @@ import { motion } from 'framer-motion';
 
 const REPOS = [
   {
+    name: "benni-inference-engine",
+    desc: "High-performance sovereign AI inference engine built in C++/CUDA & Rust for ultra-low latency local LLM execution.",
+    stars: "2.4k",
+    forks: "512",
+    language: "C++ / Rust",
+    langColor: "bg-red-500",
+    featured: true,
+  },
+  {
     name: "benni-operator-gateway",
     desc: "HTTP MCP gateway with Approval Gate, Decision Ledger, and native hot-reload in TypeScript.",
     stars: "1.2k",
     forks: "340",
     language: "TypeScript",
-    langColor: "bg-blue-400"
+    langColor: "bg-blue-400",
+    featured: false,
   },
   {
     name: "mcp-forge",
@@ -18,7 +28,8 @@ const REPOS = [
     stars: "856",
     forks: "112",
     language: "Python",
-    langColor: "bg-yellow-400"
+    langColor: "bg-yellow-400",
+    featured: false,
   },
   {
     name: "benni-nexus",
@@ -26,7 +37,8 @@ const REPOS = [
     stars: "642",
     forks: "148",
     language: "TypeScript",
-    langColor: "bg-blue-400"
+    langColor: "bg-blue-400",
+    featured: false,
   }
 ];
 
@@ -41,7 +53,7 @@ export default function OSSSection() {
               Open <span className="text-txt2">Source</span>
             </h2>
             <p className="mt-4 text-txt2 font-mono text-sm max-w-lg">
-              Transparency by default. Core Benni OS modules publicly maintained and MIT-licensed.
+              Transparency by default. Flagship Benni OS modules publicly maintained and MIT-licensed.
             </p>
           </div>
           <a 
@@ -54,7 +66,7 @@ export default function OSSSection() {
           </a>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {REPOS.map((repo, index) => (
             <motion.a 
               key={index}
@@ -63,24 +75,33 @@ export default function OSSSection() {
               rel="noopener noreferrer"
               whileHover={{ y: -8, scale: 1.02 }}
               transition={{ type: "spring", stiffness: 400, damping: 25 }}
-              className="p-6 rounded-xl bg-bg1 border border-white/10 hover:border-c1/50 transition-all group cursor-pointer flex flex-col justify-between h-[230px] shadow-xl hover:shadow-[0_0_30px_rgba(0,255,224,0.15)]"
+              className={`p-6 rounded-xl bg-bg1 border transition-all group cursor-pointer flex flex-col justify-between h-[250px] shadow-xl ${
+                repo.featured 
+                  ? 'border-c1/60 shadow-[0_0_30px_rgba(0,255,224,0.2)] bg-gradient-to-b from-c1/10 to-bg1' 
+                  : 'border-white/10 hover:border-c1/50 hover:shadow-[0_0_30px_rgba(0,255,224,0.15)]'
+              }`}
             >
               <div>
-                <div className="flex items-center gap-2 mb-3">
-                  <svg className="w-4 h-4 text-txt2 group-hover:text-c1 transition-colors" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path>
-                  </svg>
-                  <h3 className="text-lg font-bold text-c1 group-hover:underline">{repo.name}</h3>
+                <div className="flex items-center justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-2">
+                    <svg className="w-4 h-4 text-txt2 group-hover:text-c1 transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.462-1.11-1.462-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.379.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"></path>
+                    </svg>
+                    <h3 className="text-sm font-bold text-c1 group-hover:underline truncate max-w-[160px]">{repo.name}</h3>
+                  </div>
+                  {repo.featured && (
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-c1 border border-c1/40 px-1.5 py-0.5 rounded bg-c1/10">Flagship</span>
+                  )}
                 </div>
-                <p className="text-txt2 text-sm leading-relaxed">{repo.desc}</p>
+                <p className="text-txt2 text-xs leading-relaxed">{repo.desc}</p>
               </div>
               
-              <div className="flex items-center gap-4 mt-6 text-xs text-txt3 font-mono">
+              <div className="flex items-center gap-3 mt-4 text-[11px] text-txt3 font-mono">
                 <div className="flex items-center gap-1.5">
                   <span className={`w-2.5 h-2.5 rounded-full ${repo.langColor}`}></span>
                   {repo.language}
                 </div>
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 ml-auto">
                   <span className="text-txt2">★</span> {repo.stars}
                 </div>
                 <div className="flex items-center gap-1">

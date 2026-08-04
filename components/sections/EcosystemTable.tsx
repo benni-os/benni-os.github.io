@@ -4,11 +4,12 @@
 import { motion } from 'framer-motion';
 
 const ECOSYSTEM = [
-  { name: 'benni-control-plane', type: 'PostgreSQL 15 / Cloudflare', latency: '14ms', status: 'active' },
-  { name: 'JARVAS-2 Engine', type: 'SA-93 Agent Runtime', latency: '2ms', status: 'active' },
-  { name: 'Benni Social Hub', type: '18 MCP Tools / 11 Platforms', latency: '24ms', status: 'active' },
-  { name: 'benni-operator-gateway', type: 'HTTP Gateway / Approval Gate', latency: '8ms', status: 'active' },
-  { name: 'Modo Operador 🇧🇷', type: 'BR Product / Playbook', latency: '--', status: 'live' }
+  { name: 'benni-inference-engine', type: 'C++ / CUDA / Sovereign AI Engine', latency: '1.8ms', status: 'active', featured: true },
+  { name: 'benni-control-plane', type: 'PostgreSQL 15 / Cloudflare Tunnel', latency: '14ms', status: 'active', featured: false },
+  { name: 'JARVAS-2 Engine', type: 'SA-93 Agent Runtime / Swarm Dispatch', latency: '2ms', status: 'active', featured: false },
+  { name: 'Benni Social Hub', type: '18 MCP Tools / 11 Platforms', latency: '24ms', status: 'active', featured: false },
+  { name: 'benni-operator-gateway', type: 'HTTP Gateway / Approval Gate', latency: '8ms', status: 'active', featured: false },
+  { name: 'Operator Mode 🇧🇷', type: 'Enterprise Agent Playbook', latency: '--', status: 'live', featured: false }
 ];
 
 export default function EcosystemTable() {
@@ -32,21 +33,30 @@ export default function EcosystemTable() {
               initial={{ opacity: 0, y: 10 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="group relative flex flex-col md:flex-row md:items-center justify-between py-6 border-b border-white/5 hover:border-white/20 transition-colors cursor-crosshair overflow-hidden"
+              transition={{ delay: index * 0.08 }}
+              className={`group relative flex flex-col md:flex-row md:items-center justify-between py-6 border-b transition-colors cursor-crosshair overflow-hidden ${
+                item.featured 
+                  ? 'border-c1/40 bg-c1/5 px-4 rounded-xl my-2 shadow-[0_0_20px_rgba(0,255,224,0.1)]' 
+                  : 'border-white/5 hover:border-white/20'
+              }`}
             >
               {/* Highlight Sweep no fundo */}
-              <div className="absolute inset-0 bg-gradient-to-r from-c1/0 via-c1/5 to-c1/0 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
+              <div className="absolute inset-0 bg-gradient-to-r from-c1/0 via-c1/10 to-c1/0 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
 
               <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-12 relative z-10">
-                <span className="font-bold text-txt text-lg">{item.name}</span>
-                <span className="font-mono text-sm text-txt3 uppercase tracking-widest">{item.type}</span>
+                <div className="flex items-center gap-3">
+                  <span className="font-bold text-txt text-lg group-hover:text-c1 transition-colors">{item.name}</span>
+                  {item.featured && (
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-c1 border border-c1/40 px-2 py-0.5 rounded bg-c1/10 font-bold">Inference Engine</span>
+                  )}
+                </div>
+                <span className="font-mono text-xs text-txt3 uppercase tracking-widest">{item.type}</span>
               </div>
 
               <div className="flex items-center gap-8 mt-4 md:mt-0 relative z-10 font-mono text-xs">
-                <span className="text-txt2">{item.latency}</span>
+                <span className={item.featured ? 'text-c1 font-bold' : 'text-txt2'}>{item.latency}</span>
                 <div className="flex items-center gap-2 w-24 justify-end">
-                  <span className={item.status === 'active' || item.status === 'live' ? 'text-c1' : 'text-txt3'}>
+                  <span className={item.status === 'active' || item.status === 'live' ? 'text-c1 font-bold' : 'text-txt3'}>
                     {item.status.toUpperCase()}
                   </span>
                   {item.status === 'active' || item.status === 'live' ? (

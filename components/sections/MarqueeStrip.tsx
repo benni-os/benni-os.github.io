@@ -4,6 +4,8 @@
 import { motion } from 'framer-motion';
 
 const TECH_STACK = [
+  'BENNI INFERENCE ENGINE',
+  'C++/CUDA INFERENCE',
   'NEXT.JS 14',
   'FRAMER MOTION',
   'THREE.JS',
@@ -40,7 +42,7 @@ export default function MarqueeStrip() {
           className="flex gap-6 pr-6"
           animate={{ x: ['0%', '-50%'] }}
           transition={{
-            duration: 30,
+            duration: 32,
             ease: 'linear',
             repeat: Infinity,
           }}
