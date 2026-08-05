@@ -8,6 +8,7 @@ import InfrastructureGrid from '@/components/sections/InfrastructureGrid';
 import OSSSection from '@/components/sections/OSSSection';
 import EcosystemTable from '@/components/sections/EcosystemTable';
 import CompanySection from '@/components/sections/CompanySection';
+import GatewaySection from '@/components/sections/GatewaySection';
 import Footer from '@/components/layout/Footer';
 
 export default function Home() {
@@ -22,6 +23,7 @@ export default function Home() {
       <OSSSection />
       <EcosystemTable />
       <CompanySection />
+      <GatewaySection />
       <Footer />
     </main>
   );
