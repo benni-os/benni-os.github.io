@@ -11,7 +11,12 @@ export default function ThreeCanvas() {
     if (!canvasRef.current) return;
     const canvas = canvasRef.current;
 
-    const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({ 
+      canvas, 
+      antialias: true, 
+      alpha: true,
+      powerPreference: 'high-performance',
+    });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setClearColor(0x000000, 0);
@@ -137,7 +142,7 @@ export default function ThreeCanvas() {
     humanoidEntity.add(hudRing2);
 
     /* BACKGROUND PARTICLE FIELD & STAR MAP */
-    const particleCount = 800;
+    const particleCount = 600;
     const pGeo = new THREE.BufferGeometry();
     const pPos = new Float32Array(particleCount * 3);
     const pOriginals = new Float32Array(particleCount * 3);
@@ -162,7 +167,7 @@ export default function ThreeCanvas() {
     scene.add(haloParticles);
 
     /* BACKGROUND STARFIELD */
-    const starCount = 600;
+    const starCount = 400;
     const starGeo = new THREE.BufferGeometry();
     const starPos = new Float32Array(starCount * 3);
     for (let s = 0; s < starCount; s++) {
@@ -246,7 +251,7 @@ export default function ThreeCanvas() {
       renderer.render(scene, camera);
     };
 
-    animate();
+    animId = requestAnimationFrame(animate);
 
     return () => {
       cancelAnimationFrame(animId);

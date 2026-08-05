@@ -57,13 +57,13 @@ export default function InfrastructureGrid() {
     };
 
     const updateDroneCamera = () => {
-      mouseX += (targetX - mouseX) * 0.08;
-      mouseY += (targetY - mouseY) * 0.08;
+      mouseX += (targetX - mouseX) * 0.1;
+      mouseY += (targetY - mouseY) * 0.1;
 
       if (videoWrapperRef.current) {
         const rotY = mouseX * 0.12;
         const rotX = -mouseY * 0.1;
-        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX}px, ${mouseY}px, 0px) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.15)`;
+        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX.toFixed(2)}px, ${mouseY.toFixed(2)}px, 0px) rotateY(${rotY.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg) scale(1.15)`;
       }
 
       animId = requestAnimationFrame(updateDroneCamera);
@@ -85,7 +85,7 @@ export default function InfrastructureGrid() {
       <div 
         ref={videoWrapperRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-transform duration-75 ease-out"
-        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform', transform: 'translateZ(0)' }}
       >
         <motion.div style={{ y: videoY }} className="w-full h-full">
           <video
@@ -93,6 +93,7 @@ export default function InfrastructureGrid() {
             loop
             muted
             playsInline
+            preload="auto"
             className="w-full h-full object-cover opacity-35 mix-blend-screen scale-110"
           >
             <source src="videos/infra-bg.mp4" type="video/mp4" />

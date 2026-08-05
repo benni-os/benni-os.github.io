@@ -31,18 +31,18 @@ export default function HeroSection() {
     let animId: number;
 
     const handleMouseMove = (e: MouseEvent) => {
-      targetX = (e.clientX / window.innerWidth - 0.5) * 80;
-      targetY = (e.clientY / window.innerHeight - 0.5) * 50;
+      targetX = (e.clientX / window.innerWidth - 0.5) * 60;
+      targetY = (e.clientY / window.innerHeight - 0.5) * 40;
     };
 
     const updateDroneCamera = () => {
-      mouseX += (targetX - mouseX) * 0.08;
-      mouseY += (targetY - mouseY) * 0.08;
+      mouseX += (targetX - mouseX) * 0.1;
+      mouseY += (targetY - mouseY) * 0.1;
 
       if (videoWrapperRef.current) {
-        const rotY = mouseX * 0.15;
-        const rotX = -mouseY * 0.12;
-        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX}px, ${mouseY}px, 0px) rotateY(${rotY}deg) rotateX(${rotX}deg) scale(1.18)`;
+        const rotY = mouseX * 0.12;
+        const rotX = -mouseY * 0.1;
+        videoWrapperRef.current.style.transform = `perspective(1000px) translate3d(${mouseX.toFixed(2)}px, ${mouseY.toFixed(2)}px, 0px) rotateY(${rotY.toFixed(2)}deg) rotateX(${rotX.toFixed(2)}deg) scale(1.15)`;
       }
 
       animId = requestAnimationFrame(updateDroneCamera);
@@ -60,17 +60,18 @@ export default function HeroSection() {
 
   return (
     <section ref={containerRef} className="relative w-full min-h-screen flex flex-col justify-center items-center overflow-hidden bg-transparent pt-24 pb-16 isolation-isolate">
-      {/* DRONE-STYLE INTERACTIVE PANNING VIDEO CONTAINER */}
+      {/* INSTANT-BOOT HARDWARE-ACCELERATED VIDEO CONTAINER */}
       <div
         ref={videoWrapperRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-0 transition-transform duration-75 ease-out"
-        style={{ transformStyle: 'preserve-3d', willChange: 'transform' }}
+        style={{ transformStyle: 'preserve-3d', willChange: 'transform', transform: 'translateZ(0)' }}
       >
         <video
           autoPlay
           loop
           muted
           playsInline
+          preload="auto"
           className="w-full h-full object-cover opacity-35 mix-blend-screen"
         >
           <source src="videos/hero-bg.mp4" type="video/mp4" />
@@ -103,7 +104,7 @@ export default function HeroSection() {
 
           {/* Subheadline: Clear, Sharp, High Contrast */}
           <p className="mt-6 text-txt2 font-mono text-sm md:text-base max-w-xl leading-relaxed bg-bg1/90 p-5 rounded-xl border border-white/20 backdrop-blur-xl shadow-2xl">
-            <strong className="text-txt font-semibold">Benni OS</strong> is the unified operating layer for autonomous AI agents — providing persistent memory, multi-agent swarm dispatch, sovereign inference and native MCP control planes. <strong className="text-c1 font-bold">Zero cloud bill. Production-ready from day one.</strong>
+            <strong className="text-txt font-semibold">Benni OS</strong> is the unified operating layer for autonomous AI agents &mdash; providing persistent memory, multi-agent swarm dispatch, sovereign inference and native MCP control planes. <strong className="text-c1 font-bold">Zero cloud bill. Production-ready from day one.</strong>
           </p>
 
           {/* Clear Conversion CTAs */}
