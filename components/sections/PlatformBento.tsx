@@ -38,7 +38,7 @@ export default function PlatformBento() {
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[360px]">
           
-          {/* Card 1: Benni Master OS (Destaque Principal com Benni Master OS.jpeg) */}
+          {/* Card 1: Benni Master OS (Destaque Principal com Imagem Visível & Brilho Holográfico) */}
           <motion.div 
             onMouseMove={handleMouseMove1}
             onMouseLeave={() => setTilt1({ rx: 0, ry: 0 })}
@@ -46,37 +46,38 @@ export default function PlatformBento() {
               transform: `perspective(1000px) rotateX(${tilt1.rx}deg) rotateY(${tilt1.ry}deg)`,
               transition: 'transform 0.15s ease-out',
             }}
-            className="md:col-span-2 relative p-8 rounded-2xl bg-bg1/90 border border-c1/30 overflow-hidden group flex flex-col justify-between shadow-2xl"
+            className="md:col-span-2 relative p-8 rounded-2xl bg-bg1/90 border border-c1/50 overflow-hidden group flex flex-col justify-between shadow-[0_0_35px_rgba(0,255,224,0.18)] hover:shadow-[0_0_50px_rgba(0,255,224,0.4)] transition-all duration-500"
           >
-            {/* Background Visual Asset (Benni Master OS.jpeg) */}
-            <div className="absolute right-0 top-0 w-1/2 h-full opacity-30 group-hover:opacity-55 transition-opacity duration-500 pointer-events-none overflow-hidden">
-              <img src="images/Benni Master OS.jpeg" alt="Benni Master OS Visual" className="w-full h-full object-cover object-center transform group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1/90 to-bg1" />
+            {/* Background Visual Asset (IMAGEM MAIS VISÍVEL E LIMPA) */}
+            <div className="absolute right-0 top-0 w-1/2 h-full opacity-45 group-hover:opacity-75 transition-opacity duration-500 pointer-events-none overflow-hidden">
+              <img src="images/Benni Master OS.jpeg" alt="Benni Master OS Visual" className="w-full h-full object-cover object-center transform group-hover:scale-108 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1/80 to-bg1" />
             </div>
 
-            {/* Holographic Glow */}
-            <div className="absolute -inset-px bg-gradient-to-br from-c1/30 via-transparent to-c2/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
-            
+            {/* Holographic Border & Radiant Glow */}
+            <div className="absolute -inset-px bg-gradient-to-br from-c1/50 via-c2/30 to-transparent opacity-30 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none shadow-[inset_0_0_20px_rgba(0,255,224,0.2)]" />
+            <div className="absolute inset-0 bg-gradient-to-r from-c1/0 via-c1/15 to-c1/0 -translate-x-[100%] group-hover:translate-x-[100%] transition-transform duration-1000 pointer-events-none" />
+
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-2.5 h-2.5 bg-c1 rounded-full animate-pulse shadow-[0_0_12px_#00ffe0]" />
-                <span className="font-mono text-xs text-c1 uppercase tracking-widest border border-c1/40 px-2.5 py-1 rounded bg-c1/10 font-semibold">Operating System</span>
+                <span className="font-mono text-xs text-c1 uppercase tracking-widest border border-c1/60 px-2.5 py-1 rounded bg-c1/15 font-semibold shadow-[0_0_10px_rgba(0,255,224,0.2)]">Operating System</span>
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-txt mb-2 group-hover:text-c1 transition-colors">Benni Master OS</h3>
-              <p className="text-txt2 font-mono text-sm max-w-lg leading-relaxed">
+              <h3 className="text-2xl md:text-3xl font-bold text-txt mb-2 group-hover:text-c1 transition-colors drop-shadow-md">Benni Master OS</h3>
+              <p className="text-txt2 font-mono text-sm max-w-lg leading-relaxed bg-bg1/60 p-3 rounded-lg border border-white/10 backdrop-blur-md">
                 The central operating layer orchestrating all AI agents, persistent memory, swarm formations and sovereign inference across the entire Benni OS stack.
               </p>
             </div>
 
             {/* Faux Code Block UI */}
-            <div className="relative z-10 w-full h-24 bg-bg/90 backdrop-blur-md border border-white/15 rounded-xl p-4 font-mono text-xs text-txt3 overflow-hidden shadow-inner">
-              <p><span className="text-c2">import</span> {'{ BenniMasterOS }'} <span className="text-c2">from</span> <span className="text-gold">'@benni-os/core'</span>;</p>
-              <p className="mt-1"><span className="text-c1">const</span> os = <span className="text-c2">new</span> BenniMasterOS({'{'} mode: <span className="text-gold">'army'</span>, swarm: <span className="text-gold">'ALPHA'</span> {'}'});</p>
+            <div className="relative z-10 w-full h-24 bg-bg/95 backdrop-blur-xl border border-c1/30 rounded-xl p-4 font-mono text-xs text-txt3 overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.8)]">
+              <p><span className="text-c2 font-bold">import</span> {'{ BenniMasterOS }'} <span className="text-c2 font-bold">from</span> <span className="text-gold">'@benni-os/core'</span>;</p>
+              <p className="mt-1"><span className="text-c1 font-bold">const</span> os = <span className="text-c2 font-bold">new</span> BenniMasterOS({'{'} mode: <span className="text-gold">'army'</span>, swarm: <span className="text-gold">'ALPHA'</span> {'}'});</p>
               <p className="mt-1">os.boot().then(() {'=>'} os.dispatchJarvas());</p>
             </div>
           </motion.div>
 
-          {/* Card 2: Control Plane (control-plane.jpeg) */}
+          {/* Card 2: Control Plane (Com Imagem Visível & Brilho Holográfico) */}
           <motion.div 
             onMouseMove={handleMouseMove2}
             onMouseLeave={() => setTilt2({ rx: 0, ry: 0 })}
@@ -84,59 +85,60 @@ export default function PlatformBento() {
               transform: `perspective(1000px) rotateX(${tilt2.rx}deg) rotateY(${tilt2.ry}deg)`,
               transition: 'transform 0.15s ease-out',
             }}
-            className="relative p-8 rounded-2xl bg-bg1/90 border border-white/10 overflow-hidden group flex flex-col justify-between shadow-2xl"
+            className="relative p-8 rounded-2xl bg-bg1/90 border border-c1/40 overflow-hidden group flex flex-col justify-between shadow-[0_0_30px_rgba(0,255,224,0.15)] hover:shadow-[0_0_45px_rgba(0,255,224,0.35)] transition-all duration-500"
           >
-            {/* Background Visual Asset (control-plane.jpeg) */}
-            <div className="absolute inset-0 opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none">
-              <img src="images/control-plane.jpeg" alt="Benni Control Plane Visual" className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-              <div className="absolute inset-0 bg-gradient-to-t from-bg1 via-bg1/80 to-transparent" />
+            {/* Background Visual Asset (control-plane.jpeg VISÍVEL) */}
+            <div className="absolute inset-0 opacity-40 group-hover:opacity-70 transition-opacity duration-500 pointer-events-none">
+              <img src="images/control-plane.jpeg" alt="Benni Control Plane Visual" className="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700" />
+              <div className="absolute inset-0 bg-gradient-to-t from-bg1 via-bg1/75 to-transparent" />
             </div>
 
-            <div className="absolute -inset-px bg-gradient-to-b from-c1/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+            <div className="absolute -inset-px bg-gradient-to-b from-c1/40 to-transparent opacity-20 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl pointer-events-none" />
+            
             <div className="relative z-10">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-2.5 h-2.5 bg-c1 rounded-full animate-pulse shadow-[0_0_12px_#00ffe0]" />
-                <span className="font-mono text-xs text-c1 uppercase tracking-widest border border-c1/40 px-2.5 py-1 rounded bg-c1/10">Orchestration</span>
+                <span className="font-mono text-xs text-c1 uppercase tracking-widest border border-c1/50 px-2.5 py-1 rounded bg-c1/15 font-semibold">Orchestration</span>
               </div>
-              <h3 className="text-xl font-bold text-txt mb-2 group-hover:text-c1 transition-colors">Control Plane</h3>
-              <p className="text-txt2 font-mono text-sm leading-relaxed">
+              <h3 className="text-xl font-bold text-txt mb-2 group-hover:text-c1 transition-colors drop-shadow-md">Control Plane</h3>
+              <p className="text-txt2 font-mono text-sm leading-relaxed bg-bg1/60 p-2.5 rounded-lg border border-white/10 backdrop-blur-md">
                 Centralized dashboard monitoring latency, instance load, and automated deployment orchestration.
               </p>
             </div>
             
             <div className="relative z-10 flex gap-2">
-              <div className="h-12 w-full bg-bg/90 backdrop-blur-md border border-white/15 rounded-lg flex items-center px-3 font-mono text-[10px] text-c1">api.benni-os.net</div>
-              <div className="h-12 w-1/3 bg-bg/90 backdrop-blur-md border border-white/15 rounded-lg flex items-center justify-center font-mono text-[10px] text-c3 font-bold">99.2%</div>
+              <div className="h-12 w-full bg-bg/95 backdrop-blur-xl border border-c1/30 rounded-lg flex items-center px-3 font-mono text-[10px] text-c1 font-bold">api.benni-os.net</div>
+              <div className="h-12 w-1/3 bg-bg/95 backdrop-blur-xl border border-c3/40 rounded-lg flex items-center justify-center font-mono text-[10px] text-c3 font-bold shadow-[0_0_15px_rgba(0,255,136,0.3)]">99.2%</div>
             </div>
           </motion.div>
 
-          {/* Card 3: JARVAS-2 Execution Engine & Swarm Dispatch (jarvas.jpeg) */}
+          {/* Card 3: JARVAS-2 Execution Engine (Com Imagem Visível & Brilho Holográfico) */}
           <motion.div 
             whileHover={{ y: -4 }}
-            className="md:col-span-3 relative p-8 rounded-2xl bg-bg1/90 border border-white/10 overflow-hidden group flex flex-col md:flex-row items-start md:items-center justify-between shadow-2xl gap-6"
+            className="md:col-span-3 relative p-8 rounded-2xl bg-bg1/90 border border-c2/40 overflow-hidden group flex flex-col md:flex-row items-start md:items-center justify-between shadow-[0_0_30px_rgba(124,92,252,0.18)] hover:shadow-[0_0_45px_rgba(124,92,252,0.38)] transition-all duration-500 gap-6"
           >
-             {/* Background Visual Asset (jarvas.jpeg) */}
-             <div className="absolute right-0 top-0 w-1/3 h-full opacity-20 group-hover:opacity-40 transition-opacity duration-500 pointer-events-none overflow-hidden">
-                <img src="images/jarvas.jpeg" alt="JARVAS-2 Visual" className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1 to-bg1" />
+             {/* Background Visual Asset (jarvas.jpeg VISÍVEL) */}
+             <div className="absolute right-0 top-0 w-1/3 h-full opacity-35 group-hover:opacity-65 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                <img src="images/jarvas.jpeg" alt="JARVAS-2 Visual" className="w-full h-full object-cover object-center group-hover:scale-108 transition-transform duration-700" />
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-bg1/90 to-bg1" />
              </div>
 
-             <div className="absolute -inset-px bg-gradient-to-r from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl translate-x-[-100%] group-hover:translate-x-[100%] pointer-events-none" />
+             <div className="absolute -inset-px bg-gradient-to-r from-c2/30 via-c1/20 to-transparent opacity-20 group-hover:opacity-100 transition-opacity duration-700 rounded-2xl pointer-events-none" />
              
              <div className="relative z-10 max-w-2xl">
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-2.5 h-2.5 bg-c2 rounded-full animate-pulse shadow-[0_0_12px_#7c5cfc]" />
-                <span className="font-mono text-xs text-c2 uppercase tracking-widest border border-c2/40 px-2.5 py-1 rounded bg-c2/10 font-semibold">Execution Engine (SA-93)</span>
+                <span className="font-mono text-xs text-c2 uppercase tracking-widest border border-c2/50 px-2.5 py-1 rounded bg-c2/15 font-semibold shadow-[0_0_10px_rgba(124,92,252,0.2)]">Execution Engine (SA-93)</span>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-txt mb-2 group-hover:text-c2 transition-colors">JARVAS-2 &amp; Swarm Dispatch</h3>
-              <p className="text-txt2 font-mono text-sm leading-relaxed">
+              <h3 className="text-xl md:text-2xl font-bold text-txt mb-2 group-hover:text-c2 transition-colors drop-shadow-md">JARVAS-2 &amp; Swarm Dispatch</h3>
+              <p className="text-txt2 font-mono text-sm leading-relaxed bg-bg1/60 p-3 rounded-lg border border-white/10 backdrop-blur-md">
                 Autonomous execution motor dispatched by Benni Master OS. Handles field agent execution, multi-agent swarm formations (Alpha, Bravo, Charlie), and task completion pipelines.
               </p>
              </div>
 
              <div className="relative z-10 flex gap-4">
-                <div className="px-4 py-3 rounded-xl bg-bg border border-c2/30 text-c2 font-mono text-xs font-bold shadow-md">JARVAS-2 CORE</div>
-                <div className="px-4 py-3 rounded-xl bg-bg border border-c1/30 text-c1 font-mono text-xs font-bold shadow-md">SWARM DISPATCH</div>
+                <div className="px-5 py-3 rounded-xl bg-bg/95 border border-c2/40 text-c2 font-mono text-xs font-bold shadow-[0_0_15px_rgba(124,92,252,0.25)]">JARVAS-2 CORE</div>
+                <div className="px-5 py-3 rounded-xl bg-bg/95 border border-c1/40 text-c1 font-mono text-xs font-bold shadow-[0_0_15px_rgba(0,255,224,0.25)]">SWARM DISPATCH</div>
              </div>
           </motion.div>
 
