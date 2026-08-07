@@ -194,114 +194,102 @@ export default function Home() {
               </div>
             </div>
 
-            {/* OPERATIONAL PRODUCT SURFACE CONSOLE */}
+            {/* HERO VIDEO DISPLAY (MAIN PRODUCT FILM FROM MATERIAL) */}
             <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.2)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-[#94a3b8]">
                 <div className="flex items-center gap-3">
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
-                  <span className="font-bold text-white">OPERATIONAL PRODUCT SURFACE // LIVE SWARM DISPATCH FLOW</span>
+                  <span className="font-bold text-white">BENNI OS // MAIN PRODUCT FILM (1080P)</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: OPERATIONAL (HMAC VERIFIED)</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono">SOURCE: MATERIAL / HIGH DEFINITION</div>
               </div>
 
-              {/* HERO PRODUCT VIDEO */}
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
-                <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-hero-poster.webp" aria-label="Product Surface Execution Surface">
-                  <source src="motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4" />
-                  <source src="motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm" />
+                <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Product Film">
+                  <source src="material/videos/hero-product-film.mp4" type="video/mp4" />
+                  Your browser does not support HTML5 video.
                 </video>
-                <img src="posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Product Surface" className="absolute inset-0 w-full h-full object-cover z-0" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. AUTONOMOUS EXECUTION REEL SHOWCASE */}
+        {/* 2. AUTONOMOUS EXECUTION REEL SHOWCASE (5 MP4 VIDEOS FROM MATERIAL) */}
         <section id="motion-films" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Autonomous Execution Reel">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7c5cfc]/10 text-[#7c5cfc] border border-[#7c5cfc]/30 font-mono text-xs font-bold mb-4">
-                SYSTEM VISUALIZATIONS // 5 REEL MODULES
+                MATERIAL MOTION VISUALIZATIONS // 5 MP4 REELS
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                Autonomous Execution <span className="text-[#00ffe0]">Reel</span>
+                Autonomous Motion <span className="text-[#00ffe0]">Reel</span>
               </h2>
               <p className="mt-4 text-[#94a3b8] font-mono text-sm max-w-2xl mx-auto">
-                Operational visualizations depicting agent mesh activation, persistent memory fabric, policy gates, and evidence return.
+                High-definition operational MP4 videos from <code className="text-[#00ffe0]">material/</code> depicting agent mesh, topology, execution pipelines, and policy gates.
               </p>
             </div>
 
-            {/* 5 REEL MODULES GRID */}
+            {/* 5 REEL MP4 VIDEOS GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-agent-mesh-poster.webp" aria-label="Agent Mesh Activation">
-                    <source src="motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4" />
-                    <source src="motion/sequences/benni-agent-mesh-activation.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Ecosystem Activation Video">
+                    <source src="material/videos/ecosystem-activation.mp4" type="video/mp4" />
                   </video>
-                  <img src="posters/benni-agent-mesh-poster.webp" alt="Agent Mesh Activation" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 01 // AGENT MESH</div>
-                <h3 className="text-base font-bold text-white">Coordinated Agent Mesh Activation</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-agent mesh dispatching autonomous code execution tasks.</p>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">REEL 01 // ECOSYSTEM ACTIVATION</div>
+                <h3 className="text-base font-bold text-white">Technology Ecosystem Activation</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-agent ecosystem activation in 1080p high definition.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-atlas-poster.webp" aria-label="Ecosystem Atlas Topology">
-                    <source src="motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
-                    <source src="motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Flythrough Video">
+                    <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4" />
                   </video>
-                  <img src="posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem Atlas Flythrough" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
-                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">MODULE 02 // TOPOLOGY FLYTHROUGH</div>
-                <h3 className="text-base font-bold text-white">3D Architectural Topology Flythrough</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Flythrough visualization of Benni OS infrastructure layers.</p>
+                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">REEL 02 // 3D TOPOLOGY FLYTHROUGH</div>
+                <h3 className="text-base font-bold text-white">Architectural Topology Flythrough</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Camera traveling through Benni OS technology layers.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-intent-to-evidence-poster.webp" aria-label="Intent to Evidence Pipeline">
-                    <source src="motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
-                    <source src="motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Operation Visualization Pipeline Video">
+                    <source src="material/videos/operation-pipeline.mp4" type="video/mp4" />
                   </video>
-                  <img src="posters/benni-intent-to-evidence-poster.webp" alt="Intent to Evidence" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
-                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">MODULE 03 // EXECUTION PIPELINE</div>
-                <h3 className="text-base font-bold text-white">Intent-to-Evidence Pipeline</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic pipeline from goal payload to verified git evidence.</p>
+                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">REEL 03 // OPERATION PIPELINE</div>
+                <h3 className="text-base font-bold text-white">AI Operation Visualization Pipeline</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic pipeline from intent payload to verified execution.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-evidence-return-poster.webp" aria-label="Cryptographic Evidence Return">
-                    <source src="motion/sequences/benni-evidence-return.mp4" type="video/mp4" />
-                    <source src="motion/sequences/benni-evidence-return.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Mesh Activation Video">
+                    <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4" />
                   </video>
-                  <img src="posters/benni-evidence-return-poster.webp" alt="Cryptographic Evidence Return" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
-                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">MODULE 04 // EVIDENCE RETURN</div>
-                <h3 className="text-base font-bold text-white">Cryptographic Policy Settlement</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">HMAC signed evidence capsule returning verified outputs.</p>
+                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">REEL 04 // AGENT MESH ACTIVATION</div>
+                <h3 className="text-base font-bold text-white">Coordinated Swarm Mesh</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Autonomous AI agents forming coordinated execution mesh.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4 md:col-span-2 lg:col-span-2">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Mobile Surface Visualization">
-                    <source src="motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4" />
-                    <source src="motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Video">
+                    <source src="material/videos/evidence-settlement.mp4" type="video/mp4" />
                   </video>
-                  <img src="posters/benni-ecosystem-hero-mobile-poster.webp" alt="Mobile Viewport Surface" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 05 // MOBILE SURFACE</div>
-                <h3 className="text-base font-bold text-white">Mobile Viewport Surface</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Vertical 9:16 optimized motion sequence for mobile viewport buffering.</p>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">REEL 05 // EVIDENCE SETTLEMENT</div>
+                <h3 className="text-base font-bold text-white">Cryptographic Evidence Return</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">System returning verified cryptographic evidence capsules.</p>
               </article>
             </div>
           </div>
         </section>
 
-        {/* 3. ECOSYSTEM ATLAS WITH PROJECT PREVIEW IMAGES */}
+        {/* 3. ECOSYSTEM ATLAS WITH MATERIAL REVIEW IMAGES */}
         <section id="atlas" className="py-24 bg-[#05070c] border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
@@ -324,14 +312,14 @@ export default function Home() {
               </div>
             </div>
 
-            {/* REPOSITORIES GRID WITH IMAGE PREVIEWS */}
+            {/* REPOSITORIES GRID WITH PREVIEW IMAGES FROM MATERIAL/_REVIEW */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
               {/* 1. benni-operator-gateway */}
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/benni-operator-gateway.jpeg" alt="benni-operator-gateway preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-open-source-constellation-review-01.jpeg" alt="benni-operator-gateway preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
                   <div className="p-6">
@@ -352,7 +340,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/projects/benni-command-plane.webp" alt="modo-operador preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-command-plane-review-01.jpeg" alt="modo-operador preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
                   <div className="p-6">
@@ -373,7 +361,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/benni-inference-engine.jpeg" alt="benni-inference-engine preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="benni-inference-engine preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
                   <div className="p-6">
@@ -394,7 +382,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/benni-nexus.jpeg" alt="benni-nexus preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-ecosystem-product-review-01.jpeg" alt="benni-nexus preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
                   <div className="p-6">
@@ -415,7 +403,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/mcp-forge.jpeg" alt="mcp-forge preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="mcp-forge preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
                   <div className="p-6">
@@ -436,7 +424,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/ecosystem/benni-open-source-constellation.webp" alt="mcp-forge-playbook preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-ecosystem-product-review-02.jpeg" alt="mcp-forge-playbook preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ffe0]/20 text-[#00ffe0] border border-[#00ffe0]/40 font-bold backdrop-blur">Public</span>
                   </div>
                   <div className="p-6">
@@ -457,7 +445,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/projects/benni-evidence-layer.webp" alt="benni-nemesis preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="benni-nemesis preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
@@ -477,7 +465,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/ecosystem/benni-ecosystem-core.webp" alt="benni-os-genesis preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-sovereign-autonomous-review-01.jpeg" alt="benni-os-genesis preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
@@ -497,7 +485,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/Benni Master OS.jpeg" alt="Benni-Master-OS preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-memory-fabric-review-02.jpeg" alt="Benni-Master-OS preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
@@ -517,7 +505,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/control-plane.jpeg" alt="benni-control-plane preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-evidence-layer-review-02.jpeg" alt="benni-control-plane preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
@@ -537,7 +525,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/projects/benni-agent-mesh.webp" alt="jarvas-2 preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="jarvas-2 preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
@@ -557,7 +545,7 @@ export default function Home() {
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
-                    <img src="images/ecosystem/benni-ecosystem-atlas.webp" alt="Benni-gravity-0 preview" className="w-full h-full object-cover" />
+                    <img src="material/_review/benni-agent-mesh-review-02.jpeg" alt="Benni-gravity-0 preview" className="w-full h-full object-cover" />
                     <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
                   <div className="p-6">
