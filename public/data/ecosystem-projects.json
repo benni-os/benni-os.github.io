@@ -1,0 +1,77 @@
+{
+  "version": "1.0.0",
+  "projects": [
+    {
+      "id": "benni-os",
+      "name": "Benni OS",
+      "category": "core",
+      "layer": "Intelligence & Surface",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/benni-os.github.io",
+      "description": "Autonomous operating layer for agents, memory, control and execution",
+      "relations": ["jarvas-2", "benni-control-plane", "nemesis-gateway", "benni-operator-gateway"],
+      "image": "images/ecosystem/benni-ecosystem-atlas.webp"
+    },
+    {
+      "id": "jarvas-2",
+      "name": "JARVAS-2",
+      "category": "execution",
+      "layer": "Execution Engine",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/jarvas-2",
+      "description": "Autonomous code execution engine, local port scanner, and subagent process dispatcher",
+      "relations": ["benni-os", "benni-control-plane"],
+      "image": "images/projects/benni-agent-mesh.webp"
+    },
+    {
+      "id": "benni-control-plane",
+      "name": "Benni Control Plane",
+      "category": "control",
+      "layer": "Persistence & State",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/benni-control-plane",
+      "description": "State engine, immutable decision ledger, and cross-session memory fabric",
+      "relations": ["benni-os", "nemesis-gateway"],
+      "image": "images/projects/benni-command-plane.webp"
+    },
+    {
+      "id": "nemesis-gateway",
+      "name": "NEMESIS Gateway",
+      "category": "infrastructure",
+      "layer": "Security & Gateways",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/nemesis-gateway",
+      "description": "MCP security gateway enforcing HMAC signatures, canonical payload hashes, and single-use approvals",
+      "relations": ["benni-control-plane", "monomo-event-bus"],
+      "image": "images/projects/benni-evidence-layer.webp"
+    },
+    {
+      "id": "monomo-event-bus",
+      "name": "MONOMO Event Bus",
+      "category": "growth",
+      "layer": "Revenue & Events",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/monomo-event-bus",
+      "description": "Reactive event bus tracking 12 canonical events from lead capture to financial reconciliation",
+      "relations": ["nemesis-gateway", "benni-operator-gateway"],
+      "image": "images/projects/benni-memory-fabric.webp"
+    },
+    {
+      "id": "benni-operator-gateway",
+      "name": "Benni Operator Gateway",
+      "category": "community",
+      "layer": "Human Command Surface",
+      "status": "live",
+      "visibility": "public",
+      "repository": "https://github.com/benni-os/operator-gateway",
+      "description": "Human command surface, operator overrides, and real-time swarm telemetry dashboard",
+      "relations": ["benni-os", "monomo-event-bus"],
+      "image": "images/ecosystem/benni-open-source-constellation.webp"
+    }
+  ]
+}

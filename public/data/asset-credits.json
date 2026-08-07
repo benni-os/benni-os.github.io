@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "organization": "Benni OS Core Team",
+  "license": "MIT",
+  "provenance": {
+    "rendering_engine": "Benni Open Design Engine v4",
+    "video_synthesis": "Cinematic Motion Suite 2026",
+    "asset_hash_verification": "SHA-256 Byte Integrity Protocol"
+  },
+  "credits": [
+    {
+      "asset_id": "ecosystem-hero",
+      "author": "Benni OS Open Design",
+      "license": "MIT",
+      "description": "Hero cinematic background video render"
+    },
+    {
+      "asset_id": "ecosystem-atlas",
+      "author": "Benni OS Architectural Swarm",
+      "license": "MIT",
+      "description": "Full architectural atlas visual map"
+    }
+  ]
+}
