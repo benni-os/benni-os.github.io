@@ -184,7 +184,7 @@ export default function Home() {
                 <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true" />
                 <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">6 Motion Films Live</span>
               </div>
-              <a href="https://t.me/bennios" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
+              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
                 Join Swarm →
               </a>
             </div>
@@ -533,7 +533,7 @@ export default function Home() {
             <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
             <div className="flex gap-6">
               <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">GitHub</a>
-              <a href="https://t.me/bennios" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram</a>
+              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram</a>
             </div>
           </div>
         </footer>
