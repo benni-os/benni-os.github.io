@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Benni OS — Sovereign Autonomous Swarm Operating System | Motion Graphic Experience</title>
-  <meta name="description" content="Sovereign multi-agent swarm operating system with JARVAS-2 execution, NEMESIS policy gates, Control Plane persistence, and MONOMO event loops." />
-  <meta property="og:title" content="Benni OS — Sovereign Motion Graphic & Agent Swarm OS" />
-  <meta property="og:description" content="Cinematic motion UI showcase of sovereign autonomous agent swarms and verifiable execution ledgers." />
+  <title>Benni OS — The Operating System for Autonomous Work</title>
+  <meta name="description" content="Coordinate agents, memory, tools and policy in one observable operating layer." />
+  <meta property="og:title" content="Benni OS — The Operating System for Autonomous Work" />
+  <meta property="og:description" content="Coordinate agents, memory, tools and policy in one observable operating layer." />
   <meta property="og:image" content="./images/ecosystem/benni-ecosystem-atlas.webp" />
   <meta name="twitter:card" content="summary_large_image" />
 
@@ -44,7 +44,7 @@
     }
   </script>
 
-  <!-- Three.js & GSAP Libraries -->
+  <!-- Three.js & GSAP Animation Libraries -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -52,7 +52,7 @@
   <style>
     body { background-color: #05070c; color: #f8fafc; font-family: 'Inter', sans-serif; }
 
-    /* Zajno-style Grain Overlay */
+    /* Noise Texture Overlay */
     .noise-overlay {
       position: fixed;
       top: 0; left: 0; width: 100vw; height: 100vh;
@@ -62,26 +62,23 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Motion Frame Card */
-    .motion-frame {
+    /* Glass Cards */
+    .glass-card {
       background: rgba(17, 23, 36, 0.85);
-      border: 1px solid rgba(0, 255, 224, 0.2);
-      backdrop-filter: blur(12px);
-      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: all 0.3s ease;
     }
-    .motion-frame:hover {
-      border-color: rgba(0, 255, 224, 0.7);
-      box-shadow: 0 20px 50px -10px rgba(0, 255, 224, 0.25);
-      transform: translateY(-4px) scale(1.01);
+    .glass-card:hover {
+      border-color: rgba(0, 255, 224, 0.4);
+      box-shadow: 0 10px 40px -10px rgba(0, 255, 224, 0.2);
     }
 
-    /* Video Player Video Element */
-    .showcase-video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      border-radius: 0.75rem;
+    /* 3D Tilt Card */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.3s ease;
     }
 
     #webgl-bg {
@@ -89,7 +86,7 @@
       top: 0; left: 0; width: 100vw; height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.5;
+      opacity: 0.45;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -99,6 +96,7 @@
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
       }
+      video { display: none !important; }
       #webgl-bg { display: none !important; }
     }
   </style>
@@ -115,21 +113,22 @@
       <a href="#top" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">Motion Graphic Studio</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">v2.0 Observable</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
-        <a href="#motion-cinema" class="hover:text-c1 transition-colors">/cinema</a>
-        <a href="#motion-reels" class="hover:text-c1 transition-colors">/reels</a>
+        <a href="#hero-surface" class="hover:text-c1 transition-colors">/surface</a>
         <a href="#ecosystem-atlas" class="hover:text-c1 transition-colors">/atlas</a>
-        <a href="#workflow-story" class="hover:text-c1 transition-colors">/workflow</a>
+        <a href="#operation-protocol" class="hover:text-c1 transition-colors">/protocol</a>
+        <a href="#open-source" class="hover:text-c1 transition-colors">/code</a>
         <a href="#bento-architecture" class="hover:text-c1 transition-colors">/bento</a>
+        <a href="#governance" class="hover:text-c1 transition-colors">/trust</a>
       </nav>
 
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-bg1 border border-c3/40 backdrop-blur">
           <span class="w-2 h-2 rounded-full bg-c3 animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true"></span>
-          <span class="text-[11px] font-mono text-txt uppercase tracking-wider font-semibold">6 Motion Films Live</span>
+          <span class="text-[11px] font-mono text-txt uppercase tracking-wider font-semibold">Swarm Active</span>
         </div>
         <!-- Single Canonical Community CTA -->
         <a href="https://t.me/bennios" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-lg bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
@@ -139,53 +138,80 @@
     </div>
   </header>
 
-  <!-- 1. FULLSCREEN CINEMA HERO SHOWCASE (MAIN MOTION GRAPHIC FILM) -->
-  <section id="motion-cinema" class="relative w-full min-h-screen pt-24 pb-16 flex flex-col justify-center items-center overflow-hidden border-b border-white/10 z-10" aria-label="Cinematic Motion Hero Showcase">
+  <!-- 1. HERO SECTION WITH OPERATIONAL PRODUCT SURFACE DEMONSTRATION -->
+  <section id="hero-surface" class="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
+    <div class="container mx-auto px-6 max-w-7xl text-center">
 
-    <div class="container mx-auto px-6 max-w-7xl">
-
-      <!-- Hero Header Typography -->
-      <div class="text-center max-w-4xl mx-auto mb-8">
-        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-6">
+      <div class="max-w-4xl mx-auto mb-8">
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-6">
           <span class="w-2 h-2 rounded-full bg-c1 animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true"></span>
-          <span class="font-mono text-xs text-c1 uppercase tracking-widest font-semibold">Zajno-Grade Motion Graphic Experience</span>
+          <span class="font-mono text-xs text-c1 uppercase tracking-widest font-semibold">Autonomous Work Infrastructure</span>
         </div>
+
+        <!-- Headline & Subheadline as specified in plan -->
         <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight">
-          Sovereign Swarms in <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">Motion Graphics & 3D</span>
+          The operating system for <br />
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">autonomous work.</span>
         </h1>
-        <p class="mt-4 text-txt2 font-mono text-sm sm:text-base max-w-3xl mx-auto leading-relaxed">
-          Explore the 6 high-framerate motion graphic films documenting <strong class="text-txt">JARVAS-2 execution</strong>, <strong class="text-c1">NEMESIS security gates</strong>, <strong class="text-c2">Control Plane ledgers</strong>, and <strong class="text-c3">MONOMO event loops</strong>.
+        <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+          Coordinate agents, memory, tools and policy in one observable operating layer.
         </p>
+
+        <!-- Single Primary CTA -->
+        <div class="mt-8 flex justify-center items-center gap-4">
+          <a href="#ecosystem-atlas" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-c1d transition-all" aria-label="Explore the Ecosystem Atlas">
+            Explore the ecosystem →
+          </a>
+        </div>
       </div>
 
-      <!-- MAIN FEATURED HERO CINEMA VIDEO PLAYER -->
-      <div class="relative w-full max-w-6xl mx-auto motion-frame rounded-2xl p-3 shadow-[0_0_60px_rgba(0,255,224,0.2)] overflow-hidden">
+      <!-- OPERATIONAL PRODUCT SURFACE CONSOLE (Intent -> Control Plane -> Agent Mesh -> Policy Gate -> Evidence) -->
+      <div class="w-full max-w-5xl mx-auto glass-card rounded-2xl p-6 shadow-[0_0_60px_rgba(0,255,224,0.15)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
 
-        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-bg1">
-          <!-- Desktop & Mobile Main Motion Cinema Video -->
-          <video id="main-hero-film" class="showcase-video" autoplay muted loop playsinline preload="auto" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Product Film Main Cinema Video">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-txt2">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-c1 animate-pulse"></span>
+            <span class="font-bold text-txt">OPERATIONAL PRODUCT SURFACE // LIVE SWARM DISPATCH FLOW</span>
+          </div>
+          <div class="text-[11px] text-c1 font-mono">STATUS: OPERATIONAL (HMAC VERIFIED)</div>
+        </div>
+
+        <!-- Interactive Operational Flow Map -->
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-4 font-mono text-xs mb-6">
+          <div class="p-4 rounded-xl bg-bg1 border border-c1/30 relative">
+            <div class="text-c1 font-bold text-[10px] uppercase mb-1">01 // INTENT</div>
+            <div class="font-semibold text-txt">Intent Received</div>
+            <div class="text-txt3 text-[10px] mt-1">SHA-256 Hash Computed</div>
+          </div>
+          <div class="p-4 rounded-xl bg-bg1 border border-c2/30 relative">
+            <div class="text-c2 font-bold text-[10px] uppercase mb-1">02 // CONTROL</div>
+            <div class="font-semibold text-txt">Control Plane</div>
+            <div class="text-txt3 text-[10px] mt-1">Run Ledger Locked</div>
+          </div>
+          <div class="p-4 rounded-xl bg-bg1 border border-c3/30 relative">
+            <div class="text-c3 font-bold text-[10px] uppercase mb-1">03 // SWARM</div>
+            <div class="font-semibold text-txt">Agent Mesh</div>
+            <div class="text-txt3 text-[10px] mt-1">JARVAS-2 Dispatch</div>
+          </div>
+          <div class="p-4 rounded-xl bg-bg1 border border-gold/30 relative">
+            <div class="text-gold font-bold text-[10px] uppercase mb-1">04 // SECURITY</div>
+            <div class="font-semibold text-txt">Policy Gate</div>
+            <div class="text-txt3 text-[10px] mt-1">NEMESIS Signature Check</div>
+          </div>
+          <div class="p-4 rounded-xl bg-bg1 border border-c1/30 relative">
+            <div class="text-c1 font-bold text-[10px] uppercase mb-1">05 // PROOF</div>
+            <div class="font-semibold text-txt">Evidence Returned</div>
+            <div class="text-txt3 text-[10px] mt-1">Immutable Git Commit</div>
+          </div>
+        </div>
+
+        <!-- Hero Motion Video Film Embed -->
+        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-bg border border-white/10">
+          <video class="w-full h-full object-cover" autoplay muted loop playsinline preload="auto" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Product Surface Execution Film">
             <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm">
             <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
-            <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Film Poster" class="w-full h-full object-cover" />
+            <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Poster Fallback" class="w-full h-full object-cover" />
           </video>
-
-          <!-- Interactive Cinema Video Controls HUD -->
-          <div class="absolute bottom-4 left-4 right-4 flex items-center justify-between px-4 py-3 rounded-xl bg-bg/85 backdrop-blur-xl border border-white/10 font-mono text-xs text-txt">
-            <div class="flex items-center gap-3">
-              <button id="btn-play-hero" class="px-3 py-1.5 rounded bg-c1 text-black font-bold text-xs hover:bg-c1d transition-all">
-                PAUSE
-              </button>
-              <button id="btn-mute-hero" class="px-3 py-1.5 rounded bg-white/10 border border-white/20 text-txt hover:bg-white/20 transition-all">
-                UNMUTE SOUND
-              </button>
-              <span class="hidden sm:inline-block text-txt2 text-[11px]">FILM 01 // Benni OS Sovereign Product Film (1080p 60fps)</span>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-c3 animate-pulse"></span>
-              <span class="text-c1 font-bold text-[11px]">LIVE CINEMA FEED</span>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -193,247 +219,301 @@
     </div>
   </section>
 
-  <!-- 2. THE 6 MOTION FILMS SHOWCASE GALLERY (MOTION REELS GRID) -->
-  <section id="motion-reels" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Motion Graphic Showcase Gallery">
+  <!-- 2. ECOSYSTEM ATLAS (NAVIGABLE CLASSIFIED PROJECT MAP) -->
+  <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Navigable Ecosystem Atlas">
     <div class="container mx-auto px-6 max-w-7xl">
-      <div class="mb-16 text-center">
+
+      <div class="mb-14 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
-          THE 6 MOTION ARTIFACTS
+          ECOSYSTEM ATLAS v2.0
         </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Motion Graphic <span class="text-c1">Films & Showcase</span>
+          Architectural <span class="text-c1">Ecosystem Atlas</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
-          All 6 rendered motion graphic sequences encoded in H.264/VP9 high-speed streaming formats.
+          Navigable constellation of projects powering Benni OS. Classified explicitly into <strong class="text-c3">Live</strong>, <strong class="text-c1">Open Source</strong>, <strong class="text-gold">Building</strong>, and <strong class="text-c2">Private</strong>.
         </p>
-      </div>
 
-      <!-- 6 MOTION VIDEOS GRID -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <!-- Film 01: Hero Product Film -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 01 Product Film">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-poster.webp">
-                <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm">
-                <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-c1/40 font-mono text-[10px] text-c1 font-bold backdrop-blur">FILM 01</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Benni OS Product Film</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Cinema Reel // Desktop 16:9</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                Full ecosystem activation establishing the sovereign agent operating environment.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-c1">
-            <span>H.264 / yuv420p</span>
-            <span>3.57 MB</span>
-          </div>
-        </article>
-
-        <!-- Film 02: Mobile Product Film -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 02 Mobile Product Film">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-mobile-poster.webp">
-                <source src="./motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4">
-                <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-c2/40 font-mono text-[10px] text-c2 font-bold backdrop-blur">FILM 02</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Mobile Hero Motion</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Vertical Reel // Mobile 9:16 Crop</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                Optimized mobile viewport rendering with instant buffering under 2 MB.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-c2">
-            <span>H.264 / Crop 9:16</span>
-            <span>1.91 MB</span>
-          </div>
-        </article>
-
-        <!-- Film 03: Ecosystem Atlas Flythrough -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 03 Ecosystem Atlas Flythrough">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-atlas-poster.webp">
-                <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm">
-                <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-c3/40 font-mono text-[10px] text-c3 font-bold backdrop-blur">FILM 03</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Ecosystem Atlas 3D Flythrough</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Sequence Reel // Camera Travel</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                3D camera journey traversing interconnected core modules and memory layers.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-c3">
-            <span>H.264 / VP9</span>
-            <span>3.15 MB</span>
-          </div>
-        </article>
-
-        <!-- Film 04: Intent to Evidence -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 04 Intent to Evidence">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-intent-to-evidence-poster.webp">
-                <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm">
-                <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-gold/40 font-mono text-[10px] text-gold font-bold backdrop-blur">FILM 04</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Intent to Evidence Pipeline</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Sequence Reel // Pipeline Flow</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                Step-by-step transformation of operator intent into verified byte-integrity hashes.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-gold">
-            <span>H.264 / VP9</span>
-            <span>1.59 MB</span>
-          </div>
-        </article>
-
-        <!-- Film 05: Swarm Agent Mesh Activation -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 05 Agent Mesh Activation">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-agent-mesh-poster.webp">
-                <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm">
-                <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-c1/40 font-mono text-[10px] text-c1 font-bold backdrop-blur">FILM 05</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Swarm Agent Mesh Activation</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Sequence Reel // Swarm Mesh</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                Parallel dispatch of autonomous subagents executing coordinated background tasks.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-c1">
-            <span>H.264 / VP9</span>
-            <span>2.17 MB</span>
-          </div>
-        </article>
-
-        <!-- Film 06: Evidence Return -->
-        <article class="motion-frame rounded-2xl overflow-hidden flex flex-col justify-between" aria-label="Film 06 Evidence Return">
-          <div>
-            <div class="relative w-full aspect-video bg-bg">
-              <video class="showcase-video motion-reel-item" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-evidence-return-poster.webp">
-                <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm">
-                <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4">
-              </video>
-              <span class="absolute top-3 left-3 px-2.5 py-1 rounded bg-bg/80 border border-c2/40 font-mono text-[10px] text-c2 font-bold backdrop-blur">FILM 06</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Evidence Return & Settlement</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-2">Sequence Reel // Cryptographic Proof</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed">
-                Immutable evidence return with MONOMO event financial reconciliation.
-              </p>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs text-c2">
-            <span>H.264 / VP9</span>
-            <span>1.14 MB</span>
-          </div>
-        </article>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 3. INTERACTIVE 3D NEURAL MESH (THREE.JS CANVAS) -->
-  <section id="ecosystem-atlas" class="py-24 bg-bg border-b border-white/10 z-10 relative" aria-label="Interactive 3D Neural Mesh">
-    <div class="container mx-auto px-6 max-w-6xl text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
-        3D NEURAL TOPOLOGY MESH
-      </div>
-      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-4">
-        3D Neural Node <span class="text-c1">Topology</span>
-      </h2>
-      <p class="text-txt2 font-mono text-sm max-w-xl mx-auto mb-10">
-        Interact with the live 3D node network powering Benni OS control plane.
-      </p>
-
-      <div class="motion-frame rounded-2xl p-4 shadow-[0_0_50px_rgba(0,255,224,0.15)] relative overflow-hidden">
-        <div class="relative w-full h-96 bg-bg1/90 rounded-xl overflow-hidden flex items-center justify-center">
-          <canvas id="atlas-3d-canvas" class="w-full h-full"></canvas>
-          <div class="absolute bottom-4 left-4 font-mono text-[11px] text-txt2 bg-bg/80 px-3 py-1.5 rounded-lg border border-white/10 backdrop-blur">
-            Click / Drag mouse to orbit 3D Neural Node Topology Mesh
-          </div>
+        <!-- Category Filter Tabs -->
+        <div class="mt-8 flex flex-wrap justify-center gap-3 font-mono text-xs" id="atlas-tabs">
+          <button data-filter="all" class="px-4 py-2 rounded-lg bg-c1 text-black font-bold transition-all">ALL PROJECTS</button>
+          <button data-filter="live" class="px-4 py-2 rounded-lg bg-bg2 border border-c3/40 text-c3 hover:border-c3 transition-all">● LIVE</button>
+          <button data-filter="public" class="px-4 py-2 rounded-lg bg-bg2 border border-c1/40 text-c1 hover:border-c1 transition-all">OPEN SOURCE</button>
+          <button data-filter="building" class="px-4 py-2 rounded-lg bg-bg2 border border-gold/40 text-gold hover:border-gold transition-all">BUILDING</button>
+          <button data-filter="private" class="px-4 py-2 rounded-lg bg-bg2 border border-c2/40 text-c2 hover:border-c2 transition-all">PRIVATE</button>
         </div>
       </div>
+
+      <!-- Dynamic Project Cards Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="atlas-projects-grid">
+      </div>
+
     </div>
   </section>
 
-  <!-- 4. WORKFLOW STORYTELLING & BENTO ARCHITECTURE -->
-  <section id="workflow-story" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Workflow Storytelling">
+  <!-- 3. HOW THE SYSTEM OPERATES (OPERATION PROTOCOL) -->
+  <section id="operation-protocol" class="py-24 bg-bg border-b border-white/10 z-10 relative" aria-label="Operation Protocol">
     <div class="container mx-auto px-6 max-w-5xl">
       <div class="mb-16 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
+          EXECUTION PIPELINE
+        </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Execution <span class="text-c1">Workflow Pipeline</span>
+          How Benni OS <span class="text-c1">Operates</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-xl mx-auto">
-          Intent → Plan → Agents → Execution → Evidence
+          Deterministic 5-phase execution protocol enforcing scope boundaries and byte-integrity auditability.
         </p>
       </div>
 
-      <div class="space-y-12 border-l-2 border-c1/40 pl-8 ml-4 md:ml-12">
+      <div class="space-y-16 border-l-2 border-c1/30 pl-8 ml-4 md:ml-12">
         <div class="relative">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c1 border-4 border-bg shadow-[0_0_15px_#00ffe0]"></span>
-          <h3 class="text-2xl font-bold text-txt">01 // Operator Intent Parsing</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Goal normalization and SHA-256 byte-level hashing.</p>
+          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">PHASE 01 // INTENT</div>
+          <h3 class="text-2xl font-bold text-txt">Operator Intent Parsing</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
+            Goal payload normalization and SHA-256 byte-level hash computation.
+          </p>
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline poster="./posters/benni-intent-to-evidence-poster.webp">
+              <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
+
         <div class="relative">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c2 border-4 border-bg shadow-[0_0_15px_#7c5cfc]"></span>
-          <h3 class="text-2xl font-bold text-txt">02 // Run Ledger & Checkpoint Lock</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Atomic checkpointing and anti-drift ledger lock.</p>
+          <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-1">PHASE 02 // PLAN</div>
+          <h3 class="text-2xl font-bold text-txt">Run Ledger & Checkpoint Lock</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
+            Multi-step execution plan locked with atomic checkpoints to prevent scope drift.
+          </p>
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline poster="./posters/benni-ecosystem-atlas-poster.webp">
+              <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
+
         <div class="relative">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c3 border-4 border-bg shadow-[0_0_15px_#00ff88]"></span>
-          <h3 class="text-2xl font-bold text-txt">03 // JARVAS-2 Swarm Mesh Dispatch</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Multi-threaded agent dispatch across isolated background tasks.</p>
+          <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-1">PHASE 03 // AGENTS</div>
+          <h3 class="text-2xl font-bold text-txt">JARVAS-2 Swarm Mesh Dispatch</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
+            Parallel background subagent execution across isolated code threads.
+          </p>
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline poster="./posters/benni-agent-mesh-poster.webp">
+              <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
+            </video>
+          </div>
         </div>
+
         <div class="relative">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gold border-4 border-bg shadow-[0_0_15px_#ffb703]"></span>
-          <h3 class="text-2xl font-bold text-txt">04 // NEMESIS Policy Gate Verification</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">HMAC signature verification and single-use approval token gate.</p>
+          <div class="font-mono text-xs text-gold font-bold uppercase tracking-widest mb-1">PHASE 04 // SECURITY</div>
+          <h3 class="text-2xl font-bold text-txt">NEMESIS Policy Gate Check</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
+            HMAC signature verification and single-use approval token consumption.
+          </p>
         </div>
+
         <div class="relative">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c1 border-4 border-bg shadow-[0_0_15px_#00ffe0]"></span>
-          <h3 class="text-2xl font-bold text-txt">05 // Cryptographic Evidence Return</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Immutable Git commit evidence with MONOMO event reconciliation.</p>
+          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">PHASE 05 // EVIDENCE</div>
+          <h3 class="text-2xl font-bold text-txt">Evidence Return & Settlement</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
+            Results committed immutably to Git with MONOMO event financial reconciliation.
+          </p>
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline poster="./posters/benni-evidence-return-poster.webp">
+              <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 4. OPEN SOURCE & REPOSITORY PROOF -->
+  <section id="open-source" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Open Source Proof">
+    <div class="container mx-auto px-6 max-w-6xl text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
+        VERIFIABLE SOURCE CODE
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-4">
+        Built in the Open on <span class="text-c1">GitHub</span>
+      </h2>
+      <p class="text-txt2 font-mono text-sm max-w-xl mx-auto mb-12">
+        Inspect raw implementation code, protocol definitions, and security specs directly on GitHub.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <a href="https://github.com/benni-os/benni-os.github.io" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c1 transition-all">
+          <div class="font-mono text-xs text-c1 font-bold uppercase mb-2">Repository // Core OS</div>
+          <h3 class="text-lg font-bold text-txt mb-2">benni-os.github.io</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Public ecosystem landing surface, protocol documentation, and web UI.</p>
+          <span class="text-c1 font-mono text-xs font-bold">Inspect Source Code →</span>
+        </a>
+
+        <a href="https://github.com/benni-os/jarvas-2" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c2 transition-all">
+          <div class="font-mono text-xs text-c2 font-bold uppercase mb-2">Repository // Execution Engine</div>
+          <h3 class="text-lg font-bold text-txt mb-2">jarvas-2</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Autonomous code execution engine and background subagent dispatcher.</p>
+          <span class="text-c2 font-mono text-xs font-bold">Inspect Source Code →</span>
+        </a>
+
+        <a href="https://github.com/benni-os/benni-control-plane" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c3 transition-all">
+          <div class="font-mono text-xs text-c3 font-bold uppercase mb-2">Repository // State Ledger</div>
+          <h3 class="text-lg font-bold text-txt mb-2">benni-control-plane</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Immutable decision ledger, state engine, and cross-session memory fabric.</p>
+          <span class="text-c3 font-mono text-xs font-bold">Inspect Source Code →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. BENTO ARCHITECTURE MODULES -->
+  <section id="bento-architecture" class="py-24 bg-bg border-b border-white/10 z-10 relative" aria-label="Bento Architecture">
+    <div class="container mx-auto px-6 max-w-6xl">
+      <div class="mb-14 text-center">
+        <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
+          Core <span class="text-c2">Architecture Layers</span>
+        </h2>
+        <p class="mt-4 text-txt2 font-mono text-sm max-w-xl mx-auto">
+          Five core operational layers structuring sovereign intelligence.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-7 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
+          <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 01 // Intelligence</div>
+          <h3 class="text-2xl font-bold text-txt mb-3">Multi-Model Swarm Intelligence</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Context compression, persistent vector KV, and cross-environment snapshot restore protocols.</p>
+        </div>
+
+        <div class="md:col-span-5 p-8 rounded-2xl glass-card hover:border-c2/60 transition-all">
+          <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">Layer 02 // Control</div>
+          <h3 class="text-2xl font-bold text-txt mb-3">Sovereign Control Plane</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Immutable decision log, policy gate enforcement, and single-use token verification.</p>
+        </div>
+
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c3/60 transition-all">
+          <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">Layer 03 // Execution</div>
+          <h3 class="text-xl font-bold text-txt mb-3">JARVAS-2 Dispatch</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Multi-threaded background processes executing discrete code tasks.</p>
+        </div>
+
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-gold/60 transition-all">
+          <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-2">Layer 04 // Dev Infra</div>
+          <h3 class="text-xl font-bold text-txt mb-3">MCP Security Gateway</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Exposes native tools over streamable SSE and HTTPS with zero secret leaks.</p>
+        </div>
+
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
+          <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 05 // Community</div>
+          <h3 class="text-xl font-bold text-txt mb-3">Operator Network</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Sovereign open-source ecosystem built by operators for operators.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. CANONICAL COMMUNITY CTA -->
-  <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
+  <!-- 6. TARGET AUDIENCE & PROBLEM SOLUTION -->
+  <section class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Solutions">
+    <div class="container mx-auto px-6 max-w-6xl text-center">
+      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-12">
+        Built for Engineers, Founders & Enterprise
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
+        <div class="p-8 rounded-2xl glass-card">
+          <div class="font-mono text-xs text-c1 font-bold uppercase mb-2">For Engineers</div>
+          <h3 class="text-xl font-bold text-txt mb-3">Deterministic Tool Calling</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Execute shell commands, git operations, and background jobs with full trace logging and zero context drift.</p>
+        </div>
+
+        <div class="p-8 rounded-2xl glass-card">
+          <div class="font-mono text-xs text-c2 font-bold uppercase mb-2">For Founders</div>
+          <h3 class="text-xl font-bold text-txt mb-3">Autonomous Revenue Loops</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Connect social outreach, landing page deployment, and checkout reconciliation into automated background workflows.</p>
+        </div>
+
+        <div class="p-8 rounded-2xl glass-card">
+          <div class="font-mono text-xs text-c3 font-bold uppercase mb-2">For Enterprise</div>
+          <h3 class="text-xl font-bold text-txt mb-3">On-Prem Privacy & Security</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Run local LLMs inside secure VPC boundaries with HMAC payload verification and single-use approval tokens.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. SOVEREIGN INFRASTRUCTURE & AUTHENTIC ORIGIN NARRATIVE -->
+  <section class="py-24 bg-bg border-b border-white/10 z-10 relative" aria-label="Sovereign Infrastructure">
+    <div class="container mx-auto px-6 max-w-5xl text-center">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-6">
+        SOVEREIGN ORIGIN
+      </div>
+      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-6">
+        Engineered for Complete Data Sovereignty
+      </h2>
+      <p class="text-txt2 font-mono text-sm max-w-2xl mx-auto leading-relaxed mb-12">
+        Originating in <strong class="text-txt">Castanhal, Pará, Brazil</strong>, Benni OS was built out of the necessity for true technological independence, local inference capability, and zero vendor lock-in.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+        <div class="p-8 rounded-2xl glass-card">
+          <h3 class="text-xl font-bold text-txt mb-2">Local Hardware Execution</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Run subagents directly on local GPU clusters or self-hosted servers with zero cloud dependency.</p>
+        </div>
+
+        <div class="p-8 rounded-2xl glass-card">
+          <h3 class="text-xl font-bold text-txt mb-2">Zero Log Leakage</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Production logs strip sensitive payloads, emitting only byte counts and 8-character hash prefixes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. GOVERNANCE, AUDITABILITY & TRUST -->
+  <section id="governance" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Trust and Governance">
+    <div class="container mx-auto px-6 max-w-5xl text-center">
+      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-6">
+        Built for Full Auditability and Human Control
+      </h2>
+      <p class="text-txt2 font-mono text-sm max-w-2xl mx-auto leading-relaxed mb-12">
+        Benni OS never executes destructive mutations silently. Every critical action requires explicit, payload-bound approval with HMAC signature verification.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <div class="p-6 rounded-xl glass-card">
+          <h4 class="font-bold text-txt text-base mb-2">Byte-Integrity Hashes</h4>
+          <p class="text-txt2 font-mono text-xs">SHA-256 computed on normalized canonical payloads before human review.</p>
+        </div>
+
+        <div class="p-6 rounded-xl glass-card">
+          <h4 class="font-bold text-txt text-base mb-2">Single-Use Tokens</h4>
+          <p class="text-txt2 font-mono text-xs">Approval tokens expire in 5 minutes and cannot be reused across calls.</p>
+        </div>
+
+        <div class="p-6 rounded-xl glass-card">
+          <h4 class="font-bold text-txt text-base mb-2">Immutable Decision Logs</h4>
+          <p class="text-txt2 font-mono text-xs">Every agent action is recorded to git with cryptographic trace IDs.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. SINGLE CANONICAL COMMUNITY CTA -->
+  <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center z-10 relative" aria-label="Community Call to Action">
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight mb-6">
-        Ready to Build Sovereign <br />
+        Ready to Run Sovereign <br />
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">Agent Swarms?</span>
       </h2>
       <p class="text-txt2 font-mono text-sm max-w-xl mx-auto leading-relaxed mb-10">
-        Join the official Benni OS Telegram community to connect with operators, inspect swarm ledgers, and deploy autonomous agents.
+        Join the official Benni OS Telegram community to connect with builders, access deployment guides, and inspect swarm ledgers live.
       </p>
 
       <!-- Single Canonical Community CTA Link -->
@@ -444,7 +524,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-10 bg-bg border-t border-white/10 font-mono text-xs text-txt3 relative z-10" aria-label="Site Footer">
+  <footer class="py-10 bg-bg border-t border-white/10 font-mono text-xs text-txt3 z-10 relative" aria-label="Site Footer">
     <div class="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
       <div class="flex gap-6">
@@ -454,47 +534,78 @@
     </div>
   </footer>
 
-  <!-- SCRIPT: VIDEO CONTROLLER & THREE.JS 3D CANVAS -->
+  <!-- DYNAMIC PROJECT CARDS & THREE.JS INITIALIZATION -->
   <script>
-    // 1. Video Player Controls for Main Cinema Video
-    const heroVid = document.getElementById('main-hero-film');
-    const btnPlay = document.getElementById('btn-play-hero');
-    const btnMute = document.getElementById('btn-mute-hero');
+    // Dynamically load projects from ./data/ecosystem-projects.json
+    let allProjects = [];
 
-    if (heroVid && btnPlay && btnMute) {
-      btnPlay.addEventListener('click', () => {
-        if (heroVid.paused) {
-          heroVid.play();
-          btnPlay.textContent = 'PAUSE';
-        } else {
-          heroVid.pause();
-          btnPlay.textContent = 'PLAY';
+    function renderProjects(projects) {
+      const grid = document.getElementById('atlas-projects-grid');
+      if (!grid) return;
+      grid.innerHTML = projects.map(proj => {
+        let badgeColor = 'bg-c1/20 text-c1 border-c1/40';
+        if (proj.stage === 'Live') badgeColor = 'bg-c3/20 text-c3 border-c3/40';
+        if (proj.stage === 'Building') badgeColor = 'bg-gold/20 text-gold border-gold/40';
+        if (proj.stage === 'Private') badgeColor = 'bg-c2/20 text-c2 border-c2/40';
+
+        return `
+          <article class="rounded-2xl glass-card tilt-card overflow-hidden flex flex-col justify-between" aria-label="${proj.name} Project Card">
+            <div>
+              <div class="relative h-48 overflow-hidden bg-bg1">
+                <img src="${proj.image}" alt="${proj.name} Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+                <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full border ${badgeColor} font-bold backdrop-blur">
+                  ${proj.stage || 'Live'}
+                </span>
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-txt mb-1">${proj.name}</h3>
+                <p class="text-txt3 font-mono text-xs uppercase mb-3">${proj.layer || proj.category}</p>
+                <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${proj.description}</p>
+              </div>
+            </div>
+            <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+              <span class="text-txt3">Stage: <strong class="text-txt">${proj.stage}</strong></span>
+              <a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">
+                GitHub Repository →
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    fetch('./data/ecosystem-projects.json')
+      .then(res => res.json())
+      .then(data => {
+        allProjects = data.projects || [];
+        renderProjects(allProjects);
+      })
+      .catch(() => {});
+
+    // Atlas Filter Tabs Controller
+    const tabContainer = document.getElementById('atlas-tabs');
+    if (tabContainer) {
+      tabContainer.addEventListener('click', (e) => {
+        if (e.target.tagName === 'BUTTON') {
+          const filter = e.target.getAttribute('data-filter');
+
+          // Update active styles
+          Array.from(tabContainer.children).forEach(btn => {
+            btn.className = 'px-4 py-2 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all';
+          });
+          e.target.className = 'px-4 py-2 rounded-lg bg-c1 text-black font-bold transition-all';
+
+          if (filter === 'all') {
+            renderProjects(allProjects);
+          } else {
+            const filtered = allProjects.filter(p => p.stage?.toLowerCase() === filter || p.visibility?.toLowerCase() === filter || p.status?.toLowerCase() === filter);
+            renderProjects(filtered);
+          }
         }
-      });
-
-      btnMute.addEventListener('click', () => {
-        heroVid.muted = !heroVid.muted;
-        btnMute.textContent = heroVid.muted ? 'UNMUTE SOUND' : 'MUTE SOUND';
       });
     }
 
-    // 2. Force Video Autoplay for All Motion Reel Videos
-    document.addEventListener('DOMContentLoaded', () => {
-      const vids = document.querySelectorAll('video');
-      vids.forEach(v => {
-        v.muted = true;
-        v.playsInline = true;
-        const p = v.play();
-        if (p !== undefined) {
-          p.catch(() => {
-            window.addEventListener('click', () => v.play(), { once: true });
-            window.addEventListener('touchstart', () => v.play(), { once: true });
-          });
-        }
-      });
-    });
-
-    // 3. Background Three.js Particle Constellation
+    // Background Three.js Particle Constellation
     (function init3DBackground() {
       const canvas = document.getElementById('webgl-bg');
       if (!canvas || !window.THREE) return;
@@ -506,7 +617,7 @@
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      const count = 180;
+      const count = 160;
       const geo = new THREE.BufferGeometry();
       const pos = new Float32Array(count * 3);
 
@@ -517,7 +628,7 @@
       }
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-      const mat = new THREE.PointsMaterial({ size: 0.15, color: 0x00ffe0, transparent: true, opacity: 0.6 });
+      const mat = new THREE.PointsMaterial({ size: 0.15, color: 0x00ffe0, transparent: true, opacity: 0.5 });
       const pts = new THREE.Points(geo, mat);
       scene.add(pts);
 
@@ -527,66 +638,6 @@
         requestAnimationFrame(animate);
         pts.rotation.y += 0.001;
         pts.rotation.x += 0.0005;
-        renderer.render(scene, camera);
-      }
-      animate();
-    })();
-
-    // 4. Interactive 3D Neural Topology Canvas
-    (function init3DAtlas() {
-      const canvas = document.getElementById('atlas-3d-canvas');
-      if (!canvas || !window.THREE) return;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
-      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
-
-      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-
-      const orbGeo = new THREE.IcosahedronGeometry(2, 2);
-      const orbMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.7 });
-      const orb = new THREE.Mesh(orbGeo, orbMat);
-      scene.add(orb);
-
-      const nodes = [
-        { pos: [-5, 2.5, 0], color: 0x7c5cfc },
-        { pos: [5, 2.5, 0], color: 0x00ff88 },
-        { pos: [-5, -2.5, 0], color: 0xffb703 },
-        { pos: [5, -2.5, 0], color: 0x00ffe0 }
-      ];
-
-      const grp = new THREE.Group();
-      nodes.forEach(nd => {
-        const sGeo = new THREE.SphereGeometry(0.7, 16, 16);
-        const sMat = new THREE.MeshBasicMaterial({ color: nd.color });
-        const m = new THREE.Mesh(sGeo, sMat);
-        m.position.set(...nd.pos);
-        grp.add(m);
-
-        const lMat = new THREE.LineBasicMaterial({ color: nd.color, transparent: true, opacity: 0.4 });
-        const lGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(...nd.pos)]);
-        grp.add(new THREE.Line(lGeo, lMat));
-      });
-
-      scene.add(grp);
-      camera.position.z = 10;
-
-      let isDrag = false, px = 0, py = 0;
-      canvas.addEventListener('mousedown', (e) => { isDrag = true; px = e.clientX; py = e.clientY; });
-      window.addEventListener('mouseup', () => { isDrag = false; });
-      window.addEventListener('mousemove', (e) => {
-        if (!isDrag) return;
-        grp.rotation.y += (e.clientX - px) * 0.01;
-        grp.rotation.x += (e.clientY - py) * 0.01;
-        orb.rotation.y += (e.clientX - px) * 0.01;
-        px = e.clientX; py = e.clientY;
-      });
-
-      function animate() {
-        requestAnimationFrame(animate);
-        orb.rotation.y += 0.005;
-        grp.rotation.y += 0.002;
         renderer.render(scene, camera);
       }
       animate();

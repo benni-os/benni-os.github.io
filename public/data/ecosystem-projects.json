@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
   "projects": [
     {
       "id": "benni-os",
@@ -8,10 +8,11 @@
       "layer": "Intelligence & Surface",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/benni-os.github.io",
-      "description": "Autonomous operating layer for agents, memory, control and execution",
-      "relations": ["jarvas-2", "benni-control-plane", "nemesis-gateway", "benni-operator-gateway"],
-      "image": "images/ecosystem/benni-ecosystem-atlas.webp"
+      "description": "Sovereign operating system for autonomous agent swarms, persistent memory, and verifiable execution.",
+      "relations": ["jarvas-2", "benni-control-plane", "nemesis-gateway"],
+      "image": "./images/ecosystem/benni-ecosystem-atlas.webp"
     },
     {
       "id": "jarvas-2",
@@ -20,10 +21,11 @@
       "layer": "Execution Engine",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/jarvas-2",
-      "description": "Autonomous code execution engine, local port scanner, and subagent process dispatcher",
+      "description": "Autonomous code execution engine, local port scanner, and multi-threaded subagent process dispatcher.",
       "relations": ["benni-os", "benni-control-plane"],
-      "image": "images/projects/benni-agent-mesh.webp"
+      "image": "./images/projects/benni-agent-mesh.webp"
     },
     {
       "id": "benni-control-plane",
@@ -32,10 +34,11 @@
       "layer": "Persistence & State",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/benni-control-plane",
-      "description": "State engine, immutable decision ledger, and cross-session memory fabric",
+      "description": "Immutable decision ledger, state persistence, cross-session memory fabric, and checkpointing.",
       "relations": ["benni-os", "nemesis-gateway"],
-      "image": "images/projects/benni-command-plane.webp"
+      "image": "./images/projects/benni-command-plane.webp"
     },
     {
       "id": "nemesis-gateway",
@@ -44,10 +47,11 @@
       "layer": "Security & Gateways",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/nemesis-gateway",
-      "description": "MCP security gateway enforcing HMAC signatures, canonical payload hashes, and single-use approvals",
+      "description": "MCP security gateway enforcing HMAC signatures, SHA-256 payload hashes, and single-use approvals.",
       "relations": ["benni-control-plane", "monomo-event-bus"],
-      "image": "images/projects/benni-evidence-layer.webp"
+      "image": "./images/projects/benni-evidence-layer.webp"
     },
     {
       "id": "monomo-event-bus",
@@ -56,22 +60,76 @@
       "layer": "Revenue & Events",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/monomo-event-bus",
-      "description": "Reactive event bus tracking 12 canonical events from lead capture to financial reconciliation",
+      "description": "Reactive event bus tracking canonical events from lead capture to financial reconciliation.",
       "relations": ["nemesis-gateway", "benni-operator-gateway"],
-      "image": "images/projects/benni-memory-fabric.webp"
+      "image": "./images/projects/benni-memory-fabric.webp"
     },
     {
       "id": "benni-operator-gateway",
-      "name": "Benni Operator Gateway",
+      "name": "Operator Gateway",
       "category": "community",
       "layer": "Human Command Surface",
       "status": "live",
       "visibility": "public",
+      "stage": "Live",
       "repository": "https://github.com/benni-os/operator-gateway",
-      "description": "Human command surface, operator overrides, and real-time swarm telemetry dashboard",
+      "description": "Human command surface, operator overrides, and real-time swarm telemetry dashboard.",
       "relations": ["benni-os", "monomo-event-bus"],
-      "image": "images/ecosystem/benni-open-source-constellation.webp"
+      "image": "./images/ecosystem/benni-open-source-constellation.webp"
+    },
+    {
+      "id": "nexus-orchestrator",
+      "name": "Nexus Orchestrator",
+      "category": "control",
+      "layer": "Swarm Orchestration",
+      "status": "building",
+      "visibility": "public",
+      "stage": "Building",
+      "repository": "https://github.com/benni-os",
+      "description": "Central swarm orchestrator routing intent vectors to subagents based on real-time capacity.",
+      "relations": ["benni-os", "jarvas-2"],
+      "image": "./images/ecosystem/benni-ecosystem-core.webp"
+    },
+    {
+      "id": "mcp-forge",
+      "name": "MCP Forge",
+      "category": "infrastructure",
+      "layer": "Tooling & Connectors",
+      "status": "building",
+      "visibility": "public",
+      "stage": "Building",
+      "repository": "https://github.com/benni-os",
+      "description": "Automated Model Context Protocol tool builder and schema verifier.",
+      "relations": ["nemesis-gateway"],
+      "image": "./images/projects/benni-evidence-layer.webp"
+    },
+    {
+      "id": "social-hub-os",
+      "name": "Social Hub OS",
+      "category": "growth",
+      "layer": "Content Distribution",
+      "status": "building",
+      "visibility": "public",
+      "stage": "Building",
+      "repository": "https://github.com/benni-os",
+      "description": "Multichannel social distribution engine with pre-publish quality gate enforcement.",
+      "relations": ["monomo-event-bus"],
+      "image": "./images/projects/benni-memory-fabric.webp"
+    },
+    {
+      "id": "sovereign-inference-engine",
+      "name": "Sovereign Inference Engine",
+      "category": "core",
+      "layer": "Local Inference",
+      "status": "building",
+      "visibility": "private",
+      "stage": "Private",
+      "repository": "https://github.com/benni-os",
+      "description": "On-premise zero-cloud LLM inference runtime optimized for local hardware.",
+      "relations": ["benni-os"],
+      "image": "./images/ecosystem/benni-mobile-hero.webp"
     }
   ]
 }
