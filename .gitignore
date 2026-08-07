@@ -6,3 +6,4 @@ out/
 docs/
 scratch/
 material/_source/
+.env*
