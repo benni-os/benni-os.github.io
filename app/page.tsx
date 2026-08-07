@@ -39,9 +39,8 @@ export default function Home() {
 
       camera.position.z = 15;
 
-      let reqId: number;
       const animate = () => {
-        reqId = requestAnimationFrame(animate);
+        requestAnimationFrame(animate);
         pts.rotation.y += 0.001;
         pts.rotation.x += 0.0005;
         renderer.render(scene, camera);
@@ -109,9 +108,8 @@ export default function Home() {
       window.addEventListener('mouseup', onMouseUp);
       window.addEventListener('mousemove', onMouseMove);
 
-      let reqId2: number;
       const animate2 = () => {
-        reqId2 = requestAnimationFrame(animate2);
+        requestAnimationFrame(animate2);
         orb.rotation.y += 0.005;
         grp.rotation.y += 0.002;
         renderer.render(scene, camera);
@@ -208,11 +206,11 @@ export default function Home() {
 
               {/* HERO PRODUCT VIDEO */}
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
-                <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Product Surface Execution Surface">
-                  <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4" />
-                  <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm" />
-                  <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Product Surface" className="w-full h-full object-cover" />
+                <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-hero-poster.webp" aria-label="Product Surface Execution Surface">
+                  <source src="motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4" />
+                  <source src="motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm" />
                 </video>
+                <img src="posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Product Surface" className="absolute inset-0 w-full h-full object-cover z-0" />
               </div>
             </div>
           </div>
@@ -223,25 +221,25 @@ export default function Home() {
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7c5cfc]/10 text-[#7c5cfc] border border-[#7c5cfc]/30 font-mono text-xs font-bold mb-4">
-                SYSTEM VISUALIZATIONS // 6 REEL MODULES
+                SYSTEM VISUALIZATIONS // 5 REEL MODULES
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
                 Autonomous Execution <span className="text-[#00ffe0]">Reel</span>
               </h2>
               <p className="mt-4 text-[#94a3b8] font-mono text-sm max-w-2xl mx-auto">
-                Six operational visualizations depicting agent mesh activation, persistent memory fabric, policy gates, and evidence return.
+                Operational visualizations depicting agent mesh activation, persistent memory fabric, policy gates, and evidence return.
               </p>
             </div>
 
-            {/* 6 REEL MODULES GRID */}
+            {/* 5 REEL MODULES GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent Mesh Activation">
-                    <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4" />
-                    <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm" />
-                    <img src="./posters/benni-agent-mesh-poster.webp" alt="Agent Mesh Activation" className="w-full h-full object-cover" />
+                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-agent-mesh-poster.webp" aria-label="Agent Mesh Activation">
+                    <source src="motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4" />
+                    <source src="motion/sequences/benni-agent-mesh-activation.webm" type="video/webm" />
                   </video>
+                  <img src="posters/benni-agent-mesh-poster.webp" alt="Agent Mesh Activation" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 01 // AGENT MESH</div>
                 <h3 className="text-base font-bold text-white">Coordinated Agent Mesh Activation</h3>
@@ -250,11 +248,11 @@ export default function Home() {
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Ecosystem Atlas Topology">
-                    <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
-                    <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
-                    <img src="./posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem Atlas Flythrough" className="w-full h-full object-cover" />
+                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-atlas-poster.webp" aria-label="Ecosystem Atlas Topology">
+                    <source src="motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
+                    <source src="motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
                   </video>
+                  <img src="posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem Atlas Flythrough" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
                 <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">MODULE 02 // TOPOLOGY FLYTHROUGH</div>
                 <h3 className="text-base font-bold text-white">3D Architectural Topology Flythrough</h3>
@@ -263,11 +261,11 @@ export default function Home() {
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent to Evidence Pipeline">
-                    <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
-                    <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
-                    <img src="./posters/benni-intent-to-evidence-poster.webp" alt="Intent to Evidence" className="w-full h-full object-cover" />
+                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-intent-to-evidence-poster.webp" aria-label="Intent to Evidence Pipeline">
+                    <source src="motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
+                    <source src="motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
                   </video>
+                  <img src="posters/benni-intent-to-evidence-poster.webp" alt="Intent to Evidence" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
                 <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">MODULE 03 // EXECUTION PIPELINE</div>
                 <h3 className="text-base font-bold text-white">Intent-to-Evidence Pipeline</h3>
@@ -276,11 +274,11 @@ export default function Home() {
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-evidence-return-poster.webp" aria-label="Cryptographic Evidence Return">
-                    <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4" />
-                    <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm" />
-                    <img src="./posters/benni-evidence-return-poster.webp" alt="Cryptographic Evidence Return" className="w-full h-full object-cover" />
+                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-evidence-return-poster.webp" aria-label="Cryptographic Evidence Return">
+                    <source src="motion/sequences/benni-evidence-return.mp4" type="video/mp4" />
+                    <source src="motion/sequences/benni-evidence-return.webm" type="video/webm" />
                   </video>
+                  <img src="posters/benni-evidence-return-poster.webp" alt="Cryptographic Evidence Return" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
                 <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">MODULE 04 // EVIDENCE RETURN</div>
                 <h3 className="text-base font-bold text-white">Cryptographic Policy Settlement</h3>
@@ -289,11 +287,11 @@ export default function Home() {
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4 md:col-span-2 lg:col-span-2">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Mobile Surface Visualization">
-                    <source src="./motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4" />
-                    <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm" />
-                    <img src="./posters/benni-ecosystem-hero-mobile-poster.webp" alt="Mobile Viewport Surface" className="w-full h-full object-cover" />
+                  <video className="w-full h-full object-cover relative z-10" autoPlay muted loop playsInline preload="auto" poster="posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Mobile Surface Visualization">
+                    <source src="motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4" />
+                    <source src="motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm" />
                   </video>
+                  <img src="posters/benni-ecosystem-hero-mobile-poster.webp" alt="Mobile Viewport Surface" className="absolute inset-0 w-full h-full object-cover z-0" />
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 05 // MOBILE SURFACE</div>
                 <h3 className="text-base font-bold text-white">Mobile Viewport Surface</h3>
@@ -303,7 +301,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 3. ECOSYSTEM ATLAS */}
+        {/* 3. ECOSYSTEM ATLAS WITH PROJECT PREVIEW IMAGES */}
         <section id="atlas" className="py-24 bg-[#05070c] border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
@@ -326,184 +324,251 @@ export default function Home() {
               </div>
             </div>
 
-            {/* REPOSITORIES GRID */}
+            {/* REPOSITORIES GRID WITH IMAGE PREVIEWS */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+
+              {/* 1. benni-operator-gateway */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold font-mono text-[10px]">● Open Source (MIT)</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/benni-operator-gateway.jpeg" alt="benni-operator-gateway preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-operator-gateway</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Open source MCP operator gateway for autonomous agent communication and tool execution.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-operator-gateway</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Open source MCP operator gateway for autonomous agent communication and tool execution.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">MIT</strong></span>
                   <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              {/* 2. modo-operador */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold font-mono text-[10px]">● Open Source (MIT)</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/projects/benni-command-plane.webp" alt="modo-operador preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">modo-operador</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">AI Operator Mode execution framework and command protocol.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">modo-operador</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">AI Operator Mode execution framework and command protocol.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">MIT</strong></span>
                   <a href="https://github.com/benni-os/modo-operador" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              {/* 3. benni-inference-engine */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold font-mono text-[10px]">● Open Source (MIT)</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/benni-inference-engine.jpeg" alt="benni-inference-engine preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-inference-engine</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Hybrid GPU/CPU inference engine optimized for zero-cloud local hardware.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-inference-engine</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Hybrid GPU/CPU inference engine optimized for zero-cloud local hardware.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">MIT</strong></span>
                   <a href="https://github.com/benni-os/benni-inference-engine" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              {/* 4. benni-nexus */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold font-mono text-[10px]">● Open Source (MIT)</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/benni-nexus.jpeg" alt="benni-nexus preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-nexus</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Model gateway and intelligent query router across local and remote inference targets.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-nexus</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Model gateway and intelligent query router across local and remote inference targets.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">MIT</strong></span>
                   <a href="https://github.com/benni-os/benni-nexus" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              {/* 5. mcp-forge */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold font-mono text-[10px]">● Open Source (MIT)</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/mcp-forge.jpeg" alt="mcp-forge preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40 font-bold backdrop-blur">● Open Source (MIT)</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">mcp-forge</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Developer framework for scaffolding, testing, and deploying Model Context Protocol servers.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">mcp-forge</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Developer framework for scaffolding, testing, and deploying Model Context Protocol servers.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">MIT</strong></span>
                   <a href="https://github.com/benni-os/mcp-forge" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              {/* 6. mcp-forge-playbook-landing-page */}
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#00ffe0]/20 text-[#00ffe0] border border-[#00ffe0]/40 font-bold font-mono text-[10px]">Public</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/ecosystem/benni-open-source-constellation.webp" alt="mcp-forge-playbook preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ffe0]/20 text-[#00ffe0] border border-[#00ffe0]/40 font-bold backdrop-blur">Public</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">mcp-forge-playbook-landing-page</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Landing page for the MCP Forge playbook.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">mcp-forge-playbook-landing-page</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Landing page for the MCP Forge playbook.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Unconfirmed</strong></span>
                   <a href="https://github.com/benni-os/mcp-forge-playbook-landing-page" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
               {/* CONFIDENTIAL PRIVATE REPOSITORIES */}
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/projects/benni-evidence-layer.webp" alt="benni-nemesis preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-nemesis</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">NEMESIS Security Gateway enforcing HMAC payload signatures and approval tokens.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-nemesis</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">NEMESIS Security Gateway enforcing HMAC payload signatures and approval tokens.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/ecosystem/benni-ecosystem-core.webp" alt="benni-os-genesis preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-os-genesis</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">LLM-native operating environment and agent IDE for sovereign execution.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-os-genesis</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">LLM-native operating environment and agent IDE for sovereign execution.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/Benni Master OS.jpeg" alt="Benni-Master-OS preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">Benni-Master-OS</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Central master skills repository, MCP connector mappings, and swarm priority stack.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">Benni-Master-OS</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Central master skills repository, MCP connector mappings, and swarm priority stack.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/control-plane.jpeg" alt="benni-control-plane preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">benni-control-plane</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Immutable decision ledger, state engine, and cross-session memory persistence.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">benni-control-plane</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Immutable decision ledger, state engine, and cross-session memory persistence.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/projects/benni-agent-mesh.webp" alt="jarvas-2 preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">jarvas-2</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Autonomous code execution engine and multi-threaded process dispatcher.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">jarvas-2</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Autonomous code execution engine and multi-threaded process dispatcher.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
               </article>
 
-              <article className="p-6 rounded-2xl bg-[#111724]/85 border border-white/10 flex flex-col justify-between">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold font-mono text-[10px]">🔒 Private</span>
+                  <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
+                    <img src="images/ecosystem/benni-ecosystem-atlas.webp" alt="Benni-gravity-0 preview" className="w-full h-full object-cover" />
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-1">Benni-gravity-0</h3>
-                  <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Revenue automation, browser task runner, and autonomous agent swarm engine.</p>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#0a0e17] px-2 py-0.5 rounded border border-white/10">benni-os</span>
+                    </div>
+                    <h3 className="text-lg font-bold text-white mb-1">Benni-gravity-0</h3>
+                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">Revenue automation, browser task runner, and autonomous agent swarm engine.</p>
+                  </div>
                 </div>
-                <div className="pt-4 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
                   <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
                 </div>
