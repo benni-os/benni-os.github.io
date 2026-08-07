@@ -1,0 +1,60 @@
+{
+  "version": "1.0.0",
+  "assets": [
+    {
+      "id": "ecosystem-hero",
+      "type": "video",
+      "desktop": "motion/hero/benni-ecosystem-hero-desktop.webm",
+      "fallback": "posters/benni-ecosystem-hero-poster.webp",
+      "mobile": "motion/hero/benni-ecosystem-hero-mobile.mp4",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Introduce sovereign autonomous ecosystem control surface",
+      "reduced_motion": "posters/benni-ecosystem-hero-poster.webp"
+    },
+    {
+      "id": "ecosystem-atlas-flythrough",
+      "type": "video",
+      "desktop": "motion/sequences/benni-ecosystem-atlas-flythrough.webm",
+      "fallback": "posters/benni-ecosystem-atlas-poster.webp",
+      "mobile": "motion/sequences/benni-ecosystem-atlas-flythrough.mp4",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Flythrough camera path across interconnected ecosystem modules",
+      "reduced_motion": "posters/benni-ecosystem-atlas-poster.webp"
+    },
+    {
+      "id": "intent-to-evidence",
+      "type": "video",
+      "desktop": "motion/sequences/benni-intent-to-evidence.webm",
+      "fallback": "posters/benni-intent-to-evidence-poster.webp",
+      "mobile": "motion/sequences/benni-intent-to-evidence.mp4",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Visualize intent transformation into evidence-backed run ledger",
+      "reduced_motion": "posters/benni-intent-to-evidence-poster.webp"
+    },
+    {
+      "id": "agent-mesh-activation",
+      "type": "video",
+      "desktop": "motion/sequences/benni-agent-mesh-activation.webm",
+      "fallback": "posters/benni-agent-mesh-poster.webp",
+      "mobile": "motion/sequences/benni-agent-mesh-activation.mp4",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Multi-agent swarm activation across isolated node threads",
+      "reduced_motion": "posters/benni-agent-mesh-poster.webp"
+    },
+    {
+      "id": "evidence-return",
+      "type": "video",
+      "desktop": "motion/sequences/benni-evidence-return.webm",
+      "fallback": "posters/benni-evidence-return-poster.webp",
+      "mobile": "motion/sequences/benni-evidence-return.mp4",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Immutable evidence return and cryptographic settlement",
+      "reduced_motion": "posters/benni-evidence-return-poster.webp"
+    }
+  ]
+}

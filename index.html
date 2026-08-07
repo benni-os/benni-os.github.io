@@ -50,7 +50,7 @@
     .glow-c2 { box-shadow: 0 0 30px rgba(124, 92, 252, 0.25); }
     .glow-c3 { box-shadow: 0 0 30px rgba(0, 255, 136, 0.25); }
     .border-glow { border: 1px solid rgba(0, 255, 224, 0.3); }
-    .hero-video-overlay { background: linear-gradient(180deg, rgba(8,10,15,0.7) 0%, rgba(8,10,15,0.4) 50%, rgba(8,10,15,0.95) 100%); }
+    .hero-video-overlay { background: linear-gradient(180deg, rgba(8,10,15,0.75) 0%, rgba(8,10,15,0.45) 50%, rgba(8,10,15,0.98) 100%); }
 
     a:focus-visible, button:focus-visible {
       outline: 2px solid #00ffe0;
@@ -107,7 +107,6 @@
     <!-- Background Video Container -->
     <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
       <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata" poster="posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Ecosystem Hero Motion Video">
-        <source src="motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm">
         <source src="motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
       </video>
       <img src="posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Poster Fallback" class="hidden reduced-motion-fallback absolute inset-0 w-full h-full object-cover" />
@@ -137,10 +136,25 @@
           </a>
         </div>
       </div>
+
+      <!-- INTERACTIVE ATLAS 2D CANVAS FALLBACK / CONTROL NODE MAP -->
+      <div class="w-full max-w-4xl mx-auto mt-8 rounded-2xl bg-bg2/90 border border-c1/40 p-4 shadow-[0_0_40px_rgba(0,255,224,0.15)] relative overflow-hidden" aria-label="Interactive Ecosystem Topology Map">
+        <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-txt2">
+          <div class="flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse"></span>
+            <span class="font-bold text-txt">Ecosystem Atlas Topology Node Visualizer</span>
+          </div>
+          <div class="text-[11px] text-c1 font-semibold">GLB 3D / 2D Canvas Fallback Ready</div>
+        </div>
+
+        <div class="relative w-full h-64 bg-bg1 rounded-xl border border-white/10 flex items-center justify-center p-4">
+          <canvas id="atlas-canvas" width="800" height="240" class="w-full h-full" aria-label="Interactive Ecosystem Atlas Canvas Node Network"></canvas>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards & Interconnected Relations) -->
+  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards Driven by ecosystem-projects.json) -->
   <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10" aria-label="Benni OS Ecosystem Atlas">
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-14 text-center">
@@ -151,162 +165,13 @@
           Architectural <span class="text-c1">Ecosystem Atlas</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
-          Explore the live topology of verified projects, state persistence engines, and security gateways powering the swarm.
+          Explore the live topology of verified open-source projects powering Benni OS. Cards loaded dynamically from <code class="text-c1">ecosystem-projects.json</code>.
         </p>
       </div>
 
-      <!-- Atlas Project Cards Grid -->
+      <!-- Atlas Project Cards Grid (Dynamic JS Population) -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="atlas-projects-grid">
-        <!-- Project 1: Benni OS -->
-        <article class="rounded-2xl bg-bg2 border border-c1/40 overflow-hidden hover:border-c1 transition-all flex flex-col justify-between" aria-label="Benni OS Core Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/ecosystem/benni-ecosystem-atlas.webp" alt="Benni OS Ecosystem Atlas Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">CORE LAYER</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Benni OS</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">Autonomous Operating Layer</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                Autonomous operating layer orchestrating multi-agent swarms, memory fabrics, control planes, and policy gate execution.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: jarvas-2</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: control-plane</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: nemesis-gateway</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/benni-os.github.io" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
-
-        <!-- Project 2: JARVAS-2 -->
-        <article class="rounded-2xl bg-bg2 border border-c2/40 overflow-hidden hover:border-c2 transition-all flex flex-col justify-between" aria-label="JARVAS-2 Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/projects/benni-agent-mesh.webp" alt="JARVAS-2 Execution Mesh Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">EXECUTION</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">JARVAS-2</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">Code Execution Engine</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                Dispatches code execution blocks, scans local ports (8080/8000), and handles multi-threaded worker subagents.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: benni-os</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: control-plane</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/jarvas-2" target="_blank" rel="noopener noreferrer" class="text-c2 font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
-
-        <!-- Project 3: Control Plane -->
-        <article class="rounded-2xl bg-bg2 border border-c3/40 overflow-hidden hover:border-c3 transition-all flex flex-col justify-between" aria-label="Benni Control Plane Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/projects/benni-command-plane.webp" alt="Benni Control Plane Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">PERSISTENCE</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Benni Control Plane</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">State Engine & Run Ledger</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                Maintains project snapshots, logs architectural decisions, and syncs execution state between sessions.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: benni-os</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: nemesis-gateway</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/benni-control-plane" target="_blank" rel="noopener noreferrer" class="text-c3 font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
-
-        <!-- Project 4: NEMESIS Gateway -->
-        <article class="rounded-2xl bg-bg2 border border-gold/40 overflow-hidden hover:border-gold transition-all flex flex-col justify-between" aria-label="NEMESIS Security Gateway Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/projects/benni-evidence-layer.webp" alt="NEMESIS Evidence Layer Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-gold/20 text-gold border border-gold/40 font-bold backdrop-blur">SECURITY GATE</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">NEMESIS Gateway</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">MCP Security Policy Gate</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                MCP gateway enforcing HMAC-SHA256 signatures, canonical payload hashing, and single-use tokens.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: control-plane</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: monomo-event-bus</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/nemesis-gateway" target="_blank" rel="noopener noreferrer" class="text-gold font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
-
-        <!-- Project 5: MONOMO Event Bus -->
-        <article class="rounded-2xl bg-bg2 border border-c1/40 overflow-hidden hover:border-c1 transition-all flex flex-col justify-between" aria-label="MONOMO Event Bus Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/projects/benni-memory-fabric.webp" alt="MONOMO Event Bus Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">REVENUE LOOP</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">MONOMO Event Bus</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">Reactive Financial Event Bus</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                Emits and reconciles 12 canonical events from lead capture to financial settlement loops.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: nemesis-gateway</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: operator-gateway</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/monomo-event-bus" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
-
-        <!-- Project 6: Benni Operator Gateway -->
-        <article class="rounded-2xl bg-bg2 border border-c2/40 overflow-hidden hover:border-c2 transition-all flex flex-col justify-between" aria-label="Benni Operator Gateway Project Card">
-          <div>
-            <div class="relative h-48 overflow-hidden bg-bg1">
-              <img src="images/ecosystem/benni-open-source-constellation.webp" alt="Operator Gateway Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">COMMUNITY</span>
-            </div>
-            <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">Benni Operator Gateway</h3>
-              <p class="text-txt3 font-mono text-xs uppercase mb-3">Human Command Surface</p>
-              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-                Human command surface, operator overrides, and real-time swarm telemetry dashboard.
-              </p>
-              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: benni-os</span>
-                <span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: monomo-event-bus</span>
-              </div>
-            </div>
-          </div>
-          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-            <span class="text-c3 font-semibold">● LIVE / PUBLIC</span>
-            <a href="https://github.com/benni-os/operator-gateway" target="_blank" rel="noopener noreferrer" class="text-c2 font-bold hover:underline">GitHub Repository →</a>
-          </div>
-        </article>
+        <!-- Initial Skeleton Loading / Fallback rendered via JS below -->
       </div>
     </div>
   </section>
@@ -333,7 +198,7 @@
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             The operator submits a high-level goal. Benni Master OS normalizes the payload and calculates SHA-256 byte-level hashes.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
             <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-intent-to-evidence-poster.webp" aria-label="Intent parsing motion preview">
               <source src="motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
             </video>
@@ -348,7 +213,7 @@
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             The Control Plane generates a multi-step Run Ledger, establishes atomic checkpoints, and locks scope boundaries to prevent drift.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
             <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-ecosystem-atlas-poster.webp" aria-label="Autonomous plan motion preview">
               <source src="motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
             </video>
@@ -363,7 +228,7 @@
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             Specialized subagents (Codebase Researcher, Content Swarm, Build Shipper) execute subtasks in parallel background processes.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
             <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-agent-mesh-poster.webp" aria-label="Agent mesh activation motion preview">
               <source src="motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
             </video>
@@ -388,7 +253,7 @@
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             Results are committed immutably to Git with cryptographic signatures, trace IDs, and MONOMO event revenue attribution.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
             <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-evidence-return-poster.webp" aria-label="Evidence return motion preview">
               <source src="motion/sequences/benni-evidence-return.mp4" type="video/mp4">
             </video>
@@ -522,5 +387,158 @@
     </div>
   </footer>
 
+  <!-- DYNAMIC PROJECT CARDS & CANVAS INITIALIZATION SCRIPT -->
+  <script>
+    // 1. Render Interactive Topology Canvas (2D Fallback Visualizer)
+    const canvas = document.getElementById('atlas-canvas');
+    if (canvas && canvas.getContext) {
+      const ctx = canvas.getContext('2d');
+      const nodes = [
+        { name: 'Benni OS', x: 400, y: 120, color: '#00ffe0', r: 14 },
+        { name: 'JARVAS-2', x: 180, y: 70, color: '#7c5cfc', r: 10 },
+        { name: 'Control Plane', x: 620, y: 70, color: '#00ff88', r: 10 },
+        { name: 'NEMESIS', x: 180, y: 170, color: '#ffb703', r: 10 },
+        { name: 'MONOMO', x: 620, y: 170, color: '#00ffe0', r: 10 }
+      ];
+
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Lines
+        ctx.strokeStyle = 'rgba(0, 255, 224, 0.25)';
+        ctx.lineWidth = 1.5;
+        nodes.forEach((n, i) => {
+          if (i > 0) {
+            ctx.beginPath();
+            ctx.moveTo(nodes[0].x, nodes[0].y);
+            ctx.lineTo(n.x, n.y);
+            ctx.stroke();
+          }
+        });
+
+        // Nodes
+        nodes.forEach(n => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
+          ctx.fillStyle = n.color;
+          ctx.fill();
+
+          ctx.fillStyle = '#f1f5f9';
+          ctx.font = '11px "Fira Code", monospace';
+          ctx.textAlign = 'center';
+          ctx.fillText(n.name, n.x, n.y + n.r + 14);
+        });
+      }
+      draw();
+    }
+
+    // 2. Dynamically Load ecosystem-projects.json into #atlas-projects-grid
+    const fallbackProjects = [
+      {
+        id: 'benni-os',
+        name: 'Benni OS',
+        category: 'core',
+        layer: 'Intelligence & Surface',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/benni-os.github.io',
+        description: 'Autonomous operating layer for agents, memory, control and execution',
+        relations: ['jarvas-2', 'benni-control-plane', 'nemesis-gateway', 'benni-operator-gateway'],
+        image: 'images/ecosystem/benni-ecosystem-atlas.webp'
+      },
+      {
+        id: 'jarvas-2',
+        name: 'JARVAS-2',
+        category: 'execution',
+        layer: 'Execution Engine',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/jarvas-2',
+        description: 'Autonomous code execution engine, local port scanner, and subagent process dispatcher',
+        relations: ['benni-os', 'benni-control-plane'],
+        image: 'images/projects/benni-agent-mesh.webp'
+      },
+      {
+        id: 'benni-control-plane',
+        name: 'Benni Control Plane',
+        category: 'control',
+        layer: 'Persistence & State',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/benni-control-plane',
+        description: 'State engine, immutable decision ledger, and cross-session memory fabric',
+        relations: ['benni-os', 'nemesis-gateway'],
+        image: 'images/projects/benni-command-plane.webp'
+      },
+      {
+        id: 'nemesis-gateway',
+        name: 'NEMESIS Gateway',
+        category: 'infrastructure',
+        layer: 'Security & Gateways',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/nemesis-gateway',
+        description: 'MCP security gateway enforcing HMAC signatures, canonical payload hashes, and single-use approvals',
+        relations: ['benni-control-plane', 'monomo-event-bus'],
+        image: 'images/projects/benni-evidence-layer.webp'
+      },
+      {
+        id: 'monomo-event-bus',
+        name: 'MONOMO Event Bus',
+        category: 'growth',
+        layer: 'Revenue & Events',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/monomo-event-bus',
+        description: 'Reactive event bus tracking 12 canonical events from lead capture to financial reconciliation',
+        relations: ['nemesis-gateway', 'benni-operator-gateway'],
+        image: 'images/projects/benni-memory-fabric.webp'
+      },
+      {
+        id: 'benni-operator-gateway',
+        name: 'Benni Operator Gateway',
+        category: 'community',
+        layer: 'Human Command Surface',
+        status: 'live',
+        visibility: 'public',
+        repository: 'https://github.com/benni-os/operator-gateway',
+        description: 'Human command surface, operator overrides, and real-time swarm telemetry dashboard',
+        relations: ['benni-os', 'monomo-event-bus'],
+        image: 'images/ecosystem/benni-open-source-constellation.webp'
+      }
+    ];
+
+    function renderProjects(projects) {
+      const grid = document.getElementById('atlas-projects-grid');
+      if (!grid) return;
+      grid.innerHTML = projects.map(proj => `
+        <article class="rounded-2xl bg-bg2 border border-c1/40 overflow-hidden hover:border-c1 transition-all flex flex-col justify-between" aria-label="${proj.name} Project Card">
+          <div>
+            <div class="relative h-48 overflow-hidden bg-bg1">
+              <img src="${proj.image}" alt="${proj.name} Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">${proj.layer || proj.category}</span>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-txt">${proj.name}</h3>
+              <p class="text-txt3 font-mono text-xs uppercase mb-3">${proj.category}</p>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${proj.description}</p>
+              <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
+                ${(proj.relations || []).map(r => `<span class="px-2 py-0.5 rounded bg-bg1 border border-white/10 text-txt2">Rel: ${r}</span>`).join('')}
+              </div>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-c3 font-semibold">● ${(proj.status || 'live').toUpperCase()} / ${(proj.visibility || 'public').toUpperCase()}</span>
+            <a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    fetch('data/ecosystem-projects.json')
+      .then(res => res.json())
+      .then(data => renderProjects(data.projects || fallbackProjects))
+      .catch(() => renderProjects(fallbackProjects));
+  </script>
 </body>
 </html>
