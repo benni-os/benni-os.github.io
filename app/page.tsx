@@ -7,26 +7,6 @@ export default function Home() {
   const [threeLoaded, setThreeLoaded] = useState<boolean>(false);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const atlasCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const heroVideoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState<boolean>(true);
-  const [isMuted, setIsMuted] = useState<boolean>(true);
-
-  const togglePlay = () => {
-    if (!heroVideoRef.current) return;
-    if (heroVideoRef.current.paused) {
-      heroVideoRef.current.play();
-      setIsPlaying(true);
-    } else {
-      heroVideoRef.current.pause();
-      setIsPlaying(false);
-    }
-  };
-
-  const toggleMute = () => {
-    if (!heroVideoRef.current) return;
-    heroVideoRef.current.muted = !heroVideoRef.current.muted;
-    setIsMuted(heroVideoRef.current.muted);
-  };
 
   useEffect(() => {
     if (!threeLoaded || !(window as any).THREE) return;
@@ -172,17 +152,18 @@ export default function Home() {
             </a>
 
             <nav className="hidden md:flex items-center gap-8 font-mono text-xs text-[#94a3b8]" aria-label="Page Sections">
-              <a href="#cinema-hero" className="hover:text-[#00ffe0] transition-colors">/cinema</a>
-              <a href="#motion-films" className="hover:text-[#00ffe0] transition-colors">/films</a>
-              <a href="#ecosystem-atlas" className="hover:text-[#00ffe0] transition-colors">/atlas</a>
-              <a href="#operation-protocol" className="hover:text-[#00ffe0] transition-colors">/protocol</a>
-              <a href="#bento-architecture" className="hover:text-[#00ffe0] transition-colors">/bento</a>
+              <a href="#surface" className="hover:text-[#00ffe0] transition-colors">/surface</a>
+              <a href="#atlas" className="hover:text-[#00ffe0] transition-colors">/atlas</a>
+              <a href="#protocol" className="hover:text-[#00ffe0] transition-colors">/protocol</a>
+              <a href="#code" className="hover:text-[#00ffe0] transition-colors">/code</a>
+              <a href="#bento" className="hover:text-[#00ffe0] transition-colors">/bento</a>
+              <a href="#trust" className="hover:text-[#00ffe0] transition-colors">/trust</a>
             </nav>
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0e17] border border-[#00ff88]/40 backdrop-blur">
                 <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true" />
-                <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">6 Motion Films Live</span>
+                <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">17 Repos (6 Public / 11 Private)</span>
               </div>
               <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
                 Join Swarm →
@@ -191,127 +172,131 @@ export default function Home() {
           </div>
         </header>
 
-        {/* 1. MAIN CINEMA HERO WITH FRONT-AND-CENTER VIDEO FILM & HUD CONTROLS */}
-        <section id="cinema-hero" className="relative w-full min-h-screen pt-24 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Cinema Hero Video">
+        {/* 1. HERO SECTION WITH OPERATIONAL PRODUCT SURFACE CONSOLE */}
+        <section id="surface" className="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
           <div className="container mx-auto px-6 max-w-7xl text-center">
             <div className="max-w-4xl mx-auto mb-8">
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#00ffe0]/40 bg-[#00ffe0]/10 backdrop-blur-xl mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#00ffe0] animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true" />
-                <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">Motion Graphics & Swarm OS Showcase</span>
+                <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">Autonomous Work Infrastructure</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight">
-                The Operating System for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffe0] via-[#7c5cfc] to-[#00ff88]">Autonomous Work & Swarms</span>
+                The operating system for <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffe0] via-[#7c5cfc] to-[#00ff88]">autonomous work.</span>
               </h1>
               <p className="mt-6 text-[#94a3b8] font-mono text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
                 Coordinate agents, memory, tools and policy in one observable operating layer.
               </p>
+
+              <div className="mt-8 flex justify-center items-center gap-4">
+                <a href="#atlas" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Explore the Ecosystem Atlas">
+                  Explore the ecosystem →
+                </a>
+              </div>
             </div>
 
-            {/* MAIN HERO FILM DISPLAY WITH HUD PLAYER */}
-            <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.2)] relative overflow-hidden text-left" aria-label="Main Hero Cinema HUD">
+            {/* OPERATIONAL PRODUCT SURFACE CONSOLE */}
+            <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.2)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-[#94a3b8]">
                 <div className="flex items-center gap-3">
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
-                  <span className="font-bold text-white">FILM 01 // BENNI OS ECOSYSTEM PRODUCT FILM</span>
+                  <span className="font-bold text-white">OPERATIONAL PRODUCT SURFACE // LIVE SWARM DISPATCH FLOW</span>
                 </div>
-                <div className="flex items-center gap-3">
-                  <button onClick={togglePlay} className="px-3 py-1 rounded bg-white/10 text-[#00ffe0] hover:bg-[#00ffe0] hover:text-black font-bold transition-all">
-                    {isPlaying ? 'PAUSE' : 'PLAY'}
-                  </button>
-                  <button onClick={toggleMute} className="px-3 py-1 rounded bg-white/10 text-[#00ffe0] hover:bg-[#00ffe0] hover:text-black font-bold transition-all">
-                    {isMuted ? 'UNMUTE SOUND' : 'MUTE SOUND'}
-                  </button>
-                </div>
+                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: OPERATIONAL (HMAC VERIFIED)</div>
               </div>
 
-              {/* MAIN HIGH-DEFINITION VIDEO */}
+              {/* HERO PRODUCT VIDEO */}
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
-                <video ref={heroVideoRef} className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Main Hero Product Video Film">
-                  <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm" />
+                <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Product Surface Execution Surface">
                   <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4" />
-                  <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Poster Fallback" className="w-full h-full object-cover" />
+                  <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm" />
+                  <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Product Surface" className="w-full h-full object-cover" />
                 </video>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. FULL 6-FILM MOTION GRAPHICS REEL GALLERY */}
-        <section id="motion-films" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Motion Graphics Reel Showcase">
+        {/* 2. AUTONOMOUS EXECUTION REEL SHOWCASE */}
+        <section id="motion-films" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Autonomous Execution Reel">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7c5cfc]/10 text-[#7c5cfc] border border-[#7c5cfc]/30 font-mono text-xs font-bold mb-4">
-                CINEMATIC SHOWCASE // 6 MOTION FILMS
+                SYSTEM VISUALIZATIONS // 6 REEL MODULES
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                Motion Graphics <span className="text-[#00ffe0]">Film Reel</span>
+                Autonomous Execution <span className="text-[#00ffe0]">Reel</span>
               </h2>
               <p className="mt-4 text-[#94a3b8] font-mono text-sm max-w-2xl mx-auto">
-                Six motion graphic films illustrating agent activation, persistent memory, policy gates, and evidence return.
+                Six operational visualizations depicting agent mesh activation, persistent memory fabric, policy gates, and evidence return.
               </p>
             </div>
 
-            {/* 6 MOTION FILMS GRID */}
+            {/* 6 REEL MODULES GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent Mesh Activation Film">
-                    <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent Mesh Activation">
                     <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4" />
+                    <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm" />
+                    <img src="./posters/benni-agent-mesh-poster.webp" alt="Agent Mesh Activation" className="w-full h-full object-cover" />
                   </video>
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">FILM 02 // AGENT MESH</div>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 01 // AGENT MESH</div>
                 <h3 className="text-base font-bold text-white">Coordinated Agent Mesh Activation</h3>
                 <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-agent mesh dispatching autonomous code execution tasks.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Ecosystem Atlas Flythrough Film">
-                    <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Ecosystem Atlas Topology">
                     <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
+                    <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
+                    <img src="./posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem Atlas Flythrough" className="w-full h-full object-cover" />
                   </video>
                 </div>
-                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">FILM 03 // ATLAS FLYTHROUGH</div>
-                <h3 className="text-base font-bold text-white">3D Architectural Atlas Flythrough</h3>
+                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">MODULE 02 // TOPOLOGY FLYTHROUGH</div>
+                <h3 className="text-base font-bold text-white">3D Architectural Topology Flythrough</h3>
                 <p className="text-[#94a3b8] font-mono text-xs mt-1">Flythrough visualization of Benni OS infrastructure layers.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent to Evidence Pipeline Film">
-                    <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent to Evidence Pipeline">
                     <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
+                    <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
+                    <img src="./posters/benni-intent-to-evidence-poster.webp" alt="Intent to Evidence" className="w-full h-full object-cover" />
                   </video>
                 </div>
-                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">FILM 04 // EXECUTION PIPELINE</div>
+                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">MODULE 03 // EXECUTION PIPELINE</div>
                 <h3 className="text-base font-bold text-white">Intent-to-Evidence Pipeline</h3>
                 <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic pipeline from goal payload to verified git evidence.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-evidence-return-poster.webp" aria-label="Cryptographic Evidence Return Film">
-                    <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-evidence-return-poster.webp" aria-label="Cryptographic Evidence Return">
                     <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4" />
+                    <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm" />
+                    <img src="./posters/benni-evidence-return-poster.webp" alt="Cryptographic Evidence Return" className="w-full h-full object-cover" />
                   </video>
                 </div>
-                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">FILM 05 // EVIDENCE RETURN</div>
+                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">MODULE 04 // EVIDENCE RETURN</div>
                 <h3 className="text-base font-bold text-white">Cryptographic Policy Settlement</h3>
                 <p className="text-[#94a3b8] font-mono text-xs mt-1">HMAC signed evidence capsule returning verified outputs.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4 md:col-span-2 lg:col-span-2">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Mobile Hero Showcase Film">
-                    <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm" />
+                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c]">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline preload="auto" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Mobile Surface Visualization">
                     <source src="./motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4" />
+                    <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm" />
+                    <img src="./posters/benni-ecosystem-hero-mobile-poster.webp" alt="Mobile Viewport Surface" className="w-full h-full object-cover" />
                   </video>
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">FILM 06 // MOBILE SURFACE</div>
-                <h3 className="text-base font-bold text-white">Mobile Vertical Motion Surface</h3>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">MODULE 05 // MOBILE SURFACE</div>
+                <h3 className="text-base font-bold text-white">Mobile Viewport Surface</h3>
                 <p className="text-[#94a3b8] font-mono text-xs mt-1">Vertical 9:16 optimized motion sequence for mobile viewport buffering.</p>
               </article>
             </div>
@@ -319,7 +304,7 @@ export default function Home() {
         </section>
 
         {/* 3. ECOSYSTEM ATLAS */}
-        <section id="ecosystem-atlas" className="py-24 bg-[#05070c] border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
+        <section id="atlas" className="py-24 bg-[#05070c] border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-mono text-xs font-bold mb-4">
