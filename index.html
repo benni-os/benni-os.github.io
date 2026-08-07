@@ -7,7 +7,7 @@
   <meta name="description" content="Sovereign multi-agent swarm operating system with JARVAS-2 execution, NEMESIS policy gates, Control Plane persistence, and MONOMO event loops." />
   <meta property="og:title" content="Benni OS — Sovereign Autonomous Agent Swarm OS" />
   <meta property="og:description" content="Persistent memory, multi-agent coordination, policy gate verification, and evidence-based execution." />
-  <meta property="og:image" content="images/ecosystem/benni-ecosystem-atlas.webp" />
+  <meta property="og:image" content="./images/ecosystem/benni-ecosystem-atlas.webp" />
   <meta name="twitter:card" content="summary_large_image" />
 
   <!-- Google Fonts -->
@@ -77,7 +77,7 @@
       <a href="#top" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30">v2.0 Atlas</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30">v2.0 Motion</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -104,12 +104,19 @@
   <!-- 1. CINEMATIC HERO SECTION WITH VIDEO, POSTER & MOBILE FALLBACK -->
   <section id="hero-surface" class="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center overflow-hidden border-b border-white/10" aria-label="Cinematic Ecosystem Hero">
 
-    <!-- Background Video Container -->
+    <!-- Background Video Container with Full Fallbacks & Mobile Attributes -->
     <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
-      <video class="w-full h-full object-cover" autoplay loop muted playsinline preload="metadata" poster="posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Ecosystem Hero Motion Video">
-        <source src="motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
+      <video class="w-full h-full object-cover hidden md:block" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Ecosystem Hero Desktop Motion Video">
+        <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm">
+        <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
+        <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Desktop Fallback" class="w-full h-full object-cover" />
       </video>
-      <img src="posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Poster Fallback" class="hidden reduced-motion-fallback absolute inset-0 w-full h-full object-cover" />
+      <video class="w-full h-full object-cover block md:hidden" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Benni OS Ecosystem Hero Mobile Motion Video">
+        <source src="./motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4">
+        <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm">
+        <img src="./posters/benni-ecosystem-hero-mobile-poster.webp" alt="Benni OS Hero Mobile Fallback" class="w-full h-full object-cover" />
+      </video>
+      <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Poster Fallback" class="hidden reduced-motion-fallback absolute inset-0 w-full h-full object-cover" />
       <div class="absolute inset-0 hero-video-overlay z-10"></div>
     </div>
 
@@ -137,14 +144,14 @@
         </div>
       </div>
 
-      <!-- INTERACTIVE ATLAS 2D CANVAS FALLBACK / CONTROL NODE MAP -->
+      <!-- INTERACTIVE ATLAS 2D TOPOLOGY MAP -->
       <div class="w-full max-w-4xl mx-auto mt-8 rounded-2xl bg-bg2/90 border border-c1/40 p-4 shadow-[0_0_40px_rgba(0,255,224,0.15)] relative overflow-hidden" aria-label="Interactive Ecosystem Topology Map">
         <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-txt2">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse"></span>
-            <span class="font-bold text-txt">Ecosystem Atlas Topology Node Visualizer</span>
+            <span class="font-bold text-txt">Ecosystem Atlas Topology Canvas</span>
           </div>
-          <div class="text-[11px] text-c1 font-semibold">GLB 3D / 2D Canvas Fallback Ready</div>
+          <div class="text-[11px] text-c1 font-semibold">High-Performance 2D Visualizer (GLB 3D Offline)</div>
         </div>
 
         <div class="relative w-full h-64 bg-bg1 rounded-xl border border-white/10 flex items-center justify-center p-4">
@@ -154,7 +161,7 @@
     </div>
   </section>
 
-  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards Driven by ecosystem-projects.json) -->
+  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards Driven by ./data/ecosystem-projects.json) -->
   <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10" aria-label="Benni OS Ecosystem Atlas">
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-14 text-center">
@@ -165,13 +172,12 @@
           Architectural <span class="text-c1">Ecosystem Atlas</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
-          Explore the live topology of verified open-source projects powering Benni OS. Cards loaded dynamically from <code class="text-c1">ecosystem-projects.json</code>.
+          Explore the live topology of verified open-source projects powering Benni OS. Cards loaded dynamically from <code class="text-c1">./data/ecosystem-projects.json</code>.
         </p>
       </div>
 
-      <!-- Atlas Project Cards Grid (Dynamic JS Population) -->
+      <!-- Atlas Project Cards Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="atlas-projects-grid">
-        <!-- Initial Skeleton Loading / Fallback rendered via JS below -->
       </div>
     </div>
   </section>
@@ -199,8 +205,10 @@
             The operator submits a high-level goal. Benni Master OS normalizes the payload and calculates SHA-256 byte-level hashes.
           </p>
           <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-intent-to-evidence-poster.webp" aria-label="Intent parsing motion preview">
-              <source src="motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent parsing motion preview">
+              <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm">
+              <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
+              <img src="./posters/benni-intent-to-evidence-poster.webp" alt="Intent to evidence poster fallback" class="w-full h-full object-cover" />
             </video>
           </div>
         </div>
@@ -214,8 +222,10 @@
             The Control Plane generates a multi-step Run Ledger, establishes atomic checkpoints, and locks scope boundaries to prevent drift.
           </p>
           <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-ecosystem-atlas-poster.webp" aria-label="Autonomous plan motion preview">
-              <source src="motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Autonomous plan motion preview">
+              <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm">
+              <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
+              <img src="./posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem atlas flythrough poster fallback" class="w-full h-full object-cover" />
             </video>
           </div>
         </div>
@@ -229,8 +239,10 @@
             Specialized subagents (Codebase Researcher, Content Swarm, Build Shipper) execute subtasks in parallel background processes.
           </p>
           <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-agent-mesh-poster.webp" aria-label="Agent mesh activation motion preview">
-              <source src="motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent mesh activation motion preview">
+              <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm">
+              <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
+              <img src="./posters/benni-agent-mesh-poster.webp" alt="Agent mesh activation poster fallback" class="w-full h-full object-cover" />
             </video>
           </div>
         </div>
@@ -254,8 +266,10 @@
             Results are committed immutably to Git with cryptographic signatures, trace IDs, and MONOMO event revenue attribution.
           </p>
           <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay loop muted playsinline poster="posters/benni-evidence-return-poster.webp" aria-label="Evidence return motion preview">
-              <source src="motion/sequences/benni-evidence-return.mp4" type="video/mp4">
+            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-evidence-return-poster.webp" aria-label="Evidence return motion preview">
+              <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm">
+              <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4">
+              <img src="./posters/benni-evidence-return-poster.webp" alt="Evidence return poster fallback" class="w-full h-full object-cover" />
             </video>
           </div>
         </div>
@@ -389,7 +403,7 @@
 
   <!-- DYNAMIC PROJECT CARDS & CANVAS INITIALIZATION SCRIPT -->
   <script>
-    // 1. Render Interactive Topology Canvas (2D Fallback Visualizer)
+    // 1. Render Interactive Topology Canvas (2D High Performance Visualizer)
     const canvas = document.getElementById('atlas-canvas');
     if (canvas && canvas.getContext) {
       const ctx = canvas.getContext('2d');
@@ -432,7 +446,7 @@
       draw();
     }
 
-    // 2. Dynamically Load ecosystem-projects.json into #atlas-projects-grid
+    // 2. Dynamically Load ./data/ecosystem-projects.json into #atlas-projects-grid
     const fallbackProjects = [
       {
         id: 'benni-os',
@@ -444,7 +458,7 @@
         repository: 'https://github.com/benni-os/benni-os.github.io',
         description: 'Autonomous operating layer for agents, memory, control and execution',
         relations: ['jarvas-2', 'benni-control-plane', 'nemesis-gateway', 'benni-operator-gateway'],
-        image: 'images/ecosystem/benni-ecosystem-atlas.webp'
+        image: './images/ecosystem/benni-ecosystem-atlas.webp'
       },
       {
         id: 'jarvas-2',
@@ -456,7 +470,7 @@
         repository: 'https://github.com/benni-os/jarvas-2',
         description: 'Autonomous code execution engine, local port scanner, and subagent process dispatcher',
         relations: ['benni-os', 'benni-control-plane'],
-        image: 'images/projects/benni-agent-mesh.webp'
+        image: './images/projects/benni-agent-mesh.webp'
       },
       {
         id: 'benni-control-plane',
@@ -468,7 +482,7 @@
         repository: 'https://github.com/benni-os/benni-control-plane',
         description: 'State engine, immutable decision ledger, and cross-session memory fabric',
         relations: ['benni-os', 'nemesis-gateway'],
-        image: 'images/projects/benni-command-plane.webp'
+        image: './images/projects/benni-command-plane.webp'
       },
       {
         id: 'nemesis-gateway',
@@ -480,7 +494,7 @@
         repository: 'https://github.com/benni-os/nemesis-gateway',
         description: 'MCP security gateway enforcing HMAC signatures, canonical payload hashes, and single-use approvals',
         relations: ['benni-control-plane', 'monomo-event-bus'],
-        image: 'images/projects/benni-evidence-layer.webp'
+        image: './images/projects/benni-evidence-layer.webp'
       },
       {
         id: 'monomo-event-bus',
@@ -492,7 +506,7 @@
         repository: 'https://github.com/benni-os/monomo-event-bus',
         description: 'Reactive event bus tracking 12 canonical events from lead capture to financial reconciliation',
         relations: ['nemesis-gateway', 'benni-operator-gateway'],
-        image: 'images/projects/benni-memory-fabric.webp'
+        image: './images/projects/benni-memory-fabric.webp'
       },
       {
         id: 'benni-operator-gateway',
@@ -504,7 +518,7 @@
         repository: 'https://github.com/benni-os/operator-gateway',
         description: 'Human command surface, operator overrides, and real-time swarm telemetry dashboard',
         relations: ['benni-os', 'monomo-event-bus'],
-        image: 'images/ecosystem/benni-open-source-constellation.webp'
+        image: './images/ecosystem/benni-open-source-constellation.webp'
       }
     ];
 
@@ -535,7 +549,7 @@
       `).join('');
     }
 
-    fetch('data/ecosystem-projects.json')
+    fetch('./data/ecosystem-projects.json')
       .then(res => res.json())
       .then(data => renderProjects(data.projects || fallbackProjects))
       .catch(() => renderProjects(fallbackProjects));
