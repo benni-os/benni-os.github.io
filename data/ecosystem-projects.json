@@ -1,25 +1,9 @@
 {
-  "version": "3.1.0",
-  "total_repositories": 18,
+  "version": "3.2.0",
+  "total_repositories": 17,
   "private_count": 11,
-  "public_count": 7,
+  "public_count": 6,
   "projects": [
-    {
-      "id": "benni-os-site",
-      "name": "benni-os.github.io",
-      "owner": "benni-os",
-      "category": "Core",
-      "layer": "Intelligence & Surface",
-      "status": "Live",
-      "visibility": "Public",
-      "license": "MIT",
-      "language": "TypeScript / HTML",
-      "is_open_source": true,
-      "is_public": true,
-      "repository": "https://github.com/benni-os/benni-os.github.io",
-      "description": "Official landing surface, documentation, and Ecosystem Atlas visualizer for Benni OS.",
-      "relations": ["benni-operator-gateway", "benni-nexus"]
-    },
     {
       "id": "benni-operator-gateway-public",
       "name": "benni-operator-gateway",
@@ -146,7 +130,7 @@
       "is_public": false,
       "repository": null,
       "description": "LLM-native operating environment and agent IDE for sovereign execution.",
-      "relations": ["benni-os-site"]
+      "relations": ["benni-control-plane"]
     },
     {
       "id": "youtube-master-os-skills",
