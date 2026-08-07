@@ -23,9 +23,9 @@
       theme: {
         extend: {
           colors: {
-            bg: '#080a0f',
-            bg1: '#0d111a',
-            bg2: '#141a26',
+            bg: '#06080e',
+            bg1: '#0b0f19',
+            bg2: '#121826',
             c1: '#00ffe0',
             c1d: '#00ccb4',
             c2: '#7c5cfc',
@@ -44,17 +44,51 @@
     }
   </script>
 
+  <!-- Three.js & GSAP Animation Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
   <style>
-    body { background-color: #080a0f; color: #f1f5f9; font-family: 'Inter', sans-serif; }
-    .glow-c1 { box-shadow: 0 0 30px rgba(0, 255, 224, 0.25); }
-    .glow-c2 { box-shadow: 0 0 30px rgba(124, 92, 252, 0.25); }
-    .glow-c3 { box-shadow: 0 0 30px rgba(0, 255, 136, 0.25); }
-    .border-glow { border: 1px solid rgba(0, 255, 224, 0.3); }
-    .hero-video-overlay { background: linear-gradient(180deg, rgba(8,10,15,0.75) 0%, rgba(8,10,15,0.45) 50%, rgba(8,10,15,0.98) 100%); }
+    body { background-color: #06080e; color: #f1f5f9; font-family: 'Inter', sans-serif; }
+
+    /* Custom Glow & Glass Effects */
+    .glass-card {
+      background: rgba(18, 24, 38, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 255, 224, 0.4);
+      box-shadow: 0 10px 40px -10px rgba(0, 255, 224, 0.2);
+    }
+
+    .hero-video-overlay {
+      background: radial-gradient(circle at 50% 30%, rgba(6, 8, 14, 0.4) 0%, rgba(6, 8, 14, 0.85) 70%, rgba(6, 8, 14, 0.98) 100%);
+    }
 
     a:focus-visible, button:focus-visible {
       outline: 2px solid #00ffe0;
       outline-offset: 2px;
+    }
+
+    /* 3D Tilt Card Style */
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.3s ease;
+    }
+
+    /* WebGL Canvas Overlay */
+    #webgl-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.6;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -65,19 +99,23 @@
         scroll-behavior: auto !important;
       }
       video { display: none !important; }
+      #webgl-bg { display: none !important; }
       .reduced-motion-fallback { display: block !important; }
     }
   </style>
 </head>
 <body class="bg-bg text-txt antialiased selection:bg-c1/30 selection:text-white min-h-screen relative overflow-x-hidden">
 
+  <!-- BACKGROUND 3D WEBGL PARTICLE & CORE CANVAS -->
+  <canvas id="webgl-bg" aria-hidden="true"></canvas>
+
   <!-- TOP HEADER -->
-  <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/90 backdrop-blur-md border-b border-white/10" aria-label="Main Navigation">
+  <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/80 backdrop-blur-xl border-b border-white/10" aria-label="Main Navigation">
     <div class="container mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30">v2.0 Motion</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30">v2.0 Motion 3D</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -101,17 +139,17 @@
     </div>
   </header>
 
-  <!-- 1. CINEMATIC HERO SECTION WITH VIDEO, POSTER & MOBILE FALLBACK -->
+  <!-- 1. CINEMATIC HERO SECTION WITH VIDEO, POSTER & THREE.JS 3D HUD -->
   <section id="hero-surface" class="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center overflow-hidden border-b border-white/10" aria-label="Cinematic Ecosystem Hero">
 
-    <!-- Background Video Container with Full Fallbacks & Mobile Attributes -->
+    <!-- Background Video Container with Forced JS Play Controller -->
     <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
-      <video class="w-full h-full object-cover hidden md:block" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Ecosystem Hero Desktop Motion Video">
+      <video id="hero-video-desktop" class="w-full h-full object-cover hidden md:block" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-poster.webp" aria-label="Benni OS Ecosystem Hero Desktop Motion Video">
         <source src="./motion/hero/benni-ecosystem-hero-desktop.webm" type="video/webm">
         <source src="./motion/hero/benni-ecosystem-hero-desktop.mp4" type="video/mp4">
         <img src="./posters/benni-ecosystem-hero-poster.webp" alt="Benni OS Hero Desktop Fallback" class="w-full h-full object-cover" />
       </video>
-      <video class="w-full h-full object-cover block md:hidden" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Benni OS Ecosystem Hero Mobile Motion Video">
+      <video id="hero-video-mobile" class="w-full h-full object-cover block md:hidden" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-hero-mobile-poster.webp" aria-label="Benni OS Ecosystem Hero Mobile Motion Video">
         <source src="./motion/hero/benni-ecosystem-hero-mobile.mp4" type="video/mp4">
         <source src="./motion/hero/benni-ecosystem-hero-mobile.webm" type="video/webm">
         <img src="./posters/benni-ecosystem-hero-mobile-poster.webp" alt="Benni OS Hero Mobile Fallback" class="w-full h-full object-cover" />
@@ -122,7 +160,7 @@
 
     <!-- Hero Content Surface -->
     <div class="container mx-auto px-6 max-w-7xl relative z-20 text-center">
-      <div class="max-w-4xl mx-auto mb-10">
+      <div class="max-w-4xl mx-auto mb-10 gsap-hero-reveal">
         <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-6">
           <span class="w-2 h-2 rounded-full bg-c1 animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true"></span>
           <span class="font-mono text-xs text-c1 uppercase tracking-widest font-semibold">Sovereign Autonomous Agent Swarm OS</span>
@@ -144,25 +182,28 @@
         </div>
       </div>
 
-      <!-- INTERACTIVE ATLAS 2D TOPOLOGY MAP -->
-      <div class="w-full max-w-4xl mx-auto mt-8 rounded-2xl bg-bg2/90 border border-c1/40 p-4 shadow-[0_0_40px_rgba(0,255,224,0.15)] relative overflow-hidden" aria-label="Interactive Ecosystem Topology Map">
+      <!-- INTERACTIVE THREE.JS 3D CANVAS & TOPOLOGY MAP -->
+      <div class="w-full max-w-5xl mx-auto mt-6 glass-card rounded-2xl p-6 shadow-[0_0_50px_rgba(0,255,224,0.15)] relative overflow-hidden gsap-hero-reveal" aria-label="Interactive Ecosystem 3D Topology Canvas">
         <div class="flex items-center justify-between border-b border-white/10 pb-3 mb-4 font-mono text-xs text-txt2">
           <div class="flex items-center gap-2">
             <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse"></span>
-            <span class="font-bold text-txt">Ecosystem Atlas Topology Canvas</span>
+            <span class="font-bold text-txt">3D Ecosystem Neural Mesh & Control Core</span>
           </div>
-          <div class="text-[11px] text-c1 font-semibold">High-Performance 2D Visualizer (GLB 3D Offline)</div>
+          <div class="text-[11px] text-c1 font-semibold">Interactive WebGL 3D Node Mesh</div>
         </div>
 
-        <div class="relative w-full h-64 bg-bg1 rounded-xl border border-white/10 flex items-center justify-center p-4">
-          <canvas id="atlas-canvas" width="800" height="240" class="w-full h-full" aria-label="Interactive Ecosystem Atlas Canvas Node Network"></canvas>
+        <div class="relative w-full h-80 bg-bg1/80 rounded-xl border border-white/10 flex items-center justify-center p-2 overflow-hidden">
+          <canvas id="atlas-3d-canvas" class="w-full h-full" aria-label="Interactive Three.js 3D Ecosystem Node Network"></canvas>
+          <div class="absolute bottom-3 left-4 font-mono text-[10px] text-txt3 bg-bg/80 px-2 py-1 rounded border border-white/10">
+            Click / Move mouse to rotate 3D Neural Node Mesh
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards Driven by ./data/ecosystem-projects.json) -->
-  <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10" aria-label="Benni OS Ecosystem Atlas">
+  <!-- 2. ECOSYSTEM ATLAS SECTION (Dynamic Project Cards Driven by ./data/ecosystem-projects.json with 3D Tilt) -->
+  <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10 relative z-10" aria-label="Benni OS Ecosystem Atlas">
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-14 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
@@ -172,7 +213,7 @@
           Architectural <span class="text-c1">Ecosystem Atlas</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
-          Explore the live topology of verified open-source projects powering Benni OS. Cards loaded dynamically from <code class="text-c1">./data/ecosystem-projects.json</code>.
+          Explore the live topology of verified open-source projects powering Benni OS. Cards loaded dynamically from <code class="text-c1">./data/ecosystem-projects.json</code> with 3D Motion UI.
         </p>
       </div>
 
@@ -183,7 +224,7 @@
   </section>
 
   <!-- 3. SCROLL STORYTELLING WORKFLOW (Intent -> Plan -> Agents -> Execution -> Evidence) -->
-  <section id="scroll-story" class="py-24 bg-bg border-b border-white/10" aria-label="Scroll Storytelling Workflow">
+  <section id="scroll-story" class="py-24 bg-bg border-b border-white/10 relative z-10" aria-label="Scroll Storytelling Workflow">
     <div class="container mx-auto px-6 max-w-5xl">
       <div class="mb-16 text-center">
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
@@ -197,15 +238,15 @@
       <div class="space-y-16 border-l-2 border-c1/30 pl-8 ml-4 md:ml-12">
 
         <!-- Phase 1: Intent -->
-        <div class="relative group">
+        <div class="relative group gsap-story-step">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c1 border-4 border-bg shadow-[0_0_15px_#00ffe0]"></span>
           <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">PHASE 01 // INTENT</div>
           <h3 class="text-2xl font-bold text-txt">Operator Intent Parsing</h3>
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             The operator submits a high-level goal. Benni Master OS normalizes the payload and calculates SHA-256 byte-level hashes.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent parsing motion preview">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2 shadow-2xl">
+            <video class="w-full h-56 object-cover motion-video-player" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-intent-to-evidence-poster.webp" aria-label="Intent parsing motion preview">
               <source src="./motion/sequences/benni-intent-to-evidence.webm" type="video/webm">
               <source src="./motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4">
               <img src="./posters/benni-intent-to-evidence-poster.webp" alt="Intent to evidence poster fallback" class="w-full h-full object-cover" />
@@ -214,15 +255,15 @@
         </div>
 
         <!-- Phase 2: Plan -->
-        <div class="relative group">
+        <div class="relative group gsap-story-step">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c2 border-4 border-bg shadow-[0_0_15px_#7c5cfc]"></span>
           <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-1">PHASE 02 // PLAN</div>
           <h3 class="text-2xl font-bold text-txt">Run Ledger & Checkpoint Lock</h3>
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             The Control Plane generates a multi-step Run Ledger, establishes atomic checkpoints, and locks scope boundaries to prevent drift.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Autonomous plan motion preview">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2 shadow-2xl">
+            <video class="w-full h-56 object-cover motion-video-player" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-ecosystem-atlas-poster.webp" aria-label="Autonomous plan motion preview">
               <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm">
               <source src="./motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4">
               <img src="./posters/benni-ecosystem-atlas-poster.webp" alt="Ecosystem atlas flythrough poster fallback" class="w-full h-full object-cover" />
@@ -231,15 +272,15 @@
         </div>
 
         <!-- Phase 3: Agents -->
-        <div class="relative group">
+        <div class="relative group gsap-story-step">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c3 border-4 border-bg shadow-[0_0_15px_#00ff88]"></span>
           <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-1">PHASE 03 // AGENTS</div>
           <h3 class="text-2xl font-bold text-txt">JARVAS-2 Swarm Mesh Dispatch</h3>
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             Specialized subagents (Codebase Researcher, Content Swarm, Build Shipper) execute subtasks in parallel background processes.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent mesh activation motion preview">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2 shadow-2xl">
+            <video class="w-full h-56 object-cover motion-video-player" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-agent-mesh-poster.webp" aria-label="Agent mesh activation motion preview">
               <source src="./motion/sequences/benni-agent-mesh-activation.webm" type="video/webm">
               <source src="./motion/sequences/benni-agent-mesh-activation.mp4" type="video/mp4">
               <img src="./posters/benni-agent-mesh-poster.webp" alt="Agent mesh activation poster fallback" class="w-full h-full object-cover" />
@@ -248,7 +289,7 @@
         </div>
 
         <!-- Phase 4: Execution -->
-        <div class="relative group">
+        <div class="relative group gsap-story-step">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-gold border-4 border-bg shadow-[0_0_15px_#ffb703]"></span>
           <div class="font-mono text-xs text-gold font-bold uppercase tracking-widest mb-1">PHASE 04 // EXECUTION & POLICY GATE</div>
           <h3 class="text-2xl font-bold text-txt">NEMESIS Policy Gate Check</h3>
@@ -258,15 +299,15 @@
         </div>
 
         <!-- Phase 5: Evidence -->
-        <div class="relative group">
+        <div class="relative group gsap-story-step">
           <span class="absolute -left-[41px] top-0 w-5 h-5 rounded-full bg-c1 border-4 border-bg shadow-[0_0_15px_#00ffe0]"></span>
           <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">PHASE 05 // EVIDENCE</div>
           <h3 class="text-2xl font-bold text-txt">Evidence Return & Financial Settlement</h3>
           <p class="text-txt2 font-mono text-xs mt-2 max-w-2xl leading-relaxed">
             Results are committed immutably to Git with cryptographic signatures, trace IDs, and MONOMO event revenue attribution.
           </p>
-          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2">
-            <video class="w-full h-48 object-cover" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-evidence-return-poster.webp" aria-label="Evidence return motion preview">
+          <div class="mt-4 rounded-xl overflow-hidden border border-white/10 max-w-2xl bg-bg2 shadow-2xl">
+            <video class="w-full h-56 object-cover motion-video-player" autoplay muted loop playsinline preload="metadata" poster="./posters/benni-evidence-return-poster.webp" aria-label="Evidence return motion preview">
               <source src="./motion/sequences/benni-evidence-return.webm" type="video/webm">
               <source src="./motion/sequences/benni-evidence-return.mp4" type="video/mp4">
               <img src="./posters/benni-evidence-return-poster.webp" alt="Evidence return poster fallback" class="w-full h-full object-cover" />
@@ -278,8 +319,8 @@
     </div>
   </section>
 
-  <!-- 4. BENTO ARCHITECTURE SECTION (Intelligence, Control, Execution, Developer Infrastructure, Community) -->
-  <section id="bento-architecture" class="py-24 bg-bg1 border-b border-white/10" aria-label="Bento Architecture">
+  <!-- 4. BENTO ARCHITECTURE SECTION -->
+  <section id="bento-architecture" class="py-24 bg-bg1 border-b border-white/10 relative z-10" aria-label="Bento Architecture">
     <div class="container mx-auto px-6 max-w-6xl">
       <div class="mb-14 text-center">
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
@@ -292,7 +333,7 @@
 
       <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
         <!-- Bento 1: Intelligence -->
-        <div class="md:col-span-7 p-8 rounded-2xl bg-bg2 border border-c1/30 hover:border-c1/60 transition-all">
+        <div class="md:col-span-7 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
           <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 01 // Intelligence</div>
           <h3 class="text-2xl font-bold text-txt mb-3">Multi-Model Swarm Intelligence</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
@@ -301,7 +342,7 @@
         </div>
 
         <!-- Bento 2: Control -->
-        <div class="md:col-span-5 p-8 rounded-2xl bg-bg2 border border-c2/30 hover:border-c2/60 transition-all">
+        <div class="md:col-span-5 p-8 rounded-2xl glass-card hover:border-c2/60 transition-all">
           <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">Layer 02 // Control</div>
           <h3 class="text-2xl font-bold text-txt mb-3">Sovereign Control Plane</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
@@ -310,7 +351,7 @@
         </div>
 
         <!-- Bento 3: Execution -->
-        <div class="md:col-span-4 p-8 rounded-2xl bg-bg2 border border-c3/30 hover:border-c3/60 transition-all">
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c3/60 transition-all">
           <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">Layer 03 // Execution</div>
           <h3 class="text-xl font-bold text-txt mb-3">JARVAS-2 Dispatch</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed">
@@ -319,7 +360,7 @@
         </div>
 
         <!-- Bento 4: Developer Infrastructure -->
-        <div class="md:col-span-4 p-8 rounded-2xl bg-bg2 border border-gold/30 hover:border-gold/60 transition-all">
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-gold/60 transition-all">
           <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-2">Layer 04 // Dev Infra</div>
           <h3 class="text-xl font-bold text-txt mb-3">MCP Security Gateway</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed">
@@ -328,7 +369,7 @@
         </div>
 
         <!-- Bento 5: Community -->
-        <div class="md:col-span-4 p-8 rounded-2xl bg-bg2 border border-c1/30 hover:border-c1/60 transition-all">
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
           <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 05 // Community</div>
           <h3 class="text-xl font-bold text-txt mb-3">Operator Network</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed">
@@ -340,7 +381,7 @@
   </section>
 
   <!-- 5. TRUST & GOVERNANCE -->
-  <section id="governance" class="py-24 bg-bg border-b border-white/10" aria-label="Trust and Governance">
+  <section id="governance" class="py-24 bg-bg border-b border-white/10 relative z-10" aria-label="Trust and Governance">
     <div class="container mx-auto px-6 max-w-5xl text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-6">
         TRUST & GOVERNANCE
@@ -353,17 +394,17 @@
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
-        <div class="p-6 rounded-xl bg-bg1 border border-white/10">
+        <div class="p-6 rounded-xl glass-card">
           <h4 class="font-bold text-txt text-base mb-2">Byte-Integrity Hashes</h4>
           <p class="text-txt2 font-mono text-xs">SHA-256 computed on normalized canonical payloads before human review.</p>
         </div>
 
-        <div class="p-6 rounded-xl bg-bg1 border border-white/10">
+        <div class="p-6 rounded-xl glass-card">
           <h4 class="font-bold text-txt text-base mb-2">Single-Use Tokens</h4>
           <p class="text-txt2 font-mono text-xs">Approval tokens expire in 5 minutes and cannot be reused across calls.</p>
         </div>
 
-        <div class="p-6 rounded-xl bg-bg1 border border-white/10">
+        <div class="p-6 rounded-xl glass-card">
           <h4 class="font-bold text-txt text-base mb-2">Zero Log Leakage</h4>
           <p class="text-txt2 font-mono text-xs">Production logs print only byte counts and 8-character hash prefixes.</p>
         </div>
@@ -372,7 +413,7 @@
   </section>
 
   <!-- 6. SINGLE CANONICAL COMMUNITY CTA SECTION -->
-  <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center" aria-label="Community Call to Action">
+  <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight mb-6">
         Ready to Run Sovereign <br />
@@ -390,7 +431,7 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-10 bg-bg border-t border-white/10 font-mono text-xs text-txt3" aria-label="Site Footer">
+  <footer class="py-10 bg-bg border-t border-white/10 font-mono text-xs text-txt3 relative z-10" aria-label="Site Footer">
     <div class="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
       <div class="flex gap-6">
@@ -401,52 +442,218 @@
     </div>
   </footer>
 
-  <!-- DYNAMIC PROJECT CARDS & CANVAS INITIALIZATION SCRIPT -->
+  <!-- ADVANCED 3D & MOTION ENGINE INITIALIZATION SCRIPT -->
   <script>
-    // 1. Render Interactive Topology Canvas (2D High Performance Visualizer)
-    const canvas = document.getElementById('atlas-canvas');
-    if (canvas && canvas.getContext) {
-      const ctx = canvas.getContext('2d');
-      const nodes = [
-        { name: 'Benni OS', x: 400, y: 120, color: '#00ffe0', r: 14 },
-        { name: 'JARVAS-2', x: 180, y: 70, color: '#7c5cfc', r: 10 },
-        { name: 'Control Plane', x: 620, y: 70, color: '#00ff88', r: 10 },
-        { name: 'NEMESIS', x: 180, y: 170, color: '#ffb703', r: 10 },
-        { name: 'MONOMO', x: 620, y: 170, color: '#00ffe0', r: 10 }
+    // ----------------------------------------------------
+    // 1. FORCED VIDEO AUTOPLAY CONTROLLER
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+      const vids = document.querySelectorAll('video');
+      vids.forEach(v => {
+        v.muted = true;
+        v.playsInline = true;
+        const p = v.play();
+        if (p !== undefined) {
+          p.catch(err => {
+            console.log('Autoplay retry on user interaction:', err);
+            window.addEventListener('click', () => v.play(), { once: true });
+            window.addEventListener('touchstart', () => v.play(), { once: true });
+          });
+        }
+      });
+    });
+
+    // ----------------------------------------------------
+    // 2. BACKGROUND THREE.JS 3D PARTICLE CONSTELLATION
+    // ----------------------------------------------------
+    (function init3DBackground() {
+      const canvas = document.getElementById('webgl-bg');
+      if (!canvas || !window.Three) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Particle Geometry
+      const particleCount = 200;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+      const colors = new Float32Array(particleCount * 3);
+
+      const color1 = new THREE.Color('#00ffe0');
+      const color2 = new THREE.Color('#7c5cfc');
+
+      for (let i = 0; i < particleCount; i++) {
+        positions[i * 3] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 1] = (Math.random() - 0.5) * 40;
+        positions[i * 3 + 2] = (Math.random() - 0.5) * 40;
+
+        const mixedColor = color1.clone().lerp(color2, Math.random());
+        colors[i * 3] = mixedColor.r;
+        colors[i * 3 + 1] = mixedColor.g;
+        colors[i * 3 + 2] = mixedColor.b;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      geometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+
+      const material = new THREE.PointsMaterial({
+        size: 0.2,
+        vertexColors: true,
+        transparent: true,
+        opacity: 0.8
+      });
+
+      const points = new THREE.Points(geometry, material);
+      scene.add(points);
+
+      camera.position.z = 20;
+
+      let mouseX = 0, mouseY = 0;
+      window.addEventListener('mousemove', (e) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        points.rotation.y += 0.001;
+        points.rotation.x += 0.0005;
+
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+      });
+    })();
+
+    // ----------------------------------------------------
+    // 3. INTERACTIVE 3D NEURAL NODE MESH (Ecosystem Atlas Canvas)
+    // ----------------------------------------------------
+    (function init3DNodeAtlas() {
+      const canvas = document.getElementById('atlas-3d-canvas');
+      if (!canvas || !window.Three) return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+      const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+      renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Central Core Icosahedron Orb
+      const orbGeo = new THREE.IcosahedronGeometry(2, 2);
+      const orbMat = new THREE.MeshBasicMaterial({
+        color: 0x00ffe0,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.7
+      });
+      const coreOrb = new THREE.Mesh(orbGeo, orbMat);
+      scene.add(coreOrb);
+
+      // Surrounding Satellite Node Spheres
+      const nodesData = [
+        { name: 'JARVAS-2', color: 0x7c5cfc, pos: [-6, 3, 0] },
+        { name: 'Control Plane', color: 0x00ff88, pos: [6, 3, 0] },
+        { name: 'NEMESIS', color: 0xffb703, pos: [-6, -3, 0] },
+        { name: 'MONOMO', color: 0x00ffe0, pos: [6, -3, 0] }
       ];
 
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+      const nodeGroup = new THREE.Group();
+      nodesData.forEach(nd => {
+        const sphereGeo = new THREE.SphereGeometry(0.8, 16, 16);
+        const sphereMat = new THREE.MeshBasicMaterial({ color: nd.color });
+        const mesh = new THREE.Mesh(sphereGeo, sphereMat);
+        mesh.position.set(...nd.pos);
+        nodeGroup.add(mesh);
 
-        // Lines
-        ctx.strokeStyle = 'rgba(0, 255, 224, 0.25)';
-        ctx.lineWidth = 1.5;
-        nodes.forEach((n, i) => {
-          if (i > 0) {
-            ctx.beginPath();
-            ctx.moveTo(nodes[0].x, nodes[0].y);
-            ctx.lineTo(n.x, n.y);
-            ctx.stroke();
-          }
-        });
+        // Connection Lines to Core
+        const lineMat = new THREE.LineBasicMaterial({ color: nd.color, transparent: true, opacity: 0.4 });
+        const lineGeo = new THREE.BufferGeometry().setFromPoints([
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(...nd.pos)
+        ]);
+        const line = new THREE.Line(lineGeo, lineMat);
+        nodeGroup.add(line);
+      });
 
-        // Nodes
-        nodes.forEach(n => {
-          ctx.beginPath();
-          ctx.arc(n.x, n.y, n.r, 0, Math.PI * 2);
-          ctx.fillStyle = n.color;
-          ctx.fill();
+      scene.add(nodeGroup);
+      camera.position.z = 12;
 
-          ctx.fillStyle = '#f1f5f9';
-          ctx.font = '11px "Fira Code", monospace';
-          ctx.textAlign = 'center';
-          ctx.fillText(n.name, n.x, n.y + n.r + 14);
-        });
+      let isDragging = false, prevMouseX = 0, prevMouseY = 0;
+      canvas.addEventListener('mousedown', (e) => { isDragging = true; prevMouseX = e.clientX; prevMouseY = e.clientY; });
+      window.addEventListener('mouseup', () => { isDragging = false; });
+      window.addEventListener('mousemove', (e) => {
+        if (!isDragging) return;
+        const deltaX = e.clientX - prevMouseX;
+        const deltaY = e.clientY - prevMouseY;
+        nodeGroup.rotation.y += deltaX * 0.01;
+        nodeGroup.rotation.x += deltaY * 0.01;
+        coreOrb.rotation.y += deltaX * 0.01;
+        prevMouseX = e.clientX;
+        prevMouseY = e.clientY;
+      });
+
+      function animate() {
+        requestAnimationFrame(animate);
+        coreOrb.rotation.y += 0.005;
+        coreOrb.rotation.x += 0.003;
+        nodeGroup.rotation.y += 0.002;
+        renderer.render(scene, camera);
       }
-      draw();
+      animate();
+
+      window.addEventListener('resize', () => {
+        if (!canvas.clientWidth || !canvas.clientHeight) return;
+        camera.aspect = canvas.clientWidth / canvas.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+      });
+    })();
+
+    // ----------------------------------------------------
+    // 4. GSAP SCROLLTRIGGER REVEALS & TILT CARDS
+    // ----------------------------------------------------
+    if (window.gsap) {
+      if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+
+      gsap.from('.gsap-hero-reveal', {
+        duration: 1.2,
+        y: 50,
+        opacity: 0,
+        stagger: 0.2,
+        ease: 'power3.out'
+      });
+
+      gsap.utils.toArray('.gsap-story-step').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%'
+          },
+          duration: 0.8,
+          y: 40,
+          opacity: 0,
+          ease: 'power2.out'
+        });
+      });
     }
 
-    // 2. Dynamically Load ./data/ecosystem-projects.json into #atlas-projects-grid
+    // ----------------------------------------------------
+    // 5. DYNAMICALLY RENDER PROJECT CARDS WITH 3D TILT
+    // ----------------------------------------------------
     const fallbackProjects = [
       {
         id: 'benni-os',
@@ -526,14 +733,14 @@
       const grid = document.getElementById('atlas-projects-grid');
       if (!grid) return;
       grid.innerHTML = projects.map(proj => `
-        <article class="rounded-2xl bg-bg2 border border-c1/40 overflow-hidden hover:border-c1 transition-all flex flex-col justify-between" aria-label="${proj.name} Project Card">
+        <article class="rounded-2xl glass-card tilt-card overflow-hidden flex flex-col justify-between" aria-label="${proj.name} Project Card">
           <div>
             <div class="relative h-48 overflow-hidden bg-bg1">
               <img src="${proj.image}" alt="${proj.name} Visual" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105" loading="lazy" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2 py-1 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">${proj.layer || proj.category}</span>
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase tracking-widest px-2.5 py-1 rounded-full bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">${proj.layer || proj.category}</span>
             </div>
             <div class="p-6">
-              <h3 class="text-xl font-bold text-txt">${proj.name}</h3>
+              <h3 class="text-xl font-bold text-txt mb-1">${proj.name}</h3>
               <p class="text-txt3 font-mono text-xs uppercase mb-3">${proj.category}</p>
               <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${proj.description}</p>
               <div class="flex flex-wrap gap-2 mb-4 font-mono text-[10px]">
@@ -547,6 +754,19 @@
           </div>
         </article>
       `).join('');
+
+      // Add 3D Tilt mouse effect to cards
+      document.querySelectorAll('.tilt-card').forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          card.style.transform = `perspective(1000px) rotateX(${-y / 20}deg) rotateY(${x / 20}deg) scale(1.02)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)';
+        });
+      });
     }
 
     fetch('./data/ecosystem-projects.json')
