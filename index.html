@@ -113,7 +113,7 @@
       <a href="#top" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">20 Repositories</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">18 Repositories</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -128,7 +128,7 @@
       <div class="flex items-center gap-4">
         <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-bg1 border border-c3/40 backdrop-blur">
           <span class="w-2 h-2 rounded-full bg-c3 animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true"></span>
-          <span class="text-[11px] font-mono text-txt uppercase tracking-wider font-semibold">20 Repos (9 Public / 11 Private)</span>
+          <span class="text-[11px] font-mono text-txt uppercase tracking-wider font-semibold">18 Repos (7 Public / 11 Private)</span>
         </div>
         <!-- Single Canonical Community CTA -->
         <a href="https://t.me/bennios" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-lg bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
@@ -217,32 +217,31 @@
     </div>
   </section>
 
-  <!-- 2. ECOSYSTEM ATLAS (20 REPOSITORIES NAVIGABLE MAP) -->
+  <!-- 2. ECOSYSTEM ATLAS (18 REPOSITORIES NAVIGABLE MAP) -->
   <section id="ecosystem-atlas" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Navigable Ecosystem Atlas">
     <div class="container mx-auto px-6 max-w-7xl">
 
       <div class="mb-12 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
-          ECOSYSTEM ATLAS // 20 REPOSITORIES
+          ECOSYSTEM ATLAS // 18 REPOSITORIES
         </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
           Constellation <span class="text-c1">Ecosystem Atlas</span>
         </h2>
         <p class="mt-4 text-txt2 font-mono text-sm max-w-3xl mx-auto">
-          Catalog of <strong>20 repositories</strong> across <code class="text-c1">benni-os</code> and <code class="text-c2">nsfwbunny</code> (9 Public / 11 Private). Open Source badge is assigned <strong>strictly when MIT license is confirmed</strong>.
+          Catalog of <strong>18 repositories</strong> across <code class="text-c1">benni-os</code> and <code class="text-c2">nsfwbunny</code> (7 Public / 11 Private). Open Source badge is assigned <strong>strictly when MIT license is confirmed</strong>.
         </p>
 
         <!-- Category & Filter Tabs -->
         <div class="mt-8 flex flex-wrap justify-center gap-2 font-mono text-xs" id="atlas-tabs">
-          <button data-filter="all" class="px-3.5 py-1.5 rounded-lg bg-c1 text-black font-bold transition-all">All (20)</button>
+          <button data-filter="all" class="px-3.5 py-1.5 rounded-lg bg-c1 text-black font-bold transition-all">All (18)</button>
           <button data-filter="core" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all">Core</button>
           <button data-filter="opensource" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-c3/40 text-c3 hover:border-c3 transition-all">Open Source (5)</button>
-          <button data-filter="public" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-c1/40 text-c1 hover:border-c1 transition-all">Public (9)</button>
+          <button data-filter="public" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-c1/40 text-c1 hover:border-c1 transition-all">Public (7)</button>
           <button data-filter="private" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-c2/40 text-c2 hover:border-c2 transition-all">🔒 Private (11)</button>
           <button data-filter="infrastructure" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all">Infrastructure</button>
           <button data-filter="agents" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all">Agents</button>
           <button data-filter="devtools" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all">Developer Tools</button>
-          <button data-filter="products" class="px-3.5 py-1.5 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all">Products</button>
         </div>
       </div>
 
@@ -467,7 +466,6 @@
       const grid = document.getElementById('atlas-projects-grid');
       if (!grid) return;
       grid.innerHTML = projects.map(proj => {
-        // Stage Badge Colors
         let stageBadge = '<span class="px-2.5 py-0.5 rounded-full bg-c1/20 text-c1 border border-c1/40 font-bold font-mono text-[10px]">Public</span>';
         if (proj.visibility === 'Private' || proj.stage === 'Private') {
           stageBadge = '<span class="px-2.5 py-0.5 rounded-full bg-c2/20 text-c2 border border-c2/40 font-bold font-mono text-[10px]">🔒 Private</span>';
@@ -477,7 +475,6 @@
           stageBadge = '<span class="px-2.5 py-0.5 rounded-full bg-gold/20 text-gold border border-gold/40 font-bold font-mono text-[10px]">⚡ Building</span>';
         }
 
-        // Action Element: Render Link ONLY if repository is public and explicitly provided
         let actionElement = '';
         if (proj.is_public && proj.repository) {
           actionElement = `
