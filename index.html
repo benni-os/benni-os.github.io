@@ -165,7 +165,7 @@
         </div>
       </div>
 
-      <!-- OPERATIONAL PRODUCT SURFACE CONSOLE (Intent -> Control Plane -> Agent Mesh -> Policy Gate -> Evidence) -->
+      <!-- OPERATIONAL PRODUCT SURFACE CONSOLE -->
       <div class="w-full max-w-5xl mx-auto glass-card rounded-2xl p-6 shadow-[0_0_60px_rgba(0,255,224,0.15)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
 
         <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6 font-mono text-xs text-txt2">
@@ -225,7 +225,7 @@
 
       <div class="mb-14 text-center">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
-          ECOSYSTEM ATLAS v2.0
+          ECOSYSTEM ATLAS v2.1
         </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
           Architectural <span class="text-c1">Ecosystem Atlas</span>
@@ -240,7 +240,7 @@
           <button data-filter="live" class="px-4 py-2 rounded-lg bg-bg2 border border-c3/40 text-c3 hover:border-c3 transition-all">● LIVE</button>
           <button data-filter="public" class="px-4 py-2 rounded-lg bg-bg2 border border-c1/40 text-c1 hover:border-c1 transition-all">OPEN SOURCE</button>
           <button data-filter="building" class="px-4 py-2 rounded-lg bg-bg2 border border-gold/40 text-gold hover:border-gold transition-all">BUILDING</button>
-          <button data-filter="private" class="px-4 py-2 rounded-lg bg-bg2 border border-c2/40 text-c2 hover:border-c2 transition-all">PRIVATE</button>
+          <button data-filter="private" class="px-4 py-2 rounded-lg bg-bg2 border border-c2/40 text-c2 hover:border-c2 transition-all">🔒 PRIVATE</button>
         </div>
       </div>
 
@@ -336,36 +336,36 @@
     </div>
   </section>
 
-  <!-- 4. OPEN SOURCE & REPOSITORY PROOF -->
+  <!-- 4. OPEN SOURCE & REPOSITORY PROOF (PUBLIC REPOS ONLY) -->
   <section id="open-source" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Open Source Proof">
     <div class="container mx-auto px-6 max-w-6xl text-center">
       <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
-        VERIFIABLE SOURCE CODE
+        PUBLIC SOURCE CODE
       </div>
       <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight mb-4">
-        Built in the Open on <span class="text-c1">GitHub</span>
+        Verified Open Source Repositories
       </h2>
       <p class="text-txt2 font-mono text-sm max-w-xl mx-auto mb-12">
-        Inspect raw implementation code, protocol definitions, and security specs directly on GitHub.
+        Inspect raw implementation code and protocol definitions directly on GitHub for all public modules.
       </p>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
         <a href="https://github.com/benni-os/benni-os.github.io" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c1 transition-all">
-          <div class="font-mono text-xs text-c1 font-bold uppercase mb-2">Repository // Core OS</div>
+          <div class="font-mono text-xs text-c1 font-bold uppercase mb-2">Public Repo // Core OS</div>
           <h3 class="text-lg font-bold text-txt mb-2">benni-os.github.io</h3>
-          <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Public ecosystem landing surface, protocol documentation, and web UI.</p>
+          <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Public ecosystem surface, protocol documentation, and web UI.</p>
           <span class="text-c1 font-mono text-xs font-bold">Inspect Source Code →</span>
         </a>
 
         <a href="https://github.com/benni-os/jarvas-2" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c2 transition-all">
-          <div class="font-mono text-xs text-c2 font-bold uppercase mb-2">Repository // Execution Engine</div>
+          <div class="font-mono text-xs text-c2 font-bold uppercase mb-2">Public Repo // Execution Engine</div>
           <h3 class="text-lg font-bold text-txt mb-2">jarvas-2</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Autonomous code execution engine and background subagent dispatcher.</p>
           <span class="text-c2 font-mono text-xs font-bold">Inspect Source Code →</span>
         </a>
 
         <a href="https://github.com/benni-os/benni-control-plane" target="_blank" rel="noopener noreferrer" class="p-6 rounded-2xl glass-card hover:border-c3 transition-all">
-          <div class="font-mono text-xs text-c3 font-bold uppercase mb-2">Repository // State Ledger</div>
+          <div class="font-mono text-xs text-c3 font-bold uppercase mb-2">Public Repo // State Ledger</div>
           <h3 class="text-lg font-bold text-txt mb-2">benni-control-plane</h3>
           <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Immutable decision ledger, state engine, and cross-session memory fabric.</p>
           <span class="text-c3 font-mono text-xs font-bold">Inspect Source Code →</span>
@@ -536,7 +536,6 @@
 
   <!-- DYNAMIC PROJECT CARDS & THREE.JS INITIALIZATION -->
   <script>
-    // Dynamically load projects from ./data/ecosystem-projects.json
     let allProjects = [];
 
     function renderProjects(projects) {
@@ -547,6 +546,20 @@
         if (proj.stage === 'Live') badgeColor = 'bg-c3/20 text-c3 border-c3/40';
         if (proj.stage === 'Building') badgeColor = 'bg-gold/20 text-gold border-gold/40';
         if (proj.stage === 'Private') badgeColor = 'bg-c2/20 text-c2 border-c2/40';
+
+        // Action Button: Render link ONLY if repository is public and valid
+        let actionElement = '';
+        if (proj.is_public && proj.repository) {
+          actionElement = `
+            <a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">
+              GitHub Repository →
+            </a>
+          `;
+        } else if (proj.stage === 'Private' || proj.visibility === 'private') {
+          actionElement = `<span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1.5"><span aria-hidden="true">🔒</span> Private Codebase (Confidential)</span>`;
+        } else {
+          actionElement = `<span class="text-gold font-mono text-[11px] font-semibold flex items-center gap-1.5"><span aria-hidden="true">⚡</span> Under Active Development</span>`;
+        }
 
         return `
           <article class="rounded-2xl glass-card tilt-card overflow-hidden flex flex-col justify-between" aria-label="${proj.name} Project Card">
@@ -565,9 +578,7 @@
             </div>
             <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
               <span class="text-txt3">Stage: <strong class="text-txt">${proj.stage}</strong></span>
-              <a href="${proj.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">
-                GitHub Repository →
-              </a>
+              ${actionElement}
             </div>
           </article>
         `;
@@ -589,7 +600,6 @@
         if (e.target.tagName === 'BUTTON') {
           const filter = e.target.getAttribute('data-filter');
 
-          // Update active styles
           Array.from(tabContainer.children).forEach(btn => {
             btn.className = 'px-4 py-2 rounded-lg bg-bg2 border border-white/10 text-txt2 hover:border-c1 transition-all';
           });
