@@ -3,16 +3,22 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Benni OS — Sovereign Operating Layer for Autonomous Work</title>
-  <meta name="description" content="Enterprise-grade sovereign agent operating system with edge-to-edge fluid motion and camera perspective scroll." />
+  <title>Benni OS — The Operating Layer for Autonomous Work</title>
+  <meta name="description" content="Coordinate agents, memory, tools and policy in one observable enterprise system. Sovereign autonomous agent operating infrastructure." />
 
   <!-- OpenGraph & Twitter SEO -->
-  <meta property="og:title" content="Benni OS — Sovereign Operating Layer for Autonomous Work" />
+  <meta property="og:title" content="Benni OS — The Operating Layer for Autonomous Work" />
   <meta property="og:description" content="Coordinate agents, memory, tools and policy in one observable enterprise system." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://benni-os.github.io/" />
+  <meta property="og:url" content="https://benni-os.net/" />
   <meta property="og:image" content="public/posters/hero-poster.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Benni OS — The Operating Layer for Autonomous Work" />
+  <meta name="twitter:description" content="Coordinate agents, memory, tools and policy in one observable enterprise system." />
+  <meta name="twitter:image" content="public/posters/hero-poster.jpg" />
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="https://benni-os.net/" />
 
   <!-- Google Fonts: Sora, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -57,11 +63,30 @@
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 
   <style>
+    :root {
+      --motion-instant: 80ms;
+      --motion-fast: 150ms;
+      --motion-base: 240ms;
+      --motion-medium: 360ms;
+      --motion-slow: 520ms;
+      --motion-cinematic: 900ms;
+      --ease-enter: cubic-bezier(.16,1,.3,1);
+      --ease-standard: cubic-bezier(.2,.8,.2,1);
+      --ease-exit: cubic-bezier(.7,0,.84,0);
+    }
+
     html, body {
       background-color: #020408;
       color: #f8fafc;
       font-family: 'Sora', 'Inter', sans-serif;
       overflow-x: clip;
+    }
+
+    /* Accessibility Focus Styles */
+    a:focus-visible, button:focus-visible, input:focus-visible {
+      outline: 2px solid #00ffe0;
+      outline-offset: 4px;
+      border-radius: 0.5rem;
     }
 
     #scroll-progress {
@@ -84,7 +109,7 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Living Fluid Ink Background Canvas */
+    /* Living Fluid Ink Background Canvas (Desktop + Mobile) */
     #webgl-bg {
       position: fixed;
       inset: 0;
@@ -96,7 +121,7 @@
       mix-blend-mode: screen;
     }
 
-    /* Edge-to-Edge Hero Layout (Full Width, No Card Frames) */
+    /* Hero Layout (Full Width, No Card Frames) */
     .hero-track {
       position: relative;
       height: 480vh;
@@ -124,7 +149,7 @@
       z-index: 1;
     }
 
-    /* Layered Text Overlay with Side-to-Side Camera Perspective Shifts */
+    /* Text Overlays with Side-to-Side Perspective Camera Shifts */
     .hero-text-overlay {
       position: absolute;
       inset: 0;
@@ -134,7 +159,7 @@
       pointer-events: none;
       padding: 3rem 6rem;
       opacity: 0;
-      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity var(--motion-slow) var(--ease-enter), transform var(--motion-slow) var(--ease-enter);
       z-index: 10;
     }
     .hero-text-overlay.align-left {
@@ -159,7 +184,7 @@
       pointer-events: auto;
     }
 
-    /* Full-Bleed Video Background Surface (No Card Wrapper) */
+    /* Full-Bleed Video Background Surface */
     .full-bleed-video-section {
       position: relative;
       width: 100vw;
@@ -176,17 +201,17 @@
       filter: brightness(0.85) contrast(1.1);
     }
 
-    /* Multi-Layer Depth Cards */
+    /* Glassmorphism Cards */
     .glass-card {
       background: rgba(11, 16, 28, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.12);
       backdrop-filter: blur(32px);
       -webkit-backdrop-filter: blur(32px);
-      transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      transition: border-color var(--motion-medium) ease, transform var(--motion-slow) var(--ease-enter), box-shadow var(--motion-medium) ease;
     }
     .glass-card:hover {
       border-color: rgba(0, 255, 224, 0.6);
-      transform: translateY(-10px) scale(1.02);
+      transform: translateY(-8px) scale(1.015);
       box-shadow: 0 35px 80px -20px rgba(0, 255, 224, 0.35);
     }
 
@@ -257,11 +282,13 @@
       pointer-events: none;
     }
 
+    /* Reduced Motion Support */
     @media (prefers-reduced-motion: reduce) {
       .hero-track { height: auto !important; }
       .hero-sticky { position: relative !important; height: auto !important; }
       #webgl-bg { display: none !important; }
       video { autoplay: false !important; }
+      .hero-text-overlay { opacity: 1 !important; transform: none !important; position: relative !important; padding: 2rem 0 !important; }
     }
   </style>
 </head>
@@ -285,38 +312,40 @@
   <div class="noise-overlay" aria-hidden="true"></div>
   <canvas id="webgl-bg" aria-hidden="true"></canvas>
 
-  <!-- HEADER NAVIGATION -->
+  <!-- 01. HEADER NAVIGATION (ARCA IA: Max 5 primary links + 1 primary CTA) -->
   <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
     <div class="container mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter font-mono">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-c1/10 text-c1 border border-c1/40 font-bold shadow-[0_0_15px_rgba(0,255,224,0.2)]">FLUID ENGINE v2.4</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-c1/10 text-c1 border border-c1/40 font-bold shadow-[0_0_15px_rgba(0,255,224,0.2)]">SOVEREIGN ENGINE v2.4</span>
       </a>
 
+      <!-- 5 Primary Links -->
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
-        <a href="#surface" class="hover:text-c1 transition-colors">/surface</a>
-        <a href="#explainer" class="hover:text-c1 transition-colors">/architecture</a>
-        <a href="#carousel-section" class="hover:text-c1 transition-colors">/registry</a>
-        <a href="#pipeline-stack" class="hover:text-c1 transition-colors">/protocol</a>
+        <a href="#surface" class="hover:text-c1 transition-colors">System</a>
+        <a href="#explainer" class="hover:text-c1 transition-colors">Architecture</a>
+        <a href="#atlas-section" class="hover:text-c1 transition-colors">Ecosystem</a>
+        <a href="#project-directory" class="hover:text-c1 transition-colors">Directory</a>
         <a href="dashboard.html" class="text-c1 font-bold hover:underline flex items-center gap-1">
-          <span class="material-symbols-outlined text-sm">dashboard</span> /dashboard
+          <span class="material-symbols-outlined text-sm">dashboard</span> Docs & Console
         </a>
       </nav>
 
+      <!-- Single Primary CTA per Viewport -->
       <div class="flex items-center gap-4">
-        <a href="dashboard.html" class="px-5 py-2 rounded-xl bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.6)] flex items-center gap-2 transform hover:scale-105" aria-label="Launch Live Console Dashboard">
+        <a href="dashboard.html" class="px-5 py-2.5 rounded-xl bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.6)] flex items-center gap-2 transform hover:scale-105" aria-label="Launch Live Console Dashboard">
           <span class="material-symbols-outlined text-sm">terminal</span> Launch Console →
         </a>
       </div>
     </div>
   </header>
 
-  <!-- 1. HERO EDGE-TO-EDGE CANVAS & PERSPECTIVE CAMERA SCROLL TRACK -->
-  <section id="surface" class="hero-track" aria-label="Canvas Scroll Hero">
+  <!-- 01. AUTHORITY HERO & PERSPECTIVE CAMERA SCROLL TRACK -->
+  <section id="surface" class="hero-track" aria-label="Authority Hero Section">
     <div class="hero-sticky">
 
-      <!-- FULL-SCREEN HERO CANVAS (EDGE TO EDGE - NOT A CARD) -->
+      <!-- FULL-SCREEN HERO CANVAS (EDGE TO EDGE) -->
       <canvas id="hero-canvas"></canvas>
 
       <!-- OVERLAY TEXT 1: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 1) -->
@@ -330,7 +359,7 @@
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.4)]">autonomous work.</span>
         </h1>
         <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-xl leading-relaxed">
-          Coordinate autonomous agents, persistent memory, tool protocols, and security policy within a unified, observable enterprise system.
+          Coordinate agents, memory, tools and policy in one observable system. Enterprise-grade sovereign agent execution.
         </p>
       </div>
 
@@ -373,24 +402,42 @@
     </div>
   </section>
 
-  <!-- HERO FULL-BLEED VIDEO SURFACE (EDGE TO EDGE FULL WIDTH — IS THE LAYOUT BACKGROUND ITSELF) -->
-  <section class="full-bleed-video-section border-y border-white/10 relative z-10">
+  <!-- 02. LIVE SYSTEM STRIP -->
+  <section class="py-4 bg-bg2 border-y border-white/10 font-mono text-xs text-txt2 overflow-hidden z-20 relative" aria-label="Live System Telemetry Strip">
+    <div class="container mx-auto px-6 flex items-center justify-between gap-6 whitespace-nowrap overflow-x-auto py-1">
+      <div class="flex items-center gap-2 text-c3 font-bold">
+        <span class="w-2 h-2 rounded-full bg-c3 animate-pulse"></span>
+        <span>CONTROL PLANE: ONLINE</span>
+      </div>
+      <div class="text-txt3">|</div>
+      <div>NEMESIS GATE: <span class="text-c1 font-bold">HMAC VERIFIED</span></div>
+      <div class="text-txt3">|</div>
+      <div>INFERENCE ENGINE: <span class="text-c1 font-bold">ZERO-CLOUD HYBRID GPU/CPU</span></div>
+      <div class="text-txt3">|</div>
+      <div>REPOSITORIES: <span class="text-txt font-bold">17 AUDITED (6 OPEN SOURCE / 11 CORE)</span></div>
+      <div class="text-txt3">|</div>
+      <div class="text-gold font-bold">POLICY GATE: 9-TIER STRICT ENFORCEMENT</div>
+    </div>
+  </section>
+
+  <!-- 03. PRODUCT SURFACE AUTHORITY (Intent -> Control Plane -> Plan -> Agent Mesh -> Policy -> Execution -> Evidence) -->
+  <section class="full-bleed-video-section border-b border-white/10 relative z-10">
     <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg z-10 pointer-events-none"></div>
-    <video autoPlay muted loop playsInline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Full-Bleed Background Motion">
+    <video autoPlay muted loop playsInline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Product Surface Authority Video">
       <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
       <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
     </video>
     <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
       <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-bg/80 border border-c1/40 backdrop-blur-md mb-4">
-        ● FULL-BLEED CONSTELLATION SURFACE
+        ● PRODUCT SURFACE AUTHORITY
       </div>
       <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight max-w-3xl">
-        Seamless Operational Topology Stream
+        Intent Received → Control Plane → Execution → Evidence Returned
       </h2>
     </div>
   </section>
 
-  <!-- 2. STICKY ARCHITECTURE EXPLAINER (DEPTH PARALLAX & SLIDING CARDS LEFT/RIGHT) -->
+  <!-- 04 & 06. STICKY ARCHITECTURE EXPLAINER (DEPTH PARALLAX & CORE ARCHITECTURE) -->
   <section id="explainer" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-16 text-center">
@@ -413,7 +460,7 @@
           </div>
         </div>
 
-        <!-- RIGHT 50%: STICKY PANELS (SLIDING FROM RIGHT & LEFT ON SCROLL) -->
+        <!-- RIGHT 50%: STICKY PANELS -->
         <div class="lg:w-1/2 flex flex-col gap-36">
 
           <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel slide-from-right min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c1">
@@ -448,8 +495,8 @@
     </div>
   </section>
 
-  <!-- 3. CONSTELLATION ARCHITECTURE REGISTRY (3D STAGE) -->
-  <section id="carousel-section" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Constellation Architecture Registry">
+  <!-- 04. ECOSYSTEM ATLAS (3D STAGE) -->
+  <section id="atlas-section" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Constellation Architecture Registry">
     <div class="container mx-auto px-6 max-w-7xl mb-12 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
         ECOSYSTEM CONSTELLATION // MULTI-AGENT MODULE REGISTRY
@@ -533,8 +580,42 @@
     </div>
   </section>
 
-  <!-- 4. PIPELINE STACK (MULTILAYER DEPTH CARDS ENTERING BOTTOM & TOP) -->
-  <section id="pipeline-stack" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
+  <!-- 07 & 08. PROJECT DIRECTORY & OPEN SOURCE GOVERNANCE -->
+  <section id="project-directory" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Project Directory & Open Source Governance">
+    <div class="container mx-auto px-6 max-w-7xl">
+      <div class="mb-14 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
+          DATA-DRIVEN DIRECTORY // AUDITED REPOSITORIES
+        </div>
+        <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight">
+          Ecosystem <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Directory</span>
+        </h2>
+        <p class="mt-4 text-txt2 font-mono text-xs sm:text-sm max-w-xl mx-auto">
+          Complete catalog of public, open source, and core proprietary modules sourced directly from verified repository metadata.
+        </p>
+      </div>
+
+      <!-- FILTER CONTROLS -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-10 pb-6 border-b border-white/10 font-mono text-xs">
+        <div class="flex flex-wrap items-center gap-3">
+          <button id="filter-all" class="px-4 py-2 rounded-xl bg-c1 text-black font-bold border border-c1 transition-all">All Projects (17)</button>
+          <button id="filter-public" class="px-4 py-2 rounded-xl bg-bg2 text-txt2 border border-white/10 hover:border-c1 transition-all">Open Source / Public (6)</button>
+          <button id="filter-private" class="px-4 py-2 rounded-xl bg-bg2 text-txt2 border border-white/10 hover:border-c2 transition-all">Proprietary Core (11)</button>
+        </div>
+        <div class="w-full sm:w-auto">
+          <input type="text" id="directory-search" placeholder="Search repositories..." class="w-full sm:w-64 px-4 py-2 rounded-xl bg-bg2 text-txt border border-white/10 focus:border-c1 font-mono text-xs" aria-label="Search directory repositories" />
+        </div>
+      </div>
+
+      <!-- DYNAMIC PROJECT GRID CONTAINING ALL AUDITED REPOS -->
+      <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Rendered dynamically by script from ecosystem-projects.json -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 05. OPERATING FLOW & DETERMINISTIC PIPELINE PROTOCOL -->
+  <section id="pipeline-stack" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
     <div class="container mx-auto px-6 max-w-5xl">
       <div class="mb-16 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c3/10 text-c3 border border-c3/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
@@ -590,24 +671,23 @@
     </div>
   </section>
 
-  <!-- 5. PARALLAX BRAND STATEMENT -->
-  <section class="py-40 bg-bg relative overflow-hidden border-b border-white/10 z-10" aria-label="Parallax Statement">
-    <div class="absolute inset-0 -z-10 opacity-30">
-      <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Parallax Background" class="w-full h-full object-cover scale-110" />
-    </div>
+  <!-- 09. TRUST AND EVIDENCE -->
+  <section class="py-28 bg-bg1 relative overflow-hidden border-b border-white/10 z-10" aria-label="Trust and Cryptographic Evidence">
     <div class="container mx-auto px-6 max-w-4xl text-center">
-      <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-4">ENTERPRISE SOVEREIGNTY</div>
-      <h2 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight mb-8">
+      <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-4">VERIFIABLE TRUST & AUDITABILITY</div>
+      <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight leading-tight mb-8">
         "Sovereign work, <br />
         <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.5)]">verified by cryptographic evidence."</span>
       </h2>
-      <p class="text-txt2 font-mono text-xs sm:text-sm max-w-lg mx-auto">
-        BENNI OS — Engineered for mission-critical enterprise autonomy.
-      </p>
+      <div class="p-6 rounded-2xl bg-bg2 border border-white/10 max-w-2xl mx-auto font-mono text-xs text-txt2 text-left space-y-2">
+        <div><strong class="text-c1">SHA-256 HASHLOCK:</strong> <span class="text-txt">7f83b1657ff1fc53b92dc18148a1d65dfc2d4b1fa3d677284addd200126d9069</span></div>
+        <div><strong class="text-c2">NEMESIS TOKEN:</strong> <span class="text-txt">single-use-hmac-v2.4-verified</span></div>
+        <div><strong class="text-c3">POLICY GATE:</strong> <span class="text-c3 font-bold">9/9 PASSED (STRICT MODE)</span></div>
+      </div>
     </div>
   </section>
 
-  <!-- 6. OPERATOR NETWORK CTA -->
+  <!-- 10. COMMUNITY / START BUILDING CTA -->
   <section class="py-32 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="text-5xl md:text-7xl font-black text-txt tracking-tight mb-8 leading-tight">
@@ -641,10 +721,56 @@
     </div>
   </footer>
 
-  <!-- ENGINE SCRIPTS: FLUID INK SHADER + ALTERNATING PERSPECTIVE CAMERA SCROLL ENGINE -->
+  <!-- ENGINE SCRIPTS -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Video Autoplay setup
+      // 1. Fetch Dynamic Projects from public/data/ecosystem-projects.json
+      fetch('public/data/ecosystem-projects.json')
+        .then(res => res.json())
+        .then(data => {
+          const grid = document.getElementById('project-grid');
+          if (!grid || !data.projects) return;
+
+          function renderProjects(projects) {
+            grid.innerHTML = projects.map(p => `
+              <article class="rounded-3xl bg-bg2/85 border border-white/10 overflow-hidden flex flex-col justify-between glass-card">
+                <div class="p-7">
+                  <div class="flex items-center justify-between mb-3">
+                    <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2.5 py-1 rounded border border-white/10 font-bold">${p.owner}</span>
+                    <span class="font-mono text-[10px] uppercase px-2.5 py-1 rounded-md ${p.is_open_source ? 'bg-c3/20 text-c3 border border-c3/40' : 'bg-c2/20 text-c2 border border-c2/40'} font-bold backdrop-blur">
+                      ${p.is_open_source ? '● ' + p.license : '🔒 ' + p.license}
+                    </span>
+                  </div>
+                  <h3 class="text-xl font-bold text-txt mb-2">${p.name}</h3>
+                  <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${p.description}</p>
+                </div>
+                <div class="p-7 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+                  <span class="text-txt3">Layer: <strong class="text-txt2">${p.layer}</strong></span>
+                  ${p.repository ? `<a href="${p.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub →</a>` : `<span class="text-txt3 font-semibold">Sealed Core</span>`}
+                </div>
+              </article>
+            `).join('');
+          }
+
+          renderProjects(data.projects);
+
+          // Filtering
+          const btnAll = document.getElementById('filter-all');
+          const btnPublic = document.getElementById('filter-public');
+          const btnPrivate = document.getElementById('filter-private');
+          const search = document.getElementById('directory-search');
+
+          if (btnAll) btnAll.addEventListener('click', () => renderProjects(data.projects));
+          if (btnPublic) btnPublic.addEventListener('click', () => renderProjects(data.projects.filter(p => p.is_public)));
+          if (btnPrivate) btnPrivate.addEventListener('click', () => renderProjects(data.projects.filter(p => !p.is_public)));
+          if (search) search.addEventListener('input', (e) => {
+            const q = e.target.value.toLowerCase();
+            renderProjects(data.projects.filter(p => p.name.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)));
+          });
+        })
+        .catch(() => {});
+
+      // 2. Video Autoplay setup
       const videos = document.querySelectorAll('video');
       videos.forEach(v => {
         v.muted = true;
@@ -659,7 +785,7 @@
         }
       });
 
-      // 2. Lenis Smooth Scroll
+      // 3. Lenis Smooth Scroll
       if (window.Lenis) {
         const lenis = new Lenis({
           duration: 1.2,
@@ -678,7 +804,7 @@
         gsap.ticker.lagSmoothing(0, 0);
       }
 
-      // 3. Three.js Fluid "Ink in Water" Shader Background Engine
+      // 4. Three.js Fluid "Ink in Water" Shader Background Engine
       let camera3D, scene3D, renderer3D, fluidMesh3D, gltfModel3D;
       (function initFluidInkEngine() {
         const canvas = document.getElementById('webgl-bg');
@@ -691,7 +817,6 @@
         renderer3D.setSize(window.innerWidth, window.innerHeight);
         renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Custom Shader Material simulating Ink Dispersing in Water
         const vertexShader = `
           varying vec2 vUv;
           varying vec3 vPosition;
@@ -717,8 +842,8 @@
             float ink = sin(p.x * 12.0 + uTime * 0.8) * cos(p.y * 12.0 - uTime * 0.6);
             ink += sin(len * 20.0 - uTime * 1.5) * 0.5;
 
-            vec3 colorCyan = vec3(0.0, 1.0, 0.878); // #00ffe0
-            vec3 colorPurple = vec3(0.486, 0.36, 0.988); // #7c5cfc
+            vec3 colorCyan = vec3(0.0, 1.0, 0.878);
+            vec3 colorPurple = vec3(0.486, 0.36, 0.988);
             vec3 colorDark = vec3(0.01, 0.02, 0.04);
 
             vec3 finalColor = mix(colorDark, colorCyan, smoothstep(-0.2, 0.8, ink));
@@ -746,7 +871,6 @@
         fluidMesh3D.position.z = -5;
         scene3D.add(fluidMesh3D);
 
-        // Load 3D GLB Model
         if (window.THREE.GLTFLoader) {
           const loader = new THREE.GLTFLoader();
           loader.load('public/models/benni-topology.glb', (gltf) => {
@@ -777,7 +901,6 @@
             gltfModel3D.rotation.x = time * 0.15;
           }
 
-          // Inertia Mouse Follow
           camera3D.position.x += (mouseX * 2.5 - camera3D.position.x) * 0.05;
           camera3D.position.y += (-mouseY * 2.5 - camera3D.position.y) * 0.05;
           camera3D.lookAt(scene3D.position);
@@ -787,7 +910,7 @@
         animateFluidInk();
       })();
 
-      // 4. Hero Canvas Frame Sequence Engine
+      // 5. Hero Canvas Frame Sequence Engine
       const TOTAL_FRAMES = 180;
       const heroCanvas = document.getElementById('hero-canvas');
       const ctx = heroCanvas.getContext('2d');
@@ -875,13 +998,13 @@
         ctx.drawImage(img, cx, cy, nw, nh);
       }
 
-      // 5. GSAP ScrollTrigger for Side-to-Side Camera Perspective Shifts on Scroll
+      // 6. GSAP ScrollTrigger for Side-to-Side Camera Perspective Shifts on Scroll
       const track = document.querySelector('.hero-track');
       const overlays = [
-        { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22, camX: -4, camRotY: 0.15 },
-        { el: document.getElementById('overlay-2'), start: 0.25, end: 0.42, camX: 4, camRotY: -0.15 },
-        { el: document.getElementById('overlay-3'), start: 0.45, end: 0.65, camX: -4, camRotY: 0.15 },
-        { el: document.getElementById('overlay-4'), start: 0.68, end: 0.88, camX: 0, camRotY: 0 }
+        { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22 },
+        { el: document.getElementById('overlay-2'), start: 0.25, end: 0.42 },
+        { el: document.getElementById('overlay-3'), start: 0.45, end: 0.65 },
+        { el: document.getElementById('overlay-4'), start: 0.68, end: 0.88 }
       ];
 
       ScrollTrigger.create({
@@ -897,9 +1020,8 @@
           const fIdx = 1 + Math.round(p * (TOTAL_FRAMES - 1));
           renderFrame(Math.min(TOTAL_FRAMES, Math.max(1, fIdx)));
 
-          // Dynamic Camera Perspective Shift (Panning Left/Right & Zoom)
           if (camera3D) {
-            const shiftX = Math.sin(p * Math.PI * 3) * 6; // Pan between left and right
+            const shiftX = Math.sin(p * Math.PI * 3) * 6;
             camera3D.position.x = shiftX;
             camera3D.position.z = 18 - p * 6;
             camera3D.rotation.y = -shiftX * 0.03;
@@ -915,47 +1037,6 @@
             }
           });
         }
-      });
-
-      // 6. Sliding Cards from Left/Right & Bottom/Top Motion Triggers
-      gsap.utils.toArray('.slide-from-right').forEach(panel => {
-        gsap.from(panel, {
-          x: 100,
-          opacity: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-      });
-
-      gsap.utils.toArray('.slide-from-left').forEach(panel => {
-        gsap.from(panel, {
-          x: -100,
-          opacity: 0,
-          duration: 1,
-          scrollTrigger: {
-            trigger: panel,
-            start: 'top 80%',
-            toggleActions: 'play none none reverse'
-          }
-        });
-      });
-
-      gsap.utils.toArray('.rise-card').forEach(card => {
-        gsap.from(card, {
-          y: 80,
-          scale: 0.95,
-          opacity: 0,
-          duration: 1.2,
-          scrollTrigger: {
-            trigger: card,
-            start: 'top 85%',
-            toggleActions: 'play none none reverse'
-          }
-        });
       });
 
       // 7. Interactive 3D Carousel Ring
