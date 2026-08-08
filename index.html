@@ -58,6 +58,7 @@
   <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="js/motion-runtime.js" defer></script>
 
   <style>
     :root {
@@ -291,6 +292,132 @@
       pointer-events: none;
     }
 
+    /* Narrative Pipeline Scroll-Driven Styles */
+    .narrative-track {
+      position: relative;
+      height: 500vh;
+      width: 100%;
+    }
+    .narrative-sticky {
+      position: sticky;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+    .narrative-video-stack {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    .narrative-video-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity var(--motion-medium) var(--ease-enter);
+    }
+    .narrative-video-layer.active {
+      opacity: 1;
+    }
+    .narrative-step-indicator {
+      position: absolute;
+      left: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      z-index: 20;
+    }
+    .narrative-step-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+    .narrative-step-node {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.3);
+      background: transparent;
+      transition: all var(--motion-medium) var(--ease-enter);
+      position: relative;
+      z-index: 2;
+    }
+    .narrative-step-node.active {
+      border-color: var(--step-color);
+      background: var(--step-color);
+      box-shadow: 0 0 15px var(--step-color);
+      transform: scale(1.3);
+    }
+    .narrative-step-node.completed {
+      border-color: var(--step-color);
+      background: transparent;
+    }
+    .narrative-step-connector {
+      width: 2px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+      position: relative;
+    }
+    .narrative-step-connector::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--fill-progress, 0%);
+      background: linear-gradient(to bottom, var(--prev-color), var(--next-color));
+      transition: height var(--motion-instant) linear;
+    }
+    .narrative-text-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 6rem 0 6rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: opacity var(--motion-medium) var(--ease-enter), transform var(--motion-medium) var(--ease-enter);
+      z-index: 10;
+      pointer-events: none;
+    }
+    @media (min-width: 768px) {
+      .narrative-text-overlay {
+        padding: 0 10rem;
+      }
+    }
+    .narrative-text-overlay.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+    .narrative-progress {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      z-index: 20;
+    }
+    #narrative-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #00ffe0, #7c5cfc, #00ff88, #ffb703, #f8fafc);
+    }
+
     /* Reduced Motion Support */
     @media (prefers-reduced-motion: reduce) {
       .hero-track { height: auto !important; }
@@ -298,6 +425,12 @@
       #webgl-bg, #cursor-canvas { display: none !important; }
       video { autoplay: false !important; }
       .hero-text-overlay { opacity: 1 !important; transform: none !important; position: relative !important; padding: 2rem 0 !important; }
+      
+      .narrative-track { height: auto !important; }
+      .narrative-sticky { position: relative !important; height: auto !important; }
+      .narrative-video-stack { display: none !important; }
+      .narrative-text-overlay { opacity: 1 !important; transform: none !important; position: relative !important; display: block !important; padding: 3rem 2rem !important; }
+      .narrative-step-indicator { display: none !important; }
     }
   </style>
 </head>
@@ -535,7 +668,8 @@
         <!-- CARD 1 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
           <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
-            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover" preload="none" data-motion-id="ecosystem-atlas-flythrough">
+              <source src="public/motion/sequences/benni-ecosystem-atlas-flythrough.webm" type="video/webm" />
               <source src="public/motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
             </video>
           </div>
@@ -565,7 +699,8 @@
         <!-- CARD 3 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
           <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
-            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover" preload="none" data-motion-id="3d-flythrough-topology">
+              <source src="public/motion/sequences/3d-flythrough-topology.webm" type="video/webm" />
               <source src="public/motion/sequences/3d-flythrough-topology.mp4" type="video/mp4" />
             </video>
           </div>
@@ -595,7 +730,8 @@
         <!-- CARD 5 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
           <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
-            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover" preload="none" data-motion-id="agent-mesh-activation">
+              <source src="public/motion/sequences/agent-mesh-activation.webm" type="video/webm" />
               <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4" />
             </video>
           </div>
@@ -645,67 +781,83 @@
     </div>
   </section>
 
-  <!-- 05. OPERATING FLOW & DETERMINISTIC PIPELINE PROTOCOL -->
-  <section id="pipeline-stack" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
-    <div class="container mx-auto px-6 max-w-5xl">
-      <div class="mb-16 text-center">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c3/10 text-c3 border border-c3/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
-          DETERMINISTIC PROTOCOL // AUDITABLE STATE ENGINE
+  <!-- 05. DETERMINISTIC NARRATIVE PIPELINE (TRANSFORMED) -->
+  <section id="pipeline-stack" class="narrative-track border-b border-white/10 relative z-10" aria-label="Deterministic Pipeline Narrative">
+    <div class="narrative-sticky">
+      
+      <!-- STEP INDICATOR (LEFT SIDEBAR) -->
+      <div class="narrative-step-indicator" id="narrative-steps">
+        <div class="narrative-step-wrapper">
+          <div class="narrative-step-node" style="--step-color: #00ffe0;" data-index="0"></div>
+          <div class="narrative-step-connector" style="--prev-color: #00ffe0; --next-color: #7c5cfc;"></div>
         </div>
-        <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight">
-          Deterministic Execution <span class="text-c3 drop-shadow-[0_0_30px_rgba(0,255,136,0.4)]">Protocols</span>
-        </h2>
+        <div class="narrative-step-wrapper">
+          <div class="narrative-step-node" style="--step-color: #7c5cfc;" data-index="1"></div>
+          <div class="narrative-step-connector" style="--prev-color: #7c5cfc; --next-color: #00ff88;"></div>
+        </div>
+        <div class="narrative-step-wrapper">
+          <div class="narrative-step-node" style="--step-color: #00ff88;" data-index="2"></div>
+          <div class="narrative-step-connector" style="--prev-color: #00ff88; --next-color: #ffb703;"></div>
+        </div>
+        <div class="narrative-step-wrapper">
+          <div class="narrative-step-node" style="--step-color: #ffb703;" data-index="3"></div>
+          <div class="narrative-step-connector" style="--prev-color: #ffb703; --next-color: #f8fafc;"></div>
+        </div>
+        <div class="narrative-step-wrapper">
+          <div class="narrative-step-node" style="--step-color: #f8fafc;" data-index="4"></div>
+        </div>
+      </div>
+      
+      <!-- VIDEO STACK (PING-PONG) -->
+      <div class="narrative-video-stack" id="narrative-video-stack">
+        <video id="narrative-video-a" class="narrative-video-layer active" muted playsinline preload="none"></video>
+        <video id="narrative-video-b" class="narrative-video-layer" muted playsinline preload="none"></video>
+      </div>
+      
+      <!-- TEXT OVERLAYS (5 states) -->
+      <div class="narrative-text-overlay active">
+        <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c1/10 border border-c1/30 inline-block w-max">PHASE 01 // INTENT CAPTURE</div>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">Intent Received.<br/>Goal Hashed.</h2>
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">Natural language intent normalized into canonical goal payload with SHA-256 cryptographic binding.</p>
       </div>
 
-      <div class="flex flex-col gap-14">
-
-        <!-- LOOP 01 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
-          <div class="seamless-video-container absolute inset-0 -z-10">
-            <video autoplay muted loop playsinline poster="public/posters/pipeline-poster.jpg" preload="auto">
-              <source src="public/motion/sequences/operation-pipeline.mp4" type="video/mp4">
-              <source src="public/motion/sequences/operation-pipeline.webm" type="video/webm">
-            </video>
-          </div>
-          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-2">PHASE 01 // SCHEDULING</div>
-          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Deterministic Task DAG Scheduling</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">Every action is partitioned into atomic execution steps with state rollback verification.</p>
-        </article>
-
-        <!-- LOOP 02 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
-          <div class="seamless-video-container absolute inset-0 -z-10">
-            <video autoplay muted loop playsinline poster="public/posters/agent-mesh-poster.jpg" preload="auto">
-              <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4">
-              <source src="public/motion/sequences/agent-mesh-activation.webm" type="video/webm">
-            </video>
-          </div>
-          <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-2">PHASE 02 // MESH DISPATCH</div>
-          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Multi-Agent Swarm Dispatch</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">JARVAS-2 agent threads invoking native tools with real-time state synchronization.</p>
-        </article>
-
-        <!-- LOOP 03 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
-          <div class="seamless-video-container absolute inset-0 -z-10">
-            <video autoplay muted loop playsinline poster="public/posters/evidence-poster.jpg" preload="auto">
-              <source src="public/motion/sequences/evidence-settlement.mp4" type="video/mp4">
-              <source src="public/motion/sequences/evidence-settlement.webm" type="video/webm">
-            </video>
-          </div>
-          <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-2">PHASE 03 // SETTLEMENT</div>
-          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Cryptographic Evidence Settlement</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">Verified Git commits and MONOMO telemetry records proving clean completion.</p>
-        </article>
-
+      <div class="narrative-text-overlay">
+        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c2/10 border border-c2/30 inline-block w-max">PHASE 02 // STATE ENGINE</div>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">Control Plane<br/>Engaged.</h2>
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">Deterministic state engine partitions goal into atomic execution steps with rollback verification.</p>
       </div>
+
+      <div class="narrative-text-overlay">
+        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c3/10 border border-c3/30 inline-block w-max">PHASE 03 // SWARM DISPATCH</div>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">Agent Mesh<br/>Activated.</h2>
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">JARVAS-2 dispatches multi-threaded agent swarm across Model Context Protocol connectors.</p>
+      </div>
+
+      <div class="narrative-text-overlay">
+        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-gold/10 border border-gold/30 inline-block w-max">PHASE 04 // TOOL INVOCATION</div>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">Tools Invoked.<br/>Tasks Running.</h2>
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">Native tools engaged with real-time state synchronization and zero-drift safety enforcement.</p>
+      </div>
+
+      <div class="narrative-text-overlay">
+        <div class="font-mono text-xs text-txt uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-txt/10 border border-txt/30 inline-block w-max">PHASE 05 // SETTLEMENT</div>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">Evidence Settled.<br/>Hash Locked.</h2>
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">Verified Git commits and MONOMO telemetry records proving deterministic completion.</p>
+      </div>
+      
+      <!-- PROGRESS BAR (bottom) -->
+      <div class="narrative-progress">
+        <div id="narrative-progress-bar"></div>
+      </div>
+      
     </div>
   </section>
 
   <!-- 09. TRUST AND EVIDENCE WITH BACKGROUND EVIDENCE VIDEO STREAM -->
   <section class="py-28 bg-bg1 relative overflow-hidden border-b border-white/10 z-10" aria-label="Trust and Cryptographic Evidence">
     <div class="absolute inset-0 opacity-25 pointer-events-none -z-10">
-      <video autoPlay muted loop playsInline preload="auto" class="w-full h-full object-cover">
+      <video autoPlay muted loop playsInline preload="none" class="w-full h-full object-cover" data-motion-id="intent-to-evidence">
+        <source src="public/motion/sequences/benni-intent-to-evidence.webm" type="video/webm" />
         <source src="public/motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
       </video>
     </div>
@@ -976,6 +1128,8 @@
           varying vec3 vPosition;
           uniform float uTime;
           uniform vec2 uMouse;
+          uniform vec3 uNarrativeColor;
+          uniform float uNarrativeIntensity;
           void main() {
             vec2 p = vUv - 0.5;
             float len = length(p);
@@ -986,8 +1140,11 @@
             vec3 colorPurple = vec3(0.486, 0.36, 0.988);
             vec3 colorDark = vec3(0.01, 0.02, 0.04);
 
-            vec3 finalColor = mix(colorDark, colorCyan, smoothstep(-0.2, 0.8, ink));
-            finalColor = mix(finalColor, colorPurple, smoothstep(0.1, 0.9, sin(uTime + len * 8.0)));
+            vec3 baseColor = mix(colorDark, colorCyan, smoothstep(-0.2, 0.8, ink));
+            baseColor = mix(baseColor, colorPurple, smoothstep(0.1, 0.9, sin(uTime + len * 8.0)));
+
+            // Blend narrative state color when active
+            vec3 finalColor = mix(baseColor, uNarrativeColor, uNarrativeIntensity * smoothstep(0.6, 0.0, len));
 
             float alpha = smoothstep(0.5, 0.0, len) * 0.45;
             gl_FragColor = vec4(finalColor, alpha);
@@ -1000,7 +1157,9 @@
           fragmentShader,
           uniforms: {
             uTime: { value: 0 },
-            uMouse: { value: new THREE.Vector2(0, 0) }
+            uMouse: { value: new THREE.Vector2(0, 0) },
+            uNarrativeColor: { value: new THREE.Vector3(0.0, 1.0, 0.878) },
+            uNarrativeIntensity: { value: 0.0 }
           },
           transparent: true,
           depthWrite: false,
@@ -1029,6 +1188,10 @@
         });
 
         const clock = new THREE.Clock();
+        let targetRotSpeed = 0.4;
+        let currentRotSpeed = 0.4;
+        let targetNarrativeIntensity = 0.0;
+
         function animateFluidInk() {
           requestAnimationFrame(animateFluidInk);
           const time = clock.getElapsedTime();
@@ -1036,8 +1199,14 @@
           fluidMat.uniforms.uTime.value = time;
           fluidMat.uniforms.uMouse.value.set(mouseX, mouseY);
 
+          // Lerp narrative intensity for smooth transitions
+          const ni = fluidMat.uniforms.uNarrativeIntensity.value;
+          fluidMat.uniforms.uNarrativeIntensity.value += (targetNarrativeIntensity - ni) * 0.03;
+
+          // Lerp GLTF rotation speed (narrative-driven)
+          currentRotSpeed += (targetRotSpeed - currentRotSpeed) * 0.02;
           if (gltfModel3D) {
-            gltfModel3D.rotation.y = time * 0.4;
+            gltfModel3D.rotation.y = time * currentRotSpeed;
             gltfModel3D.rotation.x = time * 0.15;
           }
 
@@ -1048,6 +1217,19 @@
           renderer3D.render(scene3D, camera3D);
         }
         animateFluidInk();
+
+        // Expose WebGL state binding for narrative integration
+        window._webglNarrative = {
+          setColor: function(r, g, b) {
+            fluidMat.uniforms.uNarrativeColor.value.set(r, g, b);
+          },
+          setIntensity: function(val) {
+            targetNarrativeIntensity = val;
+          },
+          setRotSpeed: function(speed) {
+            targetRotSpeed = speed;
+          }
+        };
       })();
 
       // 5. Hero Canvas Frame Sequence Engine
@@ -1167,7 +1349,7 @@
             camera3D.rotation.y = -shiftX * 0.03;
           }
 
-          overlays.forEach(ov => {
+        overlays.forEach(ov => {
             if (ov.el) {
               if (p >= ov.start && p <= ov.end) {
                 ov.el.classList.add('active-text');
@@ -1178,6 +1360,139 @@
           });
         }
       });
+
+      // 6b. Narrative Pipeline ScrollTrigger (Transformed Pipeline Stack)
+      const mm = gsap.matchMedia();
+      mm.add('(prefers-reduced-motion: no-preference)', () => {
+        const narrativeTrack = document.querySelector('.narrative-track');
+        if (!narrativeTrack) return;
+        
+        const videoA = document.getElementById('narrative-video-a');
+        const videoB = document.getElementById('narrative-video-b');
+        const narrativeTexts = narrativeTrack.querySelectorAll('.narrative-text-overlay');
+        const stepNodes = narrativeTrack.querySelectorAll('.narrative-step-node');
+        const stepConnectors = narrativeTrack.querySelectorAll('.narrative-step-connector');
+        const narrativeProgressBar = document.getElementById('narrative-progress-bar');
+        
+        const videoSources = [
+          'public/motion/sequences/benni-intent-to-evidence',
+          'public/motion/sequences/operation-pipeline',
+          'public/motion/sequences/agent-mesh-activation',
+          'public/motion/sequences/ecosystem-activation',
+          'public/motion/sequences/evidence-settlement'
+        ];
+        const TOTAL_STEPS = videoSources.length;
+        
+        let currentVideoIndex = -1;
+        let activeVideoEl = videoA;
+        let inactiveVideoEl = videoB;
+        
+        // Helper to load video source safely
+        const loadVideo = (el, srcBase) => {
+          el.innerHTML = '';
+          const isMobile = window.innerWidth < 768;
+          if (!isMobile) {
+            const webm = document.createElement('source');
+            webm.src = srcBase + '.webm';
+            webm.type = 'video/webm';
+            el.appendChild(webm);
+          }
+          const mp4 = document.createElement('source');
+          mp4.src = srcBase + '.mp4';
+          mp4.type = 'video/mp4';
+          el.appendChild(mp4);
+          
+          el.load();
+        };
+
+        // Initialize first video
+        loadVideo(activeVideoEl, videoSources[0]);
+        activeVideoEl.play().catch(() => {});
+        currentVideoIndex = 0;
+        
+        const st = ScrollTrigger.create({
+          trigger: narrativeTrack,
+          start: 'top top',
+          end: 'bottom bottom',
+          scrub: 0.5,
+          onUpdate: (self) => {
+            const p = self.progress;
+            const activeStep = Math.min(TOTAL_STEPS - 1, Math.floor(p * TOTAL_STEPS));
+            const stepProgress = (p * TOTAL_STEPS) - activeStep;
+            
+            // Progress bar
+            if (narrativeProgressBar) narrativeProgressBar.style.width = (p * 100) + '%';
+            
+            // Text Overlays & Nodes
+            narrativeTexts.forEach((t, i) => t.classList.toggle('active', i === activeStep));
+            
+            stepNodes.forEach((node, i) => {
+              node.classList.toggle('completed', i < activeStep);
+              node.classList.toggle('active', i === activeStep);
+            });
+            
+            stepConnectors.forEach((conn, i) => {
+              conn.classList.toggle('filled', i <= activeStep);
+              conn.style.setProperty('--fill-progress', i < activeStep ? '100%' : (i === activeStep ? (stepProgress * 100) + '%' : '0%'));
+            });
+            
+            // Video Ping-Pong Logic
+            if (activeStep !== currentVideoIndex) {
+              inactiveVideoEl = (activeVideoEl === videoA) ? videoB : videoA;
+              
+              loadVideo(inactiveVideoEl, videoSources[activeStep]);
+              inactiveVideoEl.play().catch(() => {});
+              
+              inactiveVideoEl.classList.add('active');
+              activeVideoEl.classList.remove('active');
+              
+              // Pause the old video after a short fade
+              const oldVideo = activeVideoEl;
+              setTimeout(() => { if (oldVideo.paused === false) oldVideo.pause(); }, 400);
+              
+              activeVideoEl = inactiveVideoEl;
+              currentVideoIndex = activeStep;
+              
+              if (window.motionRuntime) {
+                window.motionRuntime.setActiveState(activeStep);
+              }
+            }
+            
+            // Preload next video if nearing transition
+            if (stepProgress > 0.8 && activeStep < TOTAL_STEPS - 1) {
+              const nextSrc = videoSources[activeStep + 1];
+              const targetEl = (activeVideoEl === videoA) ? videoB : videoA;
+              if (targetEl.innerHTML.indexOf(nextSrc) === -1) {
+                loadVideo(targetEl, nextSrc);
+              }
+            }
+          }
+        });
+        
+        return () => {
+          st.kill();
+        };
+      });
+
+      // Lazy load logic for carousel cards
+      const carouselVideos = document.querySelectorAll('.carousel-3d-card video');
+      if (carouselVideos.length > 0 && 'IntersectionObserver' in window) {
+        const carouselObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const v = entry.target;
+            if (entry.isIntersecting) {
+              if (v.preload === 'none') {
+                v.preload = 'auto';
+                v.load();
+              }
+              v.play().catch(() => {});
+            } else {
+              v.pause();
+            }
+          });
+        }, { threshold: 0.1 });
+        carouselVideos.forEach(v => carouselObserver.observe(v));
+      }
 
       // 7. Interactive 3D Carousel Ring
       const ring = document.getElementById('carousel-ring');
@@ -1231,6 +1546,33 @@
       explainerPanels.forEach(p => obs.observe(p));
 
       ScrollTrigger.refresh();
+
+      // 9. Motion Runtime Initialization & WebGL Narrative Binding
+      if (window.MotionRuntime) {
+        window.motionRuntime = new MotionRuntime('data/motion-manifest.json');
+        window.motionRuntime.init().then(() => {
+          console.log('[Benni OS] Motion Runtime ready:', window.motionRuntime.getLoadedCount(), 'videos registered');
+        });
+
+        // Narrative state → WebGL shader color binding
+        const STATE_COLORS = {
+          'intent':        { r: 0.0,   g: 1.0,   b: 0.878, rotSpeed: 0.3 },
+          'control-plane': { r: 0.486, g: 0.36,  b: 0.988, rotSpeed: 0.4 },
+          'agent-mesh':    { r: 0.0,   g: 1.0,   b: 0.533, rotSpeed: 0.6 },
+          'execution':     { r: 1.0,   g: 0.718, b: 0.012, rotSpeed: 0.9 },
+          'evidence':      { r: 0.973, g: 0.98,  b: 0.988, rotSpeed: 0.2 }
+        };
+
+        window.motionRuntime.on('stateChanged', (data) => {
+          const stateId = data.state.id;
+          const colors = STATE_COLORS[stateId];
+          if (colors && window._webglNarrative) {
+            window._webglNarrative.setColor(colors.r, colors.g, colors.b);
+            window._webglNarrative.setIntensity(0.35);
+            window._webglNarrative.setRotSpeed(colors.rotSpeed);
+          }
+        });
+      }
     });
   </script>
 </body>

@@ -1,5 +1,12 @@
 {
-  "version": "1.0.0",
+  "version": "2.0.0",
+  "narrative_states": [
+    { "id": "intent", "asset_id": "intent-to-evidence", "label": "Intent Received", "color": "#00ffe0" },
+    { "id": "control-plane", "asset_id": "operation-pipeline", "label": "Control Plane", "color": "#7c5cfc" },
+    { "id": "agent-mesh", "asset_id": "agent-mesh-activation", "label": "Agent Mesh", "color": "#00ff88" },
+    { "id": "execution", "asset_id": "ecosystem-activation", "label": "Execution", "color": "#ffb703" },
+    { "id": "evidence", "asset_id": "evidence-return", "label": "Evidence", "color": "#f8fafc" }
+  ],
   "assets": [
     {
       "id": "ecosystem-hero",
@@ -8,6 +15,7 @@
       "webm": "./motion/hero/benni-ecosystem-hero-desktop.webm",
       "fallback": "./posters/benni-ecosystem-hero-poster.webp",
       "mobile": "./motion/hero/benni-ecosystem-hero-mobile.mp4",
+      "mobile_webm": "./motion/hero/benni-ecosystem-hero-mobile.webm",
       "duration_ms": 10000,
       "loop": true,
       "purpose": "Introduce sovereign autonomous ecosystem control surface",
@@ -27,6 +35,7 @@
     {
       "id": "intent-to-evidence",
       "type": "video",
+      "narrative_role": "intent",
       "desktop": "./motion/sequences/benni-intent-to-evidence.mp4",
       "webm": "./motion/sequences/benni-intent-to-evidence.webm",
       "fallback": "./posters/benni-intent-to-evidence-poster.webp",
@@ -38,6 +47,7 @@
     {
       "id": "agent-mesh-activation",
       "type": "video",
+      "narrative_role": "agent-mesh",
       "desktop": "./motion/sequences/benni-agent-mesh-activation.mp4",
       "webm": "./motion/sequences/benni-agent-mesh-activation.webm",
       "fallback": "./posters/benni-agent-mesh-poster.webp",
@@ -49,6 +59,7 @@
     {
       "id": "evidence-return",
       "type": "video",
+      "narrative_role": "evidence",
       "desktop": "./motion/sequences/benni-evidence-return.mp4",
       "webm": "./motion/sequences/benni-evidence-return.webm",
       "fallback": "./posters/benni-evidence-return-poster.webp",
@@ -56,6 +67,63 @@
       "loop": true,
       "purpose": "Immutable evidence return and cryptographic settlement",
       "reduced_motion": "./posters/benni-evidence-return-poster.webp"
+    },
+    {
+      "id": "operation-pipeline",
+      "type": "video",
+      "narrative_role": "control-plane",
+      "desktop": "./motion/sequences/operation-pipeline.mp4",
+      "webm": "./motion/sequences/operation-pipeline.webm",
+      "fallback": "./posters/pipeline-poster.jpg",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Deterministic task DAG scheduling and control plane state engine",
+      "reduced_motion": "./posters/pipeline-poster.jpg"
+    },
+    {
+      "id": "ecosystem-activation",
+      "type": "video",
+      "narrative_role": "execution",
+      "desktop": "./motion/sequences/ecosystem-activation.mp4",
+      "webm": "./motion/sequences/ecosystem-activation.webm",
+      "fallback": "./posters/benni-ecosystem-activation-poster.webp",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Tool invocation and real-time execution across ecosystem modules",
+      "reduced_motion": "./posters/benni-ecosystem-activation-poster.webp"
+    },
+    {
+      "id": "evidence-settlement",
+      "type": "video",
+      "desktop": "./motion/sequences/evidence-settlement.mp4",
+      "webm": "./motion/sequences/evidence-settlement.webm",
+      "fallback": "./posters/evidence-poster.jpg",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Verified Git commits and cryptographic evidence settlement",
+      "reduced_motion": "./posters/evidence-poster.jpg"
+    },
+    {
+      "id": "3d-flythrough-topology",
+      "type": "video",
+      "desktop": "./motion/sequences/3d-flythrough-topology.mp4",
+      "webm": "./motion/sequences/3d-flythrough-topology.webm",
+      "fallback": "./posters/benni-3d-flythrough-topology-poster.webp",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "3D topology flythrough of sovereign infrastructure mesh",
+      "reduced_motion": "./posters/benni-3d-flythrough-topology-poster.webp"
+    },
+    {
+      "id": "hero-product-film",
+      "type": "video",
+      "desktop": "./motion/hero/hero-product-film.mp4",
+      "webm": "./motion/hero/hero-product-film.webm",
+      "fallback": "./posters/hero-poster.jpg",
+      "duration_ms": 10000,
+      "loop": true,
+      "purpose": "Full product surface authority hero film",
+      "reduced_motion": "./posters/hero-poster.jpg"
     }
   ]
 }
