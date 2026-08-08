@@ -12,7 +12,7 @@ export default function Home() {
     if (!threeLoaded || !(window as any).THREE) return;
     const THREE = (window as any).THREE;
 
-    // 1. Background 3D Particle Constellation Canvas
+    // 1. Living 3D Underwater Wave Engine Canvas
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const scene = new THREE.Scene();
@@ -22,34 +22,50 @@ export default function Home() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      const count = 220;
+      const count = 350;
       const geo = new THREE.BufferGeometry();
       const pos = new Float32Array(count * 3);
+      const originalY = new Float32Array(count);
 
       for (let i = 0; i < count; i++) {
-        pos[i * 3] = (Math.random() - 0.5) * 45;
-        pos[i * 3 + 1] = (Math.random() - 0.5) * 45;
-        pos[i * 3 + 2] = (Math.random() - 0.5) * 45;
+        const x = (Math.random() - 0.5) * 50;
+        const y = (Math.random() - 0.5) * 50;
+        const z = (Math.random() - 0.5) * 50;
+        pos[i * 3] = x;
+        pos[i * 3 + 1] = y;
+        pos[i * 3 + 2] = z;
+        originalY[i] = y;
       }
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-      const mat = new THREE.PointsMaterial({ size: 0.18, color: 0x00ffe0, transparent: true, opacity: 0.65 });
-      const pts = new THREE.Points(geo, mat);
-      scene.add(pts);
+      const mat = new THREE.PointsMaterial({ size: 0.22, color: 0x00ffe0, transparent: true, opacity: 0.7 });
+      const particles = new THREE.Points(geo, mat);
+      scene.add(particles);
 
-      camera.position.z = 15;
+      camera.position.z = 18;
 
       let mouseX = 0, mouseY = 0;
       const onMouseMove = (e: MouseEvent) => {
-        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
-        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
       };
       window.addEventListener('mousemove', onMouseMove);
 
+      const clock = new THREE.Clock();
       const animate = () => {
         requestAnimationFrame(animate);
-        pts.rotation.y += 0.0012 + mouseX * 0.01;
-        pts.rotation.x += 0.0006 + mouseY * 0.01;
+        const time = clock.getElapsedTime();
+
+        const positions = particles.geometry.attributes.position.array as Float32Array;
+        for (let i = 0; i < count; i++) {
+          positions[i * 3 + 1] = originalY[i] + Math.sin(time * 1.5 + positions[i * 3]) * 0.8;
+        }
+        particles.geometry.attributes.position.needsUpdate = true;
+
+        camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
+        camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
+        camera.lookAt(scene.position);
+
         renderer.render(scene, camera);
       };
       animate();
@@ -135,15 +151,15 @@ export default function Home() {
       <main className="bg-[#05070c] text-[#f8fafc] antialiased selection:bg-[#00ffe0]/30 selection:text-white min-h-screen relative overflow-x-hidden font-sans">
         {/* NOISE OVERLAY */}
         <div
-          className="fixed top-0 left-0 w-full h-full pointer-events-none z-[998] opacity-[0.035]"
+          className="fixed top-0 left-0 w-full h-full pointer-events-none z-[998] opacity-[0.04]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
           aria-hidden="true"
         />
 
-        {/* 3D PARTICLES CANVAS */}
-        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-55" aria-hidden="true" />
+        {/* THREE.JS LIVING UNDERWATER ENGINE CANVAS */}
+        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-65" aria-hidden="true" />
 
         {/* TOP HEADER NAVIGATION */}
         <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#05070c]/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
@@ -152,7 +168,7 @@ export default function Home() {
               <span className="text-white font-black text-xl tracking-tighter font-mono">BENNI</span>
               <span className="text-[#00ffe0] font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
               <span className="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-bold">
-                1080p 60fps Motion
+                Living 3D Engine
               </span>
             </a>
 
@@ -199,27 +215,26 @@ export default function Home() {
               </div>
             </div>
 
-            {/* MAIN SYSTEM OVERVIEW MOTION FILM (CONTINUOUS 1080P MP4 PLAYBACK) */}
+            {/* MAIN SYSTEM OVERVIEW MOTION FILM (SEAMLESS MP4 PLAYBACK — NO CHROME) */}
             <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.25)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-[#94a3b8]">
                 <div className="flex items-center gap-3">
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
                   <span className="font-bold text-white">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono font-bold">● 1080P 60FPS CINEMATIC FILM</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono font-bold">● SEAMLESS LIVING MOTION</div>
               </div>
 
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/10">
-                <video autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Main Product Film">
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/10 pointer-events-none">
+                <video autoPlay muted loop playsInline preload="auto" aria-label="Benni OS Main Product Film">
                   <source src="material/videos/hero-product-film.mp4" type="video/mp4" />
-                  Your browser does not support HTML5 video.
                 </video>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. PRODUCT EXECUTION PIPELINE (AUTOPLAYING MP4 VIDEOS) */}
+        {/* 2. PRODUCT EXECUTION PIPELINE (SEAMLESS MP4 LOOPS) */}
         <section id="pipeline" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Product Execution Pipeline">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
@@ -237,8 +252,8 @@ export default function Home() {
             {/* 5 OPERATIONAL PIPELINE MODULES */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
-                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Intent Capture Film">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
+                  <video autoPlay muted loop playsInline preload="auto" aria-label="Intent Capture Film">
                     <source src="material/videos/ecosystem-activation.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -248,8 +263,8 @@ export default function Home() {
               </article>
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
-                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Film">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
+                  <video autoPlay muted loop playsInline preload="auto" aria-label="3D Topology Film">
                     <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -259,8 +274,8 @@ export default function Home() {
               </article>
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
-                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Execution Pipeline Film">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
+                  <video autoPlay muted loop playsInline preload="auto" aria-label="Execution Pipeline Film">
                     <source src="material/videos/operation-pipeline.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -270,8 +285,8 @@ export default function Home() {
               </article>
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
-                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Swarm Mesh Film">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
+                  <video autoPlay muted loop playsInline preload="auto" aria-label="Agent Swarm Mesh Film">
                     <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4" />
                   </video>
                 </div>
@@ -281,8 +296,8 @@ export default function Home() {
               </article>
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5 md:col-span-2 lg:col-span-2">
-                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
-                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Film">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
+                  <video autoPlay muted loop playsInline preload="auto" aria-label="Evidence Settlement Film">
                     <source src="material/videos/evidence-settlement.mp4" type="video/mp4" />
                   </video>
                 </div>
