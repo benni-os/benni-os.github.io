@@ -702,8 +702,8 @@
 
   <!-- 09. TRUST AND EVIDENCE WITH BACKGROUND EVIDENCE VIDEO STREAM -->
   <section class="py-28 bg-bg1 relative overflow-hidden border-b border-white/10 z-10" aria-label="Trust and Cryptographic Evidence">
-    <div class="absolute inset-0 opacity-20 pointer-events-none -z-10">
-      <video autoPlay muted loop playsInline preload="auto">
+    <div class="absolute inset-0 opacity-25 pointer-events-none -z-10">
+      <video autoPlay muted loop playsInline preload="auto" class="w-full h-full object-cover">
         <source src="public/motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
       </video>
     </div>
@@ -723,8 +723,8 @@
 
   <!-- 10. COMMUNITY / START BUILDING CTA -->
   <section class="py-32 bg-gradient-to-b from-bg1 to-bg text-center relative z-10 overflow-hidden" aria-label="Community Call to Action">
-    <div class="absolute inset-0 opacity-15 pointer-events-none -z-10">
-      <video autoPlay muted loop playsInline preload="auto">
+    <div class="absolute inset-0 opacity-20 pointer-events-none -z-10">
+      <video autoPlay muted loop playsInline preload="auto" class="w-full h-full object-cover">
         <source src="public/videos/hero-bg.mp4" type="video/mp4" />
       </video>
     </div>
@@ -835,25 +835,48 @@
           const grid = document.getElementById('project-grid');
           if (!grid || !data.projects) return;
 
+          const holoImages = [
+            'material/_review/benni-command-plane-review-01.jpeg',
+            'material/_review/benni-open-source-constellation-review-01.jpeg',
+            'material/_review/benni-ecosystem-technology-review-01.jpeg',
+            'material/_review/benni-agent-mesh-review-01.jpeg',
+            'material/_review/benni-evidence-layer-review-01.jpeg',
+            'material/_review/benni-ecosystem-atlas-review-01.jpeg',
+            'material/_review/benni-ecosystem-product-review-01.jpeg',
+            'material/_review/benni-ecosystem-product-review-02.jpeg',
+            'material/_review/benni-memory-fabric-review-02.jpeg',
+            'material/_review/benni-sovereign-autonomous-review-01.jpeg'
+          ];
+
           function renderProjects(projects) {
-            grid.innerHTML = projects.map(p => `
-              <article class="rounded-3xl bg-bg2/85 border border-white/10 overflow-hidden flex flex-col justify-between glass-card">
-                <div class="p-7">
-                  <div class="flex items-center justify-between mb-3">
-                    <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2.5 py-1 rounded border border-white/10 font-bold">${p.owner}</span>
-                    <span class="font-mono text-[10px] uppercase px-2.5 py-1 rounded-md ${p.is_open_source ? 'bg-c3/20 text-c3 border border-c3/40' : 'bg-c2/20 text-c2 border border-c2/40'} font-bold backdrop-blur">
-                      ${p.is_open_source ? '● ' + p.license : '🔒 ' + p.license}
-                    </span>
+            grid.innerHTML = projects.map((p, idx) => {
+              const bgImg = holoImages[idx % holoImages.length];
+              return `
+                <article class="relative rounded-3xl bg-bg2/85 border border-white/10 overflow-hidden flex flex-col justify-between glass-card group">
+                  <!-- Holographic Background Image Layer -->
+                  <div class="absolute inset-0 opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none -z-10">
+                    <img src="${bgImg}" alt="" class="w-full h-full object-cover filter saturate-150 contrast-125 mix-blend-overlay" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-bg2 via-bg2/80 to-transparent"></div>
                   </div>
-                  <h3 class="text-xl font-bold text-txt mb-2">${p.name}</h3>
-                  <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${p.description}</p>
-                </div>
-                <div class="p-7 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                  <span class="text-txt3">Layer: <strong class="text-txt2">${p.layer}</strong></span>
-                  ${p.repository ? `<a href="${p.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub →</a>` : `<span class="text-txt3 font-semibold">Sealed Core</span>`}
-                </div>
-              </article>
-            `).join('');
+
+                  <div class="p-7 relative z-10">
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2.5 py-1 rounded border border-white/10 font-bold">${p.owner}</span>
+                      <span class="font-mono text-[10px] uppercase px-2.5 py-1 rounded-md ${p.is_open_source ? 'bg-c3/20 text-c3 border border-c3/40' : 'bg-c2/20 text-c2 border border-c2/40'} font-bold backdrop-blur">
+                        ${p.is_open_source ? '● ' + p.license : '🔒 ' + p.license}
+                      </span>
+                    </div>
+                    <h3 class="text-xl font-bold text-txt mb-2">${p.name}</h3>
+                    <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">${p.description}</p>
+                  </div>
+
+                  <div class="p-7 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs relative z-10">
+                    <span class="text-txt3">Layer: <strong class="text-txt2">${p.layer}</strong></span>
+                    ${p.repository ? `<a href="${p.repository}" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub →</a>` : `<span class="text-txt3 font-semibold">Sealed Core</span>`}
+                  </div>
+                </article>
+              `;
+            }).join('');
           }
 
           renderProjects(data.projects);

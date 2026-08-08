@@ -408,28 +408,49 @@ export default function Home() {
 
             {/* DYNAMIC GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {filteredProjects.map((p) => (
-                <article key={p.id} className="rounded-3xl bg-[#0b101c]/85 border border-white/10 overflow-hidden flex flex-col justify-between glass-card">
-                  <div className="p-7">
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#060911] px-2.5 py-1 rounded border border-white/10 font-bold">{p.owner}</span>
-                      <span className={`font-mono text-[10px] uppercase px-2.5 py-1 rounded-md ${p.is_open_source ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40' : 'bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40'} font-bold backdrop-blur`}>
-                        {p.is_open_source ? '● ' + p.license : '🔒 ' + p.license}
-                      </span>
+              {filteredProjects.map((p, idx) => {
+                const holoImages = [
+                  'material/_review/benni-command-plane-review-01.jpeg',
+                  'material/_review/benni-open-source-constellation-review-01.jpeg',
+                  'material/_review/benni-ecosystem-technology-review-01.jpeg',
+                  'material/_review/benni-agent-mesh-review-01.jpeg',
+                  'material/_review/benni-evidence-layer-review-01.jpeg',
+                  'material/_review/benni-ecosystem-atlas-review-01.jpeg',
+                  'material/_review/benni-ecosystem-product-review-01.jpeg',
+                  'material/_review/benni-ecosystem-product-review-02.jpeg',
+                  'material/_review/benni-memory-fabric-review-02.jpeg',
+                  'material/_review/benni-sovereign-autonomous-review-01.jpeg'
+                ];
+                const bgImg = holoImages[idx % holoImages.length];
+                return (
+                  <article key={p.id} className="relative rounded-3xl bg-[#0b101c]/85 border border-white/10 overflow-hidden flex flex-col justify-between glass-card group">
+                    {/* Holographic Background Image Layer */}
+                    <div className="absolute inset-0 opacity-25 group-hover:opacity-45 transition-opacity duration-500 pointer-events-none -z-10">
+                      <img src={bgImg} alt="" className="w-full h-full object-cover filter saturate-150 contrast-125 mix-blend-overlay" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0b101c] via-[#0b101c]/80 to-transparent" />
                     </div>
-                    <h3 className="text-xl font-bold text-white mb-2">{p.name}</h3>
-                    <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">{p.description}</p>
-                  </div>
-                  <div className="p-7 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                    <span className="text-[#64748b]">Layer: <strong className="text-[#94a3b8]">{p.layer}</strong></span>
-                    {p.repository ? (
-                      <a href={p.repository} target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub →</a>
-                    ) : (
-                      <span className="text-[#64748b] font-semibold">Sealed Core</span>
-                    )}
-                  </div>
-                </article>
-              ))}
+
+                    <div className="p-7 relative z-10">
+                      <div className="flex items-center justify-between mb-3">
+                        <span className="font-mono text-[10px] text-[#64748b] uppercase bg-[#060911] px-2.5 py-1 rounded border border-white/10 font-bold">{p.owner}</span>
+                        <span className={`font-mono text-[10px] uppercase px-2.5 py-1 rounded-md ${p.is_open_source ? 'bg-[#00ff88]/20 text-[#00ff88] border border-[#00ff88]/40' : 'bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40'} font-bold backdrop-blur`}>
+                          {p.is_open_source ? '● ' + p.license : '🔒 ' + p.license}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-bold text-white mb-2">{p.name}</h3>
+                      <p className="text-[#94a3b8] font-mono text-xs leading-relaxed mb-4">{p.description}</p>
+                    </div>
+                    <div className="p-7 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs relative z-10">
+                      <span className="text-[#64748b]">Layer: <strong className="text-[#94a3b8]">{p.layer}</strong></span>
+                      {p.repository ? (
+                        <a href={p.repository} target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub →</a>
+                      ) : (
+                        <span className="text-[#64748b] font-semibold">Sealed Core</span>
+                      )}
+                    </div>
+                  </article>
+                );
+              })}
             </div>
           </div>
         </section>
