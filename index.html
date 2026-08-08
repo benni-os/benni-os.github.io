@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Benni OS — Sovereign Operating Layer for Autonomous Work</title>
-  <meta name="description" content="Enterprise-grade sovereign agent operating system. Coordinate agents, memory, tools and policy in one observable infrastructure." />
+  <meta name="description" content="Enterprise-grade sovereign agent operating system with edge-to-edge fluid motion and camera perspective scroll." />
 
   <!-- OpenGraph & Twitter SEO -->
   <meta property="og:title" content="Benni OS — Sovereign Operating Layer for Autonomous Work" />
@@ -13,20 +13,6 @@
   <meta property="og:url" content="https://benni-os.github.io/" />
   <meta property="og:image" content="public/posters/hero-poster.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-
-  <!-- JSON-LD Structured Data -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Benni OS",
-    "operatingSystem": "Cross-platform / Sovereign",
-    "applicationCategory": "DeveloperApplication",
-    "description": "Operating layer for autonomous work, coordinating agents, memory, tools and policy in one observable system.",
-    "license": "https://opensource.org/licenses/MIT",
-    "url": "https://benni-os.github.io/"
-  }
-  </script>
 
   <!-- Google Fonts: Sora, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,9 +28,9 @@
       theme: {
         extend: {
           colors: {
-            bg: '#030508',
-            bg1: '#080c14',
-            bg2: '#0f1623',
+            bg: '#020408',
+            bg1: '#060911',
+            bg2: '#0b101c',
             c1: '#00ffe0',
             c1d: '#00ccb4',
             c2: '#7c5cfc',
@@ -72,7 +58,7 @@
 
   <style>
     html, body {
-      background-color: #030508;
+      background-color: #020408;
       color: #f8fafc;
       font-family: 'Sora', 'Inter', sans-serif;
       overflow-x: clip;
@@ -82,11 +68,11 @@
       position: fixed;
       top: 0;
       right: 0;
-      width: 3px;
+      width: 4px;
       height: 0vh;
       background: linear-gradient(to bottom, #00ffe0, #7c5cfc, #00ff88);
       z-index: 100;
-      box-shadow: 0 0 16px #00ffe0;
+      box-shadow: 0 0 20px #00ffe0;
     }
 
     .noise-overlay {
@@ -98,6 +84,7 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
+    /* Living Fluid Ink Background Canvas */
     #webgl-bg {
       position: fixed;
       inset: 0;
@@ -105,10 +92,10 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.75;
+      opacity: 0.85;
     }
 
-    /* Hero Canvas Track */
+    /* Edge-to-Edge Hero Layout (Full Width, No Card Frames) */
     .hero-track {
       position: relative;
       height: 480vh;
@@ -126,53 +113,87 @@
       justify-content: center;
     }
     #hero-canvas {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
       object-fit: cover;
       display: block;
-      filter: contrast(1.05) brightness(0.95);
+      filter: contrast(1.08) brightness(0.92);
+      z-index: 1;
     }
 
-    /* Hero Text Overlay with High-Tech Glow */
+    /* Layered Text Overlay with Side-to-Side Camera Perspective Shifts */
     .hero-text-overlay {
       position: absolute;
       inset: 0;
       display: flex;
       flex-direction: column;
-      align-items: center;
       justify-content: center;
-      text-align: center;
       pointer-events: none;
-      padding: 2rem;
+      padding: 3rem 6rem;
       opacity: 0;
-      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      transform: translateY(30px) scale(0.98);
+      transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 10;
     }
+    .hero-text-overlay.align-left {
+      align-items: flex-start;
+      text-align: left;
+      transform: translateX(-40px) scale(0.96);
+    }
+    .hero-text-overlay.align-right {
+      align-items: flex-end;
+      text-align: right;
+      transform: translateX(40px) scale(0.96);
+    }
+    .hero-text-overlay.align-center {
+      align-items: center;
+      text-align: center;
+      transform: translateY(40px) scale(0.96);
+    }
+
     .hero-text-overlay.active-text {
       opacity: 1;
-      transform: translateY(0) scale(1);
+      transform: translateX(0) translateY(0) scale(1);
       pointer-events: auto;
     }
 
-    /* Ultra Glassmorphism Cards */
+    /* Full-Bleed Video Background Surface (No Card Wrapper) */
+    .full-bleed-video-section {
+      position: relative;
+      width: 100vw;
+      margin-left: calc(-50vw + 50%);
+      margin-right: calc(-50vw + 50%);
+      height: 90vh;
+      overflow: hidden;
+    }
+    .full-bleed-video-section video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.85) contrast(1.1);
+    }
+
+    /* Multi-Layer Depth Cards */
     .glass-card {
-      background: rgba(15, 22, 35, 0.85);
+      background: rgba(11, 16, 28, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(28px);
-      -webkit-backdrop-filter: blur(28px);
-      transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+      backdrop-filter: blur(32px);
+      -webkit-backdrop-filter: blur(32px);
+      transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
     .glass-card:hover {
       border-color: rgba(0, 255, 224, 0.6);
-      transform: translateY(-8px) scale(1.015);
-      box-shadow: 0 30px 70px -15px rgba(0, 255, 224, 0.3);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 35px 80px -20px rgba(0, 255, 224, 0.35);
     }
 
-    /* 3D Hologram Carousel Stage */
+    /* 3D Stage Ring */
     .carousel-3d-stage {
-      perspective: 1400px;
+      perspective: 1500px;
       width: 100%;
-      height: 560px;
+      height: 580px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -188,19 +209,19 @@
     }
     .carousel-3d-card {
       position: absolute;
-      width: 360px;
-      height: 460px;
+      width: 370px;
+      height: 470px;
       left: 50%;
       top: 50%;
-      margin-left: -180px;
-      margin-top: -230px;
+      margin-left: -185px;
+      margin-top: -235px;
       backface-visibility: hidden;
-      border-radius: 1.75rem;
+      border-radius: 2rem;
       overflow: hidden;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 255, 224, 0.15);
-      border: 1px solid rgba(0, 255, 224, 0.35);
-      background: rgba(8, 12, 20, 0.95);
-      backdrop-filter: blur(24px);
+      box-shadow: 0 30px 70px rgba(0, 0, 0, 0.95), 0 0 35px rgba(0, 255, 224, 0.2);
+      border: 1px solid rgba(0, 255, 224, 0.4);
+      background: rgba(6, 9, 17, 0.95);
+      backdrop-filter: blur(28px);
     }
 
     .seamless-video-container {
@@ -222,7 +243,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #030508;
+      background: #020408;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -249,7 +270,7 @@
   <div id="loader" aria-label="Loading Benni OS">
     <div class="flex items-center gap-3 mb-4">
       <span class="w-3 h-3 rounded-full bg-c1 animate-ping shadow-[0_0_12px_#00ffe0]"></span>
-      <span class="font-mono text-xs text-c1 font-bold tracking-widest uppercase">INITIALIZING BENNI OS INFRASTRUCTURE...</span>
+      <span class="font-mono text-xs text-c1 font-bold tracking-widest uppercase">INITIALIZING BENNI OS FLUID ENGINE...</span>
     </div>
     <div class="w-72 h-1 rounded-full bg-bg1 border border-white/10 overflow-hidden shadow-[0_0_15px_rgba(0,255,224,0.3)]">
       <div id="loader-bar" class="h-full bg-gradient-to-r from-c1 to-c2 w-0 transition-all duration-200"></div>
@@ -259,7 +280,7 @@
   <!-- FIXED RIGHT SCROLL PROGRESS BAR -->
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- NOISE OVERLAY & THREE.JS 3D LIVING UNDERWATER CANVAS -->
+  <!-- NOISE OVERLAY & THREE.JS FLUID INK IN WATER SHADER CANVAS -->
   <div class="noise-overlay" aria-hidden="true"></div>
   <canvas id="webgl-bg" aria-hidden="true"></canvas>
 
@@ -269,7 +290,7 @@
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter font-mono">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-c1/10 text-c1 border border-c1/40 font-bold shadow-[0_0_15px_rgba(0,255,224,0.2)]">SOVEREIGN ENGINE v2.4</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-c1/10 text-c1 border border-c1/40 font-bold shadow-[0_0_15px_rgba(0,255,224,0.2)]">FLUID ENGINE v2.4</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -290,16 +311,16 @@
     </div>
   </header>
 
-  <!-- 1. HERO CANVASES & SCROLL-DRIVEN MOTION -->
+  <!-- 1. HERO EDGE-TO-EDGE CANVAS & PERSPECTIVE CAMERA SCROLL TRACK -->
   <section id="surface" class="hero-track" aria-label="Canvas Scroll Hero">
     <div class="hero-sticky">
 
-      <!-- FULL-SCREEN HERO CANVAS -->
+      <!-- FULL-SCREEN HERO CANVAS (EDGE TO EDGE - NOT A CARD) -->
       <canvas id="hero-canvas"></canvas>
 
-      <!-- OVERLAY TEXT 1 -->
-      <div id="overlay-1" class="hero-text-overlay active-text max-w-5xl">
-        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-8 shadow-[0_0_30px_rgba(0,255,224,0.2)]">
+      <!-- OVERLAY TEXT 1: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 1) -->
+      <div id="overlay-1" class="hero-text-overlay align-left active-text max-w-4xl">
+        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-6 shadow-[0_0_30px_rgba(0,255,224,0.2)]">
           <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
           <span class="font-mono text-xs text-c1 font-bold uppercase tracking-widest">SOVEREIGN AGENT OPERATING SYSTEM</span>
         </div>
@@ -307,14 +328,14 @@
           The operating layer for <br />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.4)]">autonomous work.</span>
         </h1>
-        <p class="mt-8 text-txt2 font-mono text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-xl leading-relaxed">
           Coordinate autonomous agents, persistent memory, tool protocols, and security policy within a unified, observable enterprise system.
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 2 -->
-      <div id="overlay-2" class="hero-text-overlay max-w-5xl">
-        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-c2/10 border border-c2/30 inline-block">CANONICAL STATE & SECURITY CONTROLS</div>
+      <!-- OVERLAY TEXT 2: ALIGNED RIGHT (CAMERA PERSPECTIVE VIEW 2 - PAN RIGHT) -->
+      <div id="overlay-2" class="hero-text-overlay align-right max-w-4xl">
+        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c2/10 border border-c2/30 inline-block">CANONICAL STATE & SECURITY CONTROLS</div>
         <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight leading-tight">
           Sovereign Intelligence. <br />
           <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Immutable Audit Trail. Local Inference.</span>
@@ -324,9 +345,9 @@
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 3 -->
-      <div id="overlay-3" class="hero-text-overlay max-w-5xl">
-        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-c3/10 border border-c3/30 inline-block">ENTERPRISE AGENT MESH</div>
+      <!-- OVERLAY TEXT 3: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 3 - PAN LEFT) -->
+      <div id="overlay-3" class="hero-text-overlay align-left max-w-4xl">
+        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c3/10 border border-c3/30 inline-block">ENTERPRISE AGENT MESH</div>
         <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
           JARVAS-2 · NEMESIS · CONTROL PLANE · MONOMO
         </h2>
@@ -335,9 +356,9 @@
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 4 -->
-      <div id="overlay-4" class="hero-text-overlay max-w-5xl">
-        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-gold/10 border border-gold/30 inline-block">DETERMINISTIC PIPELINE PROTOCOL</div>
+      <!-- OVERLAY TEXT 4: ALIGNED CENTER (CAMERA PERSPECTIVE VIEW 4 - CENTER FOCUS) -->
+      <div id="overlay-4" class="hero-text-overlay align-center max-w-5xl">
+        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-gold/10 border border-gold/30 inline-block">DETERMINISTIC PIPELINE PROTOCOL</div>
         <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
           Intent → Plan → Agents → <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Execution → Evidence</span>
         </h2>
@@ -351,30 +372,25 @@
     </div>
   </section>
 
-  <!-- HERO VIDEO SECTION (CANONICAL PUBLIC MOTION PATHS) -->
-  <section class="py-20 bg-bg border-b border-white/10 relative z-10">
-    <div class="container mx-auto px-6 max-w-6xl">
-      <div class="w-full bg-bg2 border border-white/15 backdrop-blur-2xl rounded-3xl p-5 sm:p-8 shadow-[0_0_100px_rgba(0,255,224,0.25)] relative overflow-hidden text-left">
-        <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-5 font-mono text-xs text-txt2">
-          <div class="flex items-center gap-3">
-            <span class="w-3.5 h-3.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
-            <span class="font-bold text-txt">BENNI OS // SYSTEM TOPOLOGY DEMONSTRATION</span>
-          </div>
-          <div class="text-[11px] text-c1 font-mono font-bold px-3 py-1 rounded bg-c1/10 border border-c1/30">● H.264 / VP9 CANONICAL STREAM</div>
-        </div>
-
-        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 pointer-events-none shadow-2xl">
-          <video autoplay muted loop playsinline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Product Film">
-            <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
-            <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
-          </video>
-        </div>
+  <!-- HERO FULL-BLEED VIDEO SURFACE (EDGE TO EDGE FULL WIDTH — IS THE LAYOUT BACKGROUND ITSELF) -->
+  <section class="full-bleed-video-section border-y border-white/10 relative z-10">
+    <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg z-10 pointer-events-none"></div>
+    <video autoPlay muted loop playsInline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Full-Bleed Background Motion">
+      <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
+      <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
+    </video>
+    <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
+      <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-bg/80 border border-c1/40 backdrop-blur-md mb-4">
+        ● FULL-BLEED CONSTELLATION SURFACE
       </div>
+      <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight max-w-3xl">
+        Seamless Operational Topology Stream
+      </h2>
     </div>
   </section>
 
-  <!-- 2. STICKY ARCHITECTURE EXPLAINER (50/50 SPLIT) -->
-  <section id="explainer" class="py-28 bg-bg1 border-y border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
+  <!-- 2. STICKY ARCHITECTURE EXPLAINER (DEPTH PARALLAX & SLIDING CARDS LEFT/RIGHT) -->
+  <section id="explainer" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-16 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
@@ -396,10 +412,10 @@
           </div>
         </div>
 
-        <!-- RIGHT 50%: STICKY PANELS -->
+        <!-- RIGHT 50%: STICKY PANELS (SLIDING FROM RIGHT & LEFT ON SCROLL) -->
         <div class="lg:w-1/2 flex flex-col gap-36">
 
-          <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c1">
+          <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel slide-from-right min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c1">
             <span class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-3">LAYER 01 // INTENT & CONTROL</span>
             <h3 class="text-3xl font-bold text-txt mb-4">Sovereign Control Plane & State Engine</h3>
             <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
@@ -408,7 +424,7 @@
             <div class="font-mono text-xs text-c1 font-bold">STATUS: OPERATIONAL (POLICY GATE ENFORCED)</div>
           </div>
 
-          <div data-image="material/_review/benni-agent-mesh-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c2">
+          <div data-image="material/_review/benni-agent-mesh-review-01.jpeg" class="explainer-panel slide-from-left min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c2">
             <span class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-3">LAYER 02 // AGENT SWARM DISPATCH</span>
             <h3 class="text-3xl font-bold text-txt mb-4">JARVAS-2 Multi-Threaded Engine</h3>
             <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
@@ -417,7 +433,7 @@
             <div class="font-mono text-xs text-c2 font-bold">STATUS: DISPATCHING (MCP ACTIVE)</div>
           </div>
 
-          <div data-image="material/_review/benni-evidence-layer-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c3">
+          <div data-image="material/_review/benni-evidence-layer-review-01.jpeg" class="explainer-panel slide-from-right min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c3">
             <span class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-3">LAYER 03 // SECURITY & AUDIT</span>
             <h3 class="text-3xl font-bold text-txt mb-4">NEMESIS Cryptographic Gateway</h3>
             <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
@@ -516,7 +532,7 @@
     </div>
   </section>
 
-  <!-- 4. PIPELINE STACK -->
+  <!-- 4. PIPELINE STACK (MULTILAYER DEPTH CARDS ENTERING BOTTOM & TOP) -->
   <section id="pipeline-stack" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
     <div class="container mx-auto px-6 max-w-5xl">
       <div class="mb-16 text-center">
@@ -531,7 +547,7 @@
       <div class="flex flex-col gap-14">
 
         <!-- LOOP 01 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/pipeline-poster.jpg" preload="auto">
               <source src="public/motion/sequences/operation-pipeline.mp4" type="video/mp4">
@@ -544,7 +560,7 @@
         </article>
 
         <!-- LOOP 02 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/agent-mesh-poster.jpg" preload="auto">
               <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4">
@@ -557,7 +573,7 @@
         </article>
 
         <!-- LOOP 03 -->
-        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl rise-card">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/evidence-poster.jpg" preload="auto">
               <source src="public/motion/sequences/evidence-settlement.mp4" type="video/mp4">
@@ -624,10 +640,10 @@
     </div>
   </footer>
 
-  <!-- ENGINE SCRIPTS -->
+  <!-- ENGINE SCRIPTS: FLUID INK SHADER + ALTERNATING PERSPECTIVE CAMERA SCROLL ENGINE -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Force Video Autoplay Behavior (NO CHROME)
+      // 1. Video Autoplay setup
       const videos = document.querySelectorAll('video');
       videos.forEach(v => {
         v.muted = true;
@@ -661,9 +677,9 @@
         gsap.ticker.lagSmoothing(0, 0);
       }
 
-      // 3. Three.js Living 3D Underwater Engine with GLTF GLB Model Loader
-      let camera3D, scene3D, renderer3D, particles3D, gltfModel3D;
-      (function initLiving3DEngine() {
+      // 3. Three.js Fluid "Ink in Water" Shader Background Engine
+      let camera3D, scene3D, renderer3D, fluidMesh3D, gltfModel3D;
+      (function initFluidInkEngine() {
         const canvas = document.getElementById('webgl-bg');
         if (!canvas || !window.THREE) return;
 
@@ -674,34 +690,70 @@
         renderer3D.setSize(window.innerWidth, window.innerHeight);
         renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
+        // Custom Shader Material simulating Ink Dispersing in Water
+        const vertexShader = `
+          varying vec2 vUv;
+          varying vec3 vPosition;
+          uniform float uTime;
+          void main() {
+            vUv = uv;
+            vPosition = position;
+            vec3 pos = position;
+            float wave = sin(pos.x * 0.2 + uTime * 1.2) * cos(pos.y * 0.2 + uTime * 0.8) * 1.5;
+            pos.z += wave;
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
+          }
+        `;
+
+        const fragmentShader = `
+          varying vec2 vUv;
+          varying vec3 vPosition;
+          uniform float uTime;
+          uniform vec2 uMouse;
+          void main() {
+            vec2 p = vUv - 0.5;
+            float len = length(p);
+            float ink = sin(p.x * 12.0 + uTime * 0.8) * cos(p.y * 12.0 - uTime * 0.6);
+            ink += sin(len * 20.0 - uTime * 1.5) * 0.5;
+
+            vec3 colorCyan = vec3(0.0, 1.0, 0.878); // #00ffe0
+            vec3 colorPurple = vec3(0.486, 0.36, 0.988); // #7c5cfc
+            vec3 colorDark = vec3(0.01, 0.02, 0.04);
+
+            vec3 finalColor = mix(colorDark, colorCyan, smoothstep(-0.2, 0.8, ink));
+            finalColor = mix(finalColor, colorPurple, smoothstep(0.1, 0.9, sin(uTime + len * 8.0)));
+
+            float alpha = smoothstep(0.5, 0.0, len) * 0.45;
+            gl_FragColor = vec4(finalColor, alpha);
+          }
+        `;
+
+        const fluidGeo = new THREE.PlaneGeometry(60, 60, 64, 64);
+        const fluidMat = new THREE.ShaderMaterial({
+          vertexShader,
+          fragmentShader,
+          uniforms: {
+            uTime: { value: 0 },
+            uMouse: { value: new THREE.Vector2(0, 0) }
+          },
+          transparent: true,
+          depthWrite: false,
+          blending: THREE.AdditiveBlending
+        });
+
+        fluidMesh3D = new THREE.Mesh(fluidGeo, fluidMat);
+        fluidMesh3D.position.z = -5;
+        scene3D.add(fluidMesh3D);
+
+        // Load 3D GLB Model
         if (window.THREE.GLTFLoader) {
           const loader = new THREE.GLTFLoader();
           loader.load('public/models/benni-topology.glb', (gltf) => {
             gltfModel3D = gltf.scene;
-            gltfModel3D.scale.set(3, 3, 3);
+            gltfModel3D.scale.set(3.5, 3.5, 3.5);
             scene3D.add(gltfModel3D);
           }, undefined, () => {});
         }
-
-        const count = 400;
-        const geo = new THREE.BufferGeometry();
-        const pos = new Float32Array(count * 3);
-        const originalY = new Float32Array(count);
-
-        for (let i = 0; i < count; i++) {
-          const x = (Math.random() - 0.5) * 55;
-          const y = (Math.random() - 0.5) * 55;
-          const z = (Math.random() - 0.5) * 55;
-          pos[i * 3] = x;
-          pos[i * 3 + 1] = y;
-          pos[i * 3 + 2] = z;
-          originalY[i] = y;
-        }
-        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-
-        const mat = new THREE.PointsMaterial({ size: 0.24, color: 0x00ffe0, transparent: true, opacity: 0.75 });
-        particles3D = new THREE.Points(geo, mat);
-        scene3D.add(particles3D);
 
         camera3D.position.z = 18;
 
@@ -711,29 +763,27 @@
           mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
         });
 
-        let clock = new THREE.Clock();
-        function animateLiving3D() {
-          requestAnimationFrame(animateLiving3D);
+        const clock = new THREE.Clock();
+        function animateFluidInk() {
+          requestAnimationFrame(animateFluidInk);
           const time = clock.getElapsedTime();
 
-          const positions = particles3D.geometry.attributes.position.array;
-          for (let i = 0; i < count; i++) {
-            positions[i * 3 + 1] = originalY[i] + Math.sin(time * 1.5 + positions[i * 3]) * 0.9;
-          }
-          particles3D.geometry.attributes.position.needsUpdate = true;
+          fluidMat.uniforms.uTime.value = time;
+          fluidMat.uniforms.uMouse.value.set(mouseX, mouseY);
 
           if (gltfModel3D) {
-            gltfModel3D.rotation.y = time * 0.5;
-            gltfModel3D.rotation.x = time * 0.2;
+            gltfModel3D.rotation.y = time * 0.4;
+            gltfModel3D.rotation.x = time * 0.15;
           }
 
+          // Inertia Mouse Follow
           camera3D.position.x += (mouseX * 2.5 - camera3D.position.x) * 0.05;
           camera3D.position.y += (-mouseY * 2.5 - camera3D.position.y) * 0.05;
           camera3D.lookAt(scene3D.position);
 
           renderer3D.render(scene3D, camera3D);
         }
-        animateLiving3D();
+        animateFluidInk();
       })();
 
       // 4. Hero Canvas Frame Sequence Engine
@@ -773,19 +823,14 @@
       const onFrameDone = () => {
         loadedCount++;
         if (loaderBar) loaderBar.style.width = Math.min(100, Math.round((loadedCount / PRELOAD_COUNT) * 100)) + '%';
-        if (loadedCount >= 1) {
-          renderFrame(1);
-        }
-        if (loadedCount >= 15) {
-          hideLoader();
-        }
+        if (loadedCount >= 1) renderFrame(1);
+        if (loadedCount >= 15) hideLoader();
       };
 
       for (let i = 1; i <= PRELOAD_COUNT; i++) {
         const img = loadFrame(i);
-        if (img.complete) {
-          onFrameDone();
-        } else {
+        if (img.complete) onFrameDone();
+        else {
           img.onload = onFrameDone;
           img.onerror = onFrameDone;
         }
@@ -803,17 +848,12 @@
       function renderFrame(idx) {
         currentFrameIdx = idx;
         const img = loadFrame(idx);
-        if (img.complete && img.naturalWidth) {
-          drawCover(img);
-        } else {
-          img.onload = () => drawCover(img);
-        }
+        if (img.complete && img.naturalWidth) drawCover(img);
+        else img.onload = () => drawCover(img);
 
         for (let ahead = 1; ahead <= 12; ahead++) {
           const next = idx + ahead;
-          if (next <= TOTAL_FRAMES && !frameCache.has(next)) {
-            loadFrame(next);
-          }
+          if (next <= TOTAL_FRAMES && !frameCache.has(next)) loadFrame(next);
         }
       }
 
@@ -834,13 +874,13 @@
         ctx.drawImage(img, cx, cy, nw, nh);
       }
 
-      // 5. GSAP ScrollTrigger for Hero Frame Sequence & Camera Motion
+      // 5. GSAP ScrollTrigger for Side-to-Side Camera Perspective Shifts on Scroll
       const track = document.querySelector('.hero-track');
       const overlays = [
-        { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22 },
-        { el: document.getElementById('overlay-2'), start: 0.25, end: 0.42 },
-        { el: document.getElementById('overlay-3'), start: 0.45, end: 0.65 },
-        { el: document.getElementById('overlay-4'), start: 0.68, end: 0.88 }
+        { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22, camX: -4, camRotY: 0.15 },
+        { el: document.getElementById('overlay-2'), start: 0.25, end: 0.42, camX: 4, camRotY: -0.15 },
+        { el: document.getElementById('overlay-3'), start: 0.45, end: 0.65, camX: -4, camRotY: 0.15 },
+        { el: document.getElementById('overlay-4'), start: 0.68, end: 0.88, camX: 0, camRotY: 0 }
       ];
 
       ScrollTrigger.create({
@@ -856,9 +896,12 @@
           const fIdx = 1 + Math.round(p * (TOTAL_FRAMES - 1));
           renderFrame(Math.min(TOTAL_FRAMES, Math.max(1, fIdx)));
 
+          // Dynamic Camera Perspective Shift (Panning Left/Right & Zoom)
           if (camera3D) {
-            camera3D.position.z = 18 - p * 8;
-            camera3D.rotation.z = p * 0.2;
+            const shiftX = Math.sin(p * Math.PI * 3) * 6; // Pan between left and right
+            camera3D.position.x = shiftX;
+            camera3D.position.z = 18 - p * 6;
+            camera3D.rotation.y = -shiftX * 0.03;
           }
 
           overlays.forEach(ov => {
@@ -873,7 +916,48 @@
         }
       });
 
-      // 6. Interactive 3D Carousel Ring
+      // 6. Sliding Cards from Left/Right & Bottom/Top Motion Triggers
+      gsap.utils.toArray('.slide-from-right').forEach(panel => {
+        gsap.from(panel, {
+          x: 100,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+      });
+
+      gsap.utils.toArray('.slide-from-left').forEach(panel => {
+        gsap.from(panel, {
+          x: -100,
+          opacity: 0,
+          duration: 1,
+          scrollTrigger: {
+            trigger: panel,
+            start: 'top 80%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+      });
+
+      gsap.utils.toArray('.rise-card').forEach(card => {
+        gsap.from(card, {
+          y: 80,
+          scale: 0.95,
+          opacity: 0,
+          duration: 1.2,
+          scrollTrigger: {
+            trigger: card,
+            start: 'top 85%',
+            toggleActions: 'play none none reverse'
+          }
+        });
+      });
+
+      // 7. Interactive 3D Carousel Ring
       const ring = document.getElementById('carousel-ring');
       const cards = document.querySelectorAll('.carousel-3d-card');
       const totalCards = cards.length;
@@ -911,16 +995,14 @@
         autoRotateRing();
       }
 
-      // 7. 50/50 Sticky Explainer Observer
+      // 8. 50/50 Sticky Explainer Observer
       const explainerPanels = document.querySelectorAll('.explainer-panel');
       const stickyImg = document.getElementById('sticky-panel-img');
       const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             const newSrc = entry.target.getAttribute('data-image');
-            if (newSrc && stickyImg) {
-              stickyImg.src = newSrc;
-            }
+            if (newSrc && stickyImg) stickyImg.src = newSrc;
           }
         });
       }, { threshold: 0.5 });
