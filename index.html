@@ -28,10 +28,11 @@
   }
   </script>
 
-  <!-- Google Fonts -->
+  <!-- Google Fonts: Sora, Inter, JetBrains Mono (Stitch Design System) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -54,8 +55,8 @@
             txt3: '#64748b'
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
-            mono: ['Fira Code', 'monospace']
+            sans: ['Sora', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'Fira Code', 'monospace']
           }
         }
       }
@@ -78,7 +79,7 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Glassmorphism Cards */
+    /* Glassmorphism Cards & HUD Panels (Google Stitch Design System) */
     .glass-card {
       background: rgba(17, 23, 36, 0.85);
       border: 1px solid rgba(255, 255, 255, 0.08);
@@ -104,6 +105,8 @@
       transform: translateY(-4px);
       border-color: rgba(0, 255, 224, 0.5);
     }
+
+    .glow-neon { box-shadow: 0 0 12px rgba(0, 255, 224, 0.4); }
 
     #webgl-bg {
       position: fixed;
@@ -137,9 +140,9 @@
   <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
     <div class="container mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
-        <span class="text-txt font-black text-xl tracking-tighter">BENNI</span>
-        <span class="text-c1 font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">17 Repositories</span>
+        <span class="text-txt font-black text-xl tracking-tighter font-mono">BENNI</span>
+        <span class="text-c1 font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">Stitch UI/UX v2.0</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -147,16 +150,14 @@
         <a href="#pipeline" class="hover:text-c1 transition-colors">/pipeline</a>
         <a href="#atlas" class="hover:text-c1 transition-colors">/atlas</a>
         <a href="#bento" class="hover:text-c1 transition-colors">/architecture</a>
-        <a href="#trust" class="hover:text-c1 transition-colors">/governance</a>
+        <a href="dashboard.html" class="text-c1 font-bold hover:underline flex items-center gap-1">
+          <span class="material-symbols-outlined text-sm">dashboard</span> /dashboard
+        </a>
       </nav>
 
       <div class="flex items-center gap-4">
-        <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-bg1 border border-c3/40 backdrop-blur">
-          <span class="w-2 h-2 rounded-full bg-c3 animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true"></span>
-          <span class="text-[11px] font-mono text-txt uppercase tracking-wider font-semibold">17 Audited Repositories</span>
-        </div>
-        <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" class="px-4 py-1.5 rounded-lg bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Operator Swarm Community">
-          Join Community →
+        <a href="dashboard.html" class="px-4 py-1.5 rounded-lg bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)] flex items-center gap-1.5" aria-label="Launch Live Stitch Console Dashboard">
+          <span class="material-symbols-outlined text-sm">terminal</span> Launch Console →
         </a>
       </div>
     </div>
@@ -181,11 +182,11 @@
         </p>
 
         <div class="mt-8 flex justify-center items-center gap-4">
-          <a href="#atlas" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-c1d transition-all" aria-label="Explore the Ecosystem Atlas">
-            Explore Ecosystem Atlas →
+          <a href="dashboard.html" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-c1d transition-all flex items-center gap-2" aria-label="Launch Live Stitch Console Dashboard">
+            <span class="material-symbols-outlined">space_dashboard</span> Launch Live Console →
           </a>
-          <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" class="px-8 py-3.5 rounded-xl bg-bg1 text-txt font-bold text-sm font-mono border border-white/20 hover:border-c1 transition-all" aria-label="Join Operator Swarm Community">
-            Join Operator Swarm →
+          <a href="#atlas" class="px-8 py-3.5 rounded-xl bg-bg1 text-txt font-bold text-sm font-mono border border-white/20 hover:border-c1 transition-all" aria-label="Explore the Ecosystem Atlas">
+            Explore Ecosystem Atlas →
           </a>
         </div>
       </div>
@@ -197,7 +198,7 @@
             <span class="w-3 h-3 rounded-full bg-c1 animate-pulse"></span>
             <span class="font-bold text-txt">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
           </div>
-          <div class="text-[11px] text-c1 font-mono">STATUS: ACTIVE (1080P DEMO)</div>
+          <div class="text-[11px] text-c1 font-mono">STATUS: ACTIVE (STITCH UI / 1080P DEMO)</div>
         </div>
 
         <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-bg border border-white/10">
@@ -438,7 +439,7 @@
           <div>
             <div class="relative h-44 w-full overflow-hidden bg-bg1">
               <img src="material/_review/benni-ecosystem-product-review-02.jpeg" alt="mcp-forge-playbook preview" class="w-full h-full object-cover" />
-              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">Public</span>
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">Public Site</span>
             </div>
             <div class="p-6">
               <div class="flex items-center justify-between mb-2">
@@ -613,8 +614,8 @@
 
         <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-gold/60 transition-all">
           <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-2">Layer 04 // Dev Infra</div>
-          <h3 class="text-xl font-bold text-txt mb-3">MCP Security Gateway</h3>
-          <p class="text-txt2 font-mono text-xs leading-relaxed">Exposes native tools over streamable SSE and HTTPS with zero secret leaks.</p>
+          <h3 class="text-xl font-bold text-txt mb-3">MCP Security Gateway & Stitch UI</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Exposes native tools over streamable SSE, Google Stitch UI synthesis, and HTTPS.</p>
         </div>
 
         <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
@@ -666,9 +667,14 @@
         Connect with operators building sovereign AI infrastructure, discuss agent swarm architectures, and track open-source releases.
       </p>
 
-      <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-3 px-10 py-4 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_50px_rgba(0,255,224,0.5)]" aria-label="Join Official Benni OS Operator Telegram Group">
-        Join Operator Community →
-      </a>
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <a href="dashboard.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_50px_rgba(0,255,224,0.5)]">
+          <span class="material-symbols-outlined">space_dashboard</span> Launch Live Dashboard Console →
+        </a>
+        <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-bg1 text-txt font-bold font-mono text-sm border border-white/20 hover:border-c1 transition-all">
+          Join Operator Community →
+        </a>
+      </div>
     </div>
   </section>
 
@@ -677,6 +683,7 @@
     <div class="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
       <div class="flex gap-6">
+        <a href="dashboard.html" class="hover:text-c1">Live Dashboard Console</a>
         <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" class="hover:text-c1">GitHub Organization</a>
         <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" class="hover:text-c1">Telegram Community</a>
       </div>

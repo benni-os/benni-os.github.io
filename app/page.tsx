@@ -126,7 +126,7 @@ export default function Home() {
       />
 
       <main className="bg-[#05070c] text-[#f8fafc] antialiased selection:bg-[#00ffe0]/30 selection:text-white min-h-screen relative overflow-x-hidden font-sans">
-        {/* ZAJNO GRAIN OVERLAY */}
+        {/* NOISE OVERLAY */}
         <div
           className="fixed top-0 left-0 w-full h-full pointer-events-none z-[999] opacity-[0.035]"
           style={{
@@ -142,10 +142,10 @@ export default function Home() {
         <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#05070c]/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
           <div className="container mx-auto px-6 h-16 flex items-center justify-between">
             <a href="#surface" className="flex items-center gap-2 group" aria-label="Benni OS homepage">
-              <span className="text-white font-black text-xl tracking-tighter">BENNI</span>
-              <span className="text-[#00ffe0] font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
+              <span className="text-white font-black text-xl tracking-tighter font-mono">BENNI</span>
+              <span className="text-[#00ffe0] font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
               <span className="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-bold">
-                17 Repositories
+                Stitch UI/UX v2.0
               </span>
             </a>
 
@@ -154,16 +154,12 @@ export default function Home() {
               <a href="#pipeline" className="hover:text-[#00ffe0] transition-colors">/pipeline</a>
               <a href="#atlas" className="hover:text-[#00ffe0] transition-colors">/atlas</a>
               <a href="#bento" className="hover:text-[#00ffe0] transition-colors">/architecture</a>
-              <a href="#trust" className="hover:text-[#00ffe0] transition-colors">/governance</a>
+              <a href="dashboard.html" className="text-[#00ffe0] font-bold hover:underline">/dashboard</a>
             </nav>
 
             <div className="flex items-center gap-4">
-              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0e17] border border-[#00ff88]/40 backdrop-blur">
-                <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true" />
-                <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">17 Audited Repositories</span>
-              </div>
-              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Operator Swarm Community">
-                Join Community →
+              <a href="dashboard.html" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Launch Live Stitch Console Dashboard">
+                Launch Console →
               </a>
             </div>
           </div>
@@ -187,11 +183,11 @@ export default function Home() {
               </p>
 
               <div className="mt-8 flex justify-center items-center gap-4">
-                <a href="#atlas" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Explore the Ecosystem Atlas">
-                  Explore Ecosystem Atlas →
+                <a href="dashboard.html" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Launch Live Stitch Console Dashboard">
+                  Launch Live Console →
                 </a>
-                <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Join Operator Swarm Community">
-                  Join Operator Swarm →
+                <a href="#atlas" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Explore the Ecosystem Atlas">
+                  Explore Ecosystem Atlas →
                 </a>
               </div>
             </div>
@@ -203,7 +199,7 @@ export default function Home() {
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
                   <span className="font-bold text-white">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: ACTIVE (1080P DEMO)</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: ACTIVE (STITCH UI / 1080P DEMO)</div>
               </div>
 
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
@@ -433,7 +429,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-ecosystem-product-review-02.jpeg" alt="mcp-forge-playbook preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ffe0]/20 text-[#00ffe0] border border-[#00ffe0]/40 font-bold backdrop-blur">Public</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#00ffe0]/20 text-[#00ffe0] border border-[#00ffe0]/40 font-bold backdrop-blur">Public Site</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -578,6 +574,7 @@ export default function Home() {
           <div className="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
             <div className="flex gap-6">
+              <a href="dashboard.html" className="hover:text-[#00ffe0]">Live Dashboard Console</a>
               <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">GitHub Organization</a>
               <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram Community</a>
             </div>
