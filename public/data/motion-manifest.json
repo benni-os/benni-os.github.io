@@ -11,17 +11,17 @@
   ],
   "assets": [
     {
-      "id": "hero-product-film",
+      "id": "hero-cinematic",
       "type": "video",
-      "desktop": "/motion/hero/hero-product-film.mp4",
-      "webm": "/motion/hero/hero-product-film.webm",
-      "fallback": "/posters/hero-poster.jpg",
-      "duration_ms": 12000,
+      "desktop": "/motion/hero/benni-hero-cinematic.mp4",
+      "frame_sequence": "/frames/frame_%04d.jpg",
+      "fallback": "/motion/hero/intent-node.png",
+      "duration_ms": 60000,
       "loop": true,
       "preload_priority": 1,
-      "size_hint_mb": 25,
-      "purpose": "Full product surface authority hero film",
-      "reduced_motion": "/posters/hero-poster.jpg"
+      "size_hint_mb": 85,
+      "purpose": "Merged hero cinematic sequence",
+      "reduced_motion": "/motion/hero/final-authority.png"
     },
     {
       "id": "ecosystem-hero",
