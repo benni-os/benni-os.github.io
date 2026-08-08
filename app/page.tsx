@@ -195,7 +195,7 @@ export default function Home() {
         />
 
         {/* THREE.JS LIVING FLUID INK CANVAS */}
-        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-85" aria-hidden="true" />
+        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-5 opacity-85 mix-blend-screen" aria-hidden="true" />
 
         {/* TOP HEADER NAVIGATION */}
         <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#020408]/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
