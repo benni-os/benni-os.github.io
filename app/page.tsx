@@ -214,27 +214,24 @@ export default function Home() {
 
         {/* 01. HERO SECTION */}
         <section id="surface" className="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
-          <div className="container mx-auto px-6 max-w-7xl text-center">
-            <div className="max-w-5xl mx-auto mb-10">
+          <div className="container mx-auto px-6 max-w-5xl text-center">
+            <div className="max-w-4xl mx-auto mb-10">
               <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-[#00ffe0]/40 bg-[#00ffe0]/10 backdrop-blur-2xl mb-8 shadow-[0_0_30px_rgba(0,255,224,0.2)]">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#00ffe0] animate-pulse shadow-[0_0_12px_#00ffe0]" aria-hidden="true" />
                 <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">SOVEREIGN AGENT OPERATING SYSTEM</span>
               </div>
 
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black text-white tracking-tight leading-[1.05]">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-[1.08]">
                 The operating layer for <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffe0] via-[#7c5cfc] to-[#00ff88] drop-shadow-[0_0_40px_rgba(0,255,224,0.4)]">autonomous work.</span>
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffe0] via-[#7c5cfc] to-[#00ff88] drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">autonomous work.</span>
               </h1>
-              <p className="mt-8 text-[#94a3b8] font-mono text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+              <p className="mt-6 text-[#94a3b8] font-mono text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
                 Coordinate agents, memory, tools and policy in one observable enterprise system.
               </p>
 
-              <div className="mt-10 flex justify-center items-center gap-4">
-                <a href="dashboard.html" className="px-9 py-4 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_40px_rgba(0,255,224,0.6)] hover:bg-[#00ccb4] transition-all transform hover:scale-105" aria-label="Launch Live Console Dashboard">
+              <div className="mt-8 flex justify-center items-center gap-4">
+                <a href="dashboard.html" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-xs font-mono shadow-[0_0_30px_rgba(0,255,224,0.6)] hover:bg-[#00ccb4] transition-all transform hover:scale-105" aria-label="Launch Live Console Dashboard">
                   Launch Live Console →
-                </a>
-                <a href="#pipeline" className="px-9 py-4 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all transform hover:scale-105" aria-label="Explore Protocol">
-                  Explore Protocol ↓
                 </a>
               </div>
             </div>

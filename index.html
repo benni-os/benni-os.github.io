@@ -153,13 +153,14 @@
     .hero-text-overlay {
       position: absolute;
       inset: 0;
-      display: flex;
+      display: none;
       flex-direction: column;
       justify-content: center;
       pointer-events: none;
       padding: 3rem 6rem;
       opacity: 0;
-      transition: opacity var(--motion-slow) var(--ease-enter), transform var(--motion-slow) var(--ease-enter);
+      visibility: hidden;
+      transition: opacity var(--motion-medium) var(--ease-enter), transform var(--motion-medium) var(--ease-enter);
       z-index: 10;
     }
     .hero-text-overlay.align-left {
@@ -179,9 +180,11 @@
     }
 
     .hero-text-overlay.active-text {
-      opacity: 1;
-      transform: translateX(0) translateY(0) scale(1);
-      pointer-events: auto;
+      display: flex !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      transform: translateX(0) translateY(0) scale(1) !important;
+      pointer-events: auto !important;
     }
 
     /* Full-Bleed Video Background Surface */
@@ -349,51 +352,52 @@
       <canvas id="hero-canvas"></canvas>
 
       <!-- OVERLAY TEXT 1: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 1) -->
-      <div id="overlay-1" class="hero-text-overlay align-left active-text max-w-4xl">
-        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-6 shadow-[0_0_30px_rgba(0,255,224,0.2)]">
+      <div id="overlay-1" class="hero-text-overlay align-left max-w-2xl left-12 sm:left-24">
+        <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-6 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
           <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
           <span class="font-mono text-xs text-c1 font-bold uppercase tracking-widest">SOVEREIGN AGENT OPERATING SYSTEM</span>
         </div>
-        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black text-txt tracking-tight leading-[1.05]">
+        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-[1.08]">
           The operating layer for <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.4)]">autonomous work.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">autonomous work.</span>
         </h1>
-        <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-xl leading-relaxed">
-          Coordinate agents, memory, tools and policy in one observable system. Enterprise-grade sovereign agent execution.
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">
+          Coordinate agents, memory, tools and policy in one observable enterprise system.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 2: ALIGNED RIGHT (CAMERA PERSPECTIVE VIEW 2 - PAN RIGHT) -->
-      <div id="overlay-2" class="hero-text-overlay align-right max-w-4xl">
+      <div id="overlay-2" class="hero-text-overlay align-right max-w-2xl right-12 sm:right-24">
         <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c2/10 border border-c2/30 inline-block">CANONICAL STATE & SECURITY CONTROLS</div>
-        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight leading-tight">
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
           Sovereign Intelligence. <br />
-          <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Immutable Audit Trail. Local Inference.</span>
+          <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Immutable Audit Trail.</span>
         </h2>
-        <p class="mt-6 text-txt2 font-mono text-sm max-w-xl leading-relaxed">
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">
           SHA-256 goal payload hashes bound to deterministic run ledgers in <code class="text-c1 font-bold">benni-control-plane</code>.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 3: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 3 - PAN LEFT) -->
-      <div id="overlay-3" class="hero-text-overlay align-left max-w-4xl">
+      <div id="overlay-3" class="hero-text-overlay align-left max-w-2xl left-12 sm:left-24">
         <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c3/10 border border-c3/30 inline-block">ENTERPRISE AGENT MESH</div>
-        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
-          JARVAS-2 · NEMESIS · CONTROL PLANE · MONOMO
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
+          JARVAS-2 · NEMESIS <br />
+          <span class="text-c3">CONTROL PLANE · MONOMO</span>
         </h2>
-        <p class="mt-6 text-txt2 font-mono text-sm max-w-xl leading-relaxed">
+        <p class="mt-6 text-txt2 font-mono text-xs sm:text-sm max-w-lg leading-relaxed">
           Multi-agent swarm execution running local hybrid GPU/CPU inference via <code class="text-c3 font-bold">benni-inference-engine</code>.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 4: ALIGNED CENTER (CAMERA PERSPECTIVE VIEW 4 - CENTER FOCUS) -->
-      <div id="overlay-4" class="hero-text-overlay align-center max-w-5xl">
+      <div id="overlay-4" class="hero-text-overlay align-center max-w-3xl">
         <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-gold/10 border border-gold/30 inline-block">DETERMINISTIC PIPELINE PROTOCOL</div>
-        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
-          Intent → Plan → Agents → <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Execution → Evidence</span>
+        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
+          Intent → Plan → Agents → <br /><span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Execution → Evidence</span>
         </h2>
-        <div class="mt-10 flex gap-4">
-          <a href="dashboard.html" class="px-9 py-4 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_40px_rgba(0,255,224,0.6)] transform hover:scale-105">
+        <div class="mt-8 flex justify-center">
+          <a href="dashboard.html" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.6)] transform hover:scale-105">
             Launch Live Console →
           </a>
         </div>
