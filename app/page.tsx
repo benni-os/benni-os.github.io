@@ -141,7 +141,7 @@ export default function Home() {
         {/* TOP HEADER NAVIGATION */}
         <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#05070c]/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
           <div className="container mx-auto px-6 h-16 flex items-center justify-between">
-            <a href="#top" className="flex items-center gap-2 group" aria-label="Benni OS homepage">
+            <a href="#surface" className="flex items-center gap-2 group" aria-label="Benni OS homepage">
               <span className="text-white font-black text-xl tracking-tighter">BENNI</span>
               <span className="text-[#00ffe0] font-black text-xl tracking-tighter group-hover:animate-pulse">.OS</span>
               <span className="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-bold">
@@ -151,156 +151,164 @@ export default function Home() {
 
             <nav className="hidden md:flex items-center gap-8 font-mono text-xs text-[#94a3b8]" aria-label="Page Sections">
               <a href="#surface" className="hover:text-[#00ffe0] transition-colors">/surface</a>
+              <a href="#pipeline" className="hover:text-[#00ffe0] transition-colors">/pipeline</a>
               <a href="#atlas" className="hover:text-[#00ffe0] transition-colors">/atlas</a>
-              <a href="#protocol" className="hover:text-[#00ffe0] transition-colors">/protocol</a>
-              <a href="#code" className="hover:text-[#00ffe0] transition-colors">/code</a>
-              <a href="#bento" className="hover:text-[#00ffe0] transition-colors">/bento</a>
-              <a href="#trust" className="hover:text-[#00ffe0] transition-colors">/trust</a>
+              <a href="#bento" className="hover:text-[#00ffe0] transition-colors">/architecture</a>
+              <a href="#trust" className="hover:text-[#00ffe0] transition-colors">/governance</a>
             </nav>
 
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0a0e17] border border-[#00ff88]/40 backdrop-blur">
                 <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse shadow-[0_0_10px_#00ff88]" aria-hidden="true" />
-                <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">17 Repos (6 Public / 11 Private)</span>
+                <span className="text-[11px] font-mono text-white uppercase tracking-wider font-semibold">17 Audited Repositories</span>
               </div>
-              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Telegram Swarm Community">
-                Join Swarm →
+              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-4 py-1.5 rounded-lg bg-[#00ffe0] text-black font-bold font-mono text-xs hover:bg-[#00ccb4] transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)]" aria-label="Join Operator Swarm Community">
+                Join Community →
               </a>
             </div>
           </div>
         </header>
 
-        {/* 1. HERO SECTION WITH OPERATIONAL PRODUCT SURFACE CONSOLE */}
+        {/* 1. HERO SECTION: CATEGORY & VALUE PROPOSITION */}
         <section id="surface" className="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
           <div className="container mx-auto px-6 max-w-7xl text-center">
             <div className="max-w-4xl mx-auto mb-8">
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#00ffe0]/40 bg-[#00ffe0]/10 backdrop-blur-xl mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#00ffe0] animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true" />
-                <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">Autonomous Work Infrastructure</span>
+                <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">SOVEREIGN OPERATING INFRASTRUCTURE</span>
               </div>
 
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black text-white tracking-tight leading-tight">
-                The operating system for <br />
+                The operating layer for <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00ffe0] via-[#7c5cfc] to-[#00ff88]">autonomous work.</span>
               </h1>
               <p className="mt-6 text-[#94a3b8] font-mono text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
-                Coordinate agents, memory, tools and policy in one observable operating layer.
+                Coordinate agents, memory, tools and policy in one observable system.
               </p>
 
               <div className="mt-8 flex justify-center items-center gap-4">
                 <a href="#atlas" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Explore the Ecosystem Atlas">
-                  Explore the ecosystem →
+                  Explore Ecosystem Atlas →
+                </a>
+                <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Join Operator Swarm Community">
+                  Join Operator Swarm →
                 </a>
               </div>
             </div>
 
-            {/* HERO VIDEO DISPLAY (MAIN PRODUCT FILM FROM MATERIAL) */}
+            {/* MAIN SYSTEM OVERVIEW MOTION FILM */}
             <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.2)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-[#94a3b8]">
                 <div className="flex items-center gap-3">
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
-                  <span className="font-bold text-white">BENNI OS // MAIN PRODUCT FILM (1080P)</span>
+                  <span className="font-bold text-white">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono">SOURCE: MATERIAL / HIGH DEFINITION</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: ACTIVE (1080P DEMO)</div>
               </div>
 
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
-                <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Product Film">
+                <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Main Product Film">
                   <source src="material/videos/hero-product-film.mp4" type="video/mp4" />
                   Your browser does not support HTML5 video.
                 </video>
+                <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Benni OS System Overview Fallback Poster" className="video-fallback-img hidden w-full h-full object-cover" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. AUTONOMOUS EXECUTION REEL SHOWCASE (5 MP4 VIDEOS FROM MATERIAL) */}
-        <section id="motion-films" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Autonomous Execution Reel">
+        {/* 2. PRODUCT EXECUTION PIPELINE (MOTION = PRODUCT MODULES) */}
+        <section id="pipeline" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Product Execution Pipeline">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#7c5cfc]/10 text-[#7c5cfc] border border-[#7c5cfc]/30 font-mono text-xs font-bold mb-4">
-                MATERIAL MOTION VISUALIZATIONS // 5 MP4 REELS
+                NARRATIVE EXECUTION PIPELINE // 5 OPERATIONAL PHASES
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
-                Autonomous Motion <span className="text-[#00ffe0]">Reel</span>
+                Intent → Plan → Agents → <span className="text-[#00ffe0]">Execution → Evidence</span>
               </h2>
               <p className="mt-4 text-[#94a3b8] font-mono text-sm max-w-2xl mx-auto">
-                High-definition operational MP4 videos from <code className="text-[#00ffe0]">material/</code> depicting agent mesh, topology, execution pipelines, and policy gates.
+                Every motion sequence corresponds to a verified phase of the Benni OS execution architecture.
               </p>
             </div>
 
-            {/* 5 REEL MP4 VIDEOS GRID */}
+            {/* 5 OPERATIONAL PIPELINE MODULES */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Ecosystem Activation Video">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Intent Capture Demonstration">
                     <source src="material/videos/ecosystem-activation.mp4" type="video/mp4" />
                   </video>
+                  <img src="material/_review/benni-ecosystem-product-review-01.jpeg" alt="Intent Capture Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">REEL 01 // ECOSYSTEM ACTIVATION</div>
-                <h3 className="text-base font-bold text-white">Technology Ecosystem Activation</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-agent ecosystem activation in 1080p high definition.</p>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 01 // INTENT CAPTURE</div>
+                <h3 className="text-base font-bold text-white">Goal Payload Normalization</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Operator intent is ingested, sanitized, and bound to SHA-256 byte-integrity hashes.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Flythrough Video">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Demonstration">
                     <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4" />
                   </video>
+                  <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="3D Topology Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
-                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">REEL 02 // 3D TOPOLOGY FLYTHROUGH</div>
-                <h3 className="text-base font-bold text-white">Architectural Topology Flythrough</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Camera traveling through Benni OS technology layers.</p>
+                <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">PHASE 02 // PLAN & TOPOLOGY</div>
+                <h3 className="text-base font-bold text-white">Architectural Layer Flythrough</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic multi-step planning with atomic checkpoints to prevent scope drift.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Operation Visualization Pipeline Video">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Execution Pipeline Demonstration">
                     <source src="material/videos/operation-pipeline.mp4" type="video/mp4" />
                   </video>
+                  <img src="material/_review/benni-command-plane-review-01.jpeg" alt="Execution Pipeline Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
-                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">REEL 03 // OPERATION PIPELINE</div>
-                <h3 className="text-base font-bold text-white">AI Operation Visualization Pipeline</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic pipeline from intent payload to verified execution.</p>
+                <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">PHASE 03 // EXECUTION SCHEDULER</div>
+                <h3 className="text-base font-bold text-white">Run Ledger & Checkpoint Lock</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Task DAG dispatching with isolated background execution queues.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Mesh Activation Video">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Swarm Mesh Demonstration">
                     <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4" />
                   </video>
+                  <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="Agent Swarm Mesh Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
-                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">REEL 04 // AGENT MESH ACTIVATION</div>
-                <h3 className="text-base font-bold text-white">Coordinated Swarm Mesh</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Autonomous AI agents forming coordinated execution mesh.</p>
+                <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">PHASE 04 // SWARM MESH DISPATCH</div>
+                <h3 className="text-base font-bold text-white">JARVAS-2 Multi-Agent Dispatch</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-threaded agents invoking native tools over Model Context Protocol.</p>
               </article>
 
               <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4 md:col-span-2 lg:col-span-2">
                 <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Video">
+                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Demonstration">
                     <source src="material/videos/evidence-settlement.mp4" type="video/mp4" />
                   </video>
+                  <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="Evidence Settlement Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
-                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">REEL 05 // EVIDENCE SETTLEMENT</div>
-                <h3 className="text-base font-bold text-white">Cryptographic Evidence Return</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">System returning verified cryptographic evidence capsules.</p>
+                <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 05 // AUDIT & EVIDENCE SETTLEMENT</div>
+                <h3 className="text-base font-bold text-white">NEMESIS Policy Verification & Evidence Capsule</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-1">Single-use token validation returning verified Git commit evidence and MONOMO event records.</p>
               </article>
             </div>
           </div>
         </section>
 
-        {/* 3. ECOSYSTEM ATLAS WITH MATERIAL REVIEW IMAGES */}
+        {/* 3. ECOSYSTEM ATLAS WITH CATEGORIZED REPOSITORIES */}
         <section id="atlas" className="py-24 bg-[#05070c] border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-mono text-xs font-bold mb-4">
-                ECOSYSTEM ATLAS // 17 REPOSITORIES
+                ECOSYSTEM ATLAS // 17 AUDITED REPOSITORIES
               </div>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tight">
                 Constellation <span className="text-[#00ffe0]">Ecosystem Atlas</span>
               </h2>
               <p className="mt-4 text-[#94a3b8] font-mono text-sm max-w-2xl mx-auto">
-                Audited inventory of 17 repositories across <code className="text-[#00ffe0]">benni-os</code> and <code className="text-[#7c5cfc]">nsfwbunny</code> (6 Public / 11 Private).
+                Categorized inventory across <code className="text-[#00ffe0]">benni-os</code> and <code className="text-[#7c5cfc]">nsfwbunny</code> with verifiable licenses and repository statuses.
               </p>
             </div>
 
@@ -436,17 +444,17 @@ export default function Home() {
                   </div>
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
-                  <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Unconfirmed</strong></span>
+                  <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Public Site</strong></span>
                   <a href="https://github.com/benni-os/mcp-forge-playbook-landing-page" target="_blank" rel="noopener noreferrer" className="text-[#00ffe0] font-bold hover:underline">GitHub Repository →</a>
                 </div>
               </article>
 
-              {/* CONFIDENTIAL PRIVATE REPOSITORIES */}
+              {/* CONFIDENTIAL PRIVATE CORE REPOSITORIES */}
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 overflow-hidden flex flex-col justify-between">
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="benni-nemesis preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -458,7 +466,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
 
@@ -466,7 +474,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-sovereign-autonomous-review-01.jpeg" alt="benni-os-genesis preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -478,7 +486,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
 
@@ -486,7 +494,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-memory-fabric-review-02.jpeg" alt="Benni-Master-OS preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -498,7 +506,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
 
@@ -506,7 +514,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-evidence-layer-review-02.jpeg" alt="benni-control-plane preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -518,7 +526,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
 
@@ -526,7 +534,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="jarvas-2 preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -538,7 +546,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
 
@@ -546,7 +554,7 @@ export default function Home() {
                 <div>
                   <div className="relative h-44 w-full overflow-hidden bg-[#0a0e17]">
                     <img src="material/_review/benni-agent-mesh-review-02.jpeg" alt="Benni-gravity-0 preview" className="w-full h-full object-cover" />
-                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private</span>
+                    <span className="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-[#7c5cfc]/20 text-[#7c5cfc] border border-[#7c5cfc]/40 font-bold backdrop-blur">🔒 Private Core</span>
                   </div>
                   <div className="p-6">
                     <div className="flex items-center justify-between mb-2">
@@ -558,7 +566,7 @@ export default function Home() {
                 </div>
                 <div className="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
                   <span className="text-[#64748b]">License: <strong className="text-[#94a3b8]">Proprietary</strong></span>
-                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Codebase</span>
+                  <span className="text-[#64748b] font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
                 </div>
               </article>
             </div>
@@ -570,8 +578,8 @@ export default function Home() {
           <div className="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
             <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
             <div className="flex gap-6">
-              <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">GitHub</a>
-              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram</a>
+              <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">GitHub Organization</a>
+              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram Community</a>
             </div>
           </div>
         </footer>
