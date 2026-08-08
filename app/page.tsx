@@ -75,23 +75,23 @@ export default function Home() {
     };
     window.addEventListener('resize', handleResize);
 
-    const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; color: string; life: number }> = [];
-    const maxParticles = 50;
+    const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; color: string; life: number; decay: number }> = [];
+    const MAX_PARTICLES = 70;
 
-    let mouseX = -100, mouseY = -100;
     const handleMouseMove = (e: MouseEvent) => {
-      mouseX = e.clientX;
-      mouseY = e.clientY;
-
-      if (particles.length < maxParticles) {
+      for (let i = 0; i < 2; i++) {
+        if (particles.length >= MAX_PARTICLES) {
+          particles.shift();
+        }
         particles.push({
-          x: mouseX,
-          y: mouseY,
-          vx: (Math.random() - 0.5) * 1.5,
-          vy: (Math.random() - 0.5) * 1.5 - 0.5,
-          size: Math.random() * 3 + 2,
+          x: e.clientX + (Math.random() - 0.5) * 6,
+          y: e.clientY + (Math.random() - 0.5) * 6,
+          vx: (Math.random() - 0.5) * 2,
+          vy: (Math.random() - 0.5) * 2 - 0.5,
+          size: Math.random() * 5 + 3,
           color: Math.random() > 0.4 ? '#00ffe0' : '#7c5cfc',
-          life: 1.0
+          life: 1.0,
+          decay: Math.random() * 0.025 + 0.025
         });
       }
     };
@@ -105,25 +105,44 @@ export default function Home() {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.life -= 0.03;
-        p.size *= 0.96;
+        p.life -= p.decay;
+        p.size *= 0.95;
 
-        if (p.life <= 0 || p.size <= 0.2) {
+        if (p.life <= 0 || p.size <= 0.3) {
           particles.splice(i, 1);
           i--;
           continue;
         }
 
+        ctx.save();
+        ctx.globalAlpha = p.life * 0.85;
+        ctx.fillStyle = p.color;
+        ctx.shadowColor = p.color;
+        ctx.shadowBlur = 16;
+
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = p.life * 0.7;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = p.color;
         ctx.fill();
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const dx = p.x - p2.x;
+          const dy = p.y - p2.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+
+          if (dist < 55) {
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = (1 - dist / 55) * p.life * 0.35;
+            ctx.lineWidth = 1;
+            ctx.stroke();
+          }
+        }
+        ctx.restore();
       }
 
-      ctx.globalAlpha = 1.0;
       animId = requestAnimationFrame(drawCursorTrail);
     };
     drawCursorTrail();
