@@ -12,7 +12,7 @@ export default function Home() {
     if (!threeLoaded || !(window as any).THREE) return;
     const THREE = (window as any).THREE;
 
-    // 1. Living 3D Underwater Wave Engine Canvas
+    // 1. Living 3D Underwater Wave Engine Canvas with GLB Model Loader
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const scene = new THREE.Scene();
@@ -21,6 +21,17 @@ export default function Home() {
 
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+      // Load 3D GLB Model
+      let gltfModel: any = null;
+      if (THREE.GLTFLoader) {
+        const loader = new THREE.GLTFLoader();
+        loader.load('public/models/benni-topology.glb', (gltf: any) => {
+          gltfModel = gltf.scene;
+          gltfModel.scale.set(3, 3, 3);
+          scene.add(gltfModel);
+        });
+      }
 
       const count = 350;
       const geo = new THREE.BufferGeometry();
@@ -61,6 +72,11 @@ export default function Home() {
           positions[i * 3 + 1] = originalY[i] + Math.sin(time * 1.5 + positions[i * 3]) * 0.8;
         }
         particles.geometry.attributes.position.needsUpdate = true;
+
+        if (gltfModel) {
+          gltfModel.rotation.y = time * 0.5;
+          gltfModel.rotation.x = time * 0.2;
+        }
 
         camera.position.x += (mouseX * 2 - camera.position.x) * 0.05;
         camera.position.y += (-mouseY * 2 - camera.position.y) * 0.05;
@@ -147,6 +163,7 @@ export default function Home() {
         src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"
         onLoad={() => setThreeLoaded(true)}
       />
+      <Script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js" />
 
       <main className="bg-[#05070c] text-[#f8fafc] antialiased selection:bg-[#00ffe0]/30 selection:text-white min-h-screen relative overflow-x-hidden font-sans">
         {/* NOISE OVERLAY */}
@@ -209,7 +226,7 @@ export default function Home() {
                 <a href="dashboard.html" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Launch Live Console Dashboard">
                   Launch Live Console →
                 </a>
-                <a href="#pipeline" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Explore Pipeline Protocol">
+                <a href="#pipeline" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Explore Protocol">
                   Explore Protocol ↓
                 </a>
               </div>
@@ -222,12 +239,13 @@ export default function Home() {
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
                   <span className="font-bold text-white">BENNI OS // OPERATIONAL TOPOLOGY & CONSTELLATION CONSOLE</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono font-bold">● LIVE CONSTELLATION STREAM</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono font-bold">● H.264 / VP9 CANONICAL STREAM</div>
               </div>
 
               <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/10 pointer-events-none">
-                <video autoPlay muted loop playsInline preload="auto" aria-label="Benni OS Product Film">
-                  <source src="material/videos/hero-product-film.mp4" type="video/mp4" />
+                <video autoPlay muted loop playsInline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Product Film">
+                  <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
+                  <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
                 </video>
               </div>
             </div>
@@ -252,19 +270,21 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
-                  <video autoPlay muted loop playsInline preload="auto" aria-label="Intent Ingestion Film">
-                    <source src="material/videos/ecosystem-activation.mp4" type="video/mp4" />
+                  <video autoPlay muted loop playsInline poster="public/posters/ecosystem-poster.jpg" preload="auto" aria-label="Intent Ingestion Film">
+                    <source src="public/motion/sequences/ecosystem-activation.mp4" type="video/mp4" />
+                    <source src="public/motion/sequences/ecosystem-activation.webm" type="video/webm" />
                   </video>
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 01 // INTENT INGESTION</div>
                 <h3 className="text-lg font-bold text-white">Goal Payload Normalization</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Operator intent is ingested, sanitized, and bound to SHA-256 cryptographic signatures.</p>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Operator intent is ingested, sanitized, and bound to SHA-256 cryptographic signatures in <code className="text-[#00ffe0]">benni-control-plane</code>.</p>
               </article>
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
-                  <video autoPlay muted loop playsInline preload="auto" aria-label="Topology Film">
-                    <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4" />
+                  <video autoPlay muted loop playsInline poster="public/posters/topology-poster.jpg" preload="auto" aria-label="Topology Film">
+                    <source src="public/motion/sequences/3d-flythrough-topology.mp4" type="video/mp4" />
+                    <source src="public/motion/sequences/3d-flythrough-topology.webm" type="video/webm" />
                   </video>
                 </div>
                 <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">PHASE 02 // DETERMINISTIC TOPOLOGY</div>
@@ -274,8 +294,9 @@ export default function Home() {
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
-                  <video autoPlay muted loop playsInline preload="auto" aria-label="Scheduler Film">
-                    <source src="material/videos/operation-pipeline.mp4" type="video/mp4" />
+                  <video autoPlay muted loop playsInline poster="public/posters/pipeline-poster.jpg" preload="auto" aria-label="Scheduler Film">
+                    <source src="public/motion/sequences/operation-pipeline.mp4" type="video/mp4" />
+                    <source src="public/motion/sequences/operation-pipeline.webm" type="video/webm" />
                   </video>
                 </div>
                 <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">PHASE 03 // DISPATCH SCHEDULER</div>
@@ -285,8 +306,9 @@ export default function Home() {
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
-                  <video autoPlay muted loop playsInline preload="auto" aria-label="Swarm Mesh Film">
-                    <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4" />
+                  <video autoPlay muted loop playsInline poster="public/posters/agent-mesh-poster.jpg" preload="auto" aria-label="Swarm Mesh Film">
+                    <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4" />
+                    <source src="public/motion/sequences/agent-mesh-activation.webm" type="video/webm" />
                   </video>
                 </div>
                 <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">PHASE 04 // AGENT SWARM MESH</div>
@@ -296,13 +318,14 @@ export default function Home() {
 
               <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5 md:col-span-2 lg:col-span-2">
                 <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10 pointer-events-none">
-                  <video autoPlay muted loop playsInline preload="auto" aria-label="Evidence Settlement Film">
-                    <source src="material/videos/evidence-settlement.mp4" type="video/mp4" />
+                  <video autoPlay muted loop playsInline poster="public/posters/evidence-poster.jpg" preload="auto" aria-label="Evidence Settlement Film">
+                    <source src="public/motion/sequences/evidence-settlement.mp4" type="video/mp4" />
+                    <source src="public/motion/sequences/evidence-settlement.webm" type="video/webm" />
                   </video>
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 05 // EVIDENCE SETTLEMENT</div>
                 <h3 className="text-lg font-bold text-white">NEMESIS Policy Verification & Cryptographic Settlement</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Single-use token validation returning verified Git commit evidence and MONOMO telemetry records.</p>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Single-use approval tokens in <code className="text-[#00ffe0]">benni-nemesis</code> returning verified Git commit evidence and MONOMO telemetry records.</p>
               </article>
             </div>
           </div>
@@ -591,7 +614,7 @@ export default function Home() {
             <div className="flex gap-6">
               <a href="dashboard.html" className="hover:text-[#00ffe0]">Live Dashboard Console</a>
               <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">GitHub Organization</a>
-              <a href="https://t.me/+Hf6utkcP1B40NzY5" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Telegram Community</a>
+              <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" className="hover:text-[#00ffe0]">Operator Gateway</a>
             </div>
           </div>
         </footer>
