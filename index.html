@@ -42,9 +42,9 @@
       theme: {
         extend: {
           colors: {
-            bg: '#05070c',
-            bg1: '#0a0e17',
-            bg2: '#111724',
+            bg: '#030508',
+            bg1: '#080c14',
+            bg2: '#0f1623',
             c1: '#00ffe0',
             c1d: '#00ccb4',
             c2: '#7c5cfc',
@@ -72,9 +72,9 @@
 
   <style>
     html, body {
-      background-color: #05070c;
+      background-color: #030508;
       color: #f8fafc;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Sora', 'Inter', sans-serif;
       overflow-x: clip;
     }
 
@@ -86,7 +86,7 @@
       height: 0vh;
       background: linear-gradient(to bottom, #00ffe0, #7c5cfc, #00ff88);
       z-index: 100;
-      box-shadow: 0 0 14px #00ffe0;
+      box-shadow: 0 0 16px #00ffe0;
     }
 
     .noise-overlay {
@@ -105,12 +105,13 @@
       height: 100vh;
       pointer-events: none;
       z-index: 0;
-      opacity: 0.65;
+      opacity: 0.75;
     }
 
+    /* Hero Canvas Track */
     .hero-track {
       position: relative;
-      height: 450vh;
+      height: 480vh;
       width: 100%;
     }
     .hero-sticky {
@@ -129,8 +130,10 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      filter: contrast(1.05) brightness(0.95);
     }
 
+    /* Hero Text Overlay with High-Tech Glow */
     .hero-text-overlay {
       position: absolute;
       inset: 0;
@@ -142,32 +145,34 @@
       pointer-events: none;
       padding: 2rem;
       opacity: 0;
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-      transform: translateY(20px);
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      transform: translateY(30px) scale(0.98);
     }
     .hero-text-overlay.active-text {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
       pointer-events: auto;
     }
 
+    /* Ultra Glassmorphism Cards */
     .glass-card {
-      background: rgba(17, 23, 36, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
+      background: rgba(15, 22, 35, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
       transition: border-color 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
     }
     .glass-card:hover {
-      border-color: rgba(0, 255, 224, 0.5);
-      transform: translateY(-6px) scale(1.01);
-      box-shadow: 0 20px 50px -10px rgba(0, 255, 224, 0.25);
+      border-color: rgba(0, 255, 224, 0.6);
+      transform: translateY(-8px) scale(1.015);
+      box-shadow: 0 30px 70px -15px rgba(0, 255, 224, 0.3);
     }
 
+    /* 3D Hologram Carousel Stage */
     .carousel-3d-stage {
-      perspective: 1200px;
+      perspective: 1400px;
       width: 100%;
-      height: 520px;
+      height: 560px;
       position: relative;
       overflow: hidden;
       display: flex;
@@ -183,19 +188,19 @@
     }
     .carousel-3d-card {
       position: absolute;
-      width: 340px;
-      height: 440px;
+      width: 360px;
+      height: 460px;
       left: 50%;
       top: 50%;
-      margin-left: -170px;
-      margin-top: -220px;
+      margin-left: -180px;
+      margin-top: -230px;
       backface-visibility: hidden;
-      border-radius: 1.5rem;
+      border-radius: 1.75rem;
       overflow: hidden;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9);
-      border: 1px solid rgba(0, 255, 224, 0.3);
-      background: rgba(10, 14, 23, 0.95);
-      backdrop-filter: blur(20px);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(0, 255, 224, 0.15);
+      border: 1px solid rgba(0, 255, 224, 0.35);
+      background: rgba(8, 12, 20, 0.95);
+      backdrop-filter: blur(24px);
     }
 
     .seamless-video-container {
@@ -217,7 +222,7 @@
       position: fixed;
       inset: 0;
       z-index: 9999;
-      background: #05070c;
+      background: #030508;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -243,11 +248,11 @@
   <!-- INSTANT LOADER SCREEN -->
   <div id="loader" aria-label="Loading Benni OS">
     <div class="flex items-center gap-3 mb-4">
-      <span class="w-3 h-3 rounded-full bg-c1 animate-ping"></span>
+      <span class="w-3 h-3 rounded-full bg-c1 animate-ping shadow-[0_0_12px_#00ffe0]"></span>
       <span class="font-mono text-xs text-c1 font-bold tracking-widest uppercase">INITIALIZING BENNI OS INFRASTRUCTURE...</span>
     </div>
-    <div class="w-64 h-1 rounded-full bg-bg1 border border-white/10 overflow-hidden">
-      <div id="loader-bar" class="h-full bg-c1 w-0 transition-all duration-200"></div>
+    <div class="w-72 h-1 rounded-full bg-bg1 border border-white/10 overflow-hidden shadow-[0_0_15px_rgba(0,255,224,0.3)]">
+      <div id="loader-bar" class="h-full bg-gradient-to-r from-c1 to-c2 w-0 transition-all duration-200"></div>
     </div>
   </div>
 
@@ -264,7 +269,7 @@
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter font-mono">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">SOVEREIGN ENGINE v2.4</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2.5 py-0.5 rounded bg-c1/10 text-c1 border border-c1/40 font-bold shadow-[0_0_15px_rgba(0,255,224,0.2)]">SOVEREIGN ENGINE v2.4</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
@@ -278,7 +283,7 @@
       </nav>
 
       <div class="flex items-center gap-4">
-        <a href="dashboard.html" class="px-4 py-1.5 rounded-lg bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_25px_rgba(0,255,224,0.5)] flex items-center gap-1.5" aria-label="Launch Live Console Dashboard">
+        <a href="dashboard.html" class="px-5 py-2 rounded-xl bg-c1 text-black font-bold font-mono text-xs hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.6)] flex items-center gap-2 transform hover:scale-105" aria-label="Launch Live Console Dashboard">
           <span class="material-symbols-outlined text-sm">terminal</span> Launch Console →
         </a>
       </div>
@@ -293,51 +298,51 @@
       <canvas id="hero-canvas"></canvas>
 
       <!-- OVERLAY TEXT 1 -->
-      <div id="overlay-1" class="hero-text-overlay active-text max-w-4xl">
-        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-6">
-          <span class="w-2 h-2 rounded-full bg-c1 animate-pulse shadow-[0_0_10px_#00ffe0]"></span>
+      <div id="overlay-1" class="hero-text-overlay active-text max-w-5xl">
+        <div class="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-8 shadow-[0_0_30px_rgba(0,255,224,0.2)]">
+          <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
           <span class="font-mono text-xs text-c1 font-bold uppercase tracking-widest">SOVEREIGN AGENT OPERATING SYSTEM</span>
         </div>
-        <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight">
+        <h1 class="text-5xl sm:text-7xl lg:text-8xl font-black text-txt tracking-tight leading-[1.05]">
           The operating layer for <br />
-          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">autonomous work.</span>
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.4)]">autonomous work.</span>
         </h1>
-        <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-2xl leading-relaxed">
+        <p class="mt-8 text-txt2 font-mono text-sm sm:text-base max-w-2xl leading-relaxed">
           Coordinate autonomous agents, persistent memory, tool protocols, and security policy within a unified, observable enterprise system.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 2 -->
-      <div id="overlay-2" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-3">CANONICAL STATE & SECURITY CONTROLS</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
+      <div id="overlay-2" class="hero-text-overlay max-w-5xl">
+        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-c2/10 border border-c2/30 inline-block">CANONICAL STATE & SECURITY CONTROLS</div>
+        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight leading-tight">
           Sovereign Intelligence. <br />
-          <span class="text-c1">Immutable Audit Trail. Local Inference.</span>
+          <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Immutable Audit Trail. Local Inference.</span>
         </h2>
-        <p class="mt-4 text-txt2 font-mono text-sm max-w-lg">
-          SHA-256 goal payload hashes bound to deterministic run ledgers in <code class="text-c1">benni-control-plane</code>.
+        <p class="mt-6 text-txt2 font-mono text-sm max-w-xl leading-relaxed">
+          SHA-256 goal payload hashes bound to deterministic run ledgers in <code class="text-c1 font-bold">benni-control-plane</code>.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 3 -->
-      <div id="overlay-3" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-3">ENTERPRISE AGENT MESH</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight">
+      <div id="overlay-3" class="hero-text-overlay max-w-5xl">
+        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-c3/10 border border-c3/30 inline-block">ENTERPRISE AGENT MESH</div>
+        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
           JARVAS-2 · NEMESIS · CONTROL PLANE · MONOMO
         </h2>
-        <p class="mt-4 text-txt2 font-mono text-sm max-w-lg">
-          Multi-agent swarm execution running local hybrid GPU/CPU inference via <code class="text-c3">benni-inference-engine</code>.
+        <p class="mt-6 text-txt2 font-mono text-sm max-w-xl leading-relaxed">
+          Multi-agent swarm execution running local hybrid GPU/CPU inference via <code class="text-c3 font-bold">benni-inference-engine</code>.
         </p>
       </div>
 
       <!-- OVERLAY TEXT 4 -->
-      <div id="overlay-4" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-3">DETERMINISTIC PIPELINE PROTOCOL</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight">
-          Intent → Plan → Agents → <span class="text-c1">Execution → Evidence</span>
+      <div id="overlay-4" class="hero-text-overlay max-w-5xl">
+        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3 py-1 rounded bg-gold/10 border border-gold/30 inline-block">DETERMINISTIC PIPELINE PROTOCOL</div>
+        <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight">
+          Intent → Plan → Agents → <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Execution → Evidence</span>
         </h2>
-        <div class="mt-8 flex gap-4">
-          <a href="dashboard.html" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.5)]">
+        <div class="mt-10 flex gap-4">
+          <a href="dashboard.html" class="px-9 py-4 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_40px_rgba(0,255,224,0.6)] transform hover:scale-105">
             Launch Live Console →
           </a>
         </div>
@@ -347,18 +352,18 @@
   </section>
 
   <!-- HERO VIDEO SECTION (CANONICAL PUBLIC MOTION PATHS) -->
-  <section class="py-16 bg-bg border-b border-white/10 relative z-10">
-    <div class="container mx-auto px-6 max-w-5xl">
-      <div class="w-full bg-bg2 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.25)] relative overflow-hidden text-left">
-        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-txt2">
+  <section class="py-20 bg-bg border-b border-white/10 relative z-10">
+    <div class="container mx-auto px-6 max-w-6xl">
+      <div class="w-full bg-bg2 border border-white/15 backdrop-blur-2xl rounded-3xl p-5 sm:p-8 shadow-[0_0_100px_rgba(0,255,224,0.25)] relative overflow-hidden text-left">
+        <div class="flex items-center justify-between border-b border-white/10 pb-5 mb-5 font-mono text-xs text-txt2">
           <div class="flex items-center gap-3">
-            <span class="w-3 h-3 rounded-full bg-c1 animate-pulse"></span>
+            <span class="w-3.5 h-3.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
             <span class="font-bold text-txt">BENNI OS // SYSTEM TOPOLOGY DEMONSTRATION</span>
           </div>
-          <div class="text-[11px] text-c1 font-mono font-bold">● H.264 / VP9 CANONICAL STREAM</div>
+          <div class="text-[11px] text-c1 font-mono font-bold px-3 py-1 rounded bg-c1/10 border border-c1/30">● H.264 / VP9 CANONICAL STREAM</div>
         </div>
 
-        <div class="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/10 pointer-events-none">
+        <div class="relative w-full aspect-video rounded-2xl overflow-hidden bg-black border border-white/10 pointer-events-none shadow-2xl">
           <video autoplay muted loop playsinline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Product Film">
             <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
             <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
@@ -369,56 +374,56 @@
   </section>
 
   <!-- 2. STICKY ARCHITECTURE EXPLAINER (50/50 SPLIT) -->
-  <section id="explainer" class="py-24 bg-bg1 border-y border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
+  <section id="explainer" class="py-28 bg-bg1 border-y border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
     <div class="container mx-auto px-6 max-w-7xl">
-      <div class="mb-14 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-3">
+      <div class="mb-16 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
           PLATFORM ARCHITECTURE // SOVEREIGN ENGINE SPECS
         </div>
-        <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Sovereign Platform <span class="text-c1">Architecture</span>
+        <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight">
+          Sovereign Platform <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Architecture</span>
         </h2>
       </div>
 
-      <div class="flex flex-col lg:flex-row gap-12 items-start">
+      <div class="flex flex-col lg:flex-row gap-14 items-start">
         <!-- LEFT 50%: STICKY PREVIEW -->
         <div class="lg:w-1/2 sticky top-28 w-full">
-          <div class="relative aspect-video rounded-2xl glass-card overflow-hidden border border-c1/30 shadow-[0_0_50px_rgba(0,255,224,0.2)]">
+          <div class="relative aspect-video rounded-3xl glass-card overflow-hidden border border-c1/40 shadow-[0_0_70px_rgba(0,255,224,0.25)]">
             <img id="sticky-panel-img" src="material/_review/benni-command-plane-review-01.jpeg" alt="Architecture Layer Preview" class="w-full h-full object-cover transition-all duration-500" />
-            <div class="absolute bottom-4 left-4 font-mono text-[10px] text-c1 bg-bg1/90 px-3 py-1 rounded border border-c1/30">
+            <div class="absolute bottom-5 left-5 font-mono text-[11px] text-c1 bg-bg1/90 px-3.5 py-1.5 rounded-lg border border-c1/40 backdrop-blur-md font-bold">
               LAYER STATUS // ACTIVE INSPECTION
             </div>
           </div>
         </div>
 
         <!-- RIGHT 50%: STICKY PANELS -->
-        <div class="lg:w-1/2 flex flex-col gap-32">
+        <div class="lg:w-1/2 flex flex-col gap-36">
 
-          <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c1">
-            <span class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">LAYER 01 // INTENT & CONTROL</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">Sovereign Control Plane & State Engine</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-              Canonical goal payload normalization, SHA-256 cryptographic hashing, and immutable decision log tracking in <code class="text-c1">benni-control-plane</code>.
+          <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c1">
+            <span class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-3">LAYER 01 // INTENT & CONTROL</span>
+            <h3 class="text-3xl font-bold text-txt mb-4">Sovereign Control Plane & State Engine</h3>
+            <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
+              Canonical goal payload normalization, SHA-256 cryptographic hashing, and immutable decision log tracking in <code class="text-c1 font-bold">benni-control-plane</code>.
             </p>
-            <div class="font-mono text-[11px] text-c1">STATUS: OPERATIONAL (POLICY GATE ENFORCED)</div>
+            <div class="font-mono text-xs text-c1 font-bold">STATUS: OPERATIONAL (POLICY GATE ENFORCED)</div>
           </div>
 
-          <div data-image="material/_review/benni-agent-mesh-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c2">
-            <span class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">LAYER 02 // AGENT SWARM DISPATCH</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">JARVAS-2 Multi-Threaded Engine</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
+          <div data-image="material/_review/benni-agent-mesh-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c2">
+            <span class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-3">LAYER 02 // AGENT SWARM DISPATCH</span>
+            <h3 class="text-3xl font-bold text-txt mb-4">JARVAS-2 Multi-Threaded Engine</h3>
+            <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
               Autonomous process execution dispatcher running multi-agent tasks over Model Context Protocol connectors with zero-drift safety.
             </p>
-            <div class="font-mono text-[11px] text-c2">STATUS: DISPATCHING (MCP ACTIVE)</div>
+            <div class="font-mono text-xs text-c2 font-bold">STATUS: DISPATCHING (MCP ACTIVE)</div>
           </div>
 
-          <div data-image="material/_review/benni-evidence-layer-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c3">
-            <span class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">LAYER 03 // SECURITY & AUDIT</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">NEMESIS Cryptographic Gateway</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-              Single-use approval tokens, HMAC signature verification enforced by <code class="text-c3">benni-nemesis</code>, returning verified Git commit evidence.
+          <div data-image="material/_review/benni-evidence-layer-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-9 rounded-3xl glass-card border-l-4 border-l-c3">
+            <span class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-3">LAYER 03 // SECURITY & AUDIT</span>
+            <h3 class="text-3xl font-bold text-txt mb-4">NEMESIS Cryptographic Gateway</h3>
+            <p class="text-txt2 font-mono text-xs sm:text-sm leading-relaxed mb-6">
+              Single-use approval tokens, HMAC signature verification enforced by <code class="text-c3 font-bold">benni-nemesis</code>, returning verified Git commit evidence.
             </p>
-            <div class="font-mono text-[11px] text-c3">STATUS: SECURED (HMAC ACTIVE)</div>
+            <div class="font-mono text-xs text-c3 font-bold">STATUS: SECURED (HMAC ACTIVE)</div>
           </div>
 
         </div>
@@ -427,15 +432,15 @@
   </section>
 
   <!-- 3. CONSTELLATION ARCHITECTURE REGISTRY (3D STAGE) -->
-  <section id="carousel-section" class="py-24 bg-bg border-b border-white/10 relative z-10" aria-label="Constellation Architecture Registry">
-    <div class="container mx-auto px-6 max-w-7xl mb-8 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-3">
+  <section id="carousel-section" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Constellation Architecture Registry">
+    <div class="container mx-auto px-6 max-w-7xl mb-12 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
         ECOSYSTEM CONSTELLATION // MULTI-AGENT MODULE REGISTRY
       </div>
-      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-        Sovereign Architecture <span class="text-c1">Registry</span>
+      <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight">
+        Sovereign Architecture <span class="text-c1 drop-shadow-[0_0_30px_rgba(0,255,224,0.4)]">Registry</span>
       </h2>
-      <p class="mt-3 text-txt2 font-mono text-xs">Audited core modules and open-source infrastructure driving the Benni OS agent network.</p>
+      <p class="mt-4 text-txt2 font-mono text-xs sm:text-sm">Audited core modules and open-source infrastructure driving the Benni OS agent network.</p>
     </div>
 
     <!-- 3D CAROUSEL STAGE -->
@@ -443,125 +448,125 @@
       <div class="carousel-3d-ring" id="carousel-ring">
 
         <!-- CARD 1 -->
-        <div class="carousel-3d-card flex flex-col justify-between p-6">
-          <div class="h-44 w-full rounded-xl overflow-hidden mb-4 bg-bg1 border border-white/10">
+        <div class="carousel-3d-card flex flex-col justify-between p-7">
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
             <img src="material/_review/benni-open-source-constellation-review-01.jpeg" alt="Gateway" class="w-full h-full object-cover" />
           </div>
           <div>
-            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-            <h3 class="text-lg font-bold text-txt mt-2">benni-operator-gateway</h3>
+            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
+            <h3 class="text-xl font-bold text-txt mt-3">benni-operator-gateway</h3>
             <p class="text-txt2 font-mono text-xs mt-1">Open source MCP operator gateway.</p>
           </div>
-          <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-4 hover:underline">GitHub Repository →</a>
+          <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-5 hover:underline flex items-center gap-1">GitHub Repository →</a>
         </div>
 
         <!-- CARD 2 -->
-        <div class="carousel-3d-card flex flex-col justify-between p-6">
-          <div class="h-44 w-full rounded-xl overflow-hidden mb-4 bg-bg1 border border-white/10">
+        <div class="carousel-3d-card flex flex-col justify-between p-7">
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
             <img src="material/_review/benni-command-plane-review-01.jpeg" alt="Modo Operador" class="w-full h-full object-cover" />
           </div>
           <div>
-            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-            <h3 class="text-lg font-bold text-txt mt-2">modo-operador</h3>
+            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
+            <h3 class="text-xl font-bold text-txt mt-3">modo-operador</h3>
             <p class="text-txt2 font-mono text-xs mt-1">AI Operator Mode framework.</p>
           </div>
-          <a href="https://github.com/benni-os/modo-operador" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-4 hover:underline">GitHub Repository →</a>
+          <a href="https://github.com/benni-os/modo-operador" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-5 hover:underline flex items-center gap-1">GitHub Repository →</a>
         </div>
 
         <!-- CARD 3 -->
-        <div class="carousel-3d-card flex flex-col justify-between p-6">
-          <div class="h-44 w-full rounded-xl overflow-hidden mb-4 bg-bg1 border border-white/10">
+        <div class="carousel-3d-card flex flex-col justify-between p-7">
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
             <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="Inference" class="w-full h-full object-cover" />
           </div>
           <div>
-            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-            <h3 class="text-lg font-bold text-txt mt-2">benni-inference-engine</h3>
+            <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
+            <h3 class="text-xl font-bold text-txt mt-3">benni-inference-engine</h3>
             <p class="text-txt2 font-mono text-xs mt-1">Hybrid GPU/CPU local inference.</p>
           </div>
-          <a href="https://github.com/benni-os/benni-inference-engine" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-4 hover:underline">GitHub Repository →</a>
+          <a href="https://github.com/benni-os/benni-inference-engine" target="_blank" rel="noopener noreferrer" class="text-c1 font-mono text-xs font-bold mt-5 hover:underline flex items-center gap-1">GitHub Repository →</a>
         </div>
 
         <!-- CARD 4 -->
-        <div class="carousel-3d-card flex flex-col justify-between p-6">
-          <div class="h-44 w-full rounded-xl overflow-hidden mb-4 bg-bg1 border border-white/10">
+        <div class="carousel-3d-card flex flex-col justify-between p-7">
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
             <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="NEMESIS" class="w-full h-full object-cover" />
           </div>
           <div>
-            <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2 py-0.5 rounded border border-c2/30 font-bold">🔒 Sealed Core</span>
-            <h3 class="text-lg font-bold text-txt mt-2">benni-nemesis</h3>
+            <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2.5 py-1 rounded-md border border-c2/30 font-bold">🔒 Sealed Core</span>
+            <h3 class="text-xl font-bold text-txt mt-3">benni-nemesis</h3>
             <p class="text-txt2 font-mono text-xs mt-1">NEMESIS Security Gateway.</p>
           </div>
-          <span class="text-txt3 font-mono text-xs font-semibold mt-4">🔒 Enterprise Core Infrastructure</span>
+          <span class="text-txt3 font-mono text-xs font-semibold mt-5">🔒 Enterprise Core Infrastructure</span>
         </div>
 
         <!-- CARD 5 -->
-        <div class="carousel-3d-card flex flex-col justify-between p-6">
-          <div class="h-44 w-full rounded-xl overflow-hidden mb-4 bg-bg1 border border-white/10">
+        <div class="carousel-3d-card flex flex-col justify-between p-7">
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
             <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="JARVAS-2" class="w-full h-full object-cover" />
           </div>
           <div>
-            <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2 py-0.5 rounded border border-c2/30 font-bold">🔒 Sealed Core</span>
-            <h3 class="text-lg font-bold text-txt mt-2">jarvas-2</h3>
+            <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2.5 py-1 rounded-md border border-c2/30 font-bold">🔒 Sealed Core</span>
+            <h3 class="text-xl font-bold text-txt mt-3">jarvas-2</h3>
             <p class="text-txt2 font-mono text-xs mt-1">Autonomous process dispatcher.</p>
           </div>
-          <span class="text-txt3 font-mono text-xs font-semibold mt-4">🔒 Enterprise Core Infrastructure</span>
+          <span class="text-txt3 font-mono text-xs font-semibold mt-5">🔒 Enterprise Core Infrastructure</span>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- 4. PIPELINE STACK (CANONICAL MP4/WEBM & POSTER SOURCES) -->
-  <section id="pipeline-stack" class="py-24 bg-bg1 border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
+  <!-- 4. PIPELINE STACK -->
+  <section id="pipeline-stack" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Pipeline Stack">
     <div class="container mx-auto px-6 max-w-5xl">
-      <div class="mb-14 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c3/10 text-c3 border border-c3/30 font-mono text-xs font-bold mb-3">
+      <div class="mb-16 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c3/10 text-c3 border border-c3/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,136,0.2)]">
           DETERMINISTIC PROTOCOL // AUDITABLE STATE ENGINE
         </div>
-        <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Deterministic Execution <span class="text-c3">Protocols</span>
+        <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight">
+          Deterministic Execution <span class="text-c3 drop-shadow-[0_0_30px_rgba(0,255,136,0.4)]">Protocols</span>
         </h2>
       </div>
 
-      <div class="flex flex-col gap-12">
+      <div class="flex flex-col gap-14">
 
         <!-- LOOP 01 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-8 sm:p-12">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/pipeline-poster.jpg" preload="auto">
               <source src="public/motion/sequences/operation-pipeline.mp4" type="video/mp4">
               <source src="public/motion/sequences/operation-pipeline.webm" type="video/webm">
             </video>
           </div>
-          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">PHASE 01 // SCHEDULING</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Deterministic Task DAG Scheduling</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">Every action is partitioned into atomic execution steps with state rollback verification.</p>
+          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-2">PHASE 01 // SCHEDULING</div>
+          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Deterministic Task DAG Scheduling</h3>
+          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">Every action is partitioned into atomic execution steps with state rollback verification.</p>
         </article>
 
         <!-- LOOP 02 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-8 sm:p-12">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/agent-mesh-poster.jpg" preload="auto">
               <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4">
               <source src="public/motion/sequences/agent-mesh-activation.webm" type="video/webm">
             </video>
           </div>
-          <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-1">PHASE 02 // MESH DISPATCH</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Multi-Agent Swarm Dispatch</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">JARVAS-2 agent threads invoking native tools with real-time state synchronization.</p>
+          <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-2">PHASE 02 // MESH DISPATCH</div>
+          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Multi-Agent Swarm Dispatch</h3>
+          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">JARVAS-2 agent threads invoking native tools with real-time state synchronization.</p>
         </article>
 
         <!-- LOOP 03 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-8 sm:p-12">
+        <article class="relative h-[65vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-9 sm:p-14 shadow-2xl">
           <div class="seamless-video-container absolute inset-0 -z-10">
             <video autoplay muted loop playsinline poster="public/posters/evidence-poster.jpg" preload="auto">
               <source src="public/motion/sequences/evidence-settlement.mp4" type="video/mp4">
               <source src="public/motion/sequences/evidence-settlement.webm" type="video/webm">
             </video>
           </div>
-          <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-1">PHASE 03 // SETTLEMENT</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Cryptographic Evidence Settlement</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">Verified Git commits and MONOMO telemetry records proving clean completion.</p>
+          <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-2">PHASE 03 // SETTLEMENT</div>
+          <h3 class="text-3xl sm:text-5xl font-black text-txt mb-3">Cryptographic Evidence Settlement</h3>
+          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl leading-relaxed">Verified Git commits and MONOMO telemetry records proving clean completion.</p>
         </article>
 
       </div>
@@ -569,15 +574,15 @@
   </section>
 
   <!-- 5. PARALLAX BRAND STATEMENT -->
-  <section class="py-36 bg-bg relative overflow-hidden border-b border-white/10 z-10" aria-label="Parallax Statement">
+  <section class="py-40 bg-bg relative overflow-hidden border-b border-white/10 z-10" aria-label="Parallax Statement">
     <div class="absolute inset-0 -z-10 opacity-30">
       <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Parallax Background" class="w-full h-full object-cover scale-110" />
     </div>
     <div class="container mx-auto px-6 max-w-4xl text-center">
       <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-4">ENTERPRISE SOVEREIGNTY</div>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-txt tracking-tight leading-tight mb-6">
+      <h2 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight mb-8">
         "Sovereign work, <br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">verified by cryptographic evidence."</span>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.5)]">verified by cryptographic evidence."</span>
       </h2>
       <p class="text-txt2 font-mono text-xs sm:text-sm max-w-lg mx-auto">
         BENNI OS — Engineered for mission-critical enterprise autonomy.
@@ -585,22 +590,22 @@
     </div>
   </section>
 
-  <!-- 6. OPERATOR NETWORK CTA (SECURED WITH GITHUB COMMUNITY) -->
-  <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
+  <!-- 6. OPERATOR NETWORK CTA -->
+  <section class="py-32 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
     <div class="container mx-auto px-6 max-w-4xl">
-      <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight mb-6">
+      <h2 class="text-5xl md:text-7xl font-black text-txt tracking-tight mb-8 leading-tight">
         Join the Sovereign <br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">Operator Network.</span>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3 drop-shadow-[0_0_40px_rgba(0,255,224,0.5)]">Operator Network.</span>
       </h2>
-      <p class="text-txt2 font-mono text-sm max-w-xl mx-auto leading-relaxed mb-10">
+      <p class="text-txt2 font-mono text-sm sm:text-base max-w-xl mx-auto leading-relaxed mb-12">
         Connect with enterprise operators building sovereign AI infrastructure, deploying agent swarms, and auditing production code.
       </p>
 
-      <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
-        <a href="dashboard.html" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_50px_rgba(0,255,224,0.5)]">
+      <div class="flex flex-col sm:flex-row justify-center items-center gap-5">
+        <a href="dashboard.html" class="inline-flex items-center gap-2.5 px-9 py-4.5 rounded-2xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_50px_rgba(0,255,224,0.6)] transform hover:scale-105">
           <span class="material-symbols-outlined">space_dashboard</span> Launch Live Dashboard Console →
         </a>
-        <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-bg1 text-txt font-bold font-mono text-sm border border-white/20 hover:border-c1 transition-all">
+        <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2.5 px-9 py-4.5 rounded-2xl bg-bg1 text-txt font-bold font-mono text-sm border border-white/20 hover:border-c1 transition-all transform hover:scale-105">
           Explore GitHub Organization →
         </a>
       </div>
@@ -608,13 +613,13 @@
   </section>
 
   <!-- FOOTER -->
-  <footer class="py-10 bg-bg border-t border-white/10 font-mono text-xs text-txt3 relative z-10" aria-label="Site Footer">
+  <footer class="py-12 bg-bg border-t border-white/10 font-mono text-xs text-txt3 relative z-10" aria-label="Site Footer">
     <div class="container mx-auto px-6 max-w-7xl flex flex-col sm:flex-row items-center justify-between gap-4">
       <div>© 2026 BENNI OS — Sovereign Autonomous Agent Swarm Infrastructure.</div>
-      <div class="flex gap-6">
-        <a href="dashboard.html" class="hover:text-c1">Live Dashboard Console</a>
-        <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" class="hover:text-c1">GitHub Organization</a>
-        <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" class="hover:text-c1">Operator Gateway</a>
+      <div class="flex gap-8">
+        <a href="dashboard.html" class="hover:text-c1 transition-colors">Live Dashboard Console</a>
+        <a href="https://github.com/benni-os" target="_blank" rel="noopener noreferrer" class="hover:text-c1 transition-colors">GitHub Organization</a>
+        <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" class="hover:text-c1 transition-colors">Operator Gateway</a>
       </div>
     </div>
   </footer>
@@ -669,27 +674,24 @@
         renderer3D.setSize(window.innerWidth, window.innerHeight);
         renderer3D.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-        // Load 3D GLB Model from public/models/benni-topology.glb if GLTFLoader is available
         if (window.THREE.GLTFLoader) {
           const loader = new THREE.GLTFLoader();
           loader.load('public/models/benni-topology.glb', (gltf) => {
             gltfModel3D = gltf.scene;
             gltfModel3D.scale.set(3, 3, 3);
             scene3D.add(gltfModel3D);
-          }, undefined, (err) => {
-            console.log('GLB model loaded via Three.js node mesh fallback');
-          });
+          }, undefined, () => {});
         }
 
-        const count = 350;
+        const count = 400;
         const geo = new THREE.BufferGeometry();
         const pos = new Float32Array(count * 3);
         const originalY = new Float32Array(count);
 
         for (let i = 0; i < count; i++) {
-          const x = (Math.random() - 0.5) * 50;
-          const y = (Math.random() - 0.5) * 50;
-          const z = (Math.random() - 0.5) * 50;
+          const x = (Math.random() - 0.5) * 55;
+          const y = (Math.random() - 0.5) * 55;
+          const z = (Math.random() - 0.5) * 55;
           pos[i * 3] = x;
           pos[i * 3 + 1] = y;
           pos[i * 3 + 2] = z;
@@ -697,7 +699,7 @@
         }
         geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-        const mat = new THREE.PointsMaterial({ size: 0.22, color: 0x00ffe0, transparent: true, opacity: 0.7 });
+        const mat = new THREE.PointsMaterial({ size: 0.24, color: 0x00ffe0, transparent: true, opacity: 0.75 });
         particles3D = new THREE.Points(geo, mat);
         scene3D.add(particles3D);
 
@@ -716,7 +718,7 @@
 
           const positions = particles3D.geometry.attributes.position.array;
           for (let i = 0; i < count; i++) {
-            positions[i * 3 + 1] = originalY[i] + Math.sin(time * 1.5 + positions[i * 3]) * 0.8;
+            positions[i * 3 + 1] = originalY[i] + Math.sin(time * 1.5 + positions[i * 3]) * 0.9;
           }
           particles3D.geometry.attributes.position.needsUpdate = true;
 
@@ -725,8 +727,8 @@
             gltfModel3D.rotation.x = time * 0.2;
           }
 
-          camera3D.position.x += (mouseX * 2 - camera3D.position.x) * 0.05;
-          camera3D.position.y += (-mouseY * 2 - camera3D.position.y) * 0.05;
+          camera3D.position.x += (mouseX * 2.5 - camera3D.position.x) * 0.05;
+          camera3D.position.y += (-mouseY * 2.5 - camera3D.position.y) * 0.05;
           camera3D.lookAt(scene3D.position);
 
           renderer3D.render(scene3D, camera3D);
@@ -876,7 +878,7 @@
       const cards = document.querySelectorAll('.carousel-3d-card');
       const totalCards = cards.length;
       const angleStep = 360 / totalCards;
-      const radius = 380;
+      const radius = 400;
 
       cards.forEach((card, idx) => {
         const angle = idx * angleStep;
