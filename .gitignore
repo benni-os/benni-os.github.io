@@ -7,3 +7,5 @@ docs/
 scratch/
 material/_source/
 .env*
+.mcp.json
+.agents/
