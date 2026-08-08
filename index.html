@@ -728,20 +728,36 @@
         return img;
       }
 
-      // Preload initial frames and render immediately
+      // Preload initial frames and dismiss loader safely
       let loadedCount = 0;
+      const hideLoader = () => {
+        if (loader && !loader.classList.contains('hidden-loader')) {
+          loader.classList.add('hidden-loader');
+        }
+      };
+
+      // Fallback: Never block the screen for more than 1.2s under any circumstances
+      setTimeout(hideLoader, 1200);
+
+      const onFrameDone = () => {
+        loadedCount++;
+        if (loaderBar) loaderBar.style.width = Math.min(100, Math.round((loadedCount / PRELOAD_COUNT) * 100)) + '%';
+        if (loadedCount >= 1) {
+          renderFrame(1);
+        }
+        if (loadedCount >= 15) {
+          hideLoader();
+        }
+      };
+
       for (let i = 1; i <= PRELOAD_COUNT; i++) {
         const img = loadFrame(i);
-        img.onload = () => {
-          loadedCount++;
-          if (loaderBar) loaderBar.style.width = ((loadedCount / PRELOAD_COUNT) * 100) + '%';
-          if (loadedCount >= 10) {
-            renderFrame(1);
-          }
-          if (loadedCount >= PRELOAD_COUNT) {
-            if (loader) loader.classList.add('hidden-loader');
-          }
-        };
+        if (img.complete) {
+          onFrameDone();
+        } else {
+          img.onload = onFrameDone;
+          img.onerror = onFrameDone;
+        }
       }
 
       function resizeHeroCanvas() {
