@@ -131,7 +131,7 @@
     /* Hero Layout (Full Width, No Card Frames) */
     .hero-track {
       position: relative;
-      height: 480vh;
+      height: 600vh;
       width: 100%;
     }
     .hero-sticky {
@@ -1297,7 +1297,7 @@
       })();
 
       // 5. Hero Canvas Frame Sequence Engine
-      const TOTAL_FRAMES = 180;
+      const TOTAL_FRAMES = 1201;
       const heroCanvas = document.getElementById('hero-canvas');
       const ctx = heroCanvas.getContext('2d');
       const loaderBar = document.getElementById('loader-bar');
@@ -1307,9 +1307,9 @@
       // === ROLLING FRAME CACHE ===
       const frameCache = new Map();          // idx -> HTMLImageElement
       const PRELOAD_COUNT = 40;              // only first 40 before reveal
-      const WINDOW_BEHIND = 30;              // keep 30 frames behind current
-      const WINDOW_AHEAD = 30;               // keep 30 frames ahead
-      const PREFETCH_AHEAD = 15;             // aggressive prefetch in scroll direction
+      const WINDOW_BEHIND = 40;              // keep 30 frames behind current
+      const WINDOW_AHEAD = 40;               // keep 30 frames ahead
+      const PREFETCH_AHEAD = 20;             // aggressive prefetch in scroll direction
       let currentFrameIdx = 1;
       let lastScrollDirection = 1;           // 1 = forward, -1 = backward
 
