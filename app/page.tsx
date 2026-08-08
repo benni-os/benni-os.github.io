@@ -267,13 +267,13 @@ export default function Home() {
               <span>CONTROL PLANE: ONLINE</span>
             </div>
             <div className="text-[#64748b]">|</div>
-            <div>NEMESIS GATE: <span class="text-[#00ffe0] font-bold">HMAC VERIFIED</span></div>
+            <div>NEMESIS GATE: <span className="text-[#00ffe0] font-bold">HMAC VERIFIED</span></div>
             <div className="text-[#64748b]">|</div>
-            <div>INFERENCE ENGINE: <span class="text-[#00ffe0] font-bold">ZERO-CLOUD HYBRID GPU/CPU</span></div>
+            <div>INFERENCE ENGINE: <span className="text-[#00ffe0] font-bold">ZERO-CLOUD HYBRID GPU/CPU</span></div>
             <div className="text-[#64748b]">|</div>
-            <div>REPOSITORIES: <span class="text-white font-bold">17 AUDITED (6 OPEN SOURCE / 11 CORE)</span></div>
+            <div>REPOSITORIES: <span className="text-white font-bold">17 AUDITED (6 OPEN SOURCE / 11 CORE)</span></div>
             <div className="text-[#64748b]">|</div>
-            <div class="text-[#ffb703] font-bold">POLICY GATE: 9-TIER STRICT ENFORCEMENT</div>
+            <div className="text-[#ffb703] font-bold">POLICY GATE: 9-TIER STRICT ENFORCEMENT</div>
           </div>
         </section>
 
