@@ -59,93 +59,82 @@ export default function Home() {
     setFilteredProjects(result);
   }, [filterMode, searchQuery, projects]);
 
-  // Zero-Lag Cursor Particle Trail System
+  // Zero-Lag Cursor Particle Trail System (Radial Gradient Pool)
   useEffect(() => {
     if (!cursorCanvasRef.current) return;
     const canvas = cursorCanvasRef.current;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let w = (canvas.width = window.innerWidth);
+    let h = (canvas.height = window.innerHeight);
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
     };
     window.addEventListener('resize', handleResize);
 
-    const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; color: string; life: number; decay: number }> = [];
-    const MAX_PARTICLES = 70;
+    const particles: Array<{ x: number; y: number; vx: number; vy: number; r: number; color: string; alpha: number; decay: number }> = [];
+    const MAX = 35;
+    let mouseMoved = false;
+    let mx = -100, my = -100;
 
     const handleMouseMove = (e: MouseEvent) => {
-      for (let i = 0; i < 2; i++) {
-        if (particles.length >= MAX_PARTICLES) {
-          particles.shift();
-        }
-        particles.push({
-          x: e.clientX + (Math.random() - 0.5) * 6,
-          y: e.clientY + (Math.random() - 0.5) * 6,
-          vx: (Math.random() - 0.5) * 2,
-          vy: (Math.random() - 0.5) * 2 - 0.5,
-          size: Math.random() * 5 + 3,
-          color: Math.random() > 0.4 ? '#00ffe0' : '#7c5cfc',
-          life: 1.0,
-          decay: Math.random() * 0.025 + 0.025
-        });
-      }
+      mx = e.clientX;
+      my = e.clientY;
+      mouseMoved = true;
     };
-    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
 
     let animId: number;
-    const drawCursorTrail = () => {
-      ctx.clearRect(0, 0, width, height);
+    const loop = () => {
+      if (mouseMoved) {
+        mouseMoved = false;
+        for (let i = 0; i < 2; i++) {
+          if (particles.length >= MAX) particles.shift();
+          particles.push({
+            x: mx + (Math.random() - 0.5) * 8,
+            y: my + (Math.random() - 0.5) * 8,
+            vx: (Math.random() - 0.5) * 1.5,
+            vy: (Math.random() - 0.5) * 1.5 - 0.5,
+            r: Math.random() * 6 + 3,
+            color: Math.random() > 0.4 ? '0, 255, 224' : '124, 92, 252',
+            alpha: 1.0,
+            decay: Math.random() * 0.03 + 0.02
+          });
+        }
+      }
+
+      ctx.clearRect(0, 0, w, h);
 
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
         p.x += p.vx;
         p.y += p.vy;
-        p.life -= p.decay;
-        p.size *= 0.95;
+        p.alpha -= p.decay;
+        p.r *= 0.95;
 
-        if (p.life <= 0 || p.size <= 0.3) {
+        if (p.alpha <= 0 || p.r <= 0.5) {
           particles.splice(i, 1);
           i--;
           continue;
         }
 
-        ctx.save();
-        ctx.globalAlpha = p.life * 0.85;
-        ctx.fillStyle = p.color;
-        ctx.shadowColor = p.color;
-        ctx.shadowBlur = 16;
+        const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2);
+        grad.addColorStop(0, `rgba(${p.color}, ${p.alpha})`);
+        grad.addColorStop(0.5, `rgba(${p.color}, ${p.alpha * 0.5})`);
+        grad.addColorStop(1, `rgba(${p.color}, 0)`);
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.arc(p.x, p.y, p.r * 2, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
         ctx.fill();
-
-        for (let j = i + 1; j < particles.length; j++) {
-          const p2 = particles[j];
-          const dx = p.x - p2.x;
-          const dy = p.y - p2.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (dist < 55) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = (1 - dist / 55) * p.life * 0.35;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-          }
-        }
-        ctx.restore();
       }
 
-      animId = requestAnimationFrame(drawCursorTrail);
+      animId = requestAnimationFrame(loop);
     };
-    drawCursorTrail();
+    loop();
 
     return () => {
       window.removeEventListener('resize', handleResize);
@@ -279,7 +268,7 @@ export default function Home() {
         />
 
         {/* ZERO-LAG CURSOR PARTICLE TRAIL & FLUID CANVAS */}
-        <canvas ref={cursorCanvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-[999]" aria-hidden="true" />
+        <canvas ref={cursorCanvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-[99999] will-change-transform" aria-hidden="true" />
         <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-5 opacity-85 mix-blend-screen" aria-hidden="true" />
 
         {/* 01. HEADER NAVIGATION */}
