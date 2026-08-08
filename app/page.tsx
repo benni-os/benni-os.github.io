@@ -27,6 +27,7 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const cursorCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     fetch('public/data/ecosystem-projects.json')
@@ -57,6 +58,82 @@ export default function Home() {
 
     setFilteredProjects(result);
   }, [filterMode, searchQuery, projects]);
+
+  // Zero-Lag Cursor Particle Trail System
+  useEffect(() => {
+    if (!cursorCanvasRef.current) return;
+    const canvas = cursorCanvasRef.current;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    const particles: Array<{ x: number; y: number; vx: number; vy: number; size: number; color: string; life: number }> = [];
+    const maxParticles = 50;
+
+    let mouseX = -100, mouseY = -100;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+
+      if (particles.length < maxParticles) {
+        particles.push({
+          x: mouseX,
+          y: mouseY,
+          vx: (Math.random() - 0.5) * 1.5,
+          vy: (Math.random() - 0.5) * 1.5 - 0.5,
+          size: Math.random() * 3 + 2,
+          color: Math.random() > 0.4 ? '#00ffe0' : '#7c5cfc',
+          life: 1.0
+        });
+      }
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+
+    let animId: number;
+    const drawCursorTrail = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life -= 0.03;
+        p.size *= 0.96;
+
+        if (p.life <= 0 || p.size <= 0.2) {
+          particles.splice(i, 1);
+          i--;
+          continue;
+        }
+
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.life * 0.7;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = p.color;
+        ctx.fill();
+      }
+
+      ctx.globalAlpha = 1.0;
+      animId = requestAnimationFrame(drawCursorTrail);
+    };
+    drawCursorTrail();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      cancelAnimationFrame(animId);
+    };
+  }, []);
 
   useEffect(() => {
     if (!threeLoaded || !(window as any).THREE) return;
@@ -182,7 +259,8 @@ export default function Home() {
           aria-hidden="true"
         />
 
-        {/* THREE.JS LIVING FLUID INK CANVAS */}
+        {/* ZERO-LAG CURSOR PARTICLE TRAIL & FLUID CANVAS */}
+        <canvas ref={cursorCanvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-[999]" aria-hidden="true" />
         <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-5 opacity-85 mix-blend-screen" aria-hidden="true" />
 
         {/* 01. HEADER NAVIGATION */}
@@ -256,9 +334,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 02. LIVE SYSTEM TELEMETRY STRIP */}
-        <section className="py-4 bg-[#0b101c] border-y border-white/10 font-mono text-xs text-[#94a3b8] overflow-hidden z-20 relative" aria-label="Live System Telemetry Strip">
-          <div className="container mx-auto px-6 flex items-center justify-between gap-6 whitespace-nowrap overflow-x-auto py-1">
+        {/* 02. LIVE SYSTEM TELEMETRY STRIP WITH BACKGROUND MOTION VIDEO */}
+        <section className="relative py-5 bg-[#0b101c] border-y border-white/10 font-mono text-xs text-[#94a3b8] overflow-hidden z-20" aria-label="Live System Telemetry Strip">
+          <div className="absolute inset-0 opacity-25 pointer-events-none">
+            <video autoPlay muted loop playsInline preload="auto" className="w-full h-full object-cover">
+              <source src="public/videos/particles-loop.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <div className="container mx-auto px-6 flex items-center justify-between gap-6 whitespace-nowrap overflow-x-auto py-1 relative z-10">
             <div className="flex items-center gap-2 text-[#00ff88] font-bold">
               <span className="w-2 h-2 rounded-full bg-[#00ff88] animate-pulse"></span>
               <span>CONTROL PLANE: ONLINE</span>

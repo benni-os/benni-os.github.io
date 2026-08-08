@@ -13,9 +13,6 @@
   <meta property="og:url" content="https://benni-os.net/" />
   <meta property="og:image" content="public/posters/hero-poster.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Benni OS — The Operating Layer for Autonomous Work" />
-  <meta name="twitter:description" content="Coordinate agents, memory, tools and policy in one observable enterprise system." />
-  <meta name="twitter:image" content="public/posters/hero-poster.jpg" />
 
   <!-- Canonical URL -->
   <link rel="canonical" href="https://benni-os.net/" />
@@ -69,10 +66,7 @@
       --motion-base: 240ms;
       --motion-medium: 360ms;
       --motion-slow: 520ms;
-      --motion-cinematic: 900ms;
       --ease-enter: cubic-bezier(.16,1,.3,1);
-      --ease-standard: cubic-bezier(.2,.8,.2,1);
-      --ease-exit: cubic-bezier(.7,0,.84,0);
     }
 
     html, body {
@@ -109,7 +103,17 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Living Fluid Ink Background Canvas (Desktop + Mobile) */
+    /* ZERO-LAG CURSOR PARTICLE TRAIL CANVAS */
+    #cursor-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 999;
+    }
+
+    /* Living Fluid Ink Background Canvas */
     #webgl-bg {
       position: fixed;
       inset: 0;
@@ -289,7 +293,7 @@
     @media (prefers-reduced-motion: reduce) {
       .hero-track { height: auto !important; }
       .hero-sticky { position: relative !important; height: auto !important; }
-      #webgl-bg { display: none !important; }
+      #webgl-bg, #cursor-canvas { display: none !important; }
       video { autoplay: false !important; }
       .hero-text-overlay { opacity: 1 !important; transform: none !important; position: relative !important; padding: 2rem 0 !important; }
     }
@@ -311,11 +315,12 @@
   <!-- FIXED RIGHT SCROLL PROGRESS BAR -->
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- NOISE OVERLAY & THREE.JS FLUID INK IN WATER SHADER CANVAS -->
+  <!-- ZERO-LAG CURSOR PARTICLE TRAIL & FLUID SHADER CANVAS -->
+  <canvas id="cursor-canvas" aria-hidden="true"></canvas>
   <div class="noise-overlay" aria-hidden="true"></div>
   <canvas id="webgl-bg" aria-hidden="true"></canvas>
 
-  <!-- 01. HEADER NAVIGATION (ARCA IA: Max 5 primary links + 1 primary CTA) -->
+  <!-- 01. HEADER NAVIGATION -->
   <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
     <div class="container mx-auto px-6 h-16 flex items-center justify-between">
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
@@ -351,7 +356,7 @@
       <!-- FULL-SCREEN HERO CANVAS (EDGE TO EDGE) -->
       <canvas id="hero-canvas"></canvas>
 
-      <!-- OVERLAY TEXT 1: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 1) -->
+      <!-- OVERLAY TEXT 1: ALIGNED LEFT -->
       <div id="overlay-1" class="hero-text-overlay align-left max-w-2xl left-12 sm:left-24">
         <div class="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-2xl mb-6 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
           <span class="w-2.5 h-2.5 rounded-full bg-c1 animate-pulse shadow-[0_0_12px_#00ffe0]"></span>
@@ -366,7 +371,7 @@
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 2: ALIGNED RIGHT (CAMERA PERSPECTIVE VIEW 2 - PAN RIGHT) -->
+      <!-- OVERLAY TEXT 2: ALIGNED RIGHT -->
       <div id="overlay-2" class="hero-text-overlay align-right max-w-2xl right-12 sm:right-24">
         <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c2/10 border border-c2/30 inline-block">CANONICAL STATE & SECURITY CONTROLS</div>
         <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
@@ -378,7 +383,7 @@
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 3: ALIGNED LEFT (CAMERA PERSPECTIVE VIEW 3 - PAN LEFT) -->
+      <!-- OVERLAY TEXT 3: ALIGNED LEFT -->
       <div id="overlay-3" class="hero-text-overlay align-left max-w-2xl left-12 sm:left-24">
         <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-c3/10 border border-c3/30 inline-block">ENTERPRISE AGENT MESH</div>
         <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
@@ -390,7 +395,7 @@
         </p>
       </div>
 
-      <!-- OVERLAY TEXT 4: ALIGNED CENTER (CAMERA PERSPECTIVE VIEW 4 - CENTER FOCUS) -->
+      <!-- OVERLAY TEXT 4: ALIGNED CENTER -->
       <div id="overlay-4" class="hero-text-overlay align-center max-w-3xl">
         <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-4 px-3.5 py-1.5 rounded-lg bg-gold/10 border border-gold/30 inline-block">DETERMINISTIC PIPELINE PROTOCOL</div>
         <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
@@ -406,9 +411,14 @@
     </div>
   </section>
 
-  <!-- 02. LIVE SYSTEM STRIP -->
-  <section class="py-4 bg-bg2 border-y border-white/10 font-mono text-xs text-txt2 overflow-hidden z-20 relative" aria-label="Live System Telemetry Strip">
-    <div class="container mx-auto px-6 flex items-center justify-between gap-6 whitespace-nowrap overflow-x-auto py-1">
+  <!-- 02. LIVE SYSTEM TELEMETRY STRIP WITH BACKGROUND MOTION VIDEO -->
+  <section class="relative py-5 bg-bg2 border-y border-white/10 font-mono text-xs text-txt2 overflow-hidden z-20" aria-label="Live System Telemetry Strip">
+    <div class="absolute inset-0 opacity-25 pointer-events-none">
+      <video autoPlay muted loop playsInline preload="auto">
+        <source src="public/videos/particles-loop.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <div class="container mx-auto px-6 flex items-center justify-between gap-6 whitespace-nowrap overflow-x-auto py-1 relative z-10">
       <div class="flex items-center gap-2 text-c3 font-bold">
         <span class="w-2 h-2 rounded-full bg-c3 animate-pulse"></span>
         <span>CONTROL PLANE: ONLINE</span>
@@ -424,12 +434,12 @@
     </div>
   </section>
 
-  <!-- 03. PRODUCT SURFACE AUTHORITY (Intent -> Control Plane -> Plan -> Agent Mesh -> Policy -> Execution -> Evidence) -->
+  <!-- 03. PRODUCT SURFACE AUTHORITY WITH FULL-BLEED SEAMLESS VIDEO BACKGROUND -->
   <section class="full-bleed-video-section border-b border-white/10 relative z-10">
     <div class="absolute inset-0 bg-gradient-to-t from-bg via-transparent to-bg z-10 pointer-events-none"></div>
     <video autoPlay muted loop playsInline poster="public/posters/hero-poster.jpg" preload="auto" aria-label="Benni OS Product Surface Authority Video">
+      <source src="public/videos/hero-bg.mp4" type="video/mp4" />
       <source src="public/motion/hero/hero-product-film.mp4" type="video/mp4" />
-      <source src="public/motion/hero/hero-product-film.webm" type="video/webm" />
     </video>
     <div class="absolute inset-0 z-20 flex flex-col justify-center items-center text-center px-6">
       <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest px-4 py-1.5 rounded-full bg-bg/80 border border-c1/40 backdrop-blur-md mb-4">
@@ -441,8 +451,13 @@
     </div>
   </section>
 
-  <!-- 04 & 06. STICKY ARCHITECTURE EXPLAINER (DEPTH PARALLAX & CORE ARCHITECTURE) -->
-  <section id="explainer" class="py-28 bg-bg1 border-b border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
+  <!-- 04 & 06. STICKY ARCHITECTURE EXPLAINER WITH SEAMLESS INFRASTRUCTURE BACKGROUND MOTION -->
+  <section id="explainer" class="py-28 bg-bg1 border-b border-white/10 relative z-10 overflow-hidden" aria-label="Sticky Architecture Explainer">
+    <div class="absolute inset-0 opacity-15 pointer-events-none -z-10">
+      <video autoPlay muted loop playsInline preload="auto">
+        <source src="public/videos/infra-bg.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="container mx-auto px-6 max-w-7xl">
       <div class="mb-16 text-center">
         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
@@ -499,8 +514,8 @@
     </div>
   </section>
 
-  <!-- 04. ECOSYSTEM ATLAS (3D STAGE) -->
-  <section id="atlas-section" class="py-28 bg-bg border-b border-white/10 relative z-10" aria-label="Constellation Architecture Registry">
+  <!-- 04. ECOSYSTEM ATLAS (3D STAGE) WITH BACKGROUND FLYTHROUGH VIDEO -->
+  <section id="atlas-section" class="py-28 bg-bg border-b border-white/10 relative z-10 overflow-hidden" aria-label="Constellation Architecture Registry">
     <div class="container mx-auto px-6 max-w-7xl mb-12 text-center">
       <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4 shadow-[0_0_20px_rgba(0,255,224,0.2)]">
         ECOSYSTEM CONSTELLATION // MULTI-AGENT MODULE REGISTRY
@@ -517,8 +532,10 @@
 
         <!-- CARD 1 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
-          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
-            <img src="material/_review/benni-open-source-constellation-review-01.jpeg" alt="Gateway" class="w-full h-full object-cover" />
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+              <source src="public/motion/sequences/benni-ecosystem-atlas-flythrough.mp4" type="video/mp4" />
+            </video>
           </div>
           <div>
             <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
@@ -530,8 +547,10 @@
 
         <!-- CARD 2 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
-          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
-            <img src="material/_review/benni-command-plane-review-01.jpeg" alt="Modo Operador" class="w-full h-full object-cover" />
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+              <source src="public/motion/sequences/ecosystem-activation.mp4" type="video/mp4" />
+            </video>
           </div>
           <div>
             <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
@@ -543,8 +562,10 @@
 
         <!-- CARD 3 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
-          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
-            <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="Inference" class="w-full h-full object-cover" />
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+              <source src="public/motion/sequences/3d-flythrough-topology.mp4" type="video/mp4" />
+            </video>
           </div>
           <div>
             <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2.5 py-1 rounded-md border border-c3/30 font-bold">● Open Source (MIT)</span>
@@ -556,8 +577,10 @@
 
         <!-- CARD 4 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
-          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
-            <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="NEMESIS" class="w-full h-full object-cover" />
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+              <source src="public/motion/sequences/ecosystem-activation.mp4" type="video/mp4" />
+            </video>
           </div>
           <div>
             <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2.5 py-1 rounded-md border border-c2/30 font-bold">🔒 Sealed Core</span>
@@ -569,8 +592,10 @@
 
         <!-- CARD 5 -->
         <div class="carousel-3d-card flex flex-col justify-between p-7">
-          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10">
-            <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="JARVAS-2" class="w-full h-full object-cover" />
+          <div class="h-48 w-full rounded-2xl overflow-hidden mb-4 bg-bg1 border border-white/10 relative">
+            <video autoPlay muted loop playsInline className="w-full h-full object-cover">
+              <source src="public/motion/sequences/agent-mesh-activation.mp4" type="video/mp4" />
+            </video>
           </div>
           <div>
             <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2.5 py-1 rounded-md border border-c2/30 font-bold">🔒 Sealed Core</span>
@@ -611,9 +636,9 @@
         </div>
       </div>
 
-      <!-- DYNAMIC PROJECT GRID CONTAINING ALL AUDITED REPOS -->
+      <!-- DYNAMIC PROJECT GRID -->
       <div id="project-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Rendered dynamically by script from ecosystem-projects.json -->
+        <!-- Rendered dynamically by script -->
       </div>
     </div>
   </section>
@@ -675,8 +700,13 @@
     </div>
   </section>
 
-  <!-- 09. TRUST AND EVIDENCE -->
+  <!-- 09. TRUST AND EVIDENCE WITH BACKGROUND EVIDENCE VIDEO STREAM -->
   <section class="py-28 bg-bg1 relative overflow-hidden border-b border-white/10 z-10" aria-label="Trust and Cryptographic Evidence">
+    <div class="absolute inset-0 opacity-20 pointer-events-none -z-10">
+      <video autoPlay muted loop playsInline preload="auto">
+        <source src="public/motion/sequences/benni-intent-to-evidence.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="container mx-auto px-6 max-w-4xl text-center">
       <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-4">VERIFIABLE TRUST & AUDITABILITY</div>
       <h2 class="text-4xl sm:text-6xl font-black text-txt tracking-tight leading-tight mb-8">
@@ -692,7 +722,12 @@
   </section>
 
   <!-- 10. COMMUNITY / START BUILDING CTA -->
-  <section class="py-32 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
+  <section class="py-32 bg-gradient-to-b from-bg1 to-bg text-center relative z-10 overflow-hidden" aria-label="Community Call to Action">
+    <div class="absolute inset-0 opacity-15 pointer-events-none -z-10">
+      <video autoPlay muted loop playsInline preload="auto">
+        <source src="public/videos/hero-bg.mp4" type="video/mp4" />
+      </video>
+    </div>
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="text-5xl md:text-7xl font-black text-txt tracking-tight mb-8 leading-tight">
         Join the Sovereign <br />
@@ -725,10 +760,75 @@
     </div>
   </footer>
 
-  <!-- ENGINE SCRIPTS -->
+  <!-- ENGINE SCRIPTS: ZERO-LAG CURSOR PARTICLE TRAIL + VIDEO ENGINE -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Fetch Dynamic Projects from public/data/ecosystem-projects.json
+      // 0. ZERO-LAG CURSOR PARTICLE TRAIL SYSTEM (Canvas2D Object Pool)
+      (function initZeroLagCursorTrail() {
+        const canvas = document.getElementById('cursor-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+          width = canvas.width = window.innerWidth;
+          height = canvas.height = window.innerHeight;
+        });
+
+        const particles = [];
+        const maxParticles = 50;
+
+        let mouseX = -100, mouseY = -100;
+        window.addEventListener('mousemove', (e) => {
+          mouseX = e.clientX;
+          mouseY = e.clientY;
+
+          if (particles.length < maxParticles) {
+            particles.push({
+              x: mouseX,
+              y: mouseY,
+              vx: (Math.random() - 0.5) * 1.5,
+              vy: (Math.random() - 0.5) * 1.5 - 0.5,
+              size: Math.random() * 3 + 2,
+              color: Math.random() > 0.4 ? '#00ffe0' : '#7c5cfc',
+              life: 1.0
+            });
+          }
+        });
+
+        function drawCursorTrail() {
+          ctx.clearRect(0, 0, width, height);
+
+          for (let i = 0; i < particles.length; i++) {
+            const p = particles[i];
+            p.x += p.vx;
+            p.y += p.vy;
+            p.life -= 0.03;
+            p.size *= 0.96;
+
+            if (p.life <= 0 || p.size <= 0.2) {
+              particles.splice(i, 1);
+              i--;
+              continue;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            ctx.fillStyle = p.color;
+            ctx.globalAlpha = p.life * 0.7;
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = p.color;
+            ctx.fill();
+          }
+
+          ctx.globalAlpha = 1.0;
+          requestAnimationFrame(drawCursorTrail);
+        }
+        drawCursorTrail();
+      })();
+
+      // 1. Fetch Dynamic Projects
       fetch('public/data/ecosystem-projects.json')
         .then(res => res.json())
         .then(data => {
@@ -758,7 +858,6 @@
 
           renderProjects(data.projects);
 
-          // Filtering
           const btnAll = document.getElementById('filter-all');
           const btnPublic = document.getElementById('filter-public');
           const btnPrivate = document.getElementById('filter-private');
@@ -1002,7 +1101,7 @@
         ctx.drawImage(img, cx, cy, nw, nh);
       }
 
-      // 6. GSAP ScrollTrigger for Side-to-Side Camera Perspective Shifts on Scroll
+      // 6. GSAP ScrollTrigger
       const track = document.querySelector('.hero-track');
       const overlays = [
         { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22 },
