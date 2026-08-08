@@ -84,7 +84,11 @@
           // Manifest can override default states
           this._narrativeStates = this.manifest.narrative_states.map(ns => {
             const base = NARRATIVE_STATES.find(n => n.id === ns.id) || {};
-            return { ...base, ...ns, motionId: ns.asset_id || base.motionId };
+            return {
+              ...base,
+              ...ns,
+              motionId: ns.asset_id || ns.motionId || base.motionId
+            };
           });
         } else {
           this._narrativeStates = NARRATIVE_STATES;
@@ -122,10 +126,8 @@
 
     _getSrc(asset) {
       if (this._isMobile) {
-        // Mobile: MP4 only (no WebM — operator decision)
         return asset.mobile || asset.desktop;
       }
-      // Desktop: WebM progressive enhancement
       if (this._canWebm && asset.webm) return asset.webm;
       return asset.desktop;
     }
@@ -152,7 +154,12 @@
       const video = this.videos.get(motionId);
       const asset = this.assets.get(motionId);
       if (!video || !asset) return false;
-      if (this.loaded.has(motionId)) return true; // Already loaded
+      if (this.loaded.has(motionId)) return true;
+
+      // Budget enforcement: max 2, prefer lighter assets
+      if (this.loaded.size >= 2) {
+        this._evictHeaviest(motionId);
+      }
 
       const src = this._getSrc(asset);
       if (!src) return false;
@@ -161,6 +168,7 @@
       video.preload = 'auto';
       video.load();
       this.loaded.add(motionId);
+      this.emit('loaded', { motionId, sizeHint: asset.size_hint_mb || 0 });
       return true;
     }
 
@@ -174,33 +182,70 @@
       this.loaded.delete(motionId);
     }
 
+    /**
+     * Evict the heaviest currently loaded video that is not the requested one
+     */
+    _evictHeaviest(keepId) {
+      let heaviestId = null;
+      let heaviestSize = -1;
+
+      this.loaded.forEach(id => {
+        if (id === keepId) return;
+        const asset = this.assets.get(id);
+        const size = asset?.size_hint_mb || 10;
+        if (size > heaviestSize) {
+          heaviestSize = size;
+          heaviestId = id;
+        }
+      });
+
+      if (heaviestId) {
+        this._unloadSrc(heaviestId);
+      }
+    }
+
     getLoadedCount() { return this.loaded.size; }
 
     /**
-     * Preload the next video in the narrative sequence.
-     * Enforces max 2 loaded videos.
+     * Preload inteligente:
+     * - Respeita max 2 vídeos
+     * - Prefere assets com preload_priority mais baixo (1 = mais importante)
+     * - Evita carregar assets > 15MB se já houver um carregado
      */
     preloadNext(currentIndex) {
       const states = this._narrativeStates || NARRATIVE_STATES;
       if (currentIndex + 1 >= states.length) return;
-      const nextId = states[currentIndex + 1].motionId;
-      if (this.loaded.has(nextId)) return;
 
-      // Enforce budget: if we'd exceed 2, abort distant first
+      const nextState = states[currentIndex + 1];
+      const nextId = nextState.motionId || nextState.asset_id;
+      if (!nextId || this.loaded.has(nextId)) return;
+
+      const asset = this.assets.get(nextId);
+      if (!asset) return;
+
+      // Skip very heavy assets if we already have one loaded
+      const sizeHint = asset.size_hint_mb || 10;
+      if (sizeHint > 15 && this.loaded.size >= 1) {
+        return;
+      }
+
+      // Enforce budget
       if (this.loaded.size >= 2) {
         this._abortDistant(currentIndex, 1);
       }
+
       this._loadSrc(nextId);
     }
 
     /**
-     * Abort loads outside the given range of the current index.
+     * Abort loads outside the given range of the current index
      */
     _abortDistant(currentIndex, range) {
       const states = this._narrativeStates || NARRATIVE_STATES;
       const keep = new Set();
       for (let i = Math.max(0, currentIndex - range); i <= Math.min(states.length - 1, currentIndex + range); i++) {
-        keep.add(states[i].motionId);
+        const id = states[i].motionId || states[i].asset_id;
+        if (id) keep.add(id);
       }
       this.loaded.forEach(id => {
         if (!keep.has(id)) this._unloadSrc(id);

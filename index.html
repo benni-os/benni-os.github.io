@@ -418,6 +418,12 @@
       background: linear-gradient(to right, #00ffe0, #7c5cfc, #00ff88, #ffb703, #f8fafc);
     }
 
+    /* Fallback visual quando vídeo falha ou reduced-motion */
+    .narrative-video-layer:not([src]),
+    .narrative-video-layer.error {
+      background: radial-gradient(circle at center, rgba(0,255,224,0.08) 0%, transparent 70%);
+    }
+
     /* Reduced Motion Support */
     @media (prefers-reduced-motion: reduce) {
       .hero-track { height: auto !important; }
@@ -429,7 +435,14 @@
       .narrative-track { height: auto !important; }
       .narrative-sticky { position: relative !important; height: auto !important; }
       .narrative-video-stack { display: none !important; }
-      .narrative-text-overlay { opacity: 1 !important; transform: none !important; position: relative !important; display: block !important; padding: 3rem 2rem !important; }
+      .narrative-text-overlay {
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        position: relative !important;
+        display: block !important;
+        padding: 3rem 2rem !important;
+      }
       .narrative-step-indicator { display: none !important; }
     }
   </style>
@@ -808,10 +821,12 @@
         </div>
       </div>
       
-      <!-- VIDEO STACK (PING-PONG) -->
+      <!-- VIDEO STACK (controlado pelo MotionRuntime) -->
       <div class="narrative-video-stack" id="narrative-video-stack">
-        <video id="narrative-video-a" class="narrative-video-layer active" muted playsinline preload="none"></video>
-        <video id="narrative-video-b" class="narrative-video-layer" muted playsinline preload="none"></video>
+        <video id="narrative-video-a" class="narrative-video-layer active" 
+               data-motion-id="intent-to-evidence" muted playsinline preload="none"></video>
+        <video id="narrative-video-b" class="narrative-video-layer" 
+               muted playsinline preload="none"></video>
       </div>
       
       <!-- TEXT OVERLAYS (5 states) -->
@@ -1170,14 +1185,45 @@
         fluidMesh3D.position.z = -5;
         scene3D.add(fluidMesh3D);
 
-        if (window.THREE.GLTFLoader) {
-          const loader = new THREE.GLTFLoader();
-          loader.load('public/models/benni-topology.glb', (gltf) => {
-            gltfModel3D = gltf.scene;
-            gltfModel3D.scale.set(3.5, 3.5, 3.5);
-            scene3D.add(gltfModel3D);
-          }, undefined, () => {});
+        // Procedural Topology (nodes + connections) — zero external asset
+        const topologyGroup = new THREE.Group();
+        const nodeGeo = new THREE.SphereGeometry(0.18, 16, 16);
+        const nodeMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0 });
+        const lineMat = new THREE.LineBasicMaterial({ color: 0x7c5cfc, transparent: true, opacity: 0.6 });
+
+        const nodes = [];
+        const NODE_COUNT = 12;
+        const RADIUS = 4.5;
+
+        for (let i = 0; i < NODE_COUNT; i++) {
+          const theta = (i / NODE_COUNT) * Math.PI * 2;
+          const phi = Math.acos((i % 5) / 5 * 2 - 1);
+          const x = RADIUS * Math.sin(phi) * Math.cos(theta);
+          const y = RADIUS * Math.sin(phi) * Math.sin(theta);
+          const z = RADIUS * Math.cos(phi) * 0.6;
+
+          const mesh = new THREE.Mesh(nodeGeo, nodeMat.clone());
+          mesh.position.set(x, y, z);
+          mesh.material.color.setHSL(0.5 + (i / NODE_COUNT) * 0.2, 0.9, 0.6);
+          topologyGroup.add(mesh);
+          nodes.push(mesh);
         }
+
+        // Connections (nearest neighbors)
+        for (let i = 0; i < NODE_COUNT; i++) {
+          for (let j = i + 1; j < NODE_COUNT; j++) {
+            const dist = nodes[i].position.distanceTo(nodes[j].position);
+            if (dist < 3.8) {
+              const points = [nodes[i].position.clone(), nodes[j].position.clone()];
+              const geo = new THREE.BufferGeometry().setFromPoints(points);
+              const line = new THREE.Line(geo, lineMat);
+              topologyGroup.add(line);
+            }
+          }
+        }
+
+        topologyGroup.scale.set(1.1, 1.1, 1.1);
+        scene3D.add(topologyGroup);
 
         camera3D.position.z = 18;
 
@@ -1199,15 +1245,20 @@
           fluidMat.uniforms.uTime.value = time;
           fluidMat.uniforms.uMouse.value.set(mouseX, mouseY);
 
-          // Lerp narrative intensity for smooth transitions
-          const ni = fluidMat.uniforms.uNarrativeIntensity.value;
-          fluidMat.uniforms.uNarrativeIntensity.value += (targetNarrativeIntensity - ni) * 0.03;
+          // Lerp suave
+          if (fluidMat?.uniforms?.uNarrativeIntensity) {
+            const current = fluidMat.uniforms.uNarrativeIntensity.value;
+            const target = window._targetNarrativeIntensity ?? 0;
+            fluidMat.uniforms.uNarrativeIntensity.value += (target - current) * 0.04;
+          }
 
-          // Lerp GLTF rotation speed (narrative-driven)
-          currentRotSpeed += (targetRotSpeed - currentRotSpeed) * 0.02;
-          if (gltfModel3D) {
-            gltfModel3D.rotation.y = time * currentRotSpeed;
-            gltfModel3D.rotation.x = time * 0.15;
+          if (typeof window._targetRotSpeed === 'number') {
+            currentRotSpeed += (window._targetRotSpeed - currentRotSpeed) * 0.03;
+          }
+
+          if (topologyGroup) {
+            topologyGroup.rotation.y = time * currentRotSpeed;
+            topologyGroup.rotation.x = Math.sin(time * 0.3) * 0.15;
           }
 
           camera3D.position.x += (mouseX * 2.5 - camera3D.position.x) * 0.05;
@@ -1221,13 +1272,26 @@
         // Expose WebGL state binding for narrative integration
         window._webglNarrative = {
           setColor: function(r, g, b) {
-            fluidMat.uniforms.uNarrativeColor.value.set(r, g, b);
+            if (fluidMat?.uniforms?.uNarrativeColor) {
+              fluidMat.uniforms.uNarrativeColor.value.set(r, g, b);
+            }
+            // Também atualiza a cor dos nodes da topologia
+            if (topologyGroup) {
+              topologyGroup.traverse((child) => {
+                if (child.isMesh && child.material) {
+                  child.material.color.setRGB(r, g, b);
+                }
+              });
+            }
           },
           setIntensity: function(val) {
-            targetNarrativeIntensity = val;
+            if (fluidMat?.uniforms?.uNarrativeIntensity) {
+              // usamos target para lerp suave
+              window._targetNarrativeIntensity = val;
+            }
           },
           setRotSpeed: function(speed) {
-            targetRotSpeed = speed;
+            window._targetRotSpeed = speed;
           }
         };
       })();
@@ -1361,55 +1425,36 @@
         }
       });
 
-      // 6b. Narrative Pipeline ScrollTrigger (Transformed Pipeline Stack)
+      // 6b. Narrative Pipeline — agora 100% Runtime-driven
       const mm = gsap.matchMedia();
       mm.add('(prefers-reduced-motion: no-preference)', () => {
         const narrativeTrack = document.querySelector('.narrative-track');
-        if (!narrativeTrack) return;
-        
-        const videoA = document.getElementById('narrative-video-a');
-        const videoB = document.getElementById('narrative-video-b');
+        if (!narrativeTrack || !window.motionRuntime) return;
+
         const narrativeTexts = narrativeTrack.querySelectorAll('.narrative-text-overlay');
         const stepNodes = narrativeTrack.querySelectorAll('.narrative-step-node');
         const stepConnectors = narrativeTrack.querySelectorAll('.narrative-step-connector');
         const narrativeProgressBar = document.getElementById('narrative-progress-bar');
-        
-        const videoSources = [
-          'public/motion/sequences/benni-intent-to-evidence',
-          'public/motion/sequences/operation-pipeline',
-          'public/motion/sequences/agent-mesh-activation',
-          'public/motion/sequences/ecosystem-activation',
-          'public/motion/sequences/evidence-settlement'
-        ];
-        const TOTAL_STEPS = videoSources.length;
-        
-        let currentVideoIndex = -1;
-        let activeVideoEl = videoA;
-        let inactiveVideoEl = videoB;
-        
-        // Helper to load video source safely
-        const loadVideo = (el, srcBase) => {
-          el.innerHTML = '';
-          const isMobile = window.innerWidth < 768;
-          if (!isMobile) {
-            const webm = document.createElement('source');
-            webm.src = srcBase + '.webm';
-            webm.type = 'video/webm';
-            el.appendChild(webm);
-          }
-          const mp4 = document.createElement('source');
-          mp4.src = srcBase + '.mp4';
-          mp4.type = 'video/mp4';
-          el.appendChild(mp4);
-          
-          el.load();
-        };
 
-        // Initialize first video
-        loadVideo(activeVideoEl, videoSources[0]);
-        activeVideoEl.play().catch(() => {});
-        currentVideoIndex = 0;
-        
+        // Escuta mudanças de estado do Runtime
+        window.motionRuntime.on('stateChanged', (data) => {
+          const { index, state } = data;
+
+          // Textos
+          narrativeTexts.forEach((t, i) => t.classList.toggle('active', i === index));
+
+          // Nodes
+          stepNodes.forEach((node, i) => {
+            node.classList.toggle('completed', i < index);
+            node.classList.toggle('active', i === index);
+          });
+
+          // Connectors
+          stepConnectors.forEach((conn, i) => {
+            conn.style.setProperty('--fill-progress', i < index ? '100%' : '0%');
+          });
+        });
+
         const st = ScrollTrigger.create({
           trigger: narrativeTrack,
           start: 'top top',
@@ -1417,61 +1462,19 @@
           scrub: 0.5,
           onUpdate: (self) => {
             const p = self.progress;
+            const TOTAL_STEPS = window.motionRuntime.narrativeStates.length;
             const activeStep = Math.min(TOTAL_STEPS - 1, Math.floor(p * TOTAL_STEPS));
-            const stepProgress = (p * TOTAL_STEPS) - activeStep;
-            
-            // Progress bar
-            if (narrativeProgressBar) narrativeProgressBar.style.width = (p * 100) + '%';
-            
-            // Text Overlays & Nodes
-            narrativeTexts.forEach((t, i) => t.classList.toggle('active', i === activeStep));
-            
-            stepNodes.forEach((node, i) => {
-              node.classList.toggle('completed', i < activeStep);
-              node.classList.toggle('active', i === activeStep);
-            });
-            
-            stepConnectors.forEach((conn, i) => {
-              conn.classList.toggle('filled', i <= activeStep);
-              conn.style.setProperty('--fill-progress', i < activeStep ? '100%' : (i === activeStep ? (stepProgress * 100) + '%' : '0%'));
-            });
-            
-            // Video Ping-Pong Logic
-            if (activeStep !== currentVideoIndex) {
-              inactiveVideoEl = (activeVideoEl === videoA) ? videoB : videoA;
-              
-              loadVideo(inactiveVideoEl, videoSources[activeStep]);
-              inactiveVideoEl.play().catch(() => {});
-              
-              inactiveVideoEl.classList.add('active');
-              activeVideoEl.classList.remove('active');
-              
-              // Pause the old video after a short fade
-              const oldVideo = activeVideoEl;
-              setTimeout(() => { if (oldVideo.paused === false) oldVideo.pause(); }, 400);
-              
-              activeVideoEl = inactiveVideoEl;
-              currentVideoIndex = activeStep;
-              
-              if (window.motionRuntime) {
-                window.motionRuntime.setActiveState(activeStep);
-              }
+
+            if (narrativeProgressBar) {
+              narrativeProgressBar.style.width = (p * 100) + '%';
             }
-            
-            // Preload next video if nearing transition
-            if (stepProgress > 0.8 && activeStep < TOTAL_STEPS - 1) {
-              const nextSrc = videoSources[activeStep + 1];
-              const targetEl = (activeVideoEl === videoA) ? videoB : videoA;
-              if (targetEl.innerHTML.indexOf(nextSrc) === -1) {
-                loadVideo(targetEl, nextSrc);
-              }
-            }
+
+            // Deixa o Runtime cuidar de load / crossfade / unload
+            window.motionRuntime.setActiveState(activeStep);
           }
         });
-        
-        return () => {
-          st.kill();
-        };
+
+        return () => st.kill();
       });
 
       // Lazy load logic for carousel cards
@@ -1549,26 +1552,26 @@
 
       // 9. Motion Runtime Initialization & WebGL Narrative Binding
       if (window.MotionRuntime) {
-        window.motionRuntime = new MotionRuntime('data/motion-manifest.json');
+        window.motionRuntime = new MotionRuntime('public/data/motion-manifest.json');
         window.motionRuntime.init().then(() => {
           console.log('[Benni OS] Motion Runtime ready:', window.motionRuntime.getLoadedCount(), 'videos registered');
         });
 
-        // Narrative state → WebGL shader color binding
+        // Narrative state → WebGL shader + topology color binding
         const STATE_COLORS = {
-          'intent':        { r: 0.0,   g: 1.0,   b: 0.878, rotSpeed: 0.3 },
-          'control-plane': { r: 0.486, g: 0.36,  b: 0.988, rotSpeed: 0.4 },
-          'agent-mesh':    { r: 0.0,   g: 1.0,   b: 0.533, rotSpeed: 0.6 },
-          'execution':     { r: 1.0,   g: 0.718, b: 0.012, rotSpeed: 0.9 },
-          'evidence':      { r: 0.973, g: 0.98,  b: 0.988, rotSpeed: 0.2 }
+          'intent':        { r: 0.0,   g: 1.0,   b: 0.878, rotSpeed: 0.28, intensity: 0.35 },
+          'control-plane': { r: 0.486, g: 0.36,  b: 0.988, rotSpeed: 0.42, intensity: 0.40 },
+          'agent-mesh':    { r: 0.0,   g: 1.0,   b: 0.533, rotSpeed: 0.65, intensity: 0.45 },
+          'execution':     { r: 1.0,   g: 0.718, b: 0.012, rotSpeed: 0.90, intensity: 0.50 },
+          'evidence':      { r: 0.973, g: 0.98,  b: 0.988, rotSpeed: 0.22, intensity: 0.30 }
         };
 
         window.motionRuntime.on('stateChanged', (data) => {
-          const stateId = data.state.id;
+          const stateId = data.state?.id;
           const colors = STATE_COLORS[stateId];
           if (colors && window._webglNarrative) {
             window._webglNarrative.setColor(colors.r, colors.g, colors.b);
-            window._webglNarrative.setIntensity(0.35);
+            window._webglNarrative.setIntensity(colors.intensity);
             window._webglNarrative.setRotSpeed(colors.rotSpeed);
           }
         });
