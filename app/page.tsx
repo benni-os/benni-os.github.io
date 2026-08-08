@@ -12,7 +12,7 @@ export default function Home() {
     if (!threeLoaded || !(window as any).THREE) return;
     const THREE = (window as any).THREE;
 
-    // 1. Background Constellation Canvas
+    // 1. Background 3D Particle Constellation Canvas
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const scene = new THREE.Scene();
@@ -22,27 +22,34 @@ export default function Home() {
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      const count = 180;
+      const count = 220;
       const geo = new THREE.BufferGeometry();
       const pos = new Float32Array(count * 3);
 
       for (let i = 0; i < count; i++) {
-        pos[i * 3] = (Math.random() - 0.5) * 40;
-        pos[i * 3 + 1] = (Math.random() - 0.5) * 40;
-        pos[i * 3 + 2] = (Math.random() - 0.5) * 40;
+        pos[i * 3] = (Math.random() - 0.5) * 45;
+        pos[i * 3 + 1] = (Math.random() - 0.5) * 45;
+        pos[i * 3 + 2] = (Math.random() - 0.5) * 45;
       }
       geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
 
-      const mat = new THREE.PointsMaterial({ size: 0.15, color: 0x00ffe0, transparent: true, opacity: 0.6 });
+      const mat = new THREE.PointsMaterial({ size: 0.18, color: 0x00ffe0, transparent: true, opacity: 0.65 });
       const pts = new THREE.Points(geo, mat);
       scene.add(pts);
 
       camera.position.z = 15;
 
+      let mouseX = 0, mouseY = 0;
+      const onMouseMove = (e: MouseEvent) => {
+        mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+        mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+      };
+      window.addEventListener('mousemove', onMouseMove);
+
       const animate = () => {
         requestAnimationFrame(animate);
-        pts.rotation.y += 0.001;
-        pts.rotation.x += 0.0005;
+        pts.rotation.y += 0.0012 + mouseX * 0.01;
+        pts.rotation.x += 0.0006 + mouseY * 0.01;
         renderer.render(scene, camera);
       };
       animate();
@@ -96,7 +103,7 @@ export default function Home() {
       let isDrag = false, px = 0, py = 0;
       const onMouseDown = (e: MouseEvent) => { isDrag = true; px = e.clientX; py = e.clientY; };
       const onMouseUp = () => { isDrag = false; };
-      const onMouseMove = (e: MouseEvent) => {
+      const onMouseMove2 = (e: MouseEvent) => {
         if (!isDrag) return;
         grp.rotation.y += (e.clientX - px) * 0.01;
         grp.rotation.x += (e.clientY - py) * 0.01;
@@ -106,7 +113,7 @@ export default function Home() {
 
       canvas.addEventListener('mousedown', onMouseDown);
       window.addEventListener('mouseup', onMouseUp);
-      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mousemove', onMouseMove2);
 
       const animate2 = () => {
         requestAnimationFrame(animate2);
@@ -128,7 +135,7 @@ export default function Home() {
       <main className="bg-[#05070c] text-[#f8fafc] antialiased selection:bg-[#00ffe0]/30 selection:text-white min-h-screen relative overflow-x-hidden font-sans">
         {/* NOISE OVERLAY */}
         <div
-          className="fixed top-0 left-0 w-full h-full pointer-events-none z-[999] opacity-[0.035]"
+          className="fixed top-0 left-0 w-full h-full pointer-events-none z-[998] opacity-[0.035]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
           }}
@@ -136,7 +143,7 @@ export default function Home() {
         />
 
         {/* 3D PARTICLES CANVAS */}
-        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-45" aria-hidden="true" />
+        <canvas ref={canvasRef} className="fixed top-0 left-0 w-full h-full pointer-events-none z-0 opacity-55" aria-hidden="true" />
 
         {/* TOP HEADER NAVIGATION */}
         <header className="fixed top-0 left-0 right-0 w-full z-50 bg-[#05070c]/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
@@ -145,7 +152,7 @@ export default function Home() {
               <span className="text-white font-black text-xl tracking-tighter font-mono">BENNI</span>
               <span className="text-[#00ffe0] font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
               <span className="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-[#00ffe0]/10 text-[#00ffe0] border border-[#00ffe0]/30 font-bold">
-                Stitch UI/UX v2.0
+                1080p 60fps Motion
               </span>
             </a>
 
@@ -168,7 +175,7 @@ export default function Home() {
         {/* 1. HERO SECTION: CATEGORY & VALUE PROPOSITION */}
         <section id="surface" className="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
           <div className="container mx-auto px-6 max-w-7xl text-center">
-            <div className="max-w-4xl mx-auto mb-8">
+            <div className="max-w-4xl mx-auto mb-10">
               <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-[#00ffe0]/40 bg-[#00ffe0]/10 backdrop-blur-xl mb-6">
                 <span className="w-2 h-2 rounded-full bg-[#00ffe0] animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true" />
                 <span className="font-mono text-xs text-[#00ffe0] uppercase tracking-widest font-semibold">SOVEREIGN OPERATING INFRASTRUCTURE</span>
@@ -186,34 +193,33 @@ export default function Home() {
                 <a href="dashboard.html" className="px-8 py-3.5 rounded-xl bg-[#00ffe0] text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-[#00ccb4] transition-all" aria-label="Launch Live Stitch Console Dashboard">
                   Launch Live Console →
                 </a>
-                <a href="#atlas" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Explore the Ecosystem Atlas">
-                  Explore Ecosystem Atlas →
+                <a href="#pipeline" className="px-8 py-3.5 rounded-xl bg-[#0a0e17] text-white font-bold text-sm font-mono border border-white/20 hover:border-[#00ffe0] transition-all" aria-label="Explore Motion Pipeline">
+                  Explore Motion Pipeline ↓
                 </a>
               </div>
             </div>
 
-            {/* MAIN SYSTEM OVERVIEW MOTION FILM */}
-            <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.2)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
+            {/* MAIN SYSTEM OVERVIEW MOTION FILM (CONTINUOUS 1080P MP4 PLAYBACK) */}
+            <div className="w-full max-w-5xl mx-auto bg-[#111724]/85 border border-white/10 backdrop-blur-xl rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.25)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
               <div className="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-[#94a3b8]">
                 <div className="flex items-center gap-3">
                   <span className="w-3 h-3 rounded-full bg-[#00ffe0] animate-pulse" />
                   <span className="font-bold text-white">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
                 </div>
-                <div className="text-[11px] text-[#00ffe0] font-mono">STATUS: ACTIVE (STITCH UI / 1080P DEMO)</div>
+                <div className="text-[11px] text-[#00ffe0] font-mono font-bold">● 1080P 60FPS CINEMATIC FILM</div>
               </div>
 
-              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-[#05070c] border border-white/10">
-                <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Main Product Film">
+              <div className="relative w-full aspect-video rounded-xl overflow-hidden bg-black border border-white/10">
+                <video autoPlay muted loop playsInline controls preload="auto" aria-label="Benni OS Main Product Film">
                   <source src="material/videos/hero-product-film.mp4" type="video/mp4" />
                   Your browser does not support HTML5 video.
                 </video>
-                <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Benni OS System Overview Fallback Poster" className="video-fallback-img hidden w-full h-full object-cover" />
               </div>
             </div>
           </div>
         </section>
 
-        {/* 2. PRODUCT EXECUTION PIPELINE (MOTION = PRODUCT MODULES) */}
+        {/* 2. PRODUCT EXECUTION PIPELINE (AUTOPLAYING MP4 VIDEOS) */}
         <section id="pipeline" className="py-24 bg-[#0a0e17] border-b border-white/10 z-10 relative" aria-label="Product Execution Pipeline">
           <div className="container mx-auto px-6 max-w-7xl">
             <div className="mb-14 text-center">
@@ -230,64 +236,59 @@ export default function Home() {
 
             {/* 5 OPERATIONAL PIPELINE MODULES */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Intent Capture Demonstration">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
+                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Intent Capture Film">
                     <source src="material/videos/ecosystem-activation.mp4" type="video/mp4" />
                   </video>
-                  <img src="material/_review/benni-ecosystem-product-review-01.jpeg" alt="Intent Capture Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 01 // INTENT CAPTURE</div>
-                <h3 className="text-base font-bold text-white">Goal Payload Normalization</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Operator intent is ingested, sanitized, and bound to SHA-256 byte-integrity hashes.</p>
+                <h3 className="text-lg font-bold text-white">Goal Payload Normalization</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Operator intent is ingested, sanitized, and bound to SHA-256 byte-integrity hashes.</p>
               </article>
 
-              <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Demonstration">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
+                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="3D Topology Film">
                     <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4" />
                   </video>
-                  <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="3D Topology Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
                 <div className="font-mono text-xs text-[#7c5cfc] font-bold mb-1">PHASE 02 // PLAN & TOPOLOGY</div>
-                <h3 className="text-base font-bold text-white">Architectural Layer Flythrough</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Deterministic multi-step planning with atomic checkpoints to prevent scope drift.</p>
+                <h3 className="text-lg font-bold text-white">Architectural Layer Flythrough</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Deterministic multi-step planning with atomic checkpoints to prevent scope drift.</p>
               </article>
 
-              <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Execution Pipeline Demonstration">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
+                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Execution Pipeline Film">
                     <source src="material/videos/operation-pipeline.mp4" type="video/mp4" />
                   </video>
-                  <img src="material/_review/benni-command-plane-review-01.jpeg" alt="Execution Pipeline Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
                 <div className="font-mono text-xs text-[#00ff88] font-bold mb-1">PHASE 03 // EXECUTION SCHEDULER</div>
-                <h3 className="text-base font-bold text-white">Run Ledger & Checkpoint Lock</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Task DAG dispatching with isolated background execution queues.</p>
+                <h3 className="text-lg font-bold text-white">Run Ledger & Checkpoint Lock</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Task DAG dispatching with isolated background execution queues.</p>
               </article>
 
-              <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Swarm Mesh Demonstration">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
+                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Agent Swarm Mesh Film">
                     <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4" />
                   </video>
-                  <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="Agent Swarm Mesh Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
                 <div className="font-mono text-xs text-[#ffb703] font-bold mb-1">PHASE 04 // SWARM MESH DISPATCH</div>
-                <h3 className="text-base font-bold text-white">JARVAS-2 Multi-Agent Dispatch</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Multi-threaded agents invoking native tools over Model Context Protocol.</p>
+                <h3 className="text-lg font-bold text-white">JARVAS-2 Multi-Agent Dispatch</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Multi-threaded agents invoking native tools over Model Context Protocol.</p>
               </article>
 
-              <article className="rounded-xl border border-white/10 bg-[#0a0e17] p-4 md:col-span-2 lg:col-span-2">
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-3 bg-[#05070c] border border-white/10">
-                  <video className="w-full h-full object-cover" autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Demonstration">
+              <article className="rounded-2xl bg-[#111724]/85 border border-white/10 p-5 md:col-span-2 lg:col-span-2">
+                <div className="relative aspect-video rounded-xl overflow-hidden mb-4 bg-black border border-white/10">
+                  <video autoPlay muted loop playsInline controls preload="auto" aria-label="Evidence Settlement Film">
                     <source src="material/videos/evidence-settlement.mp4" type="video/mp4" />
                   </video>
-                  <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="Evidence Settlement Poster" className="video-fallback-img hidden w-full h-full object-cover" />
                 </div>
                 <div className="font-mono text-xs text-[#00ffe0] font-bold mb-1">PHASE 05 // AUDIT & EVIDENCE SETTLEMENT</div>
-                <h3 className="text-base font-bold text-white">NEMESIS Policy Verification & Evidence Capsule</h3>
-                <p className="text-[#94a3b8] font-mono text-xs mt-1">Single-use token validation returning verified Git commit evidence and MONOMO event records.</p>
+                <h3 className="text-lg font-bold text-white">NEMESIS Policy Verification & Evidence Capsule</h3>
+                <p className="text-[#94a3b8] font-mono text-xs mt-2 leading-relaxed">Single-use token validation returning verified Git commit evidence and MONOMO event records.</p>
               </article>
             </div>
           </div>
@@ -316,7 +317,7 @@ export default function Home() {
               </div>
             </div>
 
-            {/* REPOSITORIES GRID WITH PREVIEW IMAGES FROM MATERIAL/_REVIEW */}
+            {/* REPOSITORIES GRID */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 
               {/* 1. benni-operator-gateway */}

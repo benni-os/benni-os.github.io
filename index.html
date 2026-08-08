@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Benni OS — The Operating Layer for Autonomous Work</title>
-  <meta name="description" content="Coordinate agents, memory, tools and policy in one observable system. Cinematic scroll-driven sovereign infrastructure." />
+  <meta name="description" content="Coordinate agents, memory, tools and policy in one observable system. Immersive 3D Motion & Sovereign Infrastructure." />
 
   <!-- OpenGraph & Twitter SEO -->
   <meta property="og:title" content="Benni OS — The Operating Layer for Autonomous Work" />
@@ -28,10 +28,10 @@
   }
   </script>
 
-  <!-- Google Fonts: Sora, Inter, JetBrains Mono (Stitch & Luxury Editorial) -->
+  <!-- Google Fonts: Sora, Inter, JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
   <!-- Tailwind CSS CDN -->
@@ -63,7 +63,7 @@
     }
   </script>
 
-  <!-- Animation & Smooth Scroll Libraries: GSAP, ScrollTrigger, Lenis, Three.js -->
+  <!-- Animation Libraries: GSAP, ScrollTrigger, Lenis, Three.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="https://unpkg.com/lenis@1.1.9/dist/lenis.min.js"></script>
@@ -74,25 +74,7 @@
       background-color: #05070c;
       color: #f8fafc;
       font-family: 'Inter', sans-serif;
-      overflow-x: clip; /* Fix for sticky positioning */
-    }
-
-    /* Preloader Screen */
-    #loader {
-      position: fixed;
-      inset: 0;
-      z-index: 9999;
-      background: #05070c;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-    #loader.hidden-loader {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
+      overflow-x: hidden;
     }
 
     /* Fixed Scroll Progress Bar */
@@ -104,10 +86,10 @@
       height: 0vh;
       background: linear-gradient(to bottom, #00ffe0, #7c5cfc, #00ff88);
       z-index: 100;
-      box-shadow: 0 0 10px #00ffe0;
+      box-shadow: 0 0 12px #00ffe0;
     }
 
-    /* Noise Overlay */
+    /* Noise Texture Overlay */
     .noise-overlay {
       position: fixed;
       inset: 0;
@@ -117,96 +99,63 @@
       background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     }
 
-    /* Canvas Pin Track */
-    .hero-track {
-      position: relative;
-      height: 450vh;
-      width: 100%;
-    }
-    .hero-sticky {
-      position: sticky;
-      top: 0;
-      left: 0;
+    /* Three.js 3D Background Canvas */
+    #webgl-bg {
+      position: fixed;
+      inset: 0;
       width: 100vw;
       height: 100vh;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
     }
-    #hero-canvas {
+
+    /* Glassmorphism Cards & HUD Panels */
+    .glass-card {
+      background: rgba(17, 23, 36, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      border-color: rgba(0, 255, 224, 0.5);
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: 0 20px 50px -10px rgba(0, 255, 224, 0.25);
+    }
+
+    /* Video Container Glow */
+    .video-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: #000000;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .video-container:hover {
+      border-color: rgba(0, 255, 224, 0.6);
+      box-shadow: 0 0 60px rgba(0, 255, 224, 0.3);
+    }
+
+    /* Video Elements forced display and autoplay */
+    video {
+      display: block !important;
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    /* Overlay Texts */
-    .hero-text-overlay {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-center: center;
-      pointer-events: none;
-      padding: 2rem;
-      opacity: 0;
-      transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-      transform: translateY(15px);
-    }
-    .hero-text-overlay.active-text {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Glass Cards */
-    .glass-card {
-      background: rgba(17, 23, 36, 0.85);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      transition: all 0.3s ease;
-    }
-    .glass-card:hover {
-      border-color: rgba(0, 255, 224, 0.4);
-      box-shadow: 0 10px 40px -10px rgba(0, 255, 224, 0.2);
-    }
-
-    /* Horizontal Rail Track */
-    .rail-container {
-      display: flex;
-      width: 400%;
-      height: 100%;
-    }
-
-    /* Reduced Motion Fallback */
-    @media (prefers-reduced-motion: reduce) {
-      .hero-track { height: auto !important; }
-      .hero-sticky { position: relative !important; height: auto !important; }
-      video { display: none !important; }
-      .video-fallback-img { display: block !important; }
     }
   </style>
 </head>
 <body class="bg-bg text-txt antialiased selection:bg-c1/30 selection:text-white min-h-screen relative">
 
-  <!-- PRELOADER SCREEN (FADES OUT AFTER PRELOADING 40 FRAMES <1 SEC) -->
-  <div id="loader" aria-label="Loading Benni OS">
-    <div class="flex items-center gap-3 mb-4">
-      <span class="w-3 h-3 rounded-full bg-c1 animate-ping"></span>
-      <span class="font-mono text-xs text-c1 font-bold tracking-widest uppercase">INITIALIZING BENNI OS CANVASES...</span>
-    </div>
-    <div class="w-64 h-1 rounded-full bg-bg1 border border-white/10 overflow-hidden">
-      <div id="loader-bar" class="h-full bg-c1 w-0 transition-all duration-200"></div>
-    </div>
-  </div>
-
   <!-- FIXED RIGHT SCROLL PROGRESS BAR -->
   <div id="scroll-progress" aria-hidden="true"></div>
 
-  <!-- NOISE OVERLAY -->
+  <!-- NOISE OVERLAY & THREE.JS 3D CANVAS -->
   <div class="noise-overlay" aria-hidden="true"></div>
+  <canvas id="webgl-bg" aria-hidden="true"></canvas>
 
   <!-- HEADER NAVIGATION -->
   <header class="fixed top-0 left-0 right-0 w-full z-50 bg-bg/85 backdrop-blur-2xl border-b border-white/10" aria-label="Main Navigation">
@@ -214,14 +163,14 @@
       <a href="#surface" class="flex items-center gap-2 group" aria-label="Benni OS homepage">
         <span class="text-txt font-black text-xl tracking-tighter font-mono">BENNI</span>
         <span class="text-c1 font-black text-xl tracking-tighter font-mono group-hover:animate-pulse">.OS</span>
-        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">Canvas Frame Tech</span>
+        <span class="ml-2 font-mono text-[10px] uppercase tracking-widest px-2 py-0.5 rounded bg-c1/10 text-c1 border border-c1/30 font-bold">1080p 60fps Motion</span>
       </a>
 
       <nav class="hidden md:flex items-center gap-8 font-mono text-xs text-txt2" aria-label="Page Sections">
         <a href="#surface" class="hover:text-c1 transition-colors">/surface</a>
-        <a href="#explainer" class="hover:text-c1 transition-colors">/explainer</a>
-        <a href="#horizontal-rail" class="hover:text-c1 transition-colors">/atlas-rail</a>
-        <a href="#stacking-cards" class="hover:text-c1 transition-colors">/pipeline</a>
+        <a href="#pipeline" class="hover:text-c1 transition-colors">/pipeline</a>
+        <a href="#atlas" class="hover:text-c1 transition-colors">/atlas</a>
+        <a href="#bento" class="hover:text-c1 transition-colors">/architecture</a>
         <a href="dashboard.html" class="text-c1 font-bold hover:underline flex items-center gap-1">
           <span class="material-symbols-outlined text-sm">dashboard</span> /dashboard
         </a>
@@ -235,247 +184,465 @@
     </div>
   </header>
 
-  <!-- 1. HERO CANVASES & SCROLL-DRIVEN MOTION (CANVAS FRAME-SEQUENCE) -->
-  <section id="surface" class="hero-track" aria-label="Canvas Scroll Hero">
-    <div class="hero-sticky">
-      <!-- MAIN HERO CANVAS (COVER-FIT RENDERED FRAME SEQUENCE) -->
-      <canvas id="hero-canvas"></canvas>
+  <!-- 1. HERO SECTION: CATEGORY & VALUE PROPOSITION WITH 1080P HERO FILM -->
+  <section id="surface" class="relative w-full min-h-screen pt-28 pb-16 flex flex-col justify-center items-center border-b border-white/10 z-10" aria-label="Product Surface Hero">
+    <div class="container mx-auto px-6 max-w-7xl text-center">
 
-      <!-- STATIC POSTER FALLBACK BEHIND CANVAS -->
-      <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Hero Static Poster" class="video-fallback-img hidden absolute inset-0 w-full h-full object-cover -z-10" />
-
-      <!-- OVERLAY TEXT 1 (0.05 - 0.22) -->
-      <div id="overlay-1" class="hero-text-overlay active-text max-w-4xl">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-4">
-          <span class="w-2 h-2 rounded-full bg-c1 animate-pulse"></span>
-          <span class="font-mono text-xs text-c1 font-bold uppercase tracking-widest">SOVEREIGN OPERATING INFRASTRUCTURE</span>
+      <div class="max-w-4xl mx-auto mb-10">
+        <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full border border-c1/40 bg-c1/10 backdrop-blur-xl mb-6">
+          <span class="w-2 h-2 rounded-full bg-c1 animate-pulse shadow-[0_0_10px_#00ffe0]" aria-hidden="true"></span>
+          <span class="font-mono text-xs text-c1 uppercase tracking-widest font-semibold">SOVEREIGN OPERATING INFRASTRUCTURE</span>
         </div>
+
         <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-txt tracking-tight leading-tight">
           The operating layer for <br />
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">autonomous work.</span>
         </h1>
-        <p class="mt-4 text-txt2 font-mono text-sm sm:text-base max-w-xl">
+        <p class="mt-6 text-txt2 font-mono text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
           Coordinate agents, memory, tools and policy in one observable system.
         </p>
-      </div>
 
-      <!-- OVERLAY TEXT 2 (0.25 - 0.42) -->
-      <div id="overlay-2" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">CANONICAL CONTROL & INTEGRITY</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight leading-tight">
-          Sovereign Intelligence. <br />
-          <span class="text-c1">Immutable Audit. Zero Secret Leaks.</span>
-        </h2>
-        <p class="mt-4 text-txt2 font-mono text-sm max-w-lg">
-          SHA-256 goal payload hashes bound to deterministic run ledgers.
-        </p>
-      </div>
-
-      <!-- OVERLAY TEXT 3 (0.45 - 0.65) -->
-      <div id="overlay-3" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">CONSTELLATION ENGINE</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight">
-          JARVAS-2 · NEMESIS · CONTROL PLANE · MONOMO
-        </h2>
-        <p class="mt-4 text-txt2 font-mono text-sm max-w-lg">
-          Multi-agent swarm execution running local hybrid inference.
-        </p>
-      </div>
-
-      <!-- OVERLAY TEXT 4 (0.68 - 0.88) -->
-      <div id="overlay-4" class="hero-text-overlay max-w-4xl">
-        <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-2">NARRATIVE EXECUTION FLOW</div>
-        <h2 class="text-3xl sm:text-5xl font-black text-txt tracking-tight">
-          Intent → Plan → Agents → <span class="text-c1">Execution → Evidence</span>
-        </h2>
-        <div class="mt-6 flex gap-4">
-          <a href="dashboard.html" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold font-mono text-sm hover:bg-c1d transition-all shadow-[0_0_30px_rgba(0,255,224,0.5)]">
-            Launch Live Console →
+        <div class="mt-8 flex justify-center items-center gap-4">
+          <a href="dashboard.html" class="px-8 py-3.5 rounded-xl bg-c1 text-black font-bold text-sm font-mono shadow-[0_0_30px_rgba(0,255,224,0.5)] hover:bg-c1d transition-all flex items-center gap-2" aria-label="Launch Live Stitch Console Dashboard">
+            <span class="material-symbols-outlined">space_dashboard</span> Launch Live Console →
+          </a>
+          <a href="#pipeline" class="px-8 py-3.5 rounded-xl bg-bg1 text-txt font-bold text-sm font-mono border border-white/20 hover:border-c1 transition-all" aria-label="Explore Execution Pipeline">
+            Explore Motion Pipeline ↓
           </a>
         </div>
       </div>
 
+      <!-- MAIN SYSTEM OVERVIEW MOTION FILM (CONTINUOUS 1080P MP4 PLAYBACK) -->
+      <div class="w-full max-w-5xl mx-auto glass-card rounded-2xl p-4 sm:p-6 shadow-[0_0_80px_rgba(0,255,224,0.25)] relative overflow-hidden text-left" aria-label="Operational Execution Flow Console">
+        <div class="flex items-center justify-between border-b border-white/10 pb-4 mb-4 font-mono text-xs text-txt2">
+          <div class="flex items-center gap-3">
+            <span class="w-3 h-3 rounded-full bg-c1 animate-pulse"></span>
+            <span class="font-bold text-txt">BENNI OS // SYSTEM OVERVIEW & TOPOLOGY DEMONSTRATION</span>
+          </div>
+          <div class="text-[11px] text-c1 font-mono font-bold">● 1080P 60FPS CINEMATIC FILM</div>
+        </div>
+
+        <div class="video-container relative w-full aspect-video rounded-xl overflow-hidden">
+          <video id="hero-main-video" autoplay muted loop playsinline controls preload="auto" fetchpriority="high" aria-label="Benni OS Main Product Film">
+            <source src="material/videos/hero-product-film.mp4" type="video/mp4">
+            Your browser does not support HTML5 video.
+          </video>
+        </div>
+      </div>
+
     </div>
   </section>
 
-  <!-- 2. STICKY ARCHITECTURE EXPLAINER (50/50 SPLIT) -->
-  <section id="explainer" class="py-24 bg-bg1 border-y border-white/10 relative z-10" aria-label="Sticky Architecture Explainer">
+  <!-- 2. PRODUCT EXECUTION PIPELINE (MOTION = PRODUCT MODULES WITH AUTOPLAY MP4 LOOPS) -->
+  <section id="pipeline" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Product Execution Pipeline">
     <div class="container mx-auto px-6 max-w-7xl">
+
       <div class="mb-14 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-3">
-          CORE LAYERS // 50/50 STICKY EXPLAINER
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c2/10 text-c2 border border-c2/30 font-mono text-xs font-bold mb-4">
+          NARRATIVE EXECUTION PIPELINE // 5 OPERATIONAL PHASES
         </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Sovereign Platform <span class="text-c1">Architecture</span>
+          Intent → Plan → Agents → <span class="text-c1">Execution → Evidence</span>
         </h2>
+        <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
+          Every motion sequence corresponds to a verified phase of the Benni OS execution architecture.
+        </p>
       </div>
 
-      <div class="flex flex-col lg:flex-row gap-12 items-start">
-        <!-- LEFT 50%: STICKY IMAGE CONTAINER -->
-        <div class="lg:w-1/2 sticky top-28 w-full">
-          <div class="relative aspect-video rounded-2xl glass-card overflow-hidden border border-c1/30 shadow-[0_0_50px_rgba(0,255,224,0.15)]">
-            <img id="sticky-panel-img" src="material/_review/benni-command-plane-review-01.jpeg" alt="Architecture Layer Preview" class="w-full h-full object-cover transition-all duration-500" />
-            <div class="absolute bottom-4 left-4 font-mono text-[10px] text-c1 bg-bg1/90 px-3 py-1 rounded border border-c1/30">
-              LAYER STATUS // ACTIVE INSPECTION
+      <!-- 5 OPERATIONAL PIPELINE MODULES WITH AUTOPLAYING MP4 VIDEOS -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- PHASE 01: INTENT CAPTURE -->
+        <article class="glass-card p-5 rounded-2xl">
+          <div class="video-container aspect-video mb-4">
+            <video autoplay muted loop playsinline controls preload="auto" aria-label="Intent Capture Film">
+              <source src="material/videos/ecosystem-activation.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="font-mono text-xs text-c1 font-bold mb-1">PHASE 01 // INTENT CAPTURE</div>
+          <h3 class="text-lg font-bold text-txt">Goal Payload Normalization</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 leading-relaxed">Operator intent is ingested, sanitized, and bound to SHA-256 byte-integrity hashes.</p>
+        </article>
+
+        <!-- PHASE 02: ARCHITECTURAL TOPOLOGY -->
+        <article class="glass-card p-5 rounded-2xl">
+          <div class="video-container aspect-video mb-4">
+            <video autoplay muted loop playsinline controls preload="auto" aria-label="3D Topology Film">
+              <source src="material/videos/3d-flythrough-topology.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="font-mono text-xs text-c2 font-bold mb-1">PHASE 02 // PLAN & TOPOLOGY</div>
+          <h3 class="text-lg font-bold text-txt">Architectural Layer Flythrough</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 leading-relaxed">Deterministic multi-step planning with atomic checkpoints to prevent scope drift.</p>
+        </article>
+
+        <!-- PHASE 03: TASK SCHEDULING PIPELINE -->
+        <article class="glass-card p-5 rounded-2xl">
+          <div class="video-container aspect-video mb-4">
+            <video autoplay muted loop playsinline controls preload="auto" aria-label="Execution Pipeline Film">
+              <source src="material/videos/operation-pipeline.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="font-mono text-xs text-c3 font-bold mb-1">PHASE 03 // EXECUTION SCHEDULER</div>
+          <h3 class="text-lg font-bold text-txt">Run Ledger & Checkpoint Lock</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 leading-relaxed">Task DAG dispatching with isolated background execution queues.</p>
+        </article>
+
+        <!-- PHASE 04: SWARM MESH DISPATCH -->
+        <article class="glass-card p-5 rounded-2xl">
+          <div class="video-container aspect-video mb-4">
+            <video autoplay muted loop playsinline controls preload="auto" aria-label="Agent Swarm Mesh Film">
+              <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="font-mono text-xs text-gold font-bold mb-1">PHASE 04 // SWARM MESH DISPATCH</div>
+          <h3 class="text-lg font-bold text-txt">JARVAS-2 Multi-Agent Dispatch</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 leading-relaxed">Multi-threaded agents invoking native tools over Model Context Protocol.</p>
+        </article>
+
+        <!-- PHASE 05: EVIDENCE RETURN & SETTLEMENT -->
+        <article class="glass-card p-5 rounded-2xl md:col-span-2 lg:col-span-2">
+          <div class="video-container aspect-video mb-4">
+            <video autoplay muted loop playsinline controls preload="auto" aria-label="Evidence Settlement Film">
+              <source src="material/videos/evidence-settlement.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="font-mono text-xs text-c1 font-bold mb-1">PHASE 05 // AUDIT & EVIDENCE SETTLEMENT</div>
+          <h3 class="text-lg font-bold text-txt">NEMESIS Policy Verification & Evidence Capsule</h3>
+          <p class="text-txt2 font-mono text-xs mt-2 leading-relaxed">Single-use token validation returning verified Git commit evidence and MONOMO event records.</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 3. ECOSYSTEM ATLAS (VERIFIABLE REPOSITORIES) -->
+  <section id="atlas" class="py-24 bg-bg border-b border-white/10 z-10 relative" aria-label="Ecosystem Atlas">
+    <div class="container mx-auto px-6 max-w-7xl">
+
+      <div class="mb-14 text-center">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-4">
+          ECOSYSTEM ATLAS // 17 AUDITED REPOSITORIES
+        </div>
+        <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
+          Constellation <span class="text-c1">Ecosystem Atlas</span>
+        </h2>
+        <p class="mt-4 text-txt2 font-mono text-sm max-w-2xl mx-auto">
+          Categorized inventory across <code class="text-c1">benni-os</code> and <code class="text-c2">nsfwbunny</code> with verifiable licenses and repository statuses.
+        </p>
+      </div>
+
+      <!-- 3D NEURAL TOPOLOGY CANVAS -->
+      <div class="w-full max-w-4xl mx-auto h-72 rounded-2xl glass-card border border-c1/30 mb-12 relative overflow-hidden flex items-center justify-center">
+        <canvas id="atlas-3d-canvas" class="w-full h-full cursor-grab active:cursor-grabbing"></canvas>
+        <div class="absolute bottom-4 left-4 font-mono text-[10px] text-c1 bg-bg1/80 px-3 py-1 rounded border border-c1/30">
+          INTERACTIVE 3D NEURAL MESH // DRAG TO ROTATE
+        </div>
+      </div>
+
+      <!-- REPOSITORIES GRID -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. benni-operator-gateway -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-open-source-constellation-review-01.jpeg" alt="benni-operator-gateway preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">● Open Source (MIT)</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-operator-gateway</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Open source MCP operator gateway for autonomous agent communication and tool execution.</p>
             </div>
           </div>
-        </div>
-
-        <!-- RIGHT 50%: STICKY PANELS (INTERSECTION OBSERVER SWAPS LEFT IMAGE) -->
-        <div class="lg:w-1/2 flex flex-col gap-32">
-
-          <!-- PANEL 1 -->
-          <div data-image="material/_review/benni-command-plane-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c1">
-            <span class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">LAYER 01 // INTENT & CONTROL</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">Sovereign Control Plane & State Engine</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-              Canonical goal payload normalization, SHA-256 hashing, and immutable decision log tracking cross-session agent operations.
-            </p>
-            <div class="font-mono text-[11px] text-c1">STATUS: OPERATIONAL (POLICY GATE ENFORCED)</div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">MIT</strong></span>
+            <a href="https://github.com/benni-os/benni-operator-gateway" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
           </div>
+        </article>
 
-          <!-- PANEL 2 -->
-          <div data-image="material/_review/benni-agent-mesh-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c2">
-            <span class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">LAYER 02 // AGENT SWARM DISPATCH</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">JARVAS-2 Multi-Threaded Engine</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-              Autonomous code execution dispatcher running multi-agent tasks over Model Context Protocol connectors with zero-drift safety.
-            </p>
-            <div class="font-mono text-[11px] text-c2">STATUS: DISPATCHING (MCP ACTIVE)</div>
+        <!-- 2. modo-operador -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-command-plane-review-01.jpeg" alt="modo-operador preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">● Open Source (MIT)</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">modo-operador</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">AI Operator Mode execution framework and command protocol.</p>
+            </div>
           </div>
-
-          <!-- PANEL 3 -->
-          <div data-image="material/_review/benni-evidence-layer-review-01.jpeg" class="explainer-panel min-h-[60vh] flex flex-col justify-center p-8 rounded-2xl glass-card border-l-4 border-l-c3">
-            <span class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">LAYER 03 // SECURITY & AUDIT</span>
-            <h3 class="text-2xl font-bold text-txt mb-4">NEMESIS Cryptographic Gateway</h3>
-            <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">
-              Single-use approval tokens, HMAC signature verification, and automated audit trails returning verified Git commits and MONOMO records.
-            </p>
-            <div class="font-mono text-[11px] text-c3">STATUS: SECURED (HMAC ACTIVE)</div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">MIT</strong></span>
+            <a href="https://github.com/benni-os/modo-operador" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
           </div>
+        </article>
 
-        </div>
+        <!-- 3. benni-inference-engine -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="benni-inference-engine preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">● Open Source (MIT)</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-inference-engine</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Hybrid GPU/CPU inference engine optimized for zero-cloud local hardware.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">MIT</strong></span>
+            <a href="https://github.com/benni-os/benni-inference-engine" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
+          </div>
+        </article>
+
+        <!-- 4. benni-nexus -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-ecosystem-product-review-01.jpeg" alt="benni-nexus preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">● Open Source (MIT)</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-nexus</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Model gateway and intelligent query router across local and remote inference targets.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">MIT</strong></span>
+            <a href="https://github.com/benni-os/benni-nexus" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
+          </div>
+        </article>
+
+        <!-- 5. mcp-forge -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="mcp-forge preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c3/20 text-c3 border border-c3/40 font-bold backdrop-blur">● Open Source (MIT)</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">mcp-forge</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Developer framework for scaffolding, testing, and deploying Model Context Protocol servers.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">MIT</strong></span>
+            <a href="https://github.com/benni-os/mcp-forge" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
+          </div>
+        </article>
+
+        <!-- 6. mcp-forge-playbook-landing-page -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-ecosystem-product-review-02.jpeg" alt="mcp-forge-playbook preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c1/20 text-c1 border border-c1/40 font-bold backdrop-blur">Public Site</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">mcp-forge-playbook-landing-page</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Landing page for the MCP Forge playbook.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Public Site</strong></span>
+            <a href="https://github.com/benni-os/mcp-forge-playbook-landing-page" target="_blank" rel="noopener noreferrer" class="text-c1 font-bold hover:underline">GitHub Repository →</a>
+          </div>
+        </article>
+
+        <!-- CONFIDENTIAL PRIVATE CORE REPOSITORIES -->
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="benni-nemesis preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-nemesis</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">NEMESIS Security Gateway enforcing HMAC payload signatures and approval tokens.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-sovereign-autonomous-review-01.jpeg" alt="benni-os-genesis preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">nsfwbunny</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-os-genesis</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">LLM-native operating environment and agent IDE for sovereign execution.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-memory-fabric-review-02.jpeg" alt="Benni-Master-OS preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">Benni-Master-OS</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Central master skills repository, MCP connector mappings, and swarm priority stack.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-evidence-layer-review-02.jpeg" alt="benni-control-plane preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">benni-control-plane</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Immutable decision ledger, state engine, and cross-session memory persistence.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-agent-mesh-review-01.jpeg" alt="jarvas-2 preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">jarvas-2</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Autonomous code execution engine and multi-threaded process dispatcher.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
+        <article class="rounded-2xl glass-card overflow-hidden flex flex-col justify-between">
+          <div>
+            <div class="relative h-44 w-full overflow-hidden bg-bg1">
+              <img src="material/_review/benni-agent-mesh-review-02.jpeg" alt="Benni-gravity-0 preview" class="w-full h-full object-cover" />
+              <span class="absolute top-3 right-3 font-mono text-[10px] uppercase px-2 py-0.5 rounded bg-c2/20 text-c2 border border-c2/40 font-bold backdrop-blur">🔒 Private Core</span>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-[10px] text-txt3 uppercase bg-bg1 px-2 py-0.5 rounded border border-white/10">benni-os</span>
+              </div>
+              <h3 class="text-lg font-bold text-txt mb-1">Benni-gravity-0</h3>
+              <p class="text-txt2 font-mono text-xs leading-relaxed mb-4">Revenue automation, browser task runner, and autonomous agent swarm engine.</p>
+            </div>
+          </div>
+          <div class="p-6 pt-0 border-t border-white/5 flex items-center justify-between font-mono text-xs">
+            <span class="text-txt3">License: <strong class="text-txt2">Proprietary</strong></span>
+            <span class="text-txt3 font-mono text-[11px] font-semibold flex items-center gap-1">🔒 Private Core Infrastructure</span>
+          </div>
+        </article>
+
       </div>
+
     </div>
   </section>
 
-  <!-- 3. HORIZONTAL ATLAS COLLECTION RAIL (GSAP PINNED HORIZONTAL SCROLL) -->
-  <section id="horizontal-rail" class="py-24 bg-bg border-b border-white/10 relative z-10" aria-label="Horizontal Constellation Rail">
-    <div class="container mx-auto px-6 max-w-7xl mb-10 text-center">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c1/10 text-c1 border border-c1/30 font-mono text-xs font-bold mb-3">
-        ECOSYSTEM ATLAS // PINNED HORIZONTAL RAIL
-      </div>
-      <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-        Constellation <span class="text-c1">Repository Rail</span>
-      </h2>
-    </div>
-
-    <!-- HORIZONTAL SCROLL RAIL TRACK -->
-    <div id="rail-track" class="w-full overflow-hidden">
-      <div id="rail-wrapper" class="flex gap-8 px-12 py-6 w-[300vw]">
-
-        <!-- CARD 1 -->
-        <div class="w-[70vw] md:w-[35vw] flex-shrink-0 glass-card p-6 rounded-2xl">
-          <img src="material/_review/benni-open-source-constellation-review-01.jpeg" alt="Gateway" class="w-full h-48 object-cover rounded-xl mb-4" />
-          <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-          <h3 class="text-xl font-bold text-txt mt-3">benni-operator-gateway</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Open source MCP operator gateway for autonomous agent communication and tool execution.</p>
-        </div>
-
-        <!-- CARD 2 -->
-        <div class="w-[70vw] md:w-[35vw] flex-shrink-0 glass-card p-6 rounded-2xl">
-          <img src="material/_review/benni-command-plane-review-01.jpeg" alt="Modo Operador" class="w-full h-48 object-cover rounded-xl mb-4" />
-          <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-          <h3 class="text-xl font-bold text-txt mt-3">modo-operador</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">AI Operator Mode execution framework and command protocol.</p>
-        </div>
-
-        <!-- CARD 3 -->
-        <div class="w-[70vw] md:w-[35vw] flex-shrink-0 glass-card p-6 rounded-2xl">
-          <img src="material/_review/benni-ecosystem-technology-review-01.jpeg" alt="Inference Engine" class="w-full h-48 object-cover rounded-xl mb-4" />
-          <span class="font-mono text-[10px] text-c3 uppercase bg-c3/10 px-2 py-0.5 rounded border border-c3/30 font-bold">● Open Source (MIT)</span>
-          <h3 class="text-xl font-bold text-txt mt-3">benni-inference-engine</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">Hybrid GPU/CPU inference engine optimized for zero-cloud local hardware.</p>
-        </div>
-
-        <!-- CARD 4 -->
-        <div class="w-[70vw] md:w-[35vw] flex-shrink-0 glass-card p-6 rounded-2xl">
-          <img src="material/_review/benni-evidence-layer-review-01.jpeg" alt="NEMESIS" class="w-full h-48 object-cover rounded-xl mb-4" />
-          <span class="font-mono text-[10px] text-c2 uppercase bg-c2/10 px-2 py-0.5 rounded border border-c2/30 font-bold">🔒 Private Core</span>
-          <h3 class="text-xl font-bold text-txt mt-3">benni-nemesis</h3>
-          <p class="text-txt2 font-mono text-xs mt-2">NEMESIS Security Gateway enforcing HMAC payload signatures and approval tokens.</p>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- 4. STACKING EXECUTION CARDS (AUTOPLAY LOOP VIDEOS) -->
-  <section id="stacking-cards" class="py-24 bg-bg1 border-b border-white/10 relative z-10" aria-label="Stacking Ritual Cards">
-    <div class="container mx-auto px-6 max-w-5xl">
+  <!-- 4. CORE ARCHITECTURE LAYERS (BENTO GRID) -->
+  <section id="bento" class="py-24 bg-bg1 border-b border-white/10 z-10 relative" aria-label="Core Architecture Layers">
+    <div class="container mx-auto px-6 max-w-6xl">
       <div class="mb-14 text-center">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-c3/10 text-c3 border border-c3/30 font-mono text-xs font-bold mb-3">
-          STACKING CARDS // RITUAL EXECUTION LOOPS
-        </div>
         <h2 class="text-3xl md:text-5xl font-black text-txt tracking-tight">
-          Execution <span class="text-c3">Ritual Loops</span>
+          Core <span class="text-c2">Architecture Layers</span>
         </h2>
+        <p class="mt-4 text-txt2 font-mono text-sm max-w-xl mx-auto">
+          Five core operational layers structuring sovereign intelligence.
+        </p>
       </div>
 
-      <div class="flex flex-col gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
+        <div class="md:col-span-7 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
+          <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 01 // Intelligence</div>
+          <h3 class="text-2xl font-bold text-txt mb-3">Multi-Model Swarm Intelligence</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Context compression, persistent vector KV, and cross-environment snapshot restore protocols.</p>
+        </div>
 
-        <!-- CARD 01 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c1/40 flex flex-col justify-end p-8 sm:p-12">
-          <video class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto">
-            <source src="material/videos/operation-pipeline.mp4" type="video/mp4">
-          </video>
-          <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-1">LOOP 01 // SCHEDULING</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Deterministic Task DAG Scheduling</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">Every action is partitioned into atomic steps with checkpoint rollback locks.</p>
-        </article>
+        <div class="md:col-span-5 p-8 rounded-2xl glass-card hover:border-c2/60 transition-all">
+          <div class="font-mono text-xs text-c2 uppercase tracking-widest font-bold mb-2">Layer 02 // Control</div>
+          <h3 class="text-2xl font-bold text-txt mb-3">Sovereign Control Plane</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Immutable decision log, policy gate enforcement, and single-use token verification.</p>
+        </div>
 
-        <!-- CARD 02 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c2/40 flex flex-col justify-end p-8 sm:p-12">
-          <video class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto">
-            <source src="material/videos/agent-mesh-activation.mp4" type="video/mp4">
-          </video>
-          <div class="font-mono text-xs text-c2 font-bold uppercase tracking-widest mb-1">LOOP 02 // MESH DISPATCH</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Multi-Agent Swarm Dispatch</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">JARVAS-2 agent threads invoking native tools with live event stream updates.</p>
-        </article>
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c3/60 transition-all">
+          <div class="font-mono text-xs text-c3 uppercase tracking-widest font-bold mb-2">Layer 03 // Execution</div>
+          <h3 class="text-xl font-bold text-txt mb-3">JARVAS-2 Dispatch</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Multi-threaded background processes executing discrete code tasks.</p>
+        </div>
 
-        <!-- CARD 03 -->
-        <article class="relative h-[60vh] rounded-3xl overflow-hidden glass-card border border-c3/40 flex flex-col justify-end p-8 sm:p-12">
-          <video class="absolute inset-0 w-full h-full object-cover -z-10" autoplay muted loop playsinline preload="auto">
-            <source src="material/videos/evidence-settlement.mp4" type="video/mp4">
-          </video>
-          <div class="font-mono text-xs text-c3 font-bold uppercase tracking-widest mb-1">LOOP 03 // SETTLEMENT</div>
-          <h3 class="text-2xl sm:text-4xl font-black text-txt mb-2">Cryptographic Evidence Settlement</h3>
-          <p class="text-txt2 font-mono text-xs sm:text-sm max-w-xl">Verified Git commits and MONOMO telemetry records proving clean completion.</p>
-        </article>
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-gold/60 transition-all">
+          <div class="font-mono text-xs text-gold uppercase tracking-widest font-bold mb-2">Layer 04 // Dev Infra</div>
+          <h3 class="text-xl font-bold text-txt mb-3">MCP Security Gateway & Stitch UI</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Exposes native tools over streamable SSE, Google Stitch UI synthesis, and HTTPS.</p>
+        </div>
 
+        <div class="md:col-span-4 p-8 rounded-2xl glass-card hover:border-c1/60 transition-all">
+          <div class="font-mono text-xs text-c1 uppercase tracking-widest font-bold mb-2">Layer 05 // Community</div>
+          <h3 class="text-xl font-bold text-txt mb-3">Operator Network</h3>
+          <p class="text-txt2 font-mono text-xs leading-relaxed">Sovereign open-source ecosystem built by operators for operators.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 5. PARALLAX BRAND STATEMENT -->
-  <section class="py-36 bg-bg relative overflow-hidden border-b border-white/10 z-10" aria-label="Parallax Statement">
-    <div class="absolute inset-0 -z-10 opacity-30">
-      <img src="material/_review/benni-ecosystem-atlas-review-01.jpeg" alt="Parallax Background" class="w-full h-full object-cover scale-110" />
-    </div>
-    <div class="container mx-auto px-6 max-w-4xl text-center">
-      <div class="font-mono text-xs text-c1 font-bold uppercase tracking-widest mb-4">SOVEREIGN STATEMENT</div>
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-txt tracking-tight leading-tight mb-6">
-        "Sovereign work, <br />
-        <span class="text-transparent bg-clip-text bg-gradient-to-r from-c1 via-c2 to-c3">verified by cryptographic evidence."</span>
-      </h2>
-      <p class="text-txt2 font-mono text-xs sm:text-sm max-w-lg mx-auto">
-        BENNI OS — Built by operators for operators.
-      </p>
-    </div>
-  </section>
-
-  <!-- 6. OPERATOR COMMUNITY CTA & DASHBOARD LINK -->
+  <!-- 5. OPERATOR COMMUNITY CTA & DASHBOARD LINK -->
   <section class="py-28 bg-gradient-to-b from-bg1 to-bg text-center relative z-10" aria-label="Community Call to Action">
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="text-4xl md:text-6xl font-black text-txt tracking-tight mb-6">
@@ -509,195 +676,150 @@
     </div>
   </footer>
 
-  <!-- CANVAS FRAME-SEQUENCE SCROLL ENGINE (ASSAM HONEY GUIDELINES) -->
+  <!-- SCRIPTS: LENIS SMOOTH SCROLL, THREE.JS 3D CANVAS, AND AUTOPLAY VIDEO FORCING -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // 1. Initialize Lenis Smooth Scroll
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true
-      });
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-
-      // Register ScrollTrigger with GSAP
-      gsap.registerPlugin(ScrollTrigger);
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0, 0);
-
-      // 2. Canvas Frame Sequence Engine
-      const TOTAL_FRAMES = 180;
-      const canvas = document.getElementById('hero-canvas');
-      const ctx = canvas.getContext('2d');
-      const loaderBar = document.getElementById('loader-bar');
-      const loader = document.getElementById('loader');
-      const progressBar = document.getElementById('scroll-progress');
-
-      // Rolling Cache Window Strategy (Assam Honey Step 4c)
-      const frameCache = new Map(); // frameIndex -> HTMLImageElement
-      const PRELOAD_FIRST_COUNT = 40; // Preload first 40 frames for instant load <1s
-      let lastFrameIndex = 1;
-
-      function getFramePath(idx) {
-        const padded = String(idx).padStart(4, '0');
-        return `public/frames/frame_${padded}.jpg`;
-      }
-
-      function loadFrame(idx) {
-        if (frameCache.has(idx)) return frameCache.get(idx);
-        const img = new Image();
-        img.src = getFramePath(idx);
-        frameCache.set(idx, img);
-        return img;
-      }
-
-      // Preload first ~40 frames then reveal page
-      let loadedPreloadCount = 0;
-      for (let i = 1; i <= PRELOAD_FIRST_COUNT; i++) {
-        const img = loadFrame(i);
-        img.onload = () => {
-          loadedPreloadCount++;
-          const pct = (loadedPreloadCount / PRELOAD_FIRST_COUNT) * 100;
-          if (loaderBar) loaderBar.style.width = pct + '%';
-
-          if (loadedPreloadCount >= PRELOAD_FIRST_COUNT) {
-            setTimeout(() => {
-              if (loader) loader.classList.add('hidden-loader');
-              renderFrame(1);
-            }, 100);
-          }
-        };
-      }
-
-      // Dynamic Canvas Resize with Cover-Fit (Assam Honey Step 4c)
-      function resizeCanvas() {
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
-        canvas.width = window.innerWidth * dpr;
-        canvas.height = window.innerHeight * dpr;
-        renderFrame(lastFrameIndex);
-      }
-      window.addEventListener('resize', resizeCanvas);
-      resizeCanvas();
-
-      function renderFrame(idx) {
-        lastFrameIndex = idx;
-        const img = loadFrame(idx);
-        if (!img.complete) {
-          img.onload = () => drawImageCover(img);
-        } else {
-          drawImageCover(img);
-        }
-
-        // Rolling Window Pruning (Keep 60 frames behind/ahead, prune rest)
-        const minKeep = Math.max(1, idx - 60);
-        const maxKeep = Math.min(TOTAL_FRAMES, idx + 60);
-        for (const [cachedIdx] of frameCache) {
-          if (cachedIdx < minKeep || cachedIdx > maxKeep) {
-            if (cachedIdx > PRELOAD_FIRST_COUNT) { // Keep initial frames cached for instant scroll top
-              frameCache.delete(cachedIdx);
-            }
-          }
-        }
-
-        // Prefetch 15 frames ahead in current direction
-        for (let ahead = 1; ahead <= 15; ahead++) {
-          const nextIdx = idx + ahead;
-          if (nextIdx <= TOTAL_FRAMES && !frameCache.has(nextIdx)) {
-            loadFrame(nextIdx);
-          }
-        }
-      }
-
-      function drawImageCover(img) {
-        if (!img || !img.naturalWidth) return;
-        const cw = canvas.width;
-        const ch = canvas.height;
-        const iw = img.naturalWidth;
-        const ih = img.naturalHeight;
-
-        const scale = Math.max(cw / iw, ch / ih);
-        const nw = iw * scale;
-        const nh = ih * scale;
-        const cx = (cw - nw) / 2;
-        const cy = (ch - nh) / 2;
-
-        ctx.clearRect(0, 0, cw, ch);
-        ctx.drawImage(img, cx, cy, nw, nh);
-      }
-
-      // 3. GSAP ScrollTrigger for Pinned Hero Canvas
-      const track = document.querySelector('.hero-track');
-      const overlays = [
-        { el: document.getElementById('overlay-1'), start: 0.05, end: 0.22 },
-        { el: document.getElementById('overlay-2'), start: 0.25, end: 0.42 },
-        { el: document.getElementById('overlay-3'), start: 0.45, end: 0.65 },
-        { el: document.getElementById('overlay-4'), start: 0.68, end: 0.88 }
-      ];
-
-      ScrollTrigger.create({
-        trigger: track,
-        start: 'top top',
-        end: 'bottom bottom',
-        scrub: 0.5,
-        onUpdate: (self) => {
-          const p = self.progress;
-
-          // Update Right Progress Bar
-          if (progressBar) progressBar.style.height = (p * 100) + 'vh';
-
-          // Frame Index Calculation
-          const frameIdx = 1 + Math.round(p * (TOTAL_FRAMES - 1));
-          renderFrame(Math.min(TOTAL_FRAMES, Math.max(1, frameIdx)));
-
-          // Update Overlay Text Visibilities
-          overlays.forEach((ov) => {
-            if (ov.el) {
-              if (p >= ov.start && p <= ov.end) {
-                ov.el.classList.add('active-text');
-              } else {
-                ov.el.classList.remove('active-text');
-              }
-            }
+      // 1. Force Autoplay for all videos with mute & playsinline
+      const videos = document.querySelectorAll('video');
+      videos.forEach(v => {
+        v.muted = true;
+        v.playsInline = true;
+        const playPromise = v.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            window.addEventListener('click', () => v.play(), { once: true });
+            window.addEventListener('touchstart', () => v.play(), { once: true });
           });
         }
       });
 
-      // 4. Sticky Explainer IntersectionObserver
-      const panels = document.querySelectorAll('.explainer-panel');
-      const stickyImg = document.getElementById('sticky-panel-img');
-      const obs = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const newSrc = entry.target.getAttribute('data-image');
-            if (newSrc && stickyImg) {
-              stickyImg.src = newSrc;
-            }
-          }
+      // 2. Lenis Smooth Scroll
+      if (window.Lenis) {
+        const lenis = new Lenis({
+          duration: 1.2,
+          easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          smoothWheel: true
         });
-      }, { threshold: 0.5 });
-      panels.forEach(p => obs.observe(p));
-
-      // 5. Horizontal Rail GSAP Animation
-      const railWrapper = document.getElementById('rail-wrapper');
-      if (railWrapper) {
-        gsap.to(railWrapper, {
-          xPercent: -65,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '#horizontal-rail',
-            pin: true,
-            scrub: 1,
-            end: () => '+=' + railWrapper.offsetWidth
-          }
-        });
+        function raf(time) {
+          lenis.raf(time);
+          requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
       }
 
-      ScrollTrigger.refresh();
+      // 3. Scroll Progress Bar
+      const progressBar = document.getElementById('scroll-progress');
+      window.addEventListener('scroll', () => {
+        const totalH = document.documentElement.scrollHeight - window.innerHeight;
+        if (totalH > 0 && progressBar) {
+          const pct = (window.scrollY / totalH) * 100;
+          progressBar.style.height = pct + 'vh';
+        }
+      });
+
+      // 4. Three.js 3D Background Constellation Particle Mesh
+      (function init3DBackground() {
+        const canvas = document.getElementById('webgl-bg');
+        if (!canvas || !window.THREE) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const count = 220;
+        const geo = new THREE.BufferGeometry();
+        const pos = new Float32Array(count * 3);
+
+        for (let i = 0; i < count; i++) {
+          pos[i * 3] = (Math.random() - 0.5) * 45;
+          pos[i * 3 + 1] = (Math.random() - 0.5) * 45;
+          pos[i * 3 + 2] = (Math.random() - 0.5) * 45;
+        }
+        geo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+
+        const mat = new THREE.PointsMaterial({ size: 0.18, color: 0x00ffe0, transparent: true, opacity: 0.65 });
+        const pts = new THREE.Points(geo, mat);
+        scene.add(pts);
+
+        camera.position.z = 15;
+
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+          mouseX = (e.clientX / window.innerWidth - 0.5) * 0.5;
+          mouseY = (e.clientY / window.innerHeight - 0.5) * 0.5;
+        });
+
+        function animate() {
+          requestAnimationFrame(animate);
+          pts.rotation.y += 0.0012 + mouseX * 0.01;
+          pts.rotation.x += 0.0006 + mouseY * 0.01;
+          renderer.render(scene, camera);
+        }
+        animate();
+      })();
+
+      // 5. Interactive 3D Neural Mesh Canvas
+      (function init3DAtlas() {
+        const canvas = document.getElementById('atlas-3d-canvas');
+        if (!canvas || !window.THREE) return;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(60, canvas.clientWidth / canvas.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+
+        renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+        const orbGeo = new THREE.IcosahedronGeometry(2, 2);
+        const orbMat = new THREE.MeshBasicMaterial({ color: 0x00ffe0, wireframe: true, transparent: true, opacity: 0.7 });
+        const orb = new THREE.Mesh(orbGeo, orbMat);
+        scene.add(orb);
+
+        const nodes = [
+          { pos: [-5, 2.5, 0], color: 0x7c5cfc },
+          { pos: [5, 2.5, 0], color: 0x00ff88 },
+          { pos: [-5, -2.5, 0], color: 0xffb703 },
+          { pos: [5, -2.5, 0], color: 0x00ffe0 }
+        ];
+
+        const grp = new THREE.Group();
+        nodes.forEach(nd => {
+          const sGeo = new THREE.SphereGeometry(0.7, 16, 16);
+          const sMat = new THREE.MeshBasicMaterial({ color: nd.color });
+          const m = new THREE.Mesh(sGeo, sMat);
+          m.position.set(...nd.pos);
+          grp.add(m);
+
+          const lMat = new THREE.LineBasicMaterial({ color: nd.color, transparent: true, opacity: 0.4 });
+          const lGeo = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0,0,0), new THREE.Vector3(...nd.pos)]);
+          grp.add(new THREE.Line(lGeo, lMat));
+        });
+
+        scene.add(grp);
+        camera.position.z = 10;
+
+        let isDrag = false, px = 0, py = 0;
+        canvas.addEventListener('mousedown', (e) => { isDrag = true; px = e.clientX; py = e.clientY; });
+        window.addEventListener('mouseup', () => { isDrag = false; });
+        window.addEventListener('mousemove', (e) => {
+          if (!isDrag) return;
+          grp.rotation.y += (e.clientX - px) * 0.01;
+          grp.rotation.x += (e.clientY - py) * 0.01;
+          orb.rotation.y += (e.clientX - px) * 0.01;
+          px = e.clientX; py = e.clientY;
+        });
+
+        function animate() {
+          requestAnimationFrame(animate);
+          orb.rotation.y += 0.005;
+          grp.rotation.y += 0.002;
+          renderer.render(scene, camera);
+        }
+        animate();
+      })();
     });
   </script>
 </body>
