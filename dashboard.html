@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BENNI·OS — Analytics Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wdth,wght@75..100,400..700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #09090b; color: #e8e1d5; font-family: "Instrument Sans", sans-serif; padding: 3rem 4vw; -webkit-font-smoothing: antialiased; }
+    .dashboard { max-width: 1200px; margin: 0 auto; }
+    .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(232, 225, 213, 0.12); padding-bottom: 1.5rem; margin-bottom: 2rem; }
+    .header h1 { font-family: "DM Serif Display", serif; font-size: 2.2rem; font-weight: 500; color: #ffffff; letter-spacing: -0.02em; }
+    .header .domain-badge { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.15em; color: #8bb2ff; background: rgba(66, 107, 255, 0.15); border: 1px solid rgba(66, 107, 255, 0.4); padding: 6px 14px; border-radius: 20px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin-bottom: 2.5rem; }
+    .card { background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(232, 225, 213, 0.1); border-radius: 12px; padding: 1.75rem; backdrop-filter: blur(10px); transition: border-color 0.3s ease, transform 0.3s ease; }
+    .card:hover { border-color: rgba(201, 164, 92, 0.4); transform: translateY(-2px); }
+    .card h3 { font-family: "IBM Plex Mono", monospace; font-size: 11px; letter-spacing: 0.16em; opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .card .value { font-size: 2.8rem; font-weight: 600; font-family: "DM Serif Display", serif; color: #ffffff; margin-bottom: 0.35rem; line-height: 1; }
+    .card .sub { font-size: 0.85rem; color: #a1a1aa; font-family: "IBM Plex Mono", monospace; }
+    .events-section { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(232, 225, 213, 0.08); border-radius: 12px; padding: 2rem; }
+    .events-section h2 { font-family: "IBM Plex Mono", monospace; font-size: 13px; letter-spacing: 0.15em; margin-bottom: 1.25rem; color: #c9a45c; }
+    .events-list { display: flex; flex-direction: column; gap: 8px; font-family: "IBM Plex Mono", monospace; font-size: 12px; max-height: 320px; overflow-y: auto; }
+    .event-item { display: flex; justify-content: space-between; padding: 8px 12px; background: rgba(0, 0, 0, 0.4); border-radius: 6px; border-left: 3px solid #426bff; }
+    .event-item .name { color: #8bb2ff; font-weight: 600; }
+    .event-item .time { color: rgba(232, 225, 213, 0.4); font-size: 10px; }
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="header">
+      <div>
+        <h1>BENNI·OS — Analytics Dashboard</h1>
+        <p style="opacity:0.6; font-size:14px; margin-top:4px;">Métricas de engajamento, interações 3D e funil de conversão em tempo real</p>
+      </div>
+      <div class="domain-badge">benni-os.net</div>
+    </div>
+    <div class="grid" id="stats">
+      <div class="card">
+        <h3>Sessão Ativa</h3>
+        <div class="value" id="session-id">LIVE</div>
+        <div class="sub">Rastreamento GDPR compliant</div>
+      </div>
+      <div class="card">
+        <h3>Visualizações de Página</h3>
+        <div class="value" id="pageviews">1</div>
+        <div class="sub">Sessão atual</div>
+      </div>
+      <div class="card">
+        <h3>Cliques em CTAs</h3>
+        <div class="value" id="cta_clicks">0</div>
+        <div class="sub">Interações registradas</div>
+      </div>
+      <div class="card">
+        <h3>Interações 3D</h3>
+        <div class="value" id="interactions_3d">0</div>
+        <div class="sub">WebGL hover / tilt</div>
+      </div>
+    </div>
+    <div class="events-section">
+      <h2>FEED DE EVENTOS EM TEMPO REAL</h2>
+      <div class="events-list" id="events-feed">
+        <div class="event-item"><span class="name">system_initialized</span><span class="time">Agora</span></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    function refreshData() {
+      try {
+        const events = JSON.parse(localStorage.getItem('benni_events') || '[]');
+        const feed = document.getElementById('events-feed');
+        if (feed && events.length > 0) {
+          feed.innerHTML = events.slice(-15).reverse().map(e => `
+            <div class="event-item">
+              <span class="name">${e.name}</span>
+              <span class="props">${JSON.stringify(e.props || {})}</span>
+              <span class="time">${new Date(e.timestamp).toLocaleTimeString()}</span>
+            </div>
+          `).join('');
+        }
+        const ctas = events.filter(e => e.name === 'cta_click').length;
+        const d3 = events.filter(e => e.name === '3d_interaction').length;
+        const pvs = events.filter(e => e.name === 'page_view' || e.name === 'section_view').length;
+        document.getElementById('cta_clicks').textContent = ctas;
+        document.getElementById('interactions_3d').textContent = d3;
+        document.getElementById('pageviews').textContent = Math.max(1, pvs);
+      } catch (_) {}
+    }
+    setInterval(refreshData, 1500);
+    refreshData();
+  </script>
+</body>
+</html>
