@@ -145,6 +145,7 @@
     html {
       overflow-x: clip;
       scroll-behavior: auto;
+      overscroll-behavior: none;
     }
     body {
       background: #09090b;
@@ -154,6 +155,26 @@
       width: 100%;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      scrollbar-gutter: stable;
+    }
+
+    /* PERFORMANCE - content-visibility e contain */
+    .dossier-section, .corridor-section, .chamber-section, .act-iii-decision-track, .act-iii-handoff-track, .act-iii-adam-track {
+      content-visibility: auto;
+      contain-intrinsic-size: 100vw 100svh;
+    }
+    .plate, .wall-media, .benjamin-media-box, .adam-media-frame {
+      contain: layout style paint;
+    }
+
+    /* TEXT BALANCE - expandido */
+    .ledger-title, .ledger-sub, .plate-kicker, .plate-heading, .marginalia-lead, .marginalia-val, .strip-meta, .strip-action, .adam-kicker, .adam-brand-meta, .benni-footer-system, .benni-footer-meta {
+      text-wrap: balance;
+    }
+
+    /* NUMERICOS - tabular-nums */
+    #chapterReadout, #idxNum, .ledger-num, .plate-index, .wall-label, .nav-status-text, .benni-footer-meta {
+      font-variant-numeric: tabular-nums;
     }
 
     /* ==========================================================================
@@ -1731,6 +1752,11 @@
       right: 10%;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.08), transparent);
+      animation: bridge-pulse 3s ease-in-out infinite;
+    }
+    @keyframes bridge-pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.8; }
     }
     .act-bridge span {
       font-family: "IBM Plex Mono", monospace;
@@ -2306,6 +2332,15 @@
         transform: none !important;
       }
     }
+    /* ALTO CONTRASTE */
+    @media (prefers-contrast: more) {
+      .site-nav { border-bottom-color: rgba(232,225,213,0.35) !important; }
+      .hero-cinematic-frame { border-color: rgba(232,225,213,0.5) !important; }
+      .plate { border-color: rgba(232,225,213,0.35) !important; }
+      .wall-title, .chamber-title, .dossier-declaration, .benjamin-statement-title, .adam-heading, .exit-title, .benni-footer-mark {
+        text-shadow: 0 2px 20px rgba(0,0,0,0.95) !important;
+      }
+    }
 
     /* ==========================================================================
        SELECTION
@@ -2345,6 +2380,30 @@
 /* ============================================================
    WAVE 11 – CUSTOM CURSOR + 3D TILT
    ============================================================ */
+/* CURSOR 3D TILT - FEEDBACK TATIL */
+.w11-3d, .dossier-frame, .wall-media, .wall-frame, .chamber-plate, .benjamin-media-box, .adam-media-frame, .adam-action-bar, .editorial-action-strip {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  will-change: transform;
+  transition: transform 0.22s cubic-bezier(0.16,1,0.3,1), box-shadow 0.3s ease;
+}
+.w11-3d:hover, .dossier-frame:hover, .wall-media:hover, .chamber-plate:hover, .benjamin-media-box:hover, .adam-media-frame:hover, .adam-action-bar:hover, .editorial-action-strip:hover {
+  transform: rotateX(2deg) rotateY(-2deg) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(232,225,213,0.2);
+}
+/* MICROINTERACOES - HOVER E FOCUS */
+.ledger-row:hover, .ledger-row:focus {
+  transform: translateX(12px);
+  box-shadow: inset 0 -1px 0 rgba(0,0,0,0.06), 0 10px 40px rgba(0,0,0,0.08);
+}
+.plate:hover, .plate:focus {
+  transform: scale(1.02);
+  box-shadow: inset 0 0 90px rgba(0,0,0,0.26), 0 20px 60px rgba(0,0,0,0.4);
+}
+.adam-action-bar:hover, .adam-action-bar:focus, .editorial-action-strip:hover, .editorial-action-strip:focus {
+  transform: translateX(12px);
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
 
 /* ============================================================
    WAVE 11 – CUSTOM CURSOR + 3D TILT
@@ -2482,6 +2541,65 @@ body.cursor-pressed .cursor-ring {
 /* ============================================================
    WAVE 13 – TYPOGRAPHY SUPREMACY & 3D SPATIAL DEPTH ENGINE
    ============================================================ */
+/* HERO 3D - PROFUNDIDADE APRIMORADA */
+.hero-sticky {
+  perspective: 1200px;
+  perspective-origin: center center;
+}
+#hero-frame-canvas, #hero-gl-canvas {
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), filter 0.9s cubic-bezier(0.16,1,0.3,1), border-radius 0.9s cubic-bezier(0.16,1,0.3,1), box-shadow 0.9s cubic-bezier(0.16,1,0.3,1);
+  will-change: transform, filter, border-radius;
+  transform-origin: center center;
+}
+.hero-copy {
+  z-index: 25;
+  transition: transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.6s cubic-bezier(0.16,1,0.3,1);
+  will-change: transform, opacity;
+}
+/* Modo: foreground-video */
+.hero-sticky[data-depth-mode="foreground-video"] #hero-frame-canvas,
+.hero-sticky[data-depth-mode="foreground-video"] #hero-gl-canvas {
+  transform: scale(1) translateZ(0);
+  filter: none !important;
+  border-radius: 0;
+  box-shadow: none;
+}
+.hero-sticky[data-depth-mode="foreground-video"] .hero-copy {
+  transform: scale(1) translateZ(10px);
+}
+/* Modo: recessed-video */
+.hero-sticky[data-depth-mode="recessed-video"] #hero-frame-canvas,
+.hero-sticky[data-depth-mode="recessed-video"] #hero-gl-canvas {
+  transform: scale(0.88) translateZ(-140px);
+  filter: none !important;
+  border-radius: 24px;
+  box-shadow: 0 30px 100px rgba(0,0,0,0.95), 0 0 0 1px rgba(201,164,92,0.35);
+}
+.hero-sticky[data-depth-mode="recessed-video"] .hero-copy {
+  transform: scale(1.06) translateZ(90px);
+}
+/* Modo: lateral-split */
+.hero-sticky[data-depth-mode="lateral-split"] #hero-frame-canvas,
+.hero-sticky[data-depth-mode="lateral-split"] #hero-gl-canvas {
+  transform: scale(0.9) translateX(5vw) translateZ(-80px);
+  filter: none !important;
+  border-radius: 20px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.9), 0 0 0 1px rgba(201,164,92,0.3);
+}
+.hero-sticky[data-depth-mode="lateral-split"] .hero-copy {
+  transform: scale(1.03) translateZ(60px);
+}
+/* Modo: monolith-decision */
+.hero-sticky[data-depth-mode="monolith-decision"] #hero-frame-canvas,
+.hero-sticky[data-depth-mode="monolith-decision"] #hero-gl-canvas {
+  transform: scale(0.94) translateZ(-50px);
+  filter: none !important;
+  border-radius: 18px;
+  box-shadow: 0 25px 80px rgba(0,0,0,0.95), 0 0 0 1px rgba(232,225,213,0.2);
+}
+.hero-sticky[data-depth-mode="monolith-decision"] .hero-copy {
+  transform: scale(1.02) translateZ(80px);
+}
 
 /* 1. SISTEMA ESPACIAL DE PROFUNDIDADE Z NO HERO (CAMADAS DINÂMICAS) */
 .hero-sticky {
@@ -3092,6 +3210,23 @@ body {
 }
 
 </style>
+
+<script>
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+  touchMultiplier: 2,
+  infinite: false,
+});
+lenis.on('scroll', (e) => {
+  // ScrollTrigger ja esta integrado
+});
+function raf(time) {
+  lenis.raf(time);
+  requestAnimationFrame(raf);
+}
+requestAnimationFrame(raf);
+</script>
   <script type="module" crossorigin src="/assets/main-Dzv1OauV.js"></script>
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
@@ -3407,7 +3542,7 @@ body {
 
       <div class="benjamin-canvas" id="benjaminCanvas">
         <div class="benjamin-media-box">
-          <img class="benjamin-img" id="benjaminImg" src="/assets/hero-10-the-decision-B7S2kFCU.png" alt="Project Benjamin Decision Environment">
+          <img class="benjamin-img" id="benjaminImg" src="/assets/hero-10-the-decision-B7S2kFCU.png" alt="Project Benjamin Decision Environment" loading="lazy" decoding="async">
         </div>
         <div class="benjamin-marginalia">
           <p class="marginalia-lead">Project Benjamin turns operational reality into a decision you can stand behind.</p>
@@ -4743,7 +4878,7 @@ body {
         if (handMeta) { handMeta.style.opacity = '0'; handMeta.style.transform = 'translateY(8px)'; }
       } else {
         if (handRule) handRule.style.transform = 'scaleX(1)';
-        const wipe = Math.max(0, 100 - ((p - 0.50) / 0.35) * 100);
+        const wipe = Math.max(0, 100 - (p - 0.50) / 0.35 * 100);
         if (handWipe) handWipe.style.clipPath = `inset(${wipe}% 0 0 0)`;
         if (p >= 0.85) { if (handMeta) { handMeta.style.opacity = '1'; handMeta.style.transform = 'translateY(0)'; } }
         else { if (handMeta) { handMeta.style.opacity = '0'; handMeta.style.transform = 'translateY(8px)'; } }
@@ -4824,6 +4959,12 @@ body {
     window.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
+      // Tilt baseado na posicao do cursor
+      const tiltX = (mouseY - window.innerHeight / 2) / 30;
+      const tiltY = (mouseX - window.innerWidth / 2) / 30;
+      document.querySelectorAll('.w11-3d, .dossier-frame, .wall-media, .chamber-plate, .benjamin-media-box, .adam-media-frame').forEach(el => {
+        el.style.transform = `rotateX(${tiltX}deg) rotateY(${-tiltY}deg)`;
+      });
 
       if (!isVisible) {
         isVisible = true;
@@ -5605,15 +5746,30 @@ body {
       if (window.__WAVE13__) { window.__WAVE13__.init && window.__WAVE13__.init(); }
       if (window.__WAVE14__) { window.__WAVE14__.init && window.__WAVE14__.init(); }
       if (window.__WAVE15__) { window.__WAVE15__.init && window.__WAVE15__.init(); }
-      if (window.__WAVE16__) { window.__WAVE16__.init && window.__WAVE16__.init(); }
-      if (window.__WAVE17__) { window.__WAVE17__.init && window.__WAVE17__.init(); }
-      if (window.__WAVE18__) { window.__WAVE18__.init && window.__WAVE18__.init(); }
-      if (window.__WAVE19__) { window.__WAVE19__.init && window.__WAVE19__.init(); }
-      if (window.__WAVE20__) { window.__WAVE20__.init && window.__WAVE20__.init(); }
       if (window.BENNIHERO3D && window.BENNIHERO3D.init) { window.BENNIHERO3D.init(); }
-      if (window.BENNIACT2 && window.BENNIACT2.init) { window.BENNIACT2.init(); }
-      if (window.BENNIACT3 && window.BENNIACT3.init) { window.BENNIACT3.init(); }
-      console.log("BENNI OS - All waves and runtimes initialized");
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => {
+          if (window.__WAVE16__) { window.__WAVE16__.init && window.__WAVE16__.init(); }
+          if (window.__WAVE17__) { window.__WAVE17__.init && window.__WAVE17__.init(); }
+          if (window.__WAVE18__) { window.__WAVE18__.init && window.__WAVE18__.init(); }
+          if (window.__WAVE19__) { window.__WAVE19__.init && window.__WAVE19__.init(); }
+          if (window.__WAVE20__) { window.__WAVE20__.init && window.__WAVE20__.init(); }
+          if (window.BENNIACT2 && window.BENNIACT2.init) { window.BENNIACT2.init(); }
+          if (window.BENNIACT3 && window.BENNIACT3.init) { window.BENNIACT3.init(); }
+          console.log("BENNI OS - All waves and runtimes initialized (idle)");
+        }, { timeout: 2000 });
+      } else {
+        setTimeout(() => {
+          if (window.__WAVE16__) { window.__WAVE16__.init && window.__WAVE16__.init(); }
+          if (window.__WAVE17__) { window.__WAVE17__.init && window.__WAVE17__.init(); }
+          if (window.__WAVE18__) { window.__WAVE18__.init && window.__WAVE18__.init(); }
+          if (window.__WAVE19__) { window.__WAVE19__.init && window.__WAVE19__.init(); }
+          if (window.__WAVE20__) { window.__WAVE20__.init && window.__WAVE20__.init(); }
+          if (window.BENNIACT2 && window.BENNIACT2.init) { window.BENNIACT2.init(); }
+          if (window.BENNIACT3 && window.BENNIACT3.init) { window.BENNIACT3.init(); }
+          console.log("BENNI OS - All waves and runtimes initialized (fallback)");
+        }, 100);
+      }
     }
     if (document.readyState === "complete") { init(); }
     else { window.addEventListener("load", init, { once: true }); }
