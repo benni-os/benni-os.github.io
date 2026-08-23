@@ -1,0 +1,61 @@
++  <!-- Lenis -->
++  <link rel="stylesheet" href="https://unpkg.com/lenis@1.3.23/dist/lenis.css" />
++  <script src="https://unpkg.com/lenis@1.3.23/dist/lenis.min.js"></script>
++
++        <video class="dossier-video" src="card-orchestrate.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++            <video class="corridor-video" src="inside-memory.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++            <video class="corridor-video" src="inside-policy.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++            <video class="corridor-video" src="inside-inference.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++        <video class="plate-video" src="card-orchestrate.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++        <video class="plate-video" src="card-reason.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++        <video class="plate-video" src="card-execute.mp4" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none"></video>
++        <video class="adam-video" id="adamVideo" src="10 ÔÇö The Decision ÔåÆ The First Move.mp4" poster="hero-11-the-first-move.png" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none" aria-label="Adam the first move"></video>
++<!-- ==========================================================================
++      const MAX_CONCURRENT = 4;
++      const dpr = isMobile() ? 1 : Math.min(window.devicePixelRatio, 2);
++          threeRenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
++          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
++
++<script>
++  (function() {
++    "use strict";
++    function init() {
++      if (window.__WAVE11__) { window.__WAVE11__.init && window.__WAVE11__.init(); }
++      if (window.__WAVE13__) { window.__WAVE13__.init && window.__WAVE13__.init(); }
++      if (window.__WAVE14__) { window.__WAVE14__.init && window.__WAVE14__.init(); }
++      if (window.__WAVE15__) { window.__WAVE15__.init && window.__WAVE15__.init(); }
++      if (window.__WAVE16__) { window.__WAVE16__.init && window.__WAVE16__.init(); }
++      if (window.__WAVE17__) { window.__WAVE17__.init && window.__WAVE17__.init(); }
++      if (window.__WAVE18__) { window.__WAVE18__.init && window.__WAVE18__.init(); }
++      if (window.__WAVE19__) { window.__WAVE19__.init && window.__WAVE19__.init(); }
++      if (window.__WAVE20__) { window.__WAVE20__.init && window.__WAVE20__.init(); }
++      if (window.BENNIHERO3D && window.BENNIHERO3D.init) { window.BENNIHERO3D.init(); }
++      if (window.BENNIACT2 && window.BENNIACT2.init) { window.BENNIACT2.init(); }
++      if (window.BENNIACT3 && window.BENNIACT3.init) { window.BENNIACT3.init(); }
++      console.log("BENNI OS - All waves and runtimes initialized");
++    }
++    if (document.readyState === "complete") { init(); }
++    else { window.addEventListener("load", init, { once: true }); }
++  })();
++</script>
++<script>
++  (function() {
++    "use strict";
++    function dismissBoot() {
++      const boot = document.getElementById("boot-screen");
++      if (!boot) return;
++      boot.style.opacity = "0";
++      setTimeout(() => {
++        boot.style.display = "none";
++        boot.style.pointerEvents = "none";
++        document.body.style.overflow = "";
++        document.documentElement.style.overflow = "";
++      }, 800);
++    }
++    setTimeout(dismissBoot, 1200);
++    if (window.BENNIHERO3D) {
++      window.BENNIHERO3D.onReady = dismissBoot;
++    }
++  })();
++</script>
++
