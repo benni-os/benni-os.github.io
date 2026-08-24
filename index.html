@@ -3743,7 +3743,7 @@ body {
 
   <!-- EXIT ACT II -->
   <section class="exit-section">
-    <div class="exit-bg" style="background-image:url('/assets/Rail%202%20-%20ARCHITECTURE-B9UgcYSS.jpeg');"></div>
+    <div class="exit-bg" style="background-image:url('/assets/rail-2-architecture-B9UgcYSS.jpeg');"></div>
     <div class="exit-overlay"></div>
     <div class="exit-content">
       <h2 class="exit-title">The system remembers.<br>The operator decides.</h2>
@@ -3835,7 +3835,7 @@ body {
     <div class="act-iii-adam-sticky">
 
       <div class="adam-media-frame" id="adamMediaFrame">
-        <video class="adam-video" id="adamVideo" src="/assets/10%20%E2%80%94%20The%20Decision%20%E2%86%92%20The%20First%20Move-B2UEAO_y.mp4" poster="/assets/hero-11-the-first-move-Dx_h2ik-.png" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none" aria-label="Adam the first move"></video>
+        <video class="adam-video" id="adamVideo" src="/assets/10-the-decision-the-first-move-B2UEAO_y.mp4" poster="/assets/hero-11-the-first-move-Dx_h2ik-.png" autoplay muted loop playsinline loading="lazy" decoding="async" preload="none" aria-label="Adam the first move"></video>
       </div>
 
       <div class="adam-copy-stage2" id="adamStage2">
@@ -3902,8 +3902,8 @@ body {
       const title = document.getElementById("heroTitle");
       const body = document.getElementById("heroBody");
       const meta = document.getElementById("heroMeta");
-      const idxNum = document.getElementById("chapterIndex");
-      const idxName = document.getElementById("chapterIndex");
+      const idxNum = document.getElementById("idxNum");
+      const idxName = document.getElementById("idxName");
       const chapterReadout = document.getElementById("chapterReadout");
       const progressFill = document.getElementById("scroll-progress-fill");
       const nav = document.querySelector(".site-nav");
@@ -4385,8 +4385,14 @@ body {
           dirLight.position.set(6, 10, 12);
           threeScene.add(dirLight);
 
+          let isHeroVisible = true;
+          const heroObs = new IntersectionObserver(e => {
+            isHeroVisible = e[0].isIntersecting;
+          }, { threshold: 0 });
+          heroObs.observe(document.getElementById('heroStage') || document.body);
+
           function animThree() {
-            if (threeRenderer && threeScene && threeCam) {
+            if (isHeroVisible && threeRenderer && threeScene && threeCam) {
               threeRenderer.render(threeScene, threeCam);
             }
             requestAnimationFrame(animThree);
@@ -4490,6 +4496,8 @@ body {
           if (v) {
             if (e.isIntersecting) {
               v.play().catch(() => {});
+            } else {
+              v.pause();
             }
           }
         });
@@ -4828,11 +4836,10 @@ body {
 
         if (shouldActive !== isActive) {
           isActive = shouldActive;
-          pullquote.classList.toggle('is-active', isActive);
           const c = document.getElementById('benjamin-drop-canvas');
           if (c) c.style.setProperty('display', 'block', 'important');
         }
-        if (cta) cta.classList.toggle('is-active', actP >= 0.80);
+        // CTA and quote toggles moved to updateBenjamin to avoid flicker
       }
 
       window.addEventListener('scroll', updateProgress, { passive: true });
@@ -4842,7 +4849,6 @@ body {
       // Garante ativação imediata
       setTimeout(() => {
         isActive = true;
-        pullquote.classList.add('is-active');
         updateProgress();
       }, 300);
 
@@ -5112,58 +5118,7 @@ body {
       }
     });
 
-    // ----------------------------------------------------
-    // 3D TILT ENGINE FOR CARDS & MEDIA FRAMES
-    // ----------------------------------------------------
-    const tiltSelectors = `
-      .w11-3d,
-      .dossier-frame,
-      .wall-media,
-      .wall-frame,
-      .chamber-plate,
-      .plate,
-      .benjamin-media-box,
-      .adam-media-frame,
-      .adam-action-bar,
-      .editorial-action-strip,
-      .dossier-row,
-      .ledger-row
-    `;
-
-    const tiltElements = document.querySelectorAll(tiltSelectors);
-
-    tiltElements.forEach(el => {
-      let isHovered = false;
-      let rect = null;
-
-      el.addEventListener('mouseenter', () => {
-        isHovered = true;
-        rect = el.getBoundingClientRect();
-      }, { passive: true });
-
-      el.addEventListener('mousemove', (e) => {
-        if (!isHovered || !rect) return;
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        const cx = rect.width / 2;
-        const cy = rect.height / 2;
-        const dx = (x - cx) / cx;
-        const dy = (y - cy) / cy;
-
-        const maxTilt = 7;
-        const rotX = -dy * maxTilt;
-        const rotY = dx * maxTilt;
-
-        el.style.transform = `perspective(1000px) rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg) scale3d(1.015, 1.015, 1.015) translateZ(10px)`;
-      }, { passive: true });
-
-      el.addEventListener('mouseleave', () => {
-        isHovered = false;
-        el.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1) translateZ(0px)';
-      }, { passive: true });
-    });
-
-    console.log('✅ Wave 11 – Custom Cursor + 3D Tilt Engine ativado!');
+    console.log('✅ Wave 11 – Custom Cursor ativado!');
   })();
 </script>
 
@@ -5793,18 +5748,7 @@ body {
   (function() {
     "use strict";
     function init() {
-      if (window.__WAVE11__) { window.__WAVE11__.init && window.__WAVE11__.init(); }
-      if (window.__WAVE13__) { window.__WAVE13__.init && window.__WAVE13__.init(); }
-      if (window.__WAVE14__) { window.__WAVE14__.init && window.__WAVE14__.init(); }
-      if (window.__WAVE15__) { window.__WAVE15__.init && window.__WAVE15__.init(); }
-      if (window.__WAVE16__) { window.__WAVE16__.init && window.__WAVE16__.init(); }
-      if (window.__WAVE17__) { window.__WAVE17__.init && window.__WAVE17__.init(); }
-      if (window.__WAVE18__) { window.__WAVE18__.init && window.__WAVE18__.init(); }
-      if (window.__WAVE19__) { window.__WAVE19__.init && window.__WAVE19__.init(); }
-      if (window.__WAVE20__) { window.__WAVE20__.init && window.__WAVE20__.init(); }
-      if (window.BENNIHERO3D && window.BENNIHERO3D.init) { window.BENNIHERO3D.init(); }
-      if (window.BENNIACT2 && window.BENNIACT2.init) { window.BENNIACT2.init(); }
-      if (window.BENNIACT3 && window.BENNIACT3.init) { window.BENNIACT3.init(); }
+      // Waves self-initialize via IIFEs
       console.log("BENNI OS - All waves and runtimes initialized");
     }
     if (document.readyState === "complete") { init(); }
@@ -5826,9 +5770,6 @@ body {
       }, 800);
     }
     setTimeout(dismissBoot, 1200);
-    if (window.BENNIHERO3D) {
-      window.BENNIHERO3D.onReady = dismissBoot;
-    }
   })();
 </script>
 
@@ -5845,19 +5786,7 @@ body {
   const heroCopy = document.getElementById('heroCopy');
   const heroStage = document.getElementById('heroStage');
   if (heroCopy && heroStage) {
-    const observer = new MutationObserver(() => {
-      const isVisible = heroCopy.classList.contains('is-visible');
-      if (isVisible) {
-        heroCopy.style.transition = 'transform 0.9s cubic-bezier(0.16,1,0.3,1), opacity 0.9s ease';
-        heroCopy.style.transform = 'translateY(0) scale(1)';
-        heroCopy.style.opacity = '1';
-      } else {
-        heroCopy.style.transition = 'transform 0.8s cubic-bezier(0.16,1,0.3,1), opacity 0.8s ease';
-        heroCopy.style.transform = 'translateY(20px) scale(0.96)';
-        heroCopy.style.opacity = '0.3';
-      }
-    });
-    observer.observe(heroCopy, { attributes: true, attributeFilter: ['class'] });
+    // Observers removed to prevent transform inline style conflicts
   }
   document.querySelectorAll('.reveal-text').forEach(el => {
     const observer = new IntersectionObserver((entries) => {
@@ -5928,14 +5857,7 @@ body {
       }
     }, { passive: true });
   }
-  const statusText = document.querySelector('.nav-status-text');
-  if (statusText && !statusText.querySelector('.blink-cursor')) {
-    const cursor = document.createElement('span');
-    cursor.className = 'blink-cursor';
-    cursor.textContent = '█';
-    cursor.style.animation = 'blink 1s step-end infinite';
-    statusText.appendChild(cursor);
-  }
+  // Blink cursor already handled by CSS ::after
   console.log('✅ Wave 21 – Typography Cinematic & Kinetic ativada!');
 })();
 </script>
