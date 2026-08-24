@@ -3303,23 +3303,69 @@ body {
 
 /* 8. MELHORIA NO CONTRASTE E VISIBILIDADE PARA TELAS PEQUENAS */
 @media (max-width: 768px) {
+  #heroTitle, #hero-title, .plate-heading, .plate-body, .plate-kicker, .wall-title, .wall-title-centered, .wall-secondary, .wall-secondary-bottom, .chamber-title, .adam-heading, .adam-body {
+    filter: none !important;
+    text-shadow: none !important;
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff !important;
+    background: transparent !important;
+  }
+  
+  /* Remove blur on all cards and containers on mobile */
+  .w22-card-3d, .plate, .card, .dossier-frame, .wall-media {
+    filter: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Fix for overlapping text in Nemesis Policy Gate */
+  .wall-01 .wall-content, .wall-02 .wall-content {
+    height: auto !important;
+    min-height: 50svh;
+    padding-bottom: 2rem !important;
+  }
+  .wall-title, .wall-title-centered {
+    font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
+    line-height: 1.15 !important;
+  }
+  .wall-secondary, .wall-secondary-bottom {
+    font-size: 1.05rem !important;
+    line-height: 1.4 !important;
+    margin-top: 10px !important;
+  }
+  .wall-meta {
+    margin-top: 10px !important;
+  }
+  
+  /* Fix for white space at the end of System Dossier */
+  .dossier-section {
+    min-height: auto !important;
+    padding-bottom: 12vh !important;
+  }
+
+  /* Keep hero title responsive size */
   #heroTitle, #hero-title {
     font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,1)) drop-shadow(0 4px 12px rgba(0,0,0,1)) drop-shadow(0 8px 20px rgba(0,0,0,1)) !important;
-    text-shadow: none !important;
   }
+  
   #heroKicker {
     font-size: 0.65rem !important;
     letter-spacing: 0.25em !important;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,1)) !important;
+    filter: none !important;
+    text-shadow: none !important;
+    color: #ffffff !important;
   }
+  
   #heroBody, #hero-body {
     font-size: 0.95rem !important;
-    filter: drop-shadow(0 2px 6px rgba(0,0,0,1)) !important;
+    filter: none !important;
+    text-shadow: none !important;
+    color: rgba(255, 255, 255, 0.95) !important;
   }
+  
   .hero-copy:not(.is-visible) .line-mask > * {
     transform: translateY(20px) rotateX(6deg) scale(0.97) !important;
-    filter: blur(6px) !important;
+    filter: none !important;
   }
 }
 
