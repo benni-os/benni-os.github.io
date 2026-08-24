@@ -4280,9 +4280,17 @@ body {
           body.innerHTML = phase.body;
           meta.innerHTML = phase.meta;
 
-          // Força reflow para reiniciar a transição
+          // Força reflow para reiniciar a transição (sem ghosting)
+          copy.style.transition = 'none';
+          const animEls = copy.querySelectorAll('.line-mask > *, .copy-fade');
+          animEls.forEach(el => el.style.setProperty('transition', 'none', 'important'));
+          
           copy.classList.remove("is-visible");
           void copy.offsetWidth;
+          
+          copy.style.transition = '';
+          animEls.forEach(el => el.style.removeProperty('transition'));
+          
           copy.className = "hero-copy " + phase.pos + " is-visible";
 
           chapterReadout.textContent = "CHAPTER " + phase.id + " / 11";
