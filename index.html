@@ -3490,6 +3490,13 @@ body {
     </div>
     <div class="nav-chapter" id="chapterReadout">CHAPTER 01 / 11</div>
     <div class="nav-status-group">
+      <div class="language-selector" style="margin-right: 12px;">
+        <select id="langSelect" aria-label="Selecionar idioma" style="background: transparent; color: #a1a1aa; border: 1px solid rgba(161, 161, 170, 0.3); border-radius: 4px; padding: 2px 4px; font-size: 11px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; outline: none;">
+          <option value="pt" style="background: #09090b;">PT</option>
+          <option value="en" selected style="background: #09090b;">EN</option>
+          <option value="es" style="background: #09090b;">ES</option>
+        </select>
+      </div>
       <span class="nav-status-dot"></span>
       <span class="nav-status-text">SYSTEM ACTIVE</span>
     </div>
@@ -6001,6 +6008,307 @@ body {
 })();
 </script>
 
+<script>
+// ============================================================
+// WAVE 19 � INTERNATIONALIZATION (i18n) ENGINE
+// ============================================================
+(function() {
+  "use strict";
+
+  if (window.__WAVE19__) return;
+  window.__WAVE19__ = true;
+
+  // ---- DICION�RIO ----
+  const translations = {
+    pt: {
+      'hero.kicker': '01 / A CHEGADA',
+      'hero.title': 'O MUNDO ESPERAVA<br>POR UM SISTEMA.',
+      'hero.body': 'N�o outra interface. Uma organiza��o soberana constru�da para pensar, agir e lembrar.',
+      'hero.meta': 'ROLE PARA ENTRAR',
+      'dossier.declaration': 'Autonomia n�o � declarada.<br>� arquitetada.',
+      'dossier.meta': 'BENNI OS / DOSSI� DO SISTEMA / 01�07',
+      'corridor.wall1.title': 'Um sistema que n�o lembra<br>n�o pode ser confi�vel.',
+      'corridor.wall1.meta': 'PLANO DE CONTROLE / ESTADO PERSISTENTE',
+      'corridor.wall2.title': 'Um sistema que n�o para<br>n�o pode ser governado.',
+      'corridor.wall2.body': 'Fronteiras n�o s�o atrito.<br>S�o a condi��o para a autonomia.',
+      'corridor.wall2.meta': 'NEMESIS / PORT�O DE POL�TICA / VERIFICADO',
+      'corridor.wall3.title': 'Nem toda resposta merece<br>ser imediata.',
+      'corridor.wall3.body': 'Infer�ncia transforma informa��o<br>em uma decis�o com peso.',
+      'corridor.wall3.meta': 'MOTOR DE INFER�NCIA BENNI / ATIVO',
+      'chamber.title': 'Todo sistema faz uma promessa.<br>S� a arquitetura pode cumpri-la.',
+      'chamber.meta': 'BENNI OS / C�MARA DE CAPACIDADES',
+      'chamber.plate1.kicker': 'MASTER OS',
+      'chamber.plate1.heading': 'Orquestre<br>sem ru�do.',
+      'chamber.plate1.body': 'Sistemas n�o precisam de mais ferramentas.<br>Precisam de uma vontade coerente.',
+      'chamber.plate2.kicker': 'MOTOR DE INFER�NCIA',
+      'chamber.plate2.heading': 'Raciocine<br>antes do movimento.',
+      'chamber.plate2.body': 'Velocidade n�o � intelig�ncia.<br>Consequ�ncia �.',
+      'chamber.plate3.kicker': 'GATEWAY DO OPERADOR / ADAM',
+      'chamber.plate3.heading': 'Execute<br>sem desvio.',
+      'chamber.plate3.body': 'A a��o se torna valiosa<br>quando permanece govern�vel.',
+      'exit.title': 'O sistema lembra.<br>O operador decide.',
+      'benjamin.statement': 'Clareza � uma<br>vantagem competitiva.',
+      'benjamin.meta': 'PROJETO BENJAMIN<br>INTELIG�NCIA DE DECIS�O PARA OPERADORES',
+      'benjamin.lead': 'O Projeto Benjamin transforma a realidade operacional em uma decis�o em que voc� pode confiar.',
+      'benjamin.quote.line1': 'Voc� n�o precisa',
+      'benjamin.quote.line2': 'de mais informa��o.',
+      'benjamin.quote.line3': 'Voc� precisa da',
+      'benjamin.quote.line4': 'decis�o certa.',
+      'benjamin.cta.meta': 'PROJETO BENJAMIN<br>INTELIG�NCIA DE DECIS�O PARA OPERADORES',
+      'benjamin.cta.action': 'CONHE�A O PROJETO BENJAMIN ?',
+      'handoff.statement': 'Toda decis�o<br>cria uma responsabilidade.',
+      'adam.heading': 'Execu��o,<br>sem o ru�do.',
+      'adam.body': 'Adam transforma uma decis�o em movimento sem pedir que voc� se torne um operador de vinte ferramentas desconectadas.',
+      'adam.statement': 'Benjamin pensa.<br>Adam move.<br>Voc� decide.',
+      'adam.cta.title': 'RETORNE AO SISTEMA ?',
+      'adam.cta.meta': 'BENNI�OS<br>O SISTEMA DE AUTONOMIA SOBERANO',
+      'footer.statement': 'Constru�do para os operadores que se recusam a esperar pelo futuro.',
+      'footer.meta': '� 2026 BENNI OS / CONSTRU�DO A PARTIR DE PRIMEIROS PRINC�PIOS',
+      'nav.chapter': 'CAP�TULO',
+      'nav.autonomy': 'MOTOR DE AUTONOMIA',
+      'nav.return': 'RETORNAR / TOPO',
+      'rail.next': 'O PR�XIMO MOVIMENTO � SEU.',
+      'rail.action': 'RETORNAR AO SISTEMA ?'
+    },
+    en: {
+      'hero.kicker': '01 / THE ARRIVAL',
+      'hero.title': 'THE WORLD WAS WAITING<br>FOR A SYSTEM.',
+      'hero.body': 'Not another interface. A sovereign organization built to think, act, and remember.',
+      'hero.meta': 'SCROLL TO ENTER',
+      'dossier.declaration': 'Autonomy is not declared.<br>It is architected.',
+      'dossier.meta': 'BENNI OS / SYSTEM DOSSIER / 01�07',
+      'corridor.wall1.title': 'A system that cannot remember<br>cannot be trusted.',
+      'corridor.wall1.meta': 'CONTROL PLANE / PERSISTENT STATE',
+      'corridor.wall2.title': 'A system that cannot stop<br>cannot be governed.',
+      'corridor.wall2.body': 'Boundaries are not friction.<br>They are the condition for autonomy.',
+      'corridor.wall2.meta': 'NEMESIS / POLICY GATE / VERIFIED',
+      'corridor.wall3.title': 'Not every answer deserves<br>to be immediate.',
+      'corridor.wall3.body': 'Inference turns information<br>into a decision with weight.',
+      'corridor.wall3.meta': 'BENNI INFERENCE ENGINE / ACTIVE',
+      'chamber.title': 'Every system makes a promise.<br>Only architecture can keep it.',
+      'chamber.meta': 'BENNI OS / CAPABILITY CHAMBER',
+      'chamber.plate1.kicker': 'MASTER OS',
+      'chamber.plate1.heading': 'Orchestrate<br>without noise.',
+      'chamber.plate1.body': 'Systems do not need more tools.<br>They need a coherent will.',
+      'chamber.plate2.kicker': 'INFERENCE ENGINE',
+      'chamber.plate2.heading': 'Reason<br>before movement.',
+      'chamber.plate2.body': 'Speed is not intelligence.<br>Consequence is.',
+      'chamber.plate3.kicker': 'OPERATOR GATEWAY / ADAM',
+      'chamber.plate3.heading': 'Execute<br>without drift.',
+      'chamber.plate3.body': 'Action becomes valuable<br>when it remains governable.',
+      'exit.title': 'The system remembers.<br>The operator decides.',
+      'benjamin.statement': 'Clarity is a<br>competitive advantage.',
+      'benjamin.meta': 'PROJECT BENJAMIN<br>DECISION INTELLIGENCE FOR OPERATORS',
+      'benjamin.lead': 'Project Benjamin turns operational reality into a decision you can stand behind.',
+      'benjamin.quote.line1': 'You do not need',
+      'benjamin.quote.line2': 'more information.',
+      'benjamin.quote.line3': 'You need the',
+      'benjamin.quote.line4': 'right decision.',
+      'benjamin.cta.meta': 'PROJECT BENJAMIN<br>DECISION INTELLIGENCE FOR OPERATORS',
+      'benjamin.cta.action': 'MEET PROJECT BENJAMIN ?',
+      'handoff.statement': 'Every decision<br>creates a responsibility.',
+      'adam.heading': 'Execution,<br>without the noise.',
+      'adam.body': 'Adam turns a decision into motion without asking you to become an operator of twenty disconnected tools.',
+      'adam.statement': 'Benjamin thinks.<br>Adam moves.<br>You decide.',
+      'adam.cta.title': 'RETURN TO THE SYSTEM ?',
+      'adam.cta.meta': 'BENNI�OS<br>THE SOVEREIGN AUTONOMY SYSTEM',
+      'footer.statement': 'Built for the operators who refuse to wait for the future.',
+      'footer.meta': '� 2026 BENNI OS / BUILT FROM FIRST PRINCIPLES',
+      'nav.chapter': 'CHAPTER',
+      'nav.autonomy': 'AUTONOMY ENGINE',
+      'nav.return': 'RETURN / TOP',
+      'rail.next': 'THE NEXT MOVE IS YOURS.',
+      'rail.action': 'RETURN TO THE SYSTEM ?'
+    },
+    es: {
+      'hero.kicker': '01 / LA LLEGADA',
+      'hero.title': 'EL MUNDO ESTABA ESPERANDO<br>POR UN SISTEMA.',
+      'hero.body': 'No otra interfaz. Una organizaci�n soberana construida para pensar, actuar y recordar.',
+      'hero.meta': 'DESPL�ZATE PARA ENTRAR',
+      'dossier.declaration': 'La autonom�a no se declara.<br>Se arquitectura.',
+      'dossier.meta': 'BENNI OS / DOSIER DEL SISTEMA / 01�07',
+      'corridor.wall1.title': 'Un sistema que no recuerda<br>no puede ser confiable.',
+      'corridor.wall1.meta': 'PLANO DE CONTROL / ESTADO PERSISTENTE',
+      'corridor.wall2.title': 'Un sistema que no se detiene<br>no puede ser gobernado.',
+      'corridor.wall2.body': 'Los l�mites no son fricci�n.<br>Son la condici�n para la autonom�a.',
+      'corridor.wall2.meta': 'NEMESIS / PUERTA DE POL�TICA / VERIFICADO',
+      'corridor.wall3.title': 'No toda respuesta merece<br>ser inmediata.',
+      'corridor.wall3.body': 'La inferencia convierte informaci�n<br>en una decisi�n con peso.',
+      'corridor.wall3.meta': 'MOTOR DE INFERENCIA BENNI / ACTIVO',
+      'chamber.title': 'Todo sistema hace una promesa.<br>Solo la arquitectura puede cumplirla.',
+      'chamber.meta': 'BENNI OS / C�MARA DE CAPACIDADES',
+      'chamber.plate1.kicker': 'MASTER OS',
+      'chamber.plate1.heading': 'Orquesta<br>sin ruido.',
+      'chamber.plate1.body': 'Los sistemas no necesitan m�s herramientas.<br>Necesitan una voluntad coherente.',
+      'chamber.plate2.kicker': 'MOTOR DE INFERENCIA',
+      'chamber.plate2.heading': 'Razona<br>antes del movimiento.',
+      'chamber.plate2.body': 'La velocidad no es inteligencia.<br>La consecuencia lo es.',
+      'chamber.plate3.kicker': 'PUERTA DE OPERADOR / ADAM',
+      'chamber.plate3.heading': 'Ejecuta<br>sin desviaci�n.',
+      'chamber.plate3.body': 'La acci�n se vuelve valiosa<br>cuando permanece gobernable.',
+      'exit.title': 'El sistema recuerda.<br>El operador decide.',
+      'benjamin.statement': 'La claridad es una<br>ventaja competitiva.',
+      'benjamin.meta': 'PROYECTO BENJAMIN<br>INTELIGENCIA DE DECISI�N PARA OPERADORES',
+      'benjamin.lead': 'El Proyecto Benjamin convierte la realidad operativa en una decisi�n en la que puedes confiar.',
+      'benjamin.quote.line1': 'No necesitas',
+      'benjamin.quote.line2': 'm�s informaci�n.',
+      'benjamin.quote.line3': 'Necesitas la',
+      'benjamin.quote.line4': 'decisi�n correcta.',
+      'benjamin.cta.meta': 'PROYECTO BENJAMIN<br>INTELIGENCIA DE DECISI�N PARA OPERADORES',
+      'benjamin.cta.action': 'CONOCE EL PROYECTO BENJAMIN ?',
+      'handoff.statement': 'Cada decisi�n<br>crea una responsabilidad.',
+      'adam.heading': 'Ejecuci�n,<br>sin el ruido.',
+      'adam.body': 'Adam convierte una decisi�n en movimiento sin pedirte que te conviertas en un operador de veinte herramientas desconectadas.',
+      'adam.statement': 'Benjamin piensa.<br>Adam mueve.<br>T� decides.',
+      'adam.cta.title': 'REGRESA AL SISTEMA ?',
+      'adam.cta.meta': 'BENNI�OS<br>EL SISTEMA DE AUTONOM�A SOBERANO',
+      'footer.statement': 'Construido para los operadores que se niegan a esperar el futuro.',
+      'footer.meta': '� 2026 BENNI OS / CONSTRUIDO DESDE PRIMEROS PRINCIPIOS',
+      'nav.chapter': 'CAP�TULO',
+      'nav.autonomy': 'MOTOR DE AUTONOM�A',
+      'nav.return': 'REGRESAR / ARRIBA',
+      'rail.next': 'EL PR�XIMO MOVIMIENTO ES TUYO.',
+      'rail.action': 'REGRESA AL SISTEMA ?'
+    }
+  };
+
+  // ---- ESTADO ----
+  let currentLang = localStorage.getItem('benni_lang') || navigator.language.slice(0, 2) || 'en';
+  if (!['pt', 'en', 'es'].includes(currentLang)) currentLang = 'en';
+
+  // ---- FUN��ES ----
+  function t(key) {
+    return translations[currentLang]?.[key] || translations.en[key] || key;
+  }
+
+  function applyTranslations() {
+    // Mapeamento: chave -> seletor(es) CSS
+    const mapping = {
+      'hero.kicker': ['#heroKicker', '#hero-kicker'],
+      'hero.title': ['#heroTitle', '#hero-title'],
+      'hero.body': ['#heroBody', '#hero-body'],
+      'hero.meta': ['#heroMeta', '#hero-meta'],
+      'dossier.declaration': ['.dossier-declaration'],
+      'dossier.meta': ['.dossier-meta'],
+      'corridor.wall1.title': ['.wall-01 .wall-title'],
+      'corridor.wall1.meta': ['.wall-01 .wall-meta'],
+      'corridor.wall2.title': ['.wall-02 .wall-title'],
+      'corridor.wall2.body': ['.wall-02 .wall-secondary'],
+      'corridor.wall2.meta': ['.wall-02 .wall-meta'],
+      'corridor.wall3.title': ['.wall-03 .wall-title-centered'],
+      'corridor.wall3.body': ['.wall-03 .wall-secondary-bottom'],
+      'corridor.wall3.meta': ['.wall-03 .wall-meta-bottom'],
+      'chamber.title': ['.chamber-title'],
+      'chamber.meta': ['.chamber-meta'],
+      'chamber.plate1.kicker': ['.plate-1 .plate-kicker'],
+      'chamber.plate1.heading': ['.plate-1 .plate-heading'],
+      'chamber.plate1.body': ['.plate-1 .plate-body'],
+      'chamber.plate2.kicker': ['.plate-2 .plate-kicker'],
+      'chamber.plate2.heading': ['.plate-2 .plate-heading'],
+      'chamber.plate2.body': ['.plate-2 .plate-body'],
+      'chamber.plate3.kicker': ['.plate-3 .plate-kicker'],
+      'chamber.plate3.heading': ['.plate-3 .plate-heading'],
+      'chamber.plate3.body': ['.plate-3 .plate-body'],
+      'exit.title': ['.exit-title'],
+      'benjamin.statement': ['.benjamin-statement-title'],
+      'benjamin.meta': ['.benjamin-statement-meta'],
+      'benjamin.lead': ['.marginalia-lead'],
+      'benjamin.quote.line1': ['.benjamin-quote-line[data-line="1"]'],
+      'benjamin.quote.line2': ['.benjamin-quote-line[data-line="2"]'],
+      'benjamin.quote.line3': ['.benjamin-quote-line[data-line="3"]'],
+      'benjamin.quote.line4': ['.benjamin-quote-line[data-line="4"]'],
+      'benjamin.cta.meta': ['.strip-meta'],
+      'benjamin.cta.action': ['.strip-action'],
+      'handoff.statement': ['#handoffStatement'],
+      'adam.heading': ['.adam-heading'],
+      'adam.body': ['.adam-body'],
+      'adam.statement': ['.adam-brand-statement'],
+      'adam.cta.title': ['.adam-action-title'],
+      'adam.cta.meta': ['.adam-brand-meta'],
+      'footer.statement': ['.benni-footer-statement'],
+      'footer.meta': ['.benni-footer-meta'],
+      'nav.chapter': ['.nav-chapter'],
+      'nav.autonomy': ['.site-nav > div:last-child'],
+      'rail.next': ['.final-conversion-rail span'],
+      'rail.action': ['.final-conversion-rail a']
+    };
+
+    Object.entries(mapping).forEach(([key, selectors]) => {
+      const value = t(key);
+      selectors.forEach(sel => {
+        document.querySelectorAll(sel).forEach(el => {
+          if (el) el.innerHTML = value;
+        });
+      });
+    });
+
+    // Atualiza o seletor
+    const sel = document.getElementById('langSelect');
+    if (sel) sel.value = currentLang;
+
+    // Atualiza atributos de idioma
+    document.documentElement.lang = currentLang === 'pt' ? 'pt-BR' : currentLang;
+    document.documentElement.dataset.lang = currentLang;
+
+    // Notifica SEO (Wave 16) se dispon�vel
+    if (window.__WAVE16__ && typeof window.__WAVE16__.updateMeta === 'function') {
+      window.__WAVE16__.updateMeta();
+    }
+
+    console.log(?? Idioma atual:  + currentLang.toUpperCase());
+  }
+
+  function setLanguage(lang) {
+    if (!translations[lang]) return;
+    currentLang = lang;
+    localStorage.setItem('benni_lang', lang);
+    applyTranslations();
+
+    // Persistir no Puter KV (se dispon�vel)
+    if (typeof puter !== 'undefined' && puter.kv) {
+      puter.kv.set('benni_lang', lang).catch(() => {});
+    }
+
+    // Disparar evento para outras partes do site
+    document.dispatchEvent(new CustomEvent('languageChanged', { detail: { lang } }));
+  }
+
+  // ---- INICIALIZA��O ----
+  function init() {
+    const select = document.getElementById('langSelect');
+    if (select) {
+      select.value = currentLang;
+      select.addEventListener('change', (e) => setLanguage(e.target.value));
+    }
+
+    // Aplica as tradu��es iniciais
+    applyTranslations();
+
+    // Recupera idioma do Puter (se dispon�vel e autenticado)
+    if (typeof puter !== 'undefined' && puter.kv) {
+      puter.kv.get('benni_lang').then(saved => {
+        if (saved && translations[saved]) setLanguage(saved);
+      }).catch(() => {});
+    }
+
+    // Expor API global
+    window.__BENNI_I18N__ = {
+      t,
+      getLang: () => currentLang,
+      setLang: setLanguage,
+      translations
+    };
+
+    console.log('? Wave 19 � Internacionaliza��o (i18n) ativada!');
+  }
+
+  if (document.readyState === 'complete') {
+    init();
+  } else {
+    window.addEventListener('DOMContentLoaded', init);
+  }
+})();
+</script>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
   <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-29uZJa1N.js"></script>
   <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-DqH2QCjU.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
