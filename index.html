@@ -3305,16 +3305,17 @@ body {
 @media (max-width: 768px) {
   #heroTitle, #hero-title {
     font-size: clamp(1.6rem, 6.5vw, 2.2rem) !important;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 4px 12px rgba(0,0,0,0.8), 0 8px 24px rgba(0,0,0,0.8) !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,1)) drop-shadow(0 4px 12px rgba(0,0,0,1)) drop-shadow(0 8px 20px rgba(0,0,0,1)) !important;
+    text-shadow: none !important;
   }
   #heroKicker {
     font-size: 0.65rem !important;
     letter-spacing: 0.25em !important;
-    text-shadow: 0 1px 4px rgba(0,0,0,0.9) !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,1)) !important;
   }
   #heroBody, #hero-body {
     font-size: 0.95rem !important;
-    text-shadow: 0 2px 6px rgba(0,0,0,0.9) !important;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,1)) !important;
   }
   .hero-copy:not(.is-visible) .line-mask > * {
     transform: translateY(20px) rotateX(6deg) scale(0.97) !important;
@@ -4248,6 +4249,11 @@ body {
 
       function drawFrame(target, force = false) {
         if (!force && target === lastDrawn) return;
+        
+        // Sempre limpar o canvas antes de desenhar para evitar "fantasmas" de frames antigos
+        // especialmente no mobile onde o baseZoom = 0.65 deixa as bordas expostas
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
         if (isFallback) {
           const f = scrollProgress * (previewStills.length - 1);
           const cur = Math.floor(f);
