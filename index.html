@@ -3303,7 +3303,14 @@ body {
 
 /* 8. MELHORIA NO CONTRASTE E VISIBILIDADE PARA TELAS PEQUENAS */
 @media (max-width: 768px) {
-  #heroTitle, #hero-title, .plate-heading, .plate-body, .plate-kicker, .wall-title, .wall-title-centered, .wall-secondary, .wall-secondary-bottom, .chamber-title, .adam-heading, .adam-body {
+  /* Blanket rule to kill all yellow glimmer/blur on any text inside cards and walls */
+  .plate *, .corridor-wall *, .card *, .ledger-row * {
+    filter: none !important;
+    text-shadow: none !important;
+  }
+
+  /* Force white text on titles to prevent transparent gradients from fading */
+  #heroTitle, #hero-title, .plate-heading, .plate-body, .plate-kicker, .wall-title, .wall-title-centered, .wall-secondary, .wall-secondary-bottom, .chamber-title, .adam-heading, .adam-body, .gradient-shimmer, .reveal-text {
     filter: none !important;
     text-shadow: none !important;
     -webkit-text-fill-color: #ffffff !important;
@@ -3318,23 +3325,31 @@ body {
     -webkit-backdrop-filter: none !important;
   }
 
-  /* Fix for overlapping text in Nemesis Policy Gate */
-  .wall-01 .wall-content, .wall-02 .wall-content {
+  /* Fix for overlapping text in Nemesis Policy Gate and Inference (Wall 01, 02, 03) */
+  .wall-01 .wall-content, .wall-02 .wall-content, .wall-03 .wall-overlay-content {
     height: auto !important;
     min-height: 50svh;
     padding-bottom: 2rem !important;
+    justify-content: center !important;
+    gap: 15px !important;
   }
   .wall-title, .wall-title-centered {
     font-size: clamp(1.8rem, 7vw, 2.4rem) !important;
     line-height: 1.15 !important;
+    margin-bottom: 0 !important;
   }
   .wall-secondary, .wall-secondary-bottom {
     font-size: 1.05rem !important;
     line-height: 1.4 !important;
-    margin-top: 10px !important;
+    margin-top: 0 !important;
+    position: relative !important;
+    bottom: auto !important;
+    top: auto !important;
   }
-  .wall-meta {
-    margin-top: 10px !important;
+  .wall-meta, .wall-meta-bottom {
+    margin-top: 5px !important;
+    position: relative !important;
+    bottom: auto !important;
   }
   
   /* Fix for white space at the end of System Dossier */
