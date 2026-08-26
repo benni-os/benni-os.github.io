@@ -6360,12 +6360,10 @@ body {
       "benjamin.quote.line3": ['.benjamin-quote-line[data-line="3"]'],
       "benjamin.quote.line4": ['.benjamin-quote-line[data-line="4"]'],
       "benjamin.cta.meta": [".strip-meta"],
-      "benjamin.cta.action": [".strip-action"],
       "handoff.statement": ["#handoffStatement"],
       "adam.heading": [".adam-heading"],
       "adam.body": [".adam-body"],
       "adam.statement": [".adam-brand-statement"],
-      "adam.cta.title": [".adam-action-title"],
       "adam.cta.meta": [".adam-brand-meta"],
       "footer.statement": [".benni-footer-statement"],
       "footer.meta": [".benni-footer-meta"],
@@ -6381,6 +6379,15 @@ body {
         document.querySelectorAll(selector).forEach((element) => { element.innerHTML = value; });
       });
     });
+
+    const actionText = (key, selector, arrowClass) => {
+      const element = document.querySelector(selector);
+      if (!element) return;
+      const value = t(key).replace(/\s*→\s*$/, "");
+      element.innerHTML = `${value} <span class="${arrowClass}">→</span>`;
+    };
+    actionText("benjamin.cta.action", ".strip-action", "strip-arrow");
+    actionText("adam.cta.title", ".adam-action-title", "adam-action-arrow");
 
     const chapterReadout = document.querySelector(".nav-chapter");
     if (chapterReadout) {
