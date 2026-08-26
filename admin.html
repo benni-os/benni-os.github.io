@@ -236,7 +236,11 @@
       };
 
       async function getPuterValue(key, fallback) {
-        if (typeof puter === 'undefined') return fallback;
+        try {
+          const local = localStorage.getItem(CONFIG.kvPrefix + key);
+          if (local !== null) return local;
+        } catch (_) {}
+        if (typeof puter === 'undefined' || !puter.kv?.get) return fallback;
         try {
           const val = await puter.kv.get(CONFIG.kvPrefix + key);
           return val !== null && val !== undefined ? val : fallback;
@@ -284,15 +288,18 @@
         toast.style.display = 'none';
 
         try {
+          const remoteAvailable = typeof puter !== 'undefined' && puter.kv?.set;
           for (const f of CONFIG.fields) {
             const el = document.getElementById('field_' + f.key);
-            if (el && typeof puter !== 'undefined') {
-              await puter.kv.set(CONFIG.kvPrefix + f.key, el.value);
-            }
+            if (!el) continue;
+            try { localStorage.setItem(CONFIG.kvPrefix + f.key, el.value); } catch (_) {}
+            if (remoteAvailable) await puter.kv.set(CONFIG.kvPrefix + f.key, el.value);
           }
 
           toast.className = 'status-toast success';
-          toast.textContent = '✅ Conteúdo salvo no Puter KV e transmitido!';
+          toast.textContent = remoteAvailable
+            ? '✓ Conteúdo salvo no Puter KV e transmitido!'
+            : '✓ Conteúdo salvo localmente neste navegador.';
 
           if ('BroadcastChannel' in window) {
             const bc = new BroadcastChannel('benni_content');
