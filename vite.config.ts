@@ -9,7 +9,7 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'robots.txt'],
+      includeAssets: ['favicon.ico', 'robots.txt', 'assets/icon-192.svg'],
       manifest: {
         name: 'BENNI·OS — Sovereign Autonomy System',
         short_name: 'BENNI·OS',
@@ -20,9 +20,9 @@ export default defineConfig({
         start_url: '/',
         icons: [
           {
-            src: '/assets/icon-192.png',
+            src: '/assets/icon-192.svg',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/svg+xml'
           }
         ]
       },
