@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050608">
+  <title>BENNI·OS — Scroll Film</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--black:#050608;--paper:#f1eee5;--cyan:#b6f7f1;--acid:#d8ff75;--serif:'DM Serif Display',Georgia,serif;--mono:'IBM Plex Mono',monospace}
+    *{box-sizing:border-box}
+    html{background:var(--black);color:var(--paper);scroll-behavior:auto}
+    body{margin:0;background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    .film-track{height:1180vh;background:var(--black)}
+    .film-stage{position:sticky;top:0;width:100%;height:100svh;min-height:600px;overflow:hidden;background:var(--black);isolation:isolate}
+    .film-stage:before{content:'';position:absolute;inset:0;z-index:-2;background:var(--black) url('/hero-01-arrival.png') center/cover no-repeat}
+    #film{position:absolute;inset:0;z-index:-1;width:100%;height:100%;display:block;object-fit:cover;object-position:center;opacity:0;transition:opacity .7s ease}
+    #film.ready{opacity:1}
+    .readability{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,6,8,.18),transparent 24%,transparent 78%,rgba(5,6,8,.1)),linear-gradient(0deg,rgba(5,6,8,.22),transparent 22%,transparent 84%,rgba(5,6,8,.12))}
+    .chrome{position:fixed;inset:0;z-index:10;pointer-events:none;color:rgba(241,238,229,.72);font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+    .brand{position:absolute;top:23px;left:4.5vw;color:var(--paper);font:21px var(--serif);letter-spacing:-.07em;text-transform:none}
+    .brand i{font-style:normal;color:var(--cyan)}
+    .instruction{position:absolute;top:28px;left:50%;transform:translateX(-50%);transition:opacity .45s ease;color:rgba(241,238,229,.52);white-space:nowrap}
+    .instruction.fade{opacity:0}
+    .index{position:absolute;top:28px;right:4.5vw;color:rgba(241,238,229,.4)}
+    .progress{position:absolute;left:4.5vw;right:4.5vw;bottom:26px;height:1px;background:rgba(241,238,229,.22)}
+    .progress i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--cyan),var(--acid));box-shadow:0 0 16px rgba(182,247,241,.85)}
+    .readout{position:absolute;left:4.5vw;bottom:38px;color:rgba(241,238,229,.52)}
+    .readout b{font-weight:400;color:var(--paper)}
+    .duration{position:absolute;right:4.5vw;bottom:38px;color:rgba(241,238,229,.52)}
+    .outro{min-height:72vh;display:flex;align-items:center;padding:14vh 7vw;background:var(--paper);color:var(--black)}
+    .outro p{max-width:780px;margin:0;font:400 clamp(3.1rem,7.4vw,8.6rem)/.84 var(--serif);letter-spacing:-.075em}
+    .outro em{font-style:italic;color:#456bdb}
+    .outro small{display:block;margin-top:28px;color:rgba(5,6,8,.48);font:9px var(--mono);letter-spacing:.17em;text-transform:uppercase}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:900px){
+      .film-track{height:1100vh}.film-stage{min-height:580px}
+      .brand{top:18px;left:6vw;font-size:19px}.instruction{top:24px;right:6vw;left:auto;transform:none;font-size:8px}.index{display:none}
+      #film{object-position:54% center}.readability{background:linear-gradient(90deg,rgba(5,6,8,.2),transparent 55%,rgba(5,6,8,.12)),linear-gradient(0deg,rgba(5,6,8,.3),transparent 22%,transparent 84%,rgba(5,6,8,.12))}
+      .progress{left:6vw;right:6vw;bottom:20px}.readout{left:6vw;bottom:31px;font-size:8px}.duration{right:6vw;bottom:31px;font-size:8px}.outro{min-height:66vh;padding:12vh 6vw}.outro p{font-size:clamp(3.1rem,15vw,6.7rem)}
+    }
+    @media(prefers-reduced-motion:reduce){.instruction{opacity:1}.readability{background:linear-gradient(0deg,rgba(5,6,8,.36),transparent 55%)}}
+  </style>
+</head>
+<body>
+  <div class="chrome" aria-hidden="true">
+    <div class="brand">BENNI<i>·</i>OS</div>
+    <div class="instruction" id="instruction">SCROLL TO DIRECT THE FRAME</div>
+    <div class="index">ONE FILM / ONE PASSAGE</div>
+    <div class="readout">FRAME <b id="frame">0000</b></div>
+    <div class="duration" id="duration">00:00 / 01:32</div>
+    <div class="progress"><i id="progress"></i></div>
+  </div>
+  <main>
+    <section class="film-track" id="track" aria-label="BENNI OS continuous scroll-controlled film">
+      <div class="film-stage">
+        <video id="film" muted playsinline preload="auto" poster="/hero-01-arrival.png" aria-label="A continuous camera journey through the BENNI OS world"></video>
+        <div class="readability" aria-hidden="true"></div>
+      </div>
+    </section>
+    <section class="outro"><div><p>The next move<br><em>is clear.</em></p><small>BENNI·OS / one film, controlled by scroll</small></div></section>
+  </main>
+  <p class="sr-only" id="status" aria-live="polite">Film loading.</p>
+  <script>
+    (()=>{
+      const track=document.querySelector('#track'),video=document.querySelector('#film'),progressEl=document.querySelector('#progress'),frameEl=document.querySelector('#frame'),durationEl=document.querySelector('#duration'),instruction=document.querySelector('#instruction'),status=document.querySelector('#status');
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fps=24;let target=0,current=0,duration=92.416667,ready=false,lastTime=-1,lastFrame=-1,raf=0;
+      const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+      const formatTime=(seconds)=>{const s=Math.max(0,Math.min(duration,seconds));const m=Math.floor(s/60);const sec=Math.floor(s%60);const tm=Math.floor(duration/60);const ts=Math.floor(duration%60);return `${String(m).padStart(2,'0')}:${String(sec).padStart(2,'0')} / ${String(tm).padStart(2,'0')}:${String(ts).padStart(2,'0')}`};
+      function readScroll(){const rect=track.getBoundingClientRect();target=clamp(-rect.top/Math.max(1,track.offsetHeight-innerHeight));if(target>.015)instruction.classList.add('fade')}
+      function scrub(p){if(!ready)return;const totalFrames=Math.max(1,Math.floor(duration*fps));const frame=Math.min(totalFrames,Math.max(0,Math.round(p*totalFrames)));const time=Math.min(duration,frame/fps);if(frame!==lastFrame){lastFrame=frame;frameEl.textContent=String(frame).padStart(4,'0')}if(Math.abs(time-lastTime)>.0001){lastTime=time;try{video.currentTime=time}catch{}}durationEl.textContent=formatTime(time);progressEl.style.width=`${(p*100).toFixed(3)}%`}
+      function loop(){readScroll();current+=(target-current)*(reduce?1:.14);scrub(current);raf=requestAnimationFrame(loop)}
+      video.src='/material%20novo/hero_scrubber.mp4';
+      video.addEventListener('loadedmetadata',()=>{duration=Number.isFinite(video.duration)&&video.duration>0?video.duration:duration;ready=true;video.pause();video.currentTime=0;video.classList.add('ready');status.textContent='Film ready. Scroll controls the frame.';durationEl.textContent=formatTime(0);scrub(0)},{once:true});
+      video.addEventListener('error',()=>{status.textContent='Film unavailable. Poster fallback active.'},{once:true});
+      video.load();addEventListener('scroll',readScroll,{passive:true});addEventListener('resize',readScroll,{passive:true});readScroll();loop();
+    })();
+  </script>
+</body>
+</html>
