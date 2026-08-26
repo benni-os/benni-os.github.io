@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BENNI·OS — Content Administration Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070709;
+      --panel: #0f1015;
+      --border: rgba(232, 225, 213, 0.12);
+      --border-glow: rgba(66, 107, 255, 0.35);
+      --bone: #f5f0e6;
+      --bone-muted: rgba(245, 240, 230, 0.65);
+      --gold: #d4af37;
+      --blue: #426bff;
+      --green: #00ff88;
+      --red: #ff4757;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--bone);
+      font-family: "Instrument Sans", -apple-system, sans-serif;
+      padding: 3rem 1.5rem;
+      min-height: 100vh;
+      background-image: 
+        radial-gradient(ellipse at 50% 0%, rgba(66, 107, 255, 0.12) 0%, transparent 60%),
+        linear-gradient(to bottom, #070709 0%, #030304 100%);
+    }
+    .container { max-width: 860px; margin: 0 auto; }
+    header {
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+    .brand-pill {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--blue);
+      background: rgba(66, 107, 255, 0.1);
+      border: 1px solid rgba(66, 107, 255, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+    h1 {
+      font-family: "DM Serif Display", serif;
+      font-size: 2.75rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--bone);
+    }
+    .header-desc { font-size: 0.95rem; color: var(--bone-muted); margin-top: 0.5rem; }
+    .nav-link {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-decoration: none;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      padding: 8px 16px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover { background: rgba(212, 175, 55, 0.15); border-color: var(--gold); }
+    .grid-fields { display: flex; flex-direction: column; gap: 1.25rem; margin-bottom: 2.5rem; }
+    .field-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.5rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+    .field-card:focus-within {
+      border-color: var(--blue);
+      box-shadow: 0 0 20px rgba(66, 107, 255, 0.15);
+    }
+    .field-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--bone-muted);
+      margin-bottom: 0.5rem;
+    }
+    .field-key { color: var(--blue); font-size: 10px; }
+    textarea, input[type="text"] {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      color: var(--bone);
+      font-family: "Instrument Sans", sans-serif;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      padding: 0.75rem 1rem;
+      resize: vertical;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+    textarea:focus, input[type="text"]:focus {
+      outline: none;
+      border-color: var(--blue);
+      background: rgba(0, 0, 0, 0.55);
+    }
+    textarea { min-height: 75px; }
+    .actions-bar {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      position: sticky;
+      bottom: 2rem;
+      background: rgba(15, 16, 21, 0.92);
+      backdrop-filter: blur(16px);
+      padding: 1rem 1.5rem;
+      border: 1px solid var(--border-glow);
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    }
+    .btn-save {
+      background: var(--blue);
+      color: #fff;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 0 25px rgba(66, 107, 255, 0.4);
+      transition: all 0.2s ease;
+    }
+    .btn-save:hover {
+      background: #557cff;
+      box-shadow: 0 0 35px rgba(66, 107, 255, 0.6);
+      transform: translateY(-1px);
+    }
+    .btn-reset {
+      background: transparent;
+      color: var(--bone-muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      border: 1px solid var(--border);
+      padding: 0.9rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .btn-reset:hover { color: var(--bone); border-color: rgba(255,255,255,0.3); }
+    .status-toast {
+      margin-left: auto;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      padding: 6px 14px;
+      border-radius: 6px;
+      display: none;
+    }
+    .status-toast.success {
+      display: inline-block;
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid var(--green);
+      color: var(--green);
+    }
+    .status-toast.error {
+      display: inline-block;
+      background: rgba(255, 71, 87, 0.12);
+      border: 1px solid var(--red);
+      color: var(--red);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div>
+        <div class="brand-pill">Benni Master OS · Wave 18 Engine</div>
+        <h1>Content Admin</h1>
+        <p class="header-desc">Edição de textos, títulos, manifestos e CTAs com sincronização em tempo real via Puter KV.</p>
+      </div>
+      <div>
+        <a href="/" class="nav-link">← Voltar ao Site</a>
+      </div>
+    </header>
+
+    <div id="fieldsContainer" class="grid-fields">
+      <div style="text-align:center; padding: 2rem; font-family:'IBM Plex Mono', monospace; opacity:0.6;">
+        Carregando parâmetros do Puter KV...
+      </div>
+    </div>
+
+    <div class="actions-bar">
+      <button id="saveBtn" class="btn-save">Salvar Alterações</button>
+      <button id="reloadBtn" class="btn-reset">Recarregar Valores</button>
+      <div id="statusToast" class="status-toast"></div>
+    </div>
+  </div>
+
+  <script src="https://js.puter.com/v2/puter.js"></script>
+  <script>
+    (function() {
+      "use strict";
+
+      const CONFIG = {
+        kvPrefix: 'benni_content_',
+        fields: [
+          { key: 'hero_title', label: 'Hero — Título Principal (Ch 01)', type: 'textarea', default: 'THE WORLD WAS WAITING<br>FOR A SYSTEM.' },
+          { key: 'hero_body', label: 'Hero — Corpo do Texto (Ch 01)', type: 'textarea', default: 'Not another interface. A sovereign organization built to think, act, and remember.' },
+          { key: 'hero_kicker', label: 'Hero — Kicker Tag (Ch 01)', type: 'text', default: '01 / THE ARRIVAL' },
+          { key: 'dossier_declaration', label: 'Act I Dossier — Declaração Central', type: 'textarea', default: 'Autonomy is not declared.<br>It is architected.' },
+          { key: 'benjamin_title', label: 'Project Benjamin — Título Pullquote', type: 'textarea', default: 'Clarity is a<br>competitive advantage.' },
+          { key: 'adam_title', label: 'Adam — Título Principal', type: 'textarea', default: 'Execution,<br>without the noise.' },
+          { key: 'adam_body', label: 'Adam — Descrição Operacional', type: 'textarea', default: 'Benjamin thinks. Adam moves. You decide.' },
+          { key: 'exit_title', label: 'Fechamento / Conversão — Título', type: 'textarea', default: 'The system remembers.<br>The operator decides.' },
+          { key: 'footer_statement', label: 'Rodapé Imperial — Declaração', type: 'textarea', default: 'The Sovereign Autonomy System. Built from first principles.' }
+        ]
+      };
+
+      async function getPuterValue(key, fallback) {
+        if (typeof puter === 'undefined') return fallback;
+        try {
+          const val = await puter.kv.get(CONFIG.kvPrefix + key);
+          return val !== null && val !== undefined ? val : fallback;
+        } catch (e) {
+          console.warn('Puter KV read fallback for ' + key, e);
+          return fallback;
+        }
+      }
+
+      async function loadAllFields() {
+        const container = document.getElementById('fieldsContainer');
+        container.innerHTML = '';
+
+        for (const f of CONFIG.fields) {
+          const val = await getPuterValue(f.key, f.default);
+
+          const card = document.createElement('div');
+          card.className = 'field-card';
+
+          const label = document.createElement('div');
+          label.className = 'field-label';
+          label.innerHTML = `<span>${f.label}</span><span class="field-key">${CONFIG.kvPrefix + f.key}</span>`;
+
+          let input;
+          if (f.type === 'textarea') {
+            input = document.createElement('textarea');
+            input.value = val;
+          } else {
+            input = document.createElement('input');
+            input.type = 'text';
+            input.value = val;
+          }
+          input.id = 'field_' + f.key;
+          input.setAttribute('data-key', f.key);
+
+          card.appendChild(label);
+          card.appendChild(input);
+          container.appendChild(card);
+        }
+      }
+
+      async function saveAllFields() {
+        const toast = document.getElementById('statusToast');
+        toast.className = 'status-toast';
+        toast.style.display = 'none';
+
+        try {
+          for (const f of CONFIG.fields) {
+            const el = document.getElementById('field_' + f.key);
+            if (el && typeof puter !== 'undefined') {
+              await puter.kv.set(CONFIG.kvPrefix + f.key, el.value);
+            }
+          }
+
+          toast.className = 'status-toast success';
+          toast.textContent = '✅ Conteúdo salvo no Puter KV e transmitido!';
+
+          if ('BroadcastChannel' in window) {
+            const bc = new BroadcastChannel('benni_content');
+            bc.postMessage({ type: 'invalidate' });
+            bc.close();
+          }
+        } catch (err) {
+          toast.className = 'status-toast error';
+          toast.textContent = '❌ Erro ao salvar: ' + err.message;
+        }
+      }
+
+      document.getElementById('saveBtn').addEventListener('click', saveAllFields);
+      document.getElementById('reloadBtn').addEventListener('click', loadAllFields);
+
+      loadAllFields();
+    })();
+  </script>
+</body>
+</html>
