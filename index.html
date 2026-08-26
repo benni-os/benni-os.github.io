@@ -3792,7 +3792,136 @@ body {
     <div class="boot-status">INITIALIZING RUNTIME · 2026.1</div>
   </div>
 
+  <style id="atlas-styles">
+    /* WAVE 28 — DEEP SIGNAL / CONTINUOUS SCENE RIG */
+    .autonomy-atlas { --atlas-cyan: #9cf4ff; --atlas-blue: #5fa7ff; --atlas-lime: #c7ff75; --atlas-ink: #03060b; position: relative; min-height: 560svh; overflow: clip; isolation: isolate; background: var(--atlas-ink); color: #f5f1e8; }
+    .atlas-sticky { position: sticky; top: 0; height: 100svh; min-height: 680px; overflow: hidden; background: radial-gradient(circle at 52% 42%, rgba(28, 74, 108, .32), transparent 27%), radial-gradient(circle at 76% 82%, rgba(30, 42, 105, .24), transparent 38%), #03060b; }
+    .atlas-sticky::before { content: ""; position: absolute; inset: 0; z-index: 1; pointer-events: none; opacity: .58; background-image: linear-gradient(rgba(164, 220, 255, .045) 1px, transparent 1px), linear-gradient(90deg, rgba(164, 220, 255, .045) 1px, transparent 1px); background-size: 66px 66px; mask-image: radial-gradient(circle at 52% 47%, black, transparent 75%); }
+    .atlas-sticky::after { content: ""; position: absolute; inset: 0; z-index: 9; pointer-events: none; background: radial-gradient(ellipse at center, transparent 33%, rgba(1, 3, 8, .7) 100%), linear-gradient(180deg, rgba(2, 4, 8, .52), transparent 24%, transparent 72%, rgba(2, 4, 8, .82)); }
+    .atlas-media-stage { position: absolute; inset: -3%; z-index: 0; overflow: hidden; background: #03060b; }
+    .atlas-poster, .atlas-video { position: absolute; inset: 0; width: 106%; height: 106%; object-fit: cover; transform: scale(1.04); transform-origin: center; }
+    .atlas-poster { z-index: 0; opacity: .52; filter: saturate(.9) contrast(1.2) brightness(.68); transition: opacity 800ms ease, transform 1500ms cubic-bezier(.23,1,.32,1), background-image 600ms ease; }
+    .atlas-video { z-index: 1; display: block; opacity: 0; border: 0; filter: saturate(.86) contrast(1.24) brightness(.76); mix-blend-mode: screen; transition: opacity 800ms ease, transform 1500ms cubic-bezier(.23,1,.32,1); }
+    .atlas-video.is-live { opacity: .74; transform: scale(1.08); }
+    .atlas-video.is-next { opacity: 0; }
+    .atlas-media-grade { position: absolute; inset: 0; z-index: 3; pointer-events: none; background: linear-gradient(90deg, rgba(3, 6, 11, .92), rgba(3, 6, 11, .28) 48%, rgba(3, 6, 11, .65)), linear-gradient(0deg, rgba(3, 6, 11, .86), transparent 33%, rgba(3, 6, 11, .28)); mix-blend-mode: multiply; }
+    .atlas-video-glow { position: absolute; left: 50%; top: 52%; z-index: 4; width: min(70vw, 980px); aspect-ratio: 1; transform: translate(-50%, -50%); border-radius: 50%; pointer-events: none; background: radial-gradient(circle, rgba(156, 244, 255, .2), transparent 60%); filter: blur(28px); mix-blend-mode: screen; }
+    .atlas-scanlines { position: absolute; inset: 0; z-index: 5; pointer-events: none; opacity: .18; background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(154, 227, 255, .09) 4px, transparent 5px); mix-blend-mode: screen; }
+    .atlas-noise { position: absolute; inset: -30%; z-index: 6; pointer-events: none; opacity: .06; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.65'/%3E%3C/svg%3E"); mix-blend-mode: screen; }
+    #atlasCanvas { position: absolute; inset: 0; z-index: 4; display: block; width: 100%; height: 100%; pointer-events: none; }
+    .atlas-chrome { position: absolute; left: 5vw; right: 5vw; top: 36px; z-index: 12; display: flex; justify-content: space-between; align-items: center; color: rgba(245, 241, 232, .54); font: 10px/1.2 "IBM Plex Mono", monospace; letter-spacing: .18em; text-transform: uppercase; }
+    .atlas-chrome span:last-child { color: var(--atlas-cyan); }
+    .atlas-chrome .atlas-live-dot { display: inline-block; width: 6px; height: 6px; margin-right: 8px; border-radius: 50%; background: var(--atlas-lime); box-shadow: 0 0 14px var(--atlas-lime); vertical-align: 1px; }
+    .atlas-copy { position: absolute; left: 8vw; bottom: 10vh; z-index: 12; width: min(520px, 40vw); }
+    .atlas-kicker { margin-bottom: 22px; color: var(--atlas-cyan); font: 10px/1.2 "IBM Plex Mono", monospace; letter-spacing: .22em; text-transform: uppercase; }
+    .atlas-title { margin: 0; max-width: 600px; color: #f7f4ec; font: 400 clamp(3.5rem, 6.5vw, 7.6rem)/.86 "DM Serif Display", serif; letter-spacing: -.055em; text-wrap: balance; text-shadow: 0 2px 32px rgba(0, 0, 0, .45); }
+    .atlas-title em { color: var(--atlas-cyan); font-style: italic; text-shadow: 0 0 34px rgba(156, 244, 255, .28); }
+    .atlas-body { max-width: 380px; margin: 28px 0 0; color: rgba(245, 241, 232, .68); font: 400 14px/1.55 "Instrument Sans", sans-serif; }
+    .atlas-proof { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 430px; margin-top: 30px; padding-top: 13px; border-top: 1px solid rgba(245, 241, 232, .2); }
+    .atlas-proof span, .atlas-proof strong { display: block; font-family: "IBM Plex Mono", monospace; }
+    .atlas-proof span { margin-bottom: 7px; color: rgba(245, 241, 232, .35); font-size: 8px; letter-spacing: .16em; }
+    .atlas-proof strong { color: #edfaff; font-size: 10px; font-weight: 400; letter-spacing: .08em; }
+    .atlas-cta { display: inline-flex; gap: 16px; align-items: center; margin-top: 32px; padding: 12px 0; color: #f5f1e8; border-bottom: 1px solid rgba(156, 244, 255, .7); text-decoration: none; font: 10px/1 "IBM Plex Mono", monospace; letter-spacing: .17em; text-transform: uppercase; transition: gap 220ms cubic-bezier(.23,1,.32,1), color 220ms ease; }
+    .atlas-cta:hover, .atlas-cta:focus-visible { gap: 28px; color: var(--atlas-cyan); }
+    .atlas-cta span { color: var(--atlas-cyan); font-size: 17px; }
+    .atlas-asset-card { position: absolute; right: 8vw; top: 13vh; z-index: 11; width: min(230px, 19vw); aspect-ratio: .72; padding: 8px; border: 1px solid rgba(156, 244, 255, .32); background: rgba(4, 10, 17, .4); box-shadow: 0 22px 80px rgba(0, 0, 0, .38), inset 0 0 28px rgba(156, 244, 255, .07); backdrop-filter: blur(9px); transform: rotate(3deg); transition: transform 900ms cubic-bezier(.23,1,.32,1), border-color 500ms ease; }
+    .atlas-asset-card::before { content: "ACTIVE ARTIFACT"; position: absolute; left: 10px; top: -19px; color: rgba(156, 244, 255, .72); font: 8px/1 "IBM Plex Mono", monospace; letter-spacing: .18em; }
+    .atlas-asset-card:hover { transform: rotate(0deg) translateY(-7px); border-color: var(--atlas-cyan); }
+    .atlas-asset-frame { position: relative; width: 100%; height: 100%; overflow: hidden; background: #081019; }
+    .atlas-asset-frame::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(135deg, rgba(156, 244, 255, .2), transparent 42%, rgba(0, 0, 0, .5)); mix-blend-mode: screen; }
+    .atlas-asset-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.88) contrast(1.12); transition: opacity 480ms ease, transform 850ms cubic-bezier(.23,1,.32,1); }
+    .atlas-asset-image.is-next { opacity: 0; transform: scale(1.14); }
+    .atlas-asset-label { position: absolute; left: 10px; right: 10px; bottom: 9px; z-index: 2; display: flex; justify-content: space-between; color: #e9fbff; font: 8px/1.1 "IBM Plex Mono", monospace; letter-spacing: .13em; }
+    .atlas-lens { position: absolute; left: 31%; top: 18%; z-index: 10; width: 37%; height: 64%; border: 1px solid rgba(156, 244, 255, .22); border-radius: 50%; box-shadow: 0 0 40px rgba(95, 167, 255, .1), inset 0 0 40px rgba(156, 244, 255, .06); pointer-events: none; transform: rotate(-14deg); mix-blend-mode: screen; }
+    .atlas-lens::before, .atlas-lens::after { content: ""; position: absolute; inset: 9%; border: 1px solid rgba(199, 255, 117, .18); border-radius: 50%; }
+    .atlas-lens::after { inset: 25%; border-color: rgba(156, 244, 255, .16); }
+    .atlas-stage-note { position: absolute; right: 8vw; bottom: 31vh; z-index: 12; width: 180px; padding-left: 12px; border-left: 1px solid rgba(156, 244, 255, .55); color: rgba(245, 241, 232, .5); font: 9px/1.45 "IBM Plex Mono", monospace; letter-spacing: .1em; text-transform: uppercase; }
+    .atlas-stage-note strong { display: block; margin-bottom: 6px; color: var(--atlas-cyan); font-weight: 400; }
+    .atlas-rail { position: absolute; right: 5vw; bottom: 9vh; z-index: 13; display: flex; gap: 9px; align-items: center; }
+    .atlas-step { position: relative; width: 30px; height: 30px; padding: 0; color: rgba(245, 241, 232, .36); border: 1px solid rgba(245, 241, 232, .22); border-radius: 50%; background: rgba(3, 6, 11, .3); cursor: pointer; font: 9px/1 "IBM Plex Mono", monospace; transition: color 200ms ease, border-color 200ms ease, transform 200ms ease, background 200ms ease; }
+    .atlas-step:hover, .atlas-step:focus-visible, .atlas-step.is-active { color: #041017; border-color: var(--atlas-cyan); background: var(--atlas-cyan); transform: translateY(-5px); box-shadow: 0 0 18px rgba(156, 244, 255, .4); }
+    .atlas-step::after { content: ""; position: absolute; left: 100%; top: 50%; width: 8px; height: 1px; background: rgba(245, 241, 232, .18); }
+    .atlas-step:last-child::after { display: none; }
+    .atlas-state { position: absolute; right: 5vw; bottom: 4vh; z-index: 13; display: flex; gap: 8px; align-items: baseline; color: rgba(245, 241, 232, .38); font: 9px/1 "IBM Plex Mono", monospace; letter-spacing: .14em; }
+    .atlas-state strong { color: var(--atlas-cyan); font-size: 18px; font-weight: 400; }
+    .atlas-progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 14; height: 2px; background: rgba(245, 241, 232, .1); }
+    .atlas-progress span { display: block; width: 0; height: 100%; background: linear-gradient(90deg, var(--atlas-cyan), var(--atlas-lime)); box-shadow: 0 0 16px rgba(156, 244, 255, .85); transition: width 280ms linear; }
+    @media (max-width: 768px) {
+      .autonomy-atlas { min-height: 500svh; }
+      .atlas-sticky { min-height: 640px; }
+      .atlas-sticky::before { background-size: 46px 46px; }
+      .atlas-chrome { top: 22px; left: 6vw; right: 6vw; font-size: 7px; letter-spacing: .12em; }
+      .atlas-poster, .atlas-video { transform: scale(1.12); }
+      .atlas-video.is-live { transform: scale(1.18); }
+      .atlas-asset-card { right: 7vw; top: 12vh; width: 30vw; min-width: 108px; aspect-ratio: .72; transform: rotate(5deg); }
+      .atlas-asset-card::before { font-size: 6px; }
+      .atlas-lens { left: 7%; top: 18%; width: 86%; height: 48%; transform: rotate(-8deg); }
+      .atlas-copy { left: 8vw; right: 8vw; bottom: 12vh; width: auto; padding: 13px 16px 13px 0; background: linear-gradient(90deg, rgba(3, 6, 11, .92), rgba(3, 6, 11, .66) 76%, transparent); }
+      .atlas-kicker { margin-bottom: 14px; font-size: 8px; }
+      .atlas-title { max-width: 86vw; font-size: clamp(2.55rem, 12.2vw, 4.9rem); line-height: .88; }
+      .atlas-body { max-width: 76vw; margin-top: 18px; font-size: 11px; line-height: 1.42; }
+      .atlas-proof { max-width: 88vw; gap: 10px; margin-top: 18px; padding-top: 9px; }
+      .atlas-proof span { font-size: 6px; }
+      .atlas-proof strong { font-size: 8px; }
+      .atlas-cta { margin-top: 20px; font-size: 8px; }
+      .atlas-stage-note { display: none; }
+      .atlas-rail { left: 8vw; right: 8vw; bottom: 7vh; justify-content: space-between; gap: 5px; }
+      .atlas-step { width: 19px; height: 19px; font-size: 7px; }
+      .atlas-step::after { width: 5px; }
+      .atlas-state { right: 8vw; bottom: 3vh; font-size: 7px; }
+      .atlas-state strong { font-size: 15px; }
+    }
+    body.atlas-is-active .site-nav { transform: translateY(-100%); opacity: 0; pointer-events: none; }
+    body.atlas-is-active .system-rail { opacity: 0 !important; visibility: hidden !important; }
+    body.atlas-is-active .scroll-progress { opacity: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      .atlas-scanlines, .atlas-noise { display: none; }
+      .atlas-video { display: none; }
+      .atlas-canvas-reduced #atlasCanvas { display: none; }
+      .atlas-canvas-reduced .atlas-poster { opacity: .72; transform: none; }
+      .atlas-asset-card, .atlas-asset-image { transition: none; transform: none; }
+    }
+  </style>
+
+  <section id="autonomyAtlas" class="autonomy-atlas" aria-labelledby="atlasTitle">
+    <div class="atlas-sticky" id="atlasStage">
+      <div class="atlas-media-stage" aria-hidden="true">
+        <img id="atlasPoster" class="atlas-poster" src="/material%20novo/image-1-intent-core.png" alt="">
+        <video id="atlasVideoA" class="atlas-video is-live" poster="/material%20novo/image-1-intent-core.png" muted loop playsinline preload="metadata" aria-label="Deep Signal intent scene"></video>
+        <video id="atlasVideoB" class="atlas-video is-next" poster="/material%20novo/image-2-control-plane-forms.png" muted loop playsinline preload="none" aria-label="Deep Signal transition scene"></video>
+        <div class="atlas-media-grade"></div>
+        <div class="atlas-video-glow"></div>
+        <div class="atlas-scanlines"></div>
+        <div class="atlas-noise"></div>
+      </div>
+      <canvas id="atlasCanvas" aria-hidden="true"></canvas>
+      <div class="atlas-lens" aria-hidden="true"></div>
+      <div class="atlas-chrome"><span>BENNI·OS / DEEP SIGNAL</span><span><i class="atlas-live-dot"></i><b id="atlasMode">CONTINUOUS SCENE RIG</b></span></div>
+      <div class="atlas-copy" aria-live="polite">
+        <div class="atlas-kicker" id="atlasKicker">01 / INTENT · SIGNAL ACQUIRED</div>
+        <h2 class="atlas-title" id="atlasTitle">The signal<br>becomes <em>alive.</em></h2>
+        <p class="atlas-body" id="atlasBody">A governed system does not begin with a screen. It begins with a signal that knows where to go.</p>
+        <div class="atlas-proof"><div><span>SCENE / DEPTH</span><strong id="atlasProofLeft">KERNEL ONLINE</strong></div><div><span>ARTIFACT / 01</span><strong id="atlasProofRight">INTENT CORE</strong></div></div>
+        <a class="atlas-cta" href="#actIIDossier">FOLLOW THE SIGNAL <span>↗</span></a>
+      </div>
+      <div class="atlas-asset-card" aria-hidden="true"><div class="atlas-asset-frame"><img id="atlasAssetActive" class="atlas-asset-image" src="/material%20novo/image-1-intent-core.png" alt=""><img id="atlasAssetNext" class="atlas-asset-image is-next" src="/material%20novo/image-2-control-plane-forms.png" alt=""><div class="atlas-asset-label"><span id="atlasAssetCode">IMG / 01</span><span id="atlasAssetState">LIVE</span></div></div></div>
+      <div class="atlas-stage-note"><strong id="atlasNoteTitle">TRAVEL Z-01</strong><span id="atlasNoteBody">Scroll to enter the first layer of the system.</span></div>
+      <div class="atlas-rail" role="tablist" aria-label="Deep Signal stages">
+        <button class="atlas-step is-active" type="button" role="tab" aria-selected="true" data-atlas-step="0">01</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="1">02</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="2">03</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="3">04</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="4">05</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="5">06</button>
+        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="6">07</button>
+      </div>
+      <div class="atlas-state"><strong id="atlasStateNum">01</strong><span>/ 07</span><span id="atlasStateLabel">INTENT</span></div>
+      <div class="atlas-progress" aria-hidden="true"><span id="atlasProgress"></span></div>
+    </div>
+  </section>
+
   <!-- ==========================================================================
+
   ACT I — HERO 3D LAB
   ========================================================================== -->
   <section id="hero" class="hero-scroll-track">
@@ -3833,95 +3962,6 @@ body {
     </div>
   </section>
 
-  <style id="atlas-styles">
-    /* WAVE 27 — AUTONOMY ATLAS / 3D PRODUCT SYSTEM */
-    .autonomy-atlas { position: relative; min-height: 210svh; overflow: clip; background: #07090d; color: #f5f1e8; isolation: isolate; }
-    .atlas-sticky { position: sticky; top: 0; height: 100svh; min-height: 680px; overflow: hidden; background: radial-gradient(circle at 52% 44%, rgba(24,63,82,.34), transparent 26%), radial-gradient(circle at 70% 80%, rgba(30,58,116,.18), transparent 34%), #07090d; }
-    .atlas-sticky::before { content: ""; position: absolute; inset: 0; z-index: 0; opacity: .7; background-image: linear-gradient(rgba(130,159,180,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(130,159,180,.055) 1px, transparent 1px); background-size: 72px 72px; mask-image: radial-gradient(circle at 50% 48%, black 0%, transparent 72%); pointer-events: none; }
-    .atlas-sticky::after { content: ""; position: absolute; inset: 0; z-index: 5; pointer-events: none; background: radial-gradient(ellipse at center, transparent 42%, rgba(2,4,8,.68) 100%); }
-    #atlasCanvas { position: absolute; inset: 0; z-index: 2; display: block; width: 100%; height: 100%; pointer-events: none; }
-    .atlas-fallback { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(44vw, 620px); aspect-ratio: 1; object-fit: contain; opacity: .42; transform: translate(-50%, -50%) scale(1.08); mix-blend-mode: screen; filter: saturate(1.12) contrast(1.1) brightness(.72); transition: opacity 700ms ease, transform 1000ms cubic-bezier(.23,1,.32,1); pointer-events: none; }
-    .atlas-canvas-ready .atlas-fallback { opacity: .16; transform: translate(-50%, -50%) scale(1.18); }
-    .atlas-ambient { position: absolute; left: 50%; top: 50%; z-index: 1; width: min(36vw, 510px); aspect-ratio: 1; border: 1px solid rgba(109,223,255,.28); border-radius: 50%; box-shadow: 0 0 100px rgba(21,148,194,.18), inset 0 0 70px rgba(67,207,255,.08); transform: translate(-50%, -50%); pointer-events: none; }
-    .atlas-ambient::before, .atlas-ambient::after { content: ""; position: absolute; inset: 8%; border: 1px solid rgba(170,246,255,.13); border-radius: 50%; animation: atlas-orbit 18s linear infinite; }
-    .atlas-ambient::after { inset: 20%; border-color: rgba(187,255,104,.13); animation-duration: 11s; animation-direction: reverse; }
-    @keyframes atlas-orbit { to { transform: rotate(360deg); } }
-    .atlas-chrome { position: absolute; left: 5vw; right: 5vw; top: 42px; z-index: 7; display: flex; align-items: center; justify-content: space-between; color: rgba(245,241,232,.54); font: 10px/1.2 "IBM Plex Mono", monospace; letter-spacing: .18em; text-transform: uppercase; }
-    .atlas-chrome strong, .atlas-chrome span { color: #8eeaff; font-weight: 500; }
-    .atlas-copy { position: absolute; left: 9vw; bottom: 11vh; z-index: 7; width: min(430px, 34vw); }
-    .atlas-kicker { margin-bottom: 22px; color: #8eeaff; font: 11px/1.2 "IBM Plex Mono", monospace; letter-spacing: .2em; text-transform: uppercase; }
-    .atlas-title { margin: 0; max-width: 520px; color: #f5f1e8; font: 400 clamp(3rem,5.6vw,6.3rem)/.91 "DM Serif Display", serif; letter-spacing: -.045em; }
-    .atlas-title em { color: #9cf4ff; font-style: italic; text-shadow: 0 0 30px rgba(89,224,255,.24); }
-    .atlas-body { max-width: 320px; margin: 26px 0 0; color: rgba(245,241,232,.6); font: 400 14px/1.55 "Instrument Sans", sans-serif; }
-    .atlas-evidence { display: grid; gap: 6px; margin-top: 28px; padding-top: 12px; border-top: 1px solid rgba(245,241,232,.2); font-family: "IBM Plex Mono", monospace; }
-    .atlas-evidence span { color: rgba(245,241,232,.38); font-size: 9px; letter-spacing: .18em; }
-    .atlas-evidence strong { color: #e9faff; font-size: 11px; font-weight: 400; letter-spacing: .08em; }
-    .atlas-cta { display: inline-flex; align-items: center; gap: 18px; margin-top: 32px; padding: 12px 0; color: #f5f1e8; border-bottom: 1px solid rgba(142,234,255,.6); font: 10px/1 "IBM Plex Mono", monospace; letter-spacing: .16em; text-decoration: none; text-transform: uppercase; transition: gap 220ms ease, color 220ms ease, border-color 220ms ease; }
-    .atlas-cta:hover, .atlas-cta:focus-visible { gap: 28px; color: #9cf4ff; border-color: #9cf4ff; }
-    .atlas-cta span { color: #8eeaff; font-size: 16px; }
-    .atlas-step-rail { position: absolute; right: 6vw; top: 50%; z-index: 7; display: grid; gap: 13px; width: 210px; transform: translateY(-50%); }
-    .atlas-step { position: relative; display: grid; grid-template-columns: 32px 1fr; align-items: center; gap: 12px; padding: 0; color: rgba(245,241,232,.35); border: 0; background: transparent; text-align: left; cursor: pointer; font: 10px/1.2 "IBM Plex Mono", monospace; letter-spacing: .14em; text-transform: uppercase; transition: color 200ms ease, transform 200ms ease; }
-    .atlas-step::before { content: ""; width: 6px; height: 6px; border: 1px solid currentColor; border-radius: 50%; box-shadow: 0 0 0 0 rgba(142,234,255,.6); transition: background 200ms ease, box-shadow 300ms ease, transform 200ms ease; }
-    .atlas-step::after { content: ""; position: absolute; left: 2px; top: 18px; width: 1px; height: 14px; background: rgba(245,241,232,.12); }
-    .atlas-step:last-child::after { display: none; }
-    .atlas-step span { color: rgba(142,234,255,.65); }
-    .atlas-step b { font-weight: 400; }
-    .atlas-step:hover, .atlas-step:focus-visible, .atlas-step.is-active { color: #f5f1e8; transform: translateX(-5px); }
-    .atlas-step.is-active::before { background: #9cf4ff; box-shadow: 0 0 0 6px rgba(142,234,255,.12), 0 0 18px rgba(142,234,255,.9); transform: scale(1.3); }
-    .atlas-state { position: absolute; right: 5vw; bottom: 42px; z-index: 7; display: flex; gap: 8px; align-items: baseline; color: rgba(245,241,232,.4); font: 10px/1 "IBM Plex Mono", monospace; letter-spacing: .14em; }
-    .atlas-state strong { color: #9cf4ff; font-size: 18px; font-weight: 400; }
-    .atlas-state-progress { position: absolute; left: 0; right: 0; bottom: 0; z-index: 8; height: 2px; background: rgba(245,241,232,.1); }
-    .atlas-state-progress span { display: block; width: 14.28%; height: 100%; background: linear-gradient(90deg,#8eeaff,#bbff68); box-shadow: 0 0 16px rgba(142,234,255,.8); transition: width 520ms cubic-bezier(.23,1,.32,1); }
-    @media (max-width: 768px) {
-      .autonomy-atlas { min-height: 175svh; }
-      .atlas-sticky { min-height: 640px; }
-      .atlas-chrome { top: 24px; left: 5vw; right: 5vw; font-size: 8px; }
-      .atlas-fallback { width: 94vw; top: 44%; opacity: .33; }
-      .atlas-canvas-ready .atlas-fallback { opacity: .24; transform: translate(-50%, -50%) scale(1.12); }
-      .atlas-ambient { width: 82vw; top: 44%; }
-      #atlasCanvas { transform: translateY(-3vh) scale(.94); transform-origin: center center; }
-      .atlas-copy { left: 8vw; right: 8vw; bottom: 7vh; width: auto; padding: 12px 16px 12px 0; background: linear-gradient(90deg, rgba(7,9,13,.92) 0%, rgba(7,9,13,.74) 70%, transparent 100%); }
-      .atlas-title { font-size: clamp(2.4rem,11.4vw,4.8rem); }
-      .atlas-body { max-width: 74vw; font-size: 12px; }
-      .atlas-step-rail { left: 8vw; right: 8vw; top: 50%; display: flex; gap: 8px; width: auto; transform: translateY(-50%); }
-      .atlas-step { display: block; width: 10px; height: 10px; font-size: 0; }
-      .atlas-step::after, .atlas-step span, .atlas-step b { display: none; }
-      .atlas-state { right: 8vw; bottom: 24px; }
-      .atlas-cta { margin-top: 22px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      .atlas-ambient::before, .atlas-ambient::after { animation: none; }
-      .atlas-canvas-reduced #atlasCanvas { display: none; }
-      .atlas-canvas-reduced .atlas-fallback { opacity: .62; transform: translate(-50%,-50%) scale(1); }
-    }
-  </style>
-
-  <section id="autonomyAtlas" class="autonomy-atlas" aria-labelledby="atlasTitle">
-    <div class="atlas-sticky" id="atlasStage">
-      <img class="atlas-fallback" id="atlasFallback" src="/material%20novo/image-1-intent-core.png" alt="" aria-hidden="true" decoding="async">
-      <div class="atlas-ambient" aria-hidden="true"></div>
-      <canvas id="atlasCanvas" aria-hidden="true"></canvas>
-      <div class="atlas-chrome"><span>BENNI·OS / AUTONOMY ATLAS</span><strong id="atlasMode">LIVE SYSTEM MAP</strong></div>
-      <div class="atlas-copy" aria-live="polite">
-        <div class="atlas-kicker" id="atlasKicker">01 / INTENT</div>
-        <h2 class="atlas-title" id="atlasTitle">Intent becomes<br><em>architecture.</em></h2>
-        <p class="atlas-body" id="atlasBody">Every autonomous system starts with a signal. BENNI·OS turns that signal into a governed path.</p>
-        <div class="atlas-evidence"><span>EVIDENCE / SYSTEM STATE</span><strong id="atlasEvidence">CORE ONLINE · SIGNAL ACQUIRED</strong></div>
-        <a class="atlas-cta" href="#actIIDossier">ENTER THE DOSSIER <span>↗</span></a>
-      </div>
-      <div class="atlas-step-rail" role="tablist" aria-label="Autonomy Atlas stages">
-        <button class="atlas-step is-active" type="button" role="tab" aria-selected="true" data-atlas-step="0"><span>01</span><b>INTENT</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="1"><span>02</span><b>CONTROL</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="2"><span>03</span><b>SWARM</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="3"><span>04</span><b>POLICY</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="4"><span>05</span><b>EXECUTION</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="5"><span>06</span><b>SEAL</b></button>
-        <button class="atlas-step" type="button" role="tab" aria-selected="false" data-atlas-step="6"><span>07</span><b>OPERATOR</b></button>
-      </div>
-      <div class="atlas-state"><strong id="atlasStateNum">01</strong><span>/ 07</span><span id="atlasStateLabel">INTENT</span></div>
-      <div class="atlas-state-progress" aria-hidden="true"><span id="atlasProgress"></span></div>
-    </div>
-  </section>
 
   <!-- ACT BRIDGE 1 -->
   <div class="act-bridge"><span>[ ARCHITECTURE ENGAGED ]</span></div>
@@ -6362,164 +6402,239 @@ body {
 })();
 </script>
 
-<!-- WAVE 27 — AUTONOMY ATLAS / 3D PRODUCT SYSTEM -->
+<!-- WAVE 28 — DEEP SIGNAL / CONTINUOUS SCENE RIG -->
 <script>
 (function () {
   "use strict";
-  if (window.__WAVE27_ATLAS__) return;
-  window.__WAVE27_ATLAS__ = true;
+  if (window.__WAVE28_DEEP_SIGNAL__) return;
+  window.__WAVE28_DEEP_SIGNAL__ = true;
 
   const atlas = document.getElementById("autonomyAtlas");
   const stage = document.getElementById("atlasStage");
   const canvas = document.getElementById("atlasCanvas");
-  const fallback = document.getElementById("atlasFallback");
+  const poster = document.getElementById("atlasPoster");
+  const videoA = document.getElementById("atlasVideoA");
+  const videoB = document.getElementById("atlasVideoB");
+  const activeAsset = document.getElementById("atlasAssetActive");
+  const nextAsset = document.getElementById("atlasAssetNext");
   const kicker = document.getElementById("atlasKicker");
   const title = document.getElementById("atlasTitle");
   const body = document.getElementById("atlasBody");
-  const evidence = document.getElementById("atlasEvidence");
+  const proofLeft = document.getElementById("atlasProofLeft");
+  const proofRight = document.getElementById("atlasProofRight");
+  const assetCode = document.getElementById("atlasAssetCode");
+  const assetState = document.getElementById("atlasAssetState");
+  const noteTitle = document.getElementById("atlasNoteTitle");
+  const noteBody = document.getElementById("atlasNoteBody");
   const stateNum = document.getElementById("atlasStateNum");
   const stateLabel = document.getElementById("atlasStateLabel");
   const progressBar = document.getElementById("atlasProgress");
   const steps = Array.from(document.querySelectorAll(".atlas-step"));
-  if (!atlas || !stage || !canvas || !fallback) return;
+  if (!atlas || !stage || !canvas || !poster || !videoA || !videoB) return;
 
   const root = "/material%20novo/";
-  const states = [
-    { code: "INTENT", title: "Intent becomes<br><em>architecture.</em>", body: "Every autonomous system starts with a signal. BENNI·OS turns that signal into a governed path.", evidence: "CORE ONLINE · SIGNAL ACQUIRED", image: "image-1-intent-core.png" },
-    { code: "CONTROL", title: "Memory gives<br><em>direction.</em>", body: "Persistent context turns a moment of intent into a system that can act without drift.", evidence: "CONTROL PLANE · STATE PERSISTENT", image: "image-2-control-plane-forms.png" },
-    { code: "SWARM", title: "One signal becomes<br><em>many agents.</em>", body: "Coordination distributes capability without losing the line back to the operator.", evidence: "AGENT MESH · 24 NODES ACTIVE", image: "image-3-agent-swarm.png" },
-    { code: "POLICY", title: "Power needs<br><em>a boundary.</em>", body: "Policy is the gate that turns speed into accountable autonomy.", evidence: "NEMESIS · POLICY GATE VERIFIED", image: "image-4-policy-gate.png" },
-    { code: "EXECUTION", title: "Decisions move<br><em>through systems.</em>", body: "Execution becomes legible when every action carries its reason, route and owner.", evidence: "OPERATOR GATEWAY · ROUTE LOCKED", image: "image-5-execution-swirl.png" },
-    { code: "SEAL", title: "Trust is an<br><em>architectural output.</em>", body: "The seal is not decoration. It is the proof that the path remained governable.", evidence: "NEMESIS SEAL · EVIDENCE COMMITTED", image: "image-6-nemesis-seal.png" },
-    { code: "OPERATOR", title: "The system moves.<br><em>You decide.</em>", body: "Every autonomous loop returns with evidence, context and a person who stands behind the outcome.", evidence: "EVIDENCE RETURNED · OPERATOR READY", image: "image-7-evidence-returned.png" }
+  const scenes = [
+    { code: "INTENT", title: "The signal<br>becomes <em>alive.</em>", body: "A governed system does not begin with a screen. It begins with a signal that knows where to go.", proof: ["KERNEL ONLINE", "INTENT CORE"], note: ["TRAVEL Z-01", "Scroll to enter the first layer of the system."], image: "image-1-intent-core.png", video: "hero-product-film.mp4" },
+    { code: "CONTROL", title: "Memory gives<br>it <em>direction.</em>", body: "Context is not a database behind the interface. It is the first surface the system can trust.", proof: ["STATE PERSISTENT", "CONTROL PLANE"], note: ["TRAVEL Z-02", "The signal acquires memory and a route."], image: "image-2-control-plane-forms.png", video: "intent-to-control.mp4" },
+    { code: "SWARM", title: "One signal<br>becomes a <em>mesh.</em>", body: "Capability multiplies without breaking the line back to the operator.", proof: ["24 NODES ACTIVE", "AGENT SWARM"], note: ["TRAVEL Z-03", "The camera leaves the core and enters the mesh."], image: "image-3-agent-swarm.png", video: "control-to-swarm.mp4" },
+    { code: "POLICY", title: "Power needs<br>a <em>boundary.</em>", body: "A system earns speed by knowing where it must stop, ask and hand back control.", proof: ["POLICY VERIFIED", "NEMESIS GATE"], note: ["TRAVEL Z-04", "The scene folds into the policy gate."], image: "image-4-policy-gate.png", video: "swarm-to-policy.mp4" },
+    { code: "EXECUTION", title: "Decisions move<br>through <em>systems.</em>", body: "Every action carries its reason, route and owner — visible while it is still in motion.", proof: ["ROUTE LOCKED", "EXECUTION SWIRL"], note: ["TRAVEL Z-05", "Descend into the action layer."], image: "image-5-execution-swirl.png", video: "policy-to-execution.mp4" },
+    { code: "SEAL", title: "Trust is an<br><em>output.</em>", body: "The seal is the proof that the path remained observable, accountable and governable.", proof: ["EVIDENCE COMMITTED", "NEMESIS SEAL"], note: ["TRAVEL Z-06", "The system compresses action into evidence."], image: "image-6-nemesis-seal.png", video: "execution-to-seal.mp4" },
+    { code: "OPERATOR", title: "The system moves.<br><em>You decide.</em>", body: "Every autonomous loop returns with evidence, context and a person who stands behind the outcome.", proof: ["OPERATOR READY", "EVIDENCE RETURNED"], note: ["TRAVEL Z-07", "Exit the machine with the decision still yours."], image: "image-7-evidence-returned.png", video: "seal-to-operator.mp4" }
   ];
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
   const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduced) atlas.classList.add("atlas-canvas-reduced");
 
   let activeIndex = 0;
+  let transitionToken = 0;
   let targetProgress = 0;
   let smoothProgress = 0;
   let targetTiltX = 0;
   let targetTiltY = 0;
+  let activeVideo = videoA;
+  let standbyVideo = videoB;
   let renderer;
   let scene;
   let camera;
-  let systemGroup;
-  let centralCore;
-  let rings = [];
-  let nodeSprites = [];
-  let connectorLines = [];
+  let rig;
+  let coreSolid;
+  let coreWire;
+  let corePoints;
+  let innerCore;
+  let starField;
+  let orbitRings = [];
+  let orbitNodes = [];
   let atlasFrame = 0;
 
-  function setStage(index, force) {
-    const next = clamp(index, 0, states.length - 1);
+  function setScene(index, force) {
+    const next = clamp(index, 0, scenes.length - 1);
     if (!force && next === activeIndex) return;
     activeIndex = next;
-    const current = states[next];
-    kicker.textContent = String(next + 1).padStart(2, "0") + " / " + current.code;
-    title.innerHTML = current.title;
-    body.textContent = current.body;
-    evidence.textContent = current.evidence;
+    const item = scenes[next];
+    kicker.textContent = String(next + 1).padStart(2, "0") + " / " + item.code + " · " + (next === 0 ? "SIGNAL ACQUIRED" : "SCENE SHIFT");
+    title.innerHTML = item.title;
+    body.textContent = item.body;
+    proofLeft.textContent = item.proof[0];
+    proofRight.textContent = item.proof[1];
+    assetCode.textContent = "IMG / " + String(next + 1).padStart(2, "0");
+    assetState.textContent = item.code;
+    noteTitle.textContent = item.note[0];
+    noteBody.textContent = item.note[1];
     stateNum.textContent = String(next + 1).padStart(2, "0");
-    stateLabel.textContent = current.code;
-    progressBar.style.width = (((next + 1) / states.length) * 100).toFixed(2) + "%";
-    fallback.src = root + current.image;
+    stateLabel.textContent = item.code;
+    progressBar.style.width = (((next + 1) / scenes.length) * 100).toFixed(2) + "%";
+    poster.src = root + item.image;
+    activeAsset.src = root + item.image;
+    nextAsset.src = root + scenes[(next + 1) % scenes.length].image;
+    nextAsset.classList.add("is-next");
+    activeAsset.classList.remove("is-next");
     steps.forEach((step, stepIndex) => {
       const selected = stepIndex === next;
       step.classList.toggle("is-active", selected);
       step.setAttribute("aria-selected", String(selected));
     });
-    if (centralCore && centralCore.material && centralCore.material.color) {
-      const colors = [0x8eeaff, 0x6fb8ff, 0xbbff68, 0x86d6ff, 0xffd477, 0xf4c76b, 0xf5f1e8];
-      centralCore.material.color.setHex(colors[next]);
+    if (!force) transitionVideo(item, next);
+    if (coreSolid && coreSolid.material) {
+      const colors = [0x9cf4ff, 0x72a9ff, 0xc7ff75, 0x8de0ff, 0xffcf78, 0xf0c36c, 0xf5f1e8];
+      coreSolid.material.color.setHex(colors[next]);
+      coreWire.material.color.setHex(colors[next]);
     }
   }
 
-  function measureProgress() {
+  function transitionVideo(item, index) {
+    const token = ++transitionToken;
+    standbyVideo.classList.remove("is-live");
+    standbyVideo.classList.add("is-next");
+    standbyVideo.src = root + item.video;
+    standbyVideo.poster = root + item.image;
+    standbyVideo.load();
+    const promote = () => {
+      if (token !== transitionToken) return;
+      standbyVideo.currentTime = 0;
+      const playPromise = standbyVideo.play();
+      if (playPromise && playPromise.catch) playPromise.catch(() => {});
+      activeVideo.classList.remove("is-live");
+      activeVideo.classList.add("is-next");
+      standbyVideo.classList.remove("is-next");
+      standbyVideo.classList.add("is-live");
+      const old = activeVideo;
+      activeVideo = standbyVideo;
+      standbyVideo = old;
+      old.pause();
+    };
+    standbyVideo.addEventListener("canplay", promote, { once: true });
+    window.setTimeout(promote, 1500);
+  }
+
+  function updateScroll() {
     const rect = atlas.getBoundingClientRect();
     const max = Math.max(1, atlas.offsetHeight - window.innerHeight);
     targetProgress = clamp(-rect.top / max, 0, 1);
-    if (!reduced) requestAnimationFrame(measureProgress);
   }
 
-  function makeConnection(a, b, material) {
-    const geometry = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(a[0], a[1], a[2]), new THREE.Vector3(b[0], b[1], b[2])]);
-    const line = new THREE.Line(geometry, material);
-    systemGroup.add(line);
-    connectorLines.push(line);
+  function addOrbit(radius, tilt, color, opacity) {
+    const material = new THREE.MeshBasicMaterial({ color, wireframe: true, transparent: true, opacity });
+    const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, .018, 8, 128), material);
+    ring.rotation.set(tilt, tilt * .75, tilt * .2);
+    rig.add(ring);
+    orbitRings.push(ring);
   }
 
-  function initAtlas3D() {
+  function addNode(angle, radius, color) {
+    const node = new THREE.Mesh(new THREE.SphereGeometry(.055, 8, 8), new THREE.MeshBasicMaterial({ color, transparent: true, opacity: .9 }));
+    node.userData.angle = angle;
+    node.userData.radius = radius;
+    rig.add(node);
+    orbitNodes.push(node);
+  }
+
+  function initScene() {
     if (reduced || !window.THREE) return;
     try {
       scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(34, window.innerWidth / window.innerHeight, 0.1, 100);
-      camera.position.set(0, 0, 15);
+      camera = new THREE.PerspectiveCamera(38, window.innerWidth / window.innerHeight, .1, 100);
+      camera.position.set(0, 0, 10);
       renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.7));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.6));
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setClearColor(0x000000, 0);
-      systemGroup = new THREE.Group();
-      scene.add(systemGroup);
+      rig = new THREE.Group();
+      rig.position.set(0, 0, -.8);
+      scene.add(rig);
 
-      centralCore = new THREE.Mesh(new THREE.IcosahedronGeometry(1.1, 2), new THREE.MeshBasicMaterial({ color: 0x8eeaff, wireframe: true, transparent: true, opacity: .92 }));
-      systemGroup.add(centralCore);
-      const innerCore = new THREE.Mesh(new THREE.IcosahedronGeometry(.54, 1), new THREE.MeshBasicMaterial({ color: 0xbbff68, wireframe: true, transparent: true, opacity: .72 }));
-      systemGroup.add(innerCore);
-      const ringMaterial = new THREE.MeshBasicMaterial({ color: 0x8eeaff, wireframe: true, transparent: true, opacity: .28 });
-      [[1.8, .04, .34], [2.35, .026, -.62], [3.05, .018, .12]].forEach(([radius, tube, rotation]) => {
-        const ring = new THREE.Mesh(new THREE.TorusGeometry(radius, tube, 8, 96), ringMaterial.clone());
-        ring.rotation.set(rotation, rotation * .7, rotation * .2);
-        systemGroup.add(ring);
-        rings.push(ring);
-      });
+      coreSolid = new THREE.Mesh(new THREE.IcosahedronGeometry(1.18, 4), new THREE.MeshBasicMaterial({ color: 0x9cf4ff, transparent: true, opacity: .28, blending: THREE.AdditiveBlending }));
+      coreWire = new THREE.Mesh(new THREE.IcosahedronGeometry(1.23, 3), new THREE.MeshBasicMaterial({ color: 0x9cf4ff, wireframe: true, transparent: true, opacity: .92, blending: THREE.AdditiveBlending }));
+      innerCore = new THREE.Mesh(new THREE.IcosahedronGeometry(.62, 2), new THREE.MeshBasicMaterial({ color: 0xc7ff75, wireframe: true, transparent: true, opacity: .65, blending: THREE.AdditiveBlending }));
+      rig.add(coreSolid, coreWire, innerCore);
 
-      const points = [[0, 0, .4], [-2.8, 1.2, -.4], [2.7, 1.1, .2], [-2.2, -1.5, .3], [2.3, -1.5, -.2], [-.25, 2.55, -.5], [.35, -2.55, .3]];
-      const lineMaterials = [new THREE.LineBasicMaterial({ color: 0x8eeaff, transparent: true, opacity: .32 }), new THREE.LineBasicMaterial({ color: 0xbbff68, transparent: true, opacity: .22 })];
-      points.forEach((point, index) => {
-        makeConnection(points[0], point, lineMaterials[index % lineMaterials.length]);
-        if (index > 1) makeConnection(points[index - 1], point, lineMaterials[(index + 1) % lineMaterials.length]);
-      });
+      const pointPositions = [];
+      for (let i = 0; i < 720; i += 1) {
+        const r = 1.2 + Math.random() * 1.05;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos((Math.random() * 2) - 1);
+        pointPositions.push(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
+      }
+      const pointGeometry = new THREE.BufferGeometry();
+      pointGeometry.setAttribute("position", new THREE.Float32BufferAttribute(pointPositions, 3));
+      corePoints = new THREE.Points(pointGeometry, new THREE.PointsMaterial({ color: 0x9cf4ff, size: .028, transparent: true, opacity: .66, blending: THREE.AdditiveBlending, depthWrite: false }));
+      rig.add(corePoints);
 
-      const loader = new THREE.TextureLoader();
-      states.forEach((current, index) => {
-        const material = new THREE.SpriteMaterial({ color: 0xffffff, map: loader.load(root + current.image), transparent: true, opacity: index === 0 ? .92 : .34, depthTest: false, depthWrite: false, blending: THREE.AdditiveBlending });
-        const sprite = new THREE.Sprite(material);
-        const [x, y, z] = points[index];
-        sprite.position.set(x, y, z);
-        sprite.scale.set(index === 0 ? 3.1 : 2.35, index === 0 ? 1.75 : 1.42, 1);
-        systemGroup.add(sprite);
-        nodeSprites.push(sprite);
-      });
-      atlas.classList.add("atlas-canvas-ready");
+      addOrbit(1.85, .34, 0x9cf4ff, .48);
+      addOrbit(2.42, -.62, 0x72a9ff, .28);
+      addOrbit(3.05, .14, 0xc7ff75, .2);
+      for (let i = 0; i < 14; i += 1) addNode((Math.PI * 2 * i) / 14, 2.42 + (i % 2) * .42, i % 3 ? 0x9cf4ff : 0xc7ff75);
 
+      const stars = [];
+      for (let i = 0; i < 780; i += 1) {
+        stars.push((Math.random() - .5) * 18, (Math.random() - .5) * 12, (Math.random() - .5) * 12 - 2);
+      }
+      const starGeometry = new THREE.BufferGeometry();
+      starGeometry.setAttribute("position", new THREE.Float32BufferAttribute(stars, 3));
+      starField = new THREE.Points(starGeometry, new THREE.PointsMaterial({ color: 0x7bbdff, size: .018, transparent: true, opacity: .52, blending: THREE.AdditiveBlending, depthWrite: false }));
+      scene.add(starField);
+      atlas.classList.add("atlas-scene-ready");
+
+      function sample(points, amount) {
+        const scaled = clamp(amount, 0, points.length - 1);
+        const low = Math.floor(scaled);
+        const high = Math.min(points.length - 1, low + 1);
+        const blend = scaled - low;
+        return [points[low][0] + (points[high][0] - points[low][0]) * blend, points[low][1] + (points[high][1] - points[low][1]) * blend, points[low][2] + (points[high][2] - points[low][2]) * blend];
+      }
+      const cameraPath = [[0, .15, 10], [2.8, .75, 8.2], [-2.7, -.6, 6.2], [3.6, .2, 4.5], [-3.2, 1.25, 3.2], [.8, -1.2, 2.4], [0, .1, 9.5]];
       function render() {
         atlasFrame += 1;
-        smoothProgress += (targetProgress - smoothProgress) * .065;
-        const float = Math.sin(atlasFrame * .012) * .035;
-        const stageFloat = smoothProgress * (states.length - 1);
-        const current = Math.round(stageFloat);
-        if (current !== activeIndex) setStage(current);
-        systemGroup.rotation.y += (targetTiltY * .13 + .0018);
-        systemGroup.rotation.x += ((targetTiltX * .07) - systemGroup.rotation.x) * .035;
-        systemGroup.position.y = float;
-        centralCore.rotation.x += .004;
-        centralCore.rotation.y += .006;
-        rings.forEach((ring, index) => { ring.rotation.z += index % 2 ? -.0024 : .0018; ring.rotation.x += .0007; });
-        nodeSprites.forEach((sprite, index) => {
-          const distance = Math.abs(index - stageFloat);
-          const focus = clamp(1 - distance / 2.2, 0, 1);
-          sprite.material.opacity = .2 + focus * .72;
-          const base = index === activeIndex ? 1.16 : 1;
-          sprite.scale.set((index === 0 ? 3.1 : 2.35) * base, (index === 0 ? 1.75 : 1.42) * base, 1);
-        });
-        connectorLines.forEach((line, index) => { line.material.opacity = .1 + clamp(smoothProgress * 1.4 - index / connectorLines.length, 0, 1) * .36; });
-        camera.position.x += ((targetTiltY * .65) - camera.position.x) * .025;
-        camera.position.y += ((targetTiltX * .38) - camera.position.y) * .025;
-        camera.lookAt(0, 0, 0);
+        smoothProgress += (targetProgress - smoothProgress) * .06;
+        const sequence = smoothProgress * (scenes.length - 1);
+        const current = Math.round(sequence);
+        if (current !== activeIndex) setScene(current);
+        const route = sample(cameraPath, sequence);
+        const pulse = Math.sin(atlasFrame * .028) * .045;
+        const depth = 1 + Math.sin(sequence * Math.PI * 1.8) * .12;
+        rig.rotation.y += .0022 + targetTiltY * .006;
+        rig.rotation.x += ((targetTiltX * .12) - rig.rotation.x) * .03;
+        rig.position.x += (((sequence - 3) * .12) + targetTiltY * .35 - rig.position.x) * .025;
+        rig.position.y += (pulse + targetTiltX * -.22 - rig.position.y) * .04;
+        rig.position.z += ((-sequence * .33) - rig.position.z) * .035;
+        rig.scale.setScalar(depth);
+        coreSolid.rotation.x += .003;
+        coreSolid.rotation.y += .004;
+        coreWire.rotation.x -= .005;
+        coreWire.rotation.z += .002;
+        innerCore.rotation.y += .008;
+        coreSolid.material.opacity = .16 + (1 - Math.abs(sequence - Math.round(sequence)) * .72) * .26;
+        coreWire.material.opacity = .36 + (1 - Math.abs(sequence - Math.round(sequence)) * .8) * .58;
+        corePoints.material.opacity = .24 + Math.abs(Math.sin(sequence * Math.PI)) * .58;
+        orbitRings.forEach((ring, index) => { ring.rotation.z += index % 2 ? -.0025 : .0015; ring.rotation.x += .0008; ring.material.opacity = (.13 + Math.abs(Math.sin(sequence * .7 + index)) * .22) * (1 + smoothProgress * .35); });
+        orbitNodes.forEach((node, index) => { const angle = node.userData.angle + atlasFrame * .002 * (index % 2 ? -1 : 1); node.position.set(Math.cos(angle) * node.userData.radius, Math.sin(angle) * node.userData.radius * .58, Math.sin(angle * 2) * .42); node.material.opacity = .2 + Math.abs(Math.sin(sequence * 1.5 + index)) * .8; });
+        starField.rotation.y += .00022;
+        camera.position.x += (route[0] + targetTiltY * .35 - camera.position.x) * .035;
+        camera.position.y += (route[1] + targetTiltX * .22 - camera.position.y) * .035;
+        camera.position.z += (route[2] - camera.position.z) * .035;
+        camera.lookAt((sequence - 3) * .08, 0, -1.2 - sequence * .14);
         renderer.render(scene, camera);
-        atlasFrame && requestAnimationFrame(render);
+        requestAnimationFrame(render);
       }
       render();
       window.addEventListener("resize", () => {
@@ -6530,7 +6645,7 @@ body {
       }, { passive: true });
     } catch (error) {
       canvas.style.display = "none";
-      atlas.classList.remove("atlas-canvas-ready");
+      atlas.classList.remove("atlas-scene-ready");
     }
   }
 
@@ -6539,15 +6654,31 @@ body {
     targetTiltY = clamp((event.clientX - rect.left) / rect.width - .5, -.5, .5);
     targetTiltX = clamp((event.clientY - rect.top) / rect.height - .5, -.5, .5);
   }, { passive: true });
+  stage.addEventListener("pointerleave", () => { targetTiltX = 0; targetTiltY = 0; }, { passive: true });
   steps.forEach((step) => step.addEventListener("click", () => {
     const index = Number(step.dataset.atlasStep || 0);
-    const top = atlas.offsetTop + (atlas.offsetHeight - window.innerHeight) * (index / (states.length - 1));
+    const top = atlas.offsetTop + (atlas.offsetHeight - window.innerHeight) * (index / (scenes.length - 1));
     window.scrollTo({ top, behavior: reduced ? "auto" : "smooth" });
   }));
-  window.addEventListener("scroll", measureProgress, { passive: true });
-  setStage(0, true);
-  measureProgress();
-  initAtlas3D();
+  window.addEventListener("scroll", updateScroll, { passive: true });
+  document.body.classList.add("atlas-is-active");
+  if (window.IntersectionObserver) {
+    const atlasObserver = new IntersectionObserver((entries) => {
+      const visible = entries[0] && entries[0].isIntersecting;
+      document.body.classList.toggle("atlas-is-active", Boolean(visible));
+    }, { threshold: [0, .2, .6] });
+    atlasObserver.observe(atlas);
+  }
+  videoA.src = root + scenes[0].video;
+  videoB.src = root + scenes[1].video;
+  videoA.poster = root + scenes[0].image;
+  videoB.poster = root + scenes[1].image;
+  videoA.load();
+  videoB.load();
+  videoA.play().catch(() => {});
+  setScene(0, true);
+  updateScroll();
+  initScene();
 })();
 </script>
 
