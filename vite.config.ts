@@ -34,7 +34,7 @@ export default defineConfig({
             urlPattern: /\.(?:mp4|webm|webp|png|jpg|jpeg)$/i,
             handler: 'StaleWhileRevalidate',
             options: {
-              cacheName: 'media-cache',
+              cacheName: 'media-cache-v2',
               expiration: {
                 maxEntries: 1000,
                 maxAgeSeconds: 60 * 60 * 24 * 30 // 30 dias
