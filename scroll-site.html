@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050608">
+  <meta name="description" content="BENNI·OS — a sovereign autonomy system, experienced as one continuous film controlled by scroll.">
+  <title>BENNI·OS — Sovereign Autonomy System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--black:#050608;--paper:#f1eee5;--cyan:#b6f7f1;--acid:#d8ff75;--serif:'DM Serif Display',Georgia,serif;--mono:'IBM Plex Mono',monospace}
+    *{box-sizing:border-box}
+    html{background:var(--black);color:var(--paper);scroll-behavior:auto}
+    body{margin:0;background:var(--black);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+    .journey{height:1180vh;background:var(--black)}
+    .stage{position:sticky;top:0;height:100svh;min-height:600px;overflow:hidden;background:var(--black);isolation:isolate}
+    .stage:before{content:'';position:absolute;inset:0;z-index:-2;background:var(--black) url('/hero-01-arrival.png') center/cover no-repeat}
+    #film{position:absolute;inset:0;z-index:-1;width:100%;height:100%;display:block;object-fit:cover;object-position:center;opacity:0;transition:opacity .7s ease}
+    #film.ready{opacity:1}
+    .readability{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(5,6,8,.29),transparent 29%,transparent 77%,rgba(5,6,8,.12)),linear-gradient(0deg,rgba(5,6,8,.46),transparent 25%,transparent 85%,rgba(5,6,8,.12))}
+    .grain{position:absolute;inset:-20%;z-index:2;pointer-events:none;opacity:.027;mix-blend-mode:screen;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");animation:grain .34s steps(2) infinite}
+    @keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(1%,-1%)}50%{transform:translate(-1%,1%)}75%{transform:translate(1%,1%)}100%{transform:translate(-1%,-1%)}}
+    .chrome{position:fixed;inset:0;z-index:10;pointer-events:none;color:rgba(241,238,229,.72);font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase}
+    .brand{position:absolute;top:23px;left:4.5vw;color:var(--paper);font:21px var(--serif);letter-spacing:-.07em;text-transform:none}
+    .brand i{font-style:normal;color:var(--cyan)}
+    .top-center{position:absolute;top:28px;left:50%;transform:translateX(-50%);color:rgba(241,238,229,.52);white-space:nowrap}
+    .top-right{position:absolute;top:28px;right:4.5vw;color:rgba(241,238,229,.42)}
+    .top-rule{position:absolute;left:4.5vw;right:4.5vw;top:69px;height:1px;background:rgba(241,238,229,.24)}
+    .top-rule i{display:block;width:0;height:100%;background:linear-gradient(90deg,var(--cyan),var(--acid));box-shadow:0 0 16px rgba(182,247,241,.86)}
+    .copy{position:absolute;left:7vw;bottom:12.5vh;z-index:4;width:min(560px,43vw);transition:opacity .2s ease,transform .5s cubic-bezier(.16,1,.3,1),filter .2s ease}
+    .copy.leaving{opacity:0;transform:translateY(12px);filter:blur(7px)}
+    .kicker{margin:0 0 15px;color:var(--cyan);font:10px var(--mono);letter-spacing:.2em;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.8)}
+    h1{margin:0;font:400 clamp(3.7rem,6.6vw,7.6rem)/.84 var(--serif);letter-spacing:-.075em;text-shadow:0 4px 22px rgba(0,0,0,.72)}
+    h1 em{font-style:italic;color:var(--cyan)}
+    .copy p:last-child{max-width:35ch;margin:23px 0 0;color:rgba(241,238,229,.72);font-size:13px;line-height:1.45;text-shadow:0 2px 12px rgba(0,0,0,.9)}
+    .chapter{position:absolute;right:4.5vw;bottom:12.5vh;z-index:4;text-align:right;color:rgba(241,238,229,.48);font:9px var(--mono);letter-spacing:.16em;text-transform:uppercase;text-shadow:0 2px 12px rgba(0,0,0,.85)}
+    .chapter strong{display:block;margin-top:9px;color:var(--cyan);font-weight:400;font-size:14px;letter-spacing:.12em}
+    .bottom-left{position:absolute;left:4.5vw;bottom:27px;z-index:4;color:rgba(241,238,229,.48);font:9px var(--mono);letter-spacing:.14em;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+    .bottom-left b{font-weight:400;color:var(--paper)}
+    .bottom-right{position:absolute;right:4.5vw;bottom:27px;z-index:4;color:rgba(241,238,229,.48);font:9px var(--mono);letter-spacing:.14em;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+    .outro{min-height:76vh;display:flex;align-items:center;padding:14vh 7vw;background:var(--paper);color:var(--black)}
+    .outro p{max-width:830px;margin:0;font:400 clamp(3.3rem,7.4vw,8.7rem)/.84 var(--serif);letter-spacing:-.075em}
+    .outro em{font-style:italic;color:#456bdb}
+    .outro small{display:block;margin-top:28px;color:rgba(5,6,8,.5);font:9px var(--mono);letter-spacing:.17em;text-transform:uppercase}
+    @media(max-width:900px){
+      .journey{height:1120vh}.stage{min-height:580px}.brand{top:18px;left:6vw;font-size:19px}.top-center{display:none}.top-right{top:24px;right:6vw;font-size:8px}.top-rule{left:6vw;right:6vw;top:62px}
+      #film{object-position:54% center}.readability{background:linear-gradient(90deg,rgba(5,6,8,.34),transparent 58%,rgba(5,6,8,.12)),linear-gradient(0deg,rgba(5,6,8,.56),transparent 25%,transparent 84%,rgba(5,6,8,.14))}
+      .copy{left:6vw;right:6vw;bottom:12vh;width:auto}.kicker{font-size:9px;margin-bottom:13px}h1{font-size:clamp(3.6rem,15.5vw,6.8rem)}.copy p:last-child{max-width:28ch;margin-top:18px;font-size:12px}
+      .chapter{right:6vw;bottom:7vh;font-size:8px}.chapter strong{font-size:12px}.bottom-left{left:6vw;bottom:21px;font-size:8px}.bottom-right{right:6vw;bottom:21px;font-size:8px}
+      .outro{min-height:66vh;padding:12vh 6vw}.outro p{font-size:clamp(3.2rem,15vw,6.7rem)}
+    }
+    @media(prefers-reduced-motion:reduce){.grain{animation:none}.readability{background:linear-gradient(0deg,rgba(5,6,8,.42),transparent 58%)}}
+  </style>
+</head>
+<body>
+  <div class="chrome" aria-hidden="true">
+    <div class="brand">BENNI<i>·</i>OS</div>
+    <div class="top-center">SCROLL-CONTROLLED CAMERA JOURNEY</div>
+    <div class="top-right">08 MOVEMENTS / ONE FILM</div>
+    <div class="top-rule"><i id="progress"></i></div>
+    <div class="bottom-left">FRAME <b id="frame">0000</b> / <span id="totalFrames">2218</span></div>
+    <div class="bottom-right" id="time">00:00 / 01:32</div>
+    <div class="chapter"><span id="chapterIndex">01 / 08</span><strong id="chapterName">ORIGIN</strong></div>
+  </div>
+  <main>
+    <section class="journey" id="journey" aria-label="BENNI OS continuous camera journey">
+      <div class="stage">
+        <video id="film" muted playsinline preload="auto" poster="/hero-01-arrival.png" aria-label="A continuous camera journey through the BENNI OS world"></video>
+        <div class="readability" aria-hidden="true"></div>
+        <div class="grain" aria-hidden="true"></div>
+        <div class="copy" id="copy"><p class="kicker" id="kicker">01 / ORIGIN</p><h1 id="title">The world<br><em>waits.</em></h1><p id="description">A system begins as a presence before it becomes a decision.</p></div>
+      </div>
+    </section>
+    <section class="outro"><div><p>Make the next move <em>clear.</em></p><small>BENNI·OS / one film, one continuous passage</small></div></section>
+  </main>
+  <p id="status" style="position:absolute;width:1px;height:1px;overflow:hidden" aria-live="polite">Loading film.</p>
+  <script>
+    (()=>{
+      const journey=document.querySelector('#journey'),video=document.querySelector('#film'),progressEl=document.querySelector('#progress'),frameEl=document.querySelector('#frame'),totalFramesEl=document.querySelector('#totalFrames'),timeEl=document.querySelector('#time'),copy=document.querySelector('#copy'),kicker=document.querySelector('#kicker'),title=document.querySelector('#title'),description=document.querySelector('#description'),chapterIndex=document.querySelector('#chapterIndex'),chapterName=document.querySelector('#chapterName'),status=document.querySelector('#status');
+      const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;const fps=24;let target=0,progress=0,duration=92.416667,ready=false,lastTime=-1,lastFrame=-1,currentState=-1,swapTimer=0;
+      const states=[
+        {at:0,kicker:'01 / ORIGIN',title:'The world<br><em>waits.</em>',description:'A system begins as a presence before it becomes a decision.',name:'ORIGIN'},
+        {at:.09,kicker:'02 / PERCEPTION',title:'See the<br><em>signal.</em>',description:'The camera moves first. The system follows.',name:'PERCEPTION'},
+        {at:.2,kicker:'03 / INTENT',title:'Intent acquires<br><em>shape.</em>',description:'A presence becomes a direction.',name:'INTENT'},
+        {at:.35,kicker:'04 / CONTROL',title:'A system takes<br><em>form.</em>',description:'The next move becomes legible in depth.',name:'CONTROL'},
+        {at:.5,kicker:'05 / MEMORY',title:'It remembers<br><em>the why.</em>',description:'Every action carries its origin forward.',name:'MEMORY'},
+        {at:.66,kicker:'06 / BRIDGE',title:'Cross the<br><em>distance.</em>',description:'From inner signal to the world outside.',name:'BRIDGE'},
+        {at:.8,kicker:'07 / DECISION',title:'Make the first<br><em>move.</em>',description:'Clarity is not a pause. It is a direction.',name:'DECISION'},
+        {at:.92,kicker:'08 / OPERATOR',title:'Action without<br><em>drift.</em>',description:'One film. One continuous passage.',name:'OPERATOR'}
+      ];
+      const clamp=(n,a=0,b=1)=>Math.max(a,Math.min(b,n));
+      const formatTime=s=>{const sec=Math.max(0,Math.min(duration,s));const m=Math.floor(sec/60),ss=Math.floor(sec%60),tm=Math.floor(duration/60),ts=Math.floor(duration%60);return `${String(m).padStart(2,'0')}:${String(ss).padStart(2,'0')} / ${String(tm).padStart(2,'0')}:${String(ts).padStart(2,'0')}`};
+      const stateFor=p=>{let index=0;for(let i=0;i<states.length;i++)if(p>=states[i].at)index=i;return index};
+      function readScroll(){const rect=journey.getBoundingClientRect();target=clamp(-rect.top/Math.max(1,journey.offsetHeight-innerHeight))}
+      function setState(next){if(next===currentState)return;currentState=next;const item=states[next];chapterIndex.textContent=`0${next+1} / 08`;if(reduce){kicker.textContent=item.kicker;title.innerHTML=item.title;description.textContent=item.description;chapterName.textContent=item.name;return}copy.classList.add('leaving');clearTimeout(swapTimer);swapTimer=setTimeout(()=>{kicker.textContent=item.kicker;title.innerHTML=item.title;description.textContent=item.description;chapterName.textContent=item.name;copy.classList.remove('leaving')},150)}
+      function scrub(p){if(!ready)return;const total=Math.max(1,Math.floor(duration*fps));const frame=Math.min(total,Math.max(0,Math.round(p*total)));const time=Math.min(duration,frame/fps);if(frame!==lastFrame){lastFrame=frame;frameEl.textContent=String(frame).padStart(4,'0')}if(Math.abs(time-lastTime)>.0001){lastTime=time;try{video.currentTime=time}catch{}}totalFramesEl.textContent=String(total);timeEl.textContent=formatTime(time);progressEl.style.width=`${(p*100).toFixed(3)}%`}
+      function loop(){readScroll();progress+=(target-progress)*(reduce?1:.14);scrub(progress);setState(stateFor(progress));requestAnimationFrame(loop)}
+      video.src='/material%20novo/hero_scrubber.mp4';video.addEventListener('loadedmetadata',()=>{duration=Number.isFinite(video.duration)&&video.duration>0?video.duration:duration;ready=true;video.pause();video.currentTime=0;video.classList.add('ready');status.textContent='Film ready. Scroll controls the camera frame.';scrub(0)},{once:true});video.addEventListener('error',()=>{status.textContent='Film unavailable. Poster fallback active.'},{once:true});video.load();addEventListener('scroll',readScroll,{passive:true});addEventListener('resize',readScroll,{passive:true});readScroll();loop();
+    })();
+  </script>
+</body>
+</html>
