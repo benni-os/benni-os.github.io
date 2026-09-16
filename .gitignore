@@ -1,4 +1,4 @@
-﻿node_modules/
+node_modules/
 dist/
 dev-dist/
 logs/
@@ -8,3 +8,5 @@ logs/
 Thumbs.db
 benni-os-hero.mp4
 benni-os-hero-source.mp4
+backups/
+raw-media/
