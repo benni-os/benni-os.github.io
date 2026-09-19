@@ -3733,7 +3733,8 @@ body {
 }
 
 </style>
-  <script type="module" crossorigin src="/assets/main-Dzv1OauV.js"></script>
+  <script type="module" crossorigin src="/assets/main-rd7CLENt.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/main-Bokna-ca.css">
   <script type="module">import.meta.url;import("_").catch(()=>1);(async function*(){})().next();if(location.protocol!="file:"){window.__vite_is_modern_browser=true}</script>
   <script type="module">!function(){if(window.__vite_is_modern_browser)return;console.warn("vite: loading legacy chunks, syntax error above and the same error below should be ignored");var e=document.getElementById("vite-legacy-polyfill"),n=document.createElement("script");n.src=e.src,n.onload=function(){System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))},document.body.appendChild(n)}();</script>
 <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
@@ -3755,11 +3756,14 @@ body {
   <!-- FIXED NAVIGATION (SOVEREIGN BRAND IDENTITY) -->
   <nav class="site-nav" id="siteNav">
     <div class="nav-brand-group">
-      <a href="#hero" class="nav-brand-logo">BENNI<span class="brand-accent">·</span>OS</a>
-      <span class="nav-brand-pill">SOVEREIGN SYSTEM</span>
+      <a href="#hero" class="nav-brand-logo" data-magnet>BENNI<span class="brand-accent">·</span>OS</a>
+      <span class="nav-brand-pill" data-spectral>SOVEREIGN SYSTEM</span>
     </div>
-    <div class="nav-chapter" id="chapterReadout">CHAPTER 01 / 11</div>
+    <div class="nav-chapter" id="chapterReadout" data-lethe>CHAPTER 01 / 11</div>
     <div class="nav-status-group">
+      <button class="nav-brand-pill" data-drawer-trigger aria-expanded="false" style="cursor:pointer;background:rgba(212,175,55,0.12);border:1px solid rgba(212,175,55,0.4);color:#d4af37;" data-magnet>
+        ECOSYSTEM ▾
+      </button>
       <div class="language-selector" style="margin-right: 12px;">
         <select id="langSelect" aria-label="Selecionar idioma" style="background: transparent; color: #a1a1aa; border: 1px solid rgba(161, 161, 170, 0.3); border-radius: 4px; padding: 2px 4px; font-size: 11px; font-family: 'Instrument Sans', sans-serif; cursor: pointer; outline: none;">
           <option value="pt" style="background: #09090b;">PT</option>
@@ -3768,19 +3772,36 @@ body {
         </select>
       </div>
       <span class="nav-status-dot"></span>
-      <span class="nav-status-text">SYSTEM ACTIVE</span>
+      <span class="nav-status-text" data-spectral>SYSTEM ACTIVE</span>
     </div>
   </nav>
 
+  <!-- ECOSYSTEM DRAWER -->
+  <div id="benni-ecosystem-drawer" style="position:fixed;top:76px;right:0;width:340px;max-width:90vw;background:rgba(9,9,11,0.96);border-left:1px solid rgba(212,175,55,0.25);border-bottom:1px solid rgba(212,175,55,0.25);border-radius:0 0 0 16px;backdrop-filter:blur(20px);padding:24px;z-index:9998;transform:translateX(110%);transition:transform 0.4s cubic-bezier(0.16,1,0.3,1);box-shadow:0 20px 50px rgba(0,0,0,0.8);">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;">
+      <h3 style="font-family:'DM Serif Display',serif;color:#d4af37;margin:0;font-size:1.2rem;">Sovereign Ecosystem</h3>
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;color:#8bb2ff;background:rgba(66,107,255,0.15);padding:2px 8px;border-radius:10px;">12 NODES</span>
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;color:#a1a1aa;line-height:1.6;">
+      <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Nemesis Gateway</span><span style="color:#00ff66;">ACTIVE</span></div>
+      <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Operator Core</span><span style="color:#00ff66;">VERIFIED</span></div>
+      <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Inference Fabric</span><span style="color:#d4af37;">14.2ms</span></div>
+      <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Puter Cloud KV</span><span style="color:#00ff66;">SYNCED</span></div>
+      <div style="padding:6px 0;border-bottom:1px solid rgba(255,255,255,0.06);display:flex;justify-content:space-between;"><span>Audio Soundscape</span><span style="color:#d4af37;">PROCEDURAL</span></div>
+      <div style="padding:6px 0;display:flex;justify-content:space-between;"><span>Ritual 60 FPS Gate</span><span style="color:#00ff66;">LOCKED</span></div>
+    </div>
+  </div>
+
   <aside class="system-rail is-hidden" id="systemRail" aria-label="System index" style="opacity: 0; visibility: hidden;">
-    <div class="system-rail-caption">SYSTEM INDEX <span>/ 06</span></div>
+    <div class="system-rail-caption">SYSTEM INDEX <span>/ 07</span></div>
     <nav class="system-rail-links" aria-label="Navegação de atos">
-      <a href="#hero" data-rail-target="hero"><span>01</span><b>ORIGIN</b></a>
-      <a href="#actIIDossier" data-rail-target="actIIDossier"><span>02</span><b>DOSSIER</b></a>
-      <a href="#actIICorridor" data-rail-target="actIICorridor"><span>03</span><b>CORRIDOR</b></a>
-      <a href="#actIIChamber" data-rail-target="actIIChamber"><span>04</span><b>CHAMBER</b></a>
-      <a href="#actIIIDecision" data-rail-target="actIIIDecision"><span>05</span><b>BENJAMIN</b></a>
-      <a href="#actIIIAdam" data-rail-target="actIIIAdam"><span>06</span><b>ADAM</b></a>
+      <a href="#hero" data-rail-target="hero" data-magnet><span>01</span><b>ORIGIN</b></a>
+      <a href="#actIIDossier" data-rail-target="actIIDossier" data-magnet><span>02</span><b>DOSSIER</b></a>
+      <a href="#livingReels" data-rail-target="livingReels" data-magnet><span>03</span><b>ACTION REELS</b></a>
+      <a href="#genesisIde" data-rail-target="genesisIde" data-magnet style="color:#c792ea;"><span>04</span><b>GENESIS IDE</b></a>
+      <a href="#sovereigntyPipeline" data-rail-target="sovereigntyPipeline" data-magnet><span>05</span><b>7 STAGES</b></a>
+      <a href="#actIIIDecision" data-rail-target="actIIIDecision" data-magnet><span>06</span><b>BENJAMIN</b></a>
+      <a href="#actIIIAdam" data-rail-target="actIIIAdam" data-magnet><span>07</span><b>ADAM</b></a>
     </nav>
   </aside>
 
@@ -4045,6 +4066,256 @@ body {
       </div>
     </div>
   </section>
+
+  <!-- ==========================================================================
+NEW MONUMENTAL SUITE — LIVING ACTION REELS (VIDEOS EM LOOP CONTÍNUO)
+========================================================================== -->
+<section id="livingReels" class="living-reels-section">
+  <div style="text-align: center; max-width: 800px; margin: 0 auto 48px;">
+    <div class="genesis-tag gold" style="display:inline-block; margin-bottom:12px;">AUTONOMOUS EXECUTION IN MOTION</div>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(2rem, 4vw, 3.2rem); color:#ffffff; margin:0 0 12px;">Live Agent Mesh in Action</h2>
+    <p style="color:#a1a1aa; font-size:15px; margin:0;">Real execution traces captured from our decentralized runtime nodes. Zero simulation, zero mockups.</p>
+  </div>
+  <div class="living-reels-grid">
+    <div class="reel-card" data-liquid>
+      <div class="reel-video-wrap">
+        <span class="reel-badge">DISPATCH / 01</span>
+        <video src="/card-dispatch.mp4" autoplay loop muted playsinline preload="metadata"></video>
+      </div>
+      <div class="reel-content">
+        <h3 class="reel-title">Autonomous Dispatch</h3>
+        <p class="reel-desc">Swarm allocation with cryptographic verification, task isolation and resource bounding.</p>
+      </div>
+    </div>
+    <div class="reel-card" data-liquid>
+      <div class="reel-video-wrap">
+        <span class="reel-badge" style="border-color:#ff007a; color:#ff80bf;">POLICY GATE / 02</span>
+        <video src="/card-approve.mp4" autoplay loop muted playsinline preload="metadata"></video>
+      </div>
+      <div class="reel-content">
+        <h3 class="reel-title">Governed Approval</h3>
+        <p class="reel-desc">Human-in-the-loop sovereign gate. Single touch approval before any high-consequence transaction.</p>
+      </div>
+    </div>
+    <div class="reel-card" data-liquid>
+      <div class="reel-video-wrap">
+        <span class="reel-badge" style="border-color:#00ff80; color:#50fa7b;">LEDGER / 03</span>
+        <video src="/card-seal.mp4" autoplay loop muted playsinline preload="metadata"></video>
+      </div>
+      <div class="reel-content">
+        <h3 class="reel-title">Immutable Settlement</h3>
+        <p class="reel-desc">Every action, decision and token output sealed into the Nemesis cryptographic ledger.</p>
+      </div>
+    </div>
+    <div class="reel-card" data-liquid>
+      <div class="reel-video-wrap">
+        <span class="reel-badge" style="border-color:#7000ff; color:#c792ea;">TOPOLOGY / 04</span>
+        <video src="/3d-flythrough-topology.mp4" autoplay loop muted playsinline preload="metadata"></video>
+      </div>
+      <div class="reel-content">
+        <h3 class="reel-title">3D Spatial Topology</h3>
+        <p class="reel-desc">Three-dimensional routing across local nodes and hybrid cloud failover pathways.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+NEW MONUMENTAL SUITE — BENNI OS GENESIS IDE (A PIONEIRA MULTIPLATAFORMA)
+========================================================================== -->
+<!-- ==========================================================================
+  NEW MONUMENTAL SUITE — BENNI OS GENESIS IDE (450vh EXPLOSIVE SCROLL EXPERIENCE)
+  ========================================================================== -->
+  <section id="genesisIde" class="genesis-scroll-track">
+    <div class="genesis-pin-stage">
+      <div class="genesis-grid-overlay"></div>
+
+      <!-- HUD FLUTUANTE DE CONTROLE DE FASE NO SCROLL -->
+      <div class="genesis-phase-hud">
+        <span>GENESIS // PHASE <b id="genesisPhaseNum">01</b> / 05</span>
+        <div class="genesis-phase-bar"><div class="genesis-phase-fill"></div></div>
+        <span id="genesisPhaseTitle" style="color:#d4af37; font-weight:700;">CORE AWAKENING</span>
+      </div>
+
+      <!-- CABEÇALHO DINÂMICO -->
+      <div class="genesis-header-hud">
+        <div class="genesis-kicker">PIONEER MULTIPLATFORM AI IDE // DESKTOP TAURI V2 + MOBILE EXPO</div>
+        <h2 class="genesis-title">BENNI OS GENESIS<br>The Sovereign Coding IDE.</h2>
+        <p class="genesis-sub">Um único runtime soberano. Duas superfícies sincronizadas. Role para vivenciar a revolução do código dual.</p>
+      </div>
+
+      <!-- PALCO CENTRAL 3D — DESKTOP + MOBILE -->
+      <div class="genesis-viewport-3d">
+        <!-- Desktop Workspace Frame -->
+        <div class="genesis-desktop-frame">
+          <div class="genesis-window-bar">
+            <div class="genesis-window-dots"><span></span><span></span><span></span></div>
+            <div class="genesis-window-tabs">
+              <div class="genesis-tab active">SovereignLoop.ts</div>
+              <div class="genesis-tab">AuditChain.rs</div>
+              <div class="genesis-tab">genesis.config.json</div>
+            </div>
+          </div>
+          <div class="genesis-editor-body">
+            <div class="code-line"><span class="code-num">01</span><span style="color:#71717a;">// BENNI OS Genesis Action Protocol v1.0 — Shared Core</span></div>
+            <div class="code-line"><span class="code-num">02</span><span style="color:#ff79c6;">import</span> { <span style="color:#8be9fd;">SovereignEngine</span>, <span style="color:#8be9fd;">PolicyGate</span> } <span style="color:#ff79c6;">from</span> <span style="color:#f1fa8c;">'@benni-os/core'</span>;</div>
+            <div class="code-line"><span class="code-num">03</span></div>
+            <div class="code-line"><span class="code-num">04</span><span style="color:#ff79c6;">export async function</span> <span style="color:#50fa7b;">deployAutonomousPatch</span>(intent: <span style="color:#8be9fd;">string</span>) {</div>
+            <div class="code-line code-diff-del"><span class="code-num">05</span>-  const patch = await legacyCloudAi.generateWithoutProof(intent);</div>
+            <div class="code-line code-diff-add"><span class="code-num">06</span>+  const plan = await SovereignEngine.compileIntent({ intent, bounds: STRICT });</div>
+            <div class="code-line code-diff-add"><span class="code-num">07</span>+  const approval = await PolicyGate.requestMobileTouch('GENESIS_MOBILE_OP');</div>
+            <div class="code-line"><span class="code-num">08</span>   return approval.status === 'VERIFIED' ? plan.execute() : plan.rollback();</div>
+            <div class="code-line"><span class="code-num">09</span>}</div>
+          </div>
+          <div class="genesis-terminal-bar">
+            <span>genesis-terminal: tauri-rust allowlist [23 cmds active]</span>
+            <span style="color:#50fa7b;">✓ 0 drift · p99 latency 11.4ms</span>
+          </div>
+        </div>
+
+        <!-- Smartphone Mobile Frame -->
+        <div class="genesis-mobile-frame">
+          <div class="genesis-mobile-island"></div>
+          <div class="genesis-mobile-screen">
+            <div class="mobile-chip">
+              <span style="color:#d4af37;">GENESIS MOBILE</span>
+              <span style="color:#50fa7b;">● LIVE SYNC</span>
+            </div>
+            <div style="font-size:10px; color:#8bb2ff;">PROPOSAL #0841 READY</div>
+            <div class="mobile-diff-box">
+              <span style="color:#ff6b8b;">- 12 legacy cloud calls</span><br>
+              <span style="color:#50fa7b;">+ 1 local sovereign loop</span><br>
+              <span style="color:#71717a;">Target: SovereignLoop.ts</span>
+            </div>
+            <button class="mobile-touch-approve" data-magnet>
+              TOUCH TO APPROVE
+            </button>
+            <div style="text-align:center; font-size:9px; color:#71717a;">SWIPE UP TO VETO</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARROSSEL HOLOGRÁFICO DOS 5 MODOS NO SCROLL -->
+      <div class="genesis-modes-overlay">
+        <div class="genesis-mode-pill active">
+          <div class="genesis-mode-pill-title">🧠 01 THINK</div>
+          <div class="genesis-mode-pill-sub">Canvas de steps auditados</div>
+        </div>
+        <div class="genesis-mode-pill">
+          <div class="genesis-mode-pill-title">⚡ 02 BUILD</div>
+          <div class="genesis-mode-pill-sub">BIE stream + Monaco</div>
+        </div>
+        <div class="genesis-mode-pill">
+          <div class="genesis-mode-pill-title">🕸️ 03 OPERATE</div>
+          <div class="genesis-mode-pill-sub">NEMESIS mesh de agentes</div>
+        </div>
+        <div class="genesis-mode-pill">
+          <div class="genesis-mode-pill-title">🌐 04 RESEARCH</div>
+          <div class="genesis-mode-pill-sub">Search Fabric com citações</div>
+        </div>
+        <div class="genesis-mode-pill">
+          <div class="genesis-mode-pill-title">👁️ 05 WITNESS</div>
+          <div class="genesis-mode-pill-sub">AuditChain + 1-click rollback</div>
+        </div>
+      </div>
+
+      <!-- PAINEL FINAL DE CLÍMAX: FOUNDER ALPHA ACCESS -->
+      <div class="genesis-founder-panel">
+        <div class="genesis-kicker">LIMITED ACCESS ALPHA // DECEMBER 2026</div>
+        <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(2.4rem, 4.5vw, 3.8rem); color:#ffffff; margin:0 0 16px;">Step Into Sovereign Coding.</h2>
+        <p style="color:#a1a1aa; font-size:16px; max-width:600px; margin:0 0 32px;">Participe do grupo pioneiro com acesso antecipado à primeira IDE com mobile nativo na categoria de IA para desenvolvedores.</p>
+        <a href="#hero" class="btn-monumental" data-magnet style="display:inline-flex; align-items:center; gap:12px; background:linear-gradient(135deg, #7000ff, #ff007a); color:#ffffff; padding:16px 36px; border-radius:30px; font-weight:700; letter-spacing:0.12em; text-decoration:none; box-shadow:0 0 40px rgba(112,0,255,0.6);">
+          CLAIM FOUNDER ALPHA KEY &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+<!-- ==========================================================================
+NEW MONUMENTAL SUITE — 7 STAGES OF SOVEREIGNTY PIPELINE
+========================================================================== -->
+<section id="sovereigntyPipeline" class="sovereignty-pipeline-section">
+  <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+    <div class="genesis-tag gold" style="display:inline-block; margin-bottom:12px;">FORMAL AUTONOMY PIPELINE</div>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(2rem, 3.8vw, 3rem); color:#ffffff; margin:0 0 12px;">The 7 Stages of Execution</h2>
+    <p style="color:#a1a1aa; font-size:15px; margin:0;">From raw operator intent to immutable cryptographic settlement on the sovereign ledger.</p>
+  </div>
+  <div class="pipeline-grid">
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-1-intent-core.png" alt="Intent Core" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 01</div>
+      <div class="pipeline-name">Intent Core</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-2-control-plane-forms.png" alt="Control Plane" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 02</div>
+      <div class="pipeline-name">Control Plane</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-3-agent-swarm.png" alt="Agent Swarm" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 03</div>
+      <div class="pipeline-name">Agent Swarm</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-4-policy-gate.png" alt="Policy Gate" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 04</div>
+      <div class="pipeline-name">Policy Gate</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-5-execution-swirl.png" alt="Execution Swirl" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 05</div>
+      <div class="pipeline-name">Execution Swirl</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-6-nemesis-seal.png" alt="Nemesis Seal" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 06</div>
+      <div class="pipeline-name">Nemesis Seal</div>
+    </div>
+    <div class="pipeline-card" data-liquid>
+      <div class="pipeline-img-wrap"><img src="/image-7-evidence-returned.png" alt="Evidence Ledger" loading="lazy"></div>
+      <div class="pipeline-step">STAGE 07</div>
+      <div class="pipeline-name">Evidence Ledger</div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+NEW MONUMENTAL SUITE — OPERATOR COCKPIT LIFESTYLE
+========================================================================== -->
+<section id="operatorCockpit" class="cockpit-section">
+  <div class="cockpit-container">
+    <div class="cockpit-visual" data-tilt>
+      <img src="/lifestyle-operator-desk.png" alt="Operator Sovereign Cockpit" loading="lazy">
+    </div>
+    <div class="cockpit-copy">
+      <div class="cockpit-kicker">OPERATOR SUBSTRATE // HARDWARE SOVEREIGNTY</div>
+      <h2 class="cockpit-title">You do not converse with a chatbot.<br>You command a Sovereign Machine.</h2>
+      <p class="cockpit-desc">Built for engineers, founders and operators who demand deterministic execution. Your code, your data, your local weights — governed under an unbreakable policy shield.</p>
+      <div style="display:flex; gap:16px; flex-wrap:wrap;">
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#8bb2ff; background:rgba(66,107,255,0.12); border:1px solid rgba(66,107,255,0.3); padding:8px 14px; border-radius:8px;">
+          ZERO DATA EXFILTRATION
+        </div>
+        <div style="font-family:'IBM Plex Mono',monospace; font-size:11px; color:#d4af37; background:rgba(212,175,55,0.12); border:1px solid rgba(212,175,55,0.3); padding:8px 14px; border-radius:8px;">
+          CRYPTOGRAPHIC PROOF LEDGER
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==========================================================================
+NEW MONUMENTAL SUITE — PRODUCT FILM THEATER
+========================================================================== -->
+<section id="productTheater" class="product-theater-section">
+  <div style="max-width: 800px; margin: 0 auto;">
+    <div class="genesis-tag gold" style="display:inline-block; margin-bottom:12px;">CINEMATIC ARCHITECTURE</div>
+    <h2 style="font-family:'DM Serif Display',serif; font-size:clamp(2.2rem, 4vw, 3.4rem); color:#ffffff; margin:0 0 14px;">The Sovereign Runtime Film</h2>
+    <p style="color:#a1a1aa; font-size:16px; margin:0;">Experience the full architectural breakdown of BENNI·OS and the Genesis Runtime.</p>
+  </div>
+  <div class="theater-wrap" data-liquid>
+    <video src="/hero-product-film.mp4" controls preload="metadata" poster="/lifestyle-dispatch-strand.png"></video>
+  </div>
+</section>
 
   <!-- EXIT ACT II -->
   <section class="exit-section">
@@ -6727,7 +6998,7 @@ body {
 })();
 </script>
   <script nomodule>!function(){var e=document,t=e.createElement("script");if(!("noModule"in t)&&"onbeforeload"in t){var n=!1;e.addEventListener("beforeload",(function(e){if(e.target===t)n=!0;else if(!e.target.hasAttribute("nomodule")||!n)return;e.preventDefault()}),!0),t.type="module",t.src=".",e.head.appendChild(t),t.remove()}}();</script>
-  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-29uZJa1N.js"></script>
-  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-DqH2QCjU.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
+  <script nomodule crossorigin id="vite-legacy-polyfill" src="/assets/polyfills-legacy-CW-AfFkx.js"></script>
+  <script nomodule crossorigin id="vite-legacy-entry" data-src="/assets/main-legacy-CMZrAgDz.js">System.import(document.getElementById('vite-legacy-entry').getAttribute('data-src'))</script>
 </body>
 </html>
